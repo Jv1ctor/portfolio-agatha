@@ -2,94 +2,102 @@ import Link from "next/link";
 import type { Project } from "@/content/projects";
 
 const accentClasses: Record<Project["accent"], string> = {
-  blue: "bg-[color:var(--color-blue)] text-white",
-  orange: "bg-[color:var(--color-orange)] text-[color:var(--color-ink)]",
-  pink: "bg-[color:var(--color-pink)] text-[color:var(--color-ink)]",
+  blue: "bg-[color:var(--color-blue)]",
+  orange: "bg-[color:var(--color-orange)]",
+  pink: "bg-[color:var(--color-pink)]",
 };
 
-const statusLabel: Record<Project["status"], string> = {
-  concluido: "Concluído",
-  "em-progresso": "Em progresso",
-  "em-breve": "Em breve",
-};
+function Pill({ children }: { children: string }) {
+  return (
+    <span className="rounded-full bg-[color:var(--color-blue-soft)] px-3.5 py-1 text-base text-[color:var(--color-blue)] whitespace-nowrap">
+      {children}
+    </span>
+  );
+}
+
+/** Ícone de engrenagem (estado "em breve" — "si:settings-cute-line" no Figma). */
+function GearIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.6}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden
+    >
+      <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  );
+}
 
 export function ProjectCard({ project }: { project: Project }) {
   return (
-    <Link
-      href={`/projetos/${project.slug}`}
-      className="group block rounded-2xl overflow-hidden bg-white/70 ring-1 ring-[color:var(--color-cream-dark)] hover:ring-[color:var(--color-blue)]/40 transition-all hover:-translate-y-0.5 hover:shadow-lg"
-    >
-      {/* Capa */}
-      <div
-        className={`relative aspect-[640/238] flex items-end p-6 ${accentClasses[project.accent]}`}
-      >
-        <h3
-          className="font-display text-4xl md:text-5xl leading-none uppercase"
-          style={{ fontFamily: "var(--font-display)" }}
-        >
-          {project.title}
+    <Link href={`/projetos/${project.slug}`} className="group block">
+      {/* Header — subtítulo (Clother Bold 26px) + ícone */}
+      <div className="mb-2 flex items-end justify-between gap-3">
+        <h3 className="font-bold text-[1.625rem] leading-tight text-[color:var(--color-blue)]">
+          {project.subtitle}
         </h3>
-        {/* TODO: imagem real exportada do Figma como background */}
-      </div>
-
-      {/* Conteúdo */}
-      <div className="p-5">
-        <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-          <span className="text-base font-medium text-[color:var(--color-ink)]">
-            {project.subtitle}
-          </span>
-          <span
-            className={`rounded-full px-3 py-1 text-xs ${
-              project.status === "concluido"
-                ? "bg-[color:var(--color-blue)]/10 text-[color:var(--color-blue)]"
-                : project.status === "em-progresso"
-                  ? "bg-[color:var(--color-orange)]/15 text-[color:var(--color-orange)]"
-                  : "bg-[color:var(--color-muted)]/15 text-[color:var(--color-muted)]"
-            }`}
-          >
-            {statusLabel[project.status]}
-          </span>
-        </div>
-        <div className="flex flex-wrap gap-1.5 mb-3">
-          {project.tags
-            .filter((t) => t !== statusLabel[project.status])
-            .map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full bg-[color:var(--color-cream-dark)] px-3 py-1 text-xs text-[color:var(--color-ink-soft)]"
-              >
-                {tag}
-              </span>
-            ))}
-        </div>
-        <p className="text-sm text-[color:var(--color-ink-soft)] leading-relaxed">
-          {project.description}
-        </p>
-        <span className="mt-4 inline-block text-sm font-medium text-[color:var(--color-blue)] group-hover:underline">
-          Ver mais →
+        <span
+          aria-hidden
+          className="grid h-[30px] w-[30px] shrink-0 place-items-center rounded-full bg-[color:var(--color-blue-soft)] text-[color:var(--color-blue-deep)] transition-transform group-hover:translate-x-0.5"
+        >
+          ↗
         </span>
       </div>
+
+      {/* Capa */}
+      <div
+        className={`shadow-card relative flex aspect-[640/238] items-center justify-center overflow-hidden rounded-[8px] ${accentClasses[project.accent]}`}
+      >
+        {/* TODO: trocar pela imagem de capa exportada do Figma (Sessões 2-3) */}
+        <span className="px-6 text-center font-display text-4xl md:text-5xl uppercase leading-none text-[color:var(--color-cream)]">
+          {project.title}
+        </span>
+      </div>
+
+      {/* Pills — tipo · categoria (esquerda) · data (direita) */}
+      <div className="mt-4 flex flex-wrap items-center gap-2">
+        {project.tags.map((tag) => (
+          <Pill key={tag}>{tag}</Pill>
+        ))}
+        {project.date && (
+          <span className="ml-auto">
+            <Pill>{project.date}</Pill>
+          </span>
+        )}
+      </div>
+
+      {/* Descrição + Ver mais */}
+      <p className="mt-3 text-base leading-relaxed text-[color:var(--color-blue)]">
+        {project.description}
+      </p>
+      <span className="mt-1 block text-right font-bold text-[color:var(--color-blue)] group-hover:underline">
+        Ver mais.
+      </span>
     </Link>
   );
 }
 
 export function PlaceholderCard() {
   return (
-    <div
-      className="rounded-2xl overflow-hidden ring-1 ring-[color:var(--color-cream-dark)] opacity-80"
-      aria-label="Projeto em breve"
-    >
-      <div
-        className="aspect-[640/238] flex items-center justify-center text-white/80 text-sm tracking-wider uppercase"
-        style={{ background: "var(--gradient-placeholder)" }}
-      >
-        Em breve
+    <div className="block" aria-label="Projeto em breve">
+      <div className="mb-2 flex items-end justify-between">
+        <h3 className="font-bold text-[1.625rem] leading-tight text-[color:var(--color-muted)]">
+          Em breve
+        </h3>
       </div>
-      <div className="p-5">
-        <div className="h-3 w-2/3 rounded-full bg-[color:var(--color-cream-dark)] mb-2" />
-        <div className="h-3 w-1/3 rounded-full bg-[color:var(--color-cream-dark)] mb-4" />
-        <div className="h-2 w-full rounded-full bg-[color:var(--color-cream-dark)] mb-1" />
-        <div className="h-2 w-5/6 rounded-full bg-[color:var(--color-cream-dark)]" />
+      <div className="bg-placeholder shadow-card flex aspect-[640/238] items-center justify-center rounded-[8px]">
+        <GearIcon className="h-[90px] w-[90px] text-[color:var(--color-cream)]/85" />
+      </div>
+      <div className="mt-4 flex flex-wrap gap-2">
+        <span className="rounded-full bg-[color:var(--color-blue-soft)]/50 px-3.5 py-1 text-base text-[color:var(--color-muted)]">
+          Novo projeto a caminho
+        </span>
       </div>
     </div>
   );

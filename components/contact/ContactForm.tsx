@@ -12,6 +12,9 @@ const schema = z.object({
 
 type FormState = "idle" | "sending" | "success" | "error";
 
+const fieldClass =
+  "w-full rounded-lg border border-[color:var(--color-blue-soft)] bg-white/70 px-3 py-2 text-[color:var(--color-blue-deep)] outline-none placeholder:text-[color:var(--color-blue-soft)] focus:border-[color:var(--color-blue)] focus:ring-2 focus:ring-[color:var(--color-blue)]/20";
+
 export function ContactForm() {
   const [state, setState] = useState<FormState>("idle");
   const [errorMsg, setErrorMsg] = useState<string>("");
@@ -65,54 +68,57 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>
-      <label className="flex flex-col gap-1 text-sm">
-        <span className="text-[color:var(--color-ink-soft)]">Seu nome</span>
-        <input
-          name="nome"
-          type="text"
-          autoComplete="name"
-          className="rounded-lg border border-[color:var(--color-cream-dark)] bg-white px-3 py-2 outline-none focus:border-[color:var(--color-blue)] focus:ring-2 focus:ring-[color:var(--color-blue)]/20"
-        />
-      </label>
+    <form
+      onSubmit={handleSubmit}
+      className="shadow-card flex w-full max-w-[480px] flex-col gap-3 rounded-[8px] bg-[color:var(--color-cream)] p-5"
+      noValidate
+    >
+      {/* Nome + email (adições funcionais — o EmailJS precisa do email pra responder) */}
+      <div className="grid gap-3 sm:grid-cols-2">
+        <input name="nome" type="text" autoComplete="name" placeholder="Seu nome" className={fieldClass} />
+        <input name="email" type="email" autoComplete="email" placeholder="Seu email" className={fieldClass} />
+      </div>
 
-      <label className="flex flex-col gap-1 text-sm">
-        <span className="text-[color:var(--color-ink-soft)]">Seu email</span>
-        <input
-          name="email"
-          type="email"
-          autoComplete="email"
-          className="rounded-lg border border-[color:var(--color-cream-dark)] bg-white px-3 py-2 outline-none focus:border-[color:var(--color-blue)] focus:ring-2 focus:ring-[color:var(--color-blue)]/20"
-        />
-      </label>
+      {/* Campo de solicitação — o protagonista, como no Figma */}
+      <textarea
+        name="mensagem"
+        rows={5}
+        placeholder="Digite sua solicitação..."
+        className={`${fieldClass} resize-y`}
+      />
 
-      <label className="flex flex-col gap-1 text-sm">
-        <span className="text-[color:var(--color-ink-soft)]">
-          Digite sua solicitação…
-        </span>
-        <textarea
-          name="mensagem"
-          rows={6}
-          className="rounded-lg border border-[color:var(--color-cream-dark)] bg-white px-3 py-2 outline-none focus:border-[color:var(--color-blue)] focus:ring-2 focus:ring-[color:var(--color-blue)]/20 resize-y"
-        />
-      </label>
-
-      <button
-        type="submit"
-        disabled={state === "sending"}
-        className="self-start rounded-full bg-[color:var(--color-blue)] px-6 py-2.5 text-white font-medium transition-all hover:bg-[color:var(--color-blue-soft)] disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        {state === "sending" ? "Enviando…" : "Enviar"}
-      </button>
-
-      {state === "success" && (
-        <p className="text-sm text-[color:var(--color-blue)]">
-          Recebida! Vou responder em breve :)
+      <div className="flex items-center justify-between gap-3">
+        <p
+          className={`text-sm ${
+            state === "error"
+              ? "text-red-600"
+              : "text-[color:var(--color-blue)]"
+          }`}
+          role="status"
+        >
+          {state === "success"
+            ? "Recebida! Vou responder em breve :)"
+            : state === "error"
+              ? errorMsg
+              : ""}
         </p>
-      )}
-      {state === "error" && (
-        <p className="text-sm text-red-600">{errorMsg}</p>
-      )}
+
+        <button
+          type="submit"
+          aria-label="Enviar solicitação"
+          disabled={state === "sending"}
+          className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[color:var(--color-blue)] text-[color:var(--color-cream)] transition-all hover:bg-[color:var(--color-blue-deep)] disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          {state === "sending" ? (
+            <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+          ) : (
+            <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5" aria-hidden>
+              {/* mingcute:send-fill — mesmo ícone do Figma */}
+              <path d="M20.235 5.686c.432-1.195-.726-2.353-1.921-1.92L3.709 9.048c-1.199.434-1.344 2.07-.241 2.709l4.662 2.699l4.163-4.163a1 1 0 0 1 1.414 1.414L9.544 15.87l2.7 4.662c.638 1.103 2.274.957 2.708-.241z" />
+            </svg>
+          )}
+        </button>
+      </div>
     </form>
   );
 }

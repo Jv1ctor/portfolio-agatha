@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "PowerShell(npm *)",
-      "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:3000\" -UseBasicParsing -TimeoutSec 30; \"Status: $\\($r.StatusCode\\)\"; \"Length: $\\($r.Content.Length\\)\" } catch { \"ERROR: $\\($_.Exception.Message\\)\" })"
+      "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:3000\" -UseBasicParsing -TimeoutSec 30; \"Status: $\\($r.StatusCode\\)\"; \"Length: $\\($r.Content.Length\\)\" } catch { \"ERROR: $\\($_.Exception.Message\\)\" })",
+      "PowerShell(Test-Path *)"
     ]
   }
 }

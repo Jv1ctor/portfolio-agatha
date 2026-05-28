@@ -4,7 +4,8 @@ export const site = {
   email: "agatha@example.com",
   social: {
     instagram: { handle: "@aggy_colon", url: "https://instagram.com/aggy_colon" },
-    project: { handle: "@pontossemno", url: "https://instagram.com/pontossemno" },
+    // TODO: confirmar a URL real do LinkedIn da Ágatha (Figma mostra "Ágatha Ferreira")
+    linkedin: { handle: "Ágatha Ferreira", url: "https://www.linkedin.com/" },
   },
 } as const;
 

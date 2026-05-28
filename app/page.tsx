@@ -1,65 +1,99 @@
+import { BrandHero } from "@/components/layout/BrandHero";
 import { SectionHeading } from "@/components/home/SectionHeading";
+
+/** Placeholder de ilustração até exportarmos os assets de personagem do Figma. */
+function IllustrationSlot({ label }: { label: string }) {
+  return (
+    <div
+      aria-hidden
+      className="aspect-square w-full max-w-[260px] mx-auto rounded-[28px] bg-[color:var(--color-blue-pale)] flex items-center justify-center text-xs text-[color:var(--color-muted)]"
+    >
+      {/* TODO: substituir pela ilustração da Ágatha exportada do Figma */}
+      {label}
+    </div>
+  );
+}
+
+/** Parágrafo de destaque (Clother Bold 18px no Figma). */
+function Lead({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="font-bold text-[1.125rem] leading-snug text-[color:var(--color-blue)]">
+      {children}
+    </p>
+  );
+}
+
+/** Parágrafo de corpo (Clother Light 16px no Figma). */
+function Body({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="mt-3 text-base leading-relaxed text-[color:var(--color-blue)]">
+      {children}
+    </p>
+  );
+}
 
 export default function HomePage() {
   return (
-    <div className="container-narrow py-12">
-      {/* Bloco 1 — Olá a todos */}
-      <section className="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-6 items-start mb-16">
-        <div
-          className="aspect-square rounded-full bg-[color:var(--color-blue)]/15 flex items-center justify-center text-[color:var(--color-blue)] text-sm"
-          aria-label="Ilustração da Ágatha"
-        >
-          {/* TODO: substituir pela ilustração exportada do Figma */}
-          ilustração
-        </div>
-        <div>
-          <SectionHeading size="2xl">
-            :D Olá<br />a todos,
-          </SectionHeading>
-          <p className="mt-4 text-[color:var(--color-ink-soft)] leading-relaxed">
-            Sou a Ágatha — designer apaixonada por pesquisa, ilustração e por
-            traduzir ideias complexas em experiências afetuosas. Esse é meu
-            cantinho na internet para mostrar o que ando criando.
-          </p>
-        </div>
-      </section>
+    <>
+      <BrandHero />
+      <div className="container-narrow py-12 flex flex-col gap-16">
+        {/* Bloco 1 — Olá a todos (apresentação) */}
+        <section className="grid grid-cols-1 md:grid-cols-[1fr_1.3fr] gap-8 items-center">
+          <IllustrationSlot label="ilustração — Ágatha" />
+          <div>
+            <p className="font-display text-[3.5rem] leading-none text-[color:var(--color-blue)] mb-2">
+              :D
+            </p>
+            <SectionHeading size="xl">Olá a todos,</SectionHeading>
+            <Body>
+              Não sou boa com textinhos mas bora lá sksk Prazer! sou a designer
+              do seu bairro, da sua empresa multinacional e do seu jogo indie
+              fofinho.
+            </Body>
+          </div>
+        </section>
 
-      {/* Bloco 2 — Filosofia */}
-      <section className="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-6 items-start mb-16">
-        <div
-          className="aspect-square rounded-full bg-[color:var(--color-pink-soft)] flex items-center justify-center text-[color:var(--color-ink-soft)] text-sm"
-          aria-hidden
-        >
-          ilustração
-        </div>
-        <div>
-          <SectionHeading size="xl">Filosofia</SectionHeading>
-          <p className="mt-4 text-[color:var(--color-ink-soft)] leading-relaxed">
-            Para mim o design é pesquisa, ilustração e perspectiva. Acredito
-            que projetar é escutar antes de propor — entender contextos,
-            pessoas e materiais antes de transformar qualquer coisa em forma.
-          </p>
-        </div>
-      </section>
+        {/* Bloco 2 — Filosofia */}
+        <section className="grid grid-cols-1 md:grid-cols-[1.3fr_1fr] gap-8 items-center">
+          <div>
+            <SectionHeading size="xl" className="mb-4">
+              Filosofia
+            </SectionHeading>
+            <Lead>Para mim o design é pesquisa, ilustração e perspectiva.</Lead>
+            <Body>
+              Acredito que o design é a manipulação intencional da experiência
+              humana: uma ferramenta capaz de impactar hábitos e devolver
+              humanidade ao nosso cotidiano.
+            </Body>
+            <Body>
+              Nesse contexto, encaro o 3D, o design de interfaces e a pesquisa
+              como extensões de um mesmo propósito: construir experiências que
+              sejam verdadeiramente prestativas, memoráveis e sensíveis.
+            </Body>
+          </div>
+          <IllustrationSlot label="ilustração — Ágatha" />
+        </section>
 
-      {/* Bloco 3 — Experiência */}
-      <section className="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-6 items-start mb-16">
-        <div
-          className="aspect-square rounded-full bg-[color:var(--color-orange-soft)]/40 flex items-center justify-center text-[color:var(--color-ink-soft)] text-sm"
-          aria-hidden
-        >
-          ilustração
-        </div>
-        <div>
-          <SectionHeading size="xl">Experiência</SectionHeading>
-          <p className="mt-4 text-[color:var(--color-ink-soft)] leading-relaxed">
-            {/* TODO: confirmar o texto completo no Figma — extração ficou parcial */}
-            A força está na atitude humana, e na mesma forma somos espelhos do
-            seu lado mais humano. Acumulo projetos acadêmicos e pessoais entre
-            identidade visual, interfaces gráficas e personagens 3D.
-          </p>
-        </div>
-      </section>
-    </div>
+        {/* Bloco 3 — Experiência */}
+        <section className="grid grid-cols-1 md:grid-cols-[1fr_1.3fr] gap-8 items-center">
+          <IllustrationSlot label="ilustração — Ágatha" />
+          <div>
+            <SectionHeading size="xl" className="mb-4">
+              Experiência
+            </SectionHeading>
+            <Lead>
+              O futuro está na atividade humana, e é o que torna nossas
+              experiências tão importantes.
+            </Lead>
+            <Body>
+              Fico contente em lhe receber nesse meu espaço, se quiser conhecer
+              ainda mais sobre experiências acadêmicas, extracurriculares e
+              profissionais fique à vontade para explorar no meu currículo ou
+              perfil do LinkedIn.
+            </Body>
+          </div>
+        </section>
+      </div>
+    </>
   );
 }

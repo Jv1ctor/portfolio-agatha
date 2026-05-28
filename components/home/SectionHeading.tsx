@@ -5,9 +5,10 @@ type Props = {
 };
 
 const sizeMap = {
-  lg: "text-4xl md:text-5xl",
-  xl: "text-5xl md:text-6xl",
-  "2xl": "text-6xl md:text-8xl",
+  // Tamanhos nominais do Figma: headings de seção = 38px (AM Novecento, #6f96ce)
+  lg: "text-[1.75rem]",
+  xl: "text-[2rem] md:text-[2.375rem]",
+  "2xl": "text-4xl md:text-5xl",
 };
 
 export function SectionHeading({ children, size = "xl", className = "" }: Props) {

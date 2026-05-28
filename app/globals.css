@@ -2,28 +2,44 @@
 
 /* ============================================================
    Design tokens — Ágatha Sales portfolio
-   Cores aproximadas via inspeção visual do Figma. Refinar
-   quando o rate limit do MCP destravar para puxar as variáveis
-   nominais do arquivo.
+   Cores NOMINAIS extraídas do Figma via get_variable_defs
+   (2026-05-27, fileKey hvanyOiKc3gCVQsI2B8KKQ). Identidade
+   azul + creme. Nomes originais no Figma anotados ao lado.
    ============================================================ */
 :root {
   /* Base */
-  --color-cream: #faf3e1;
-  --color-cream-dark: #f3ead0;
-  --color-ink: #1d1d35;
-  --color-ink-soft: #555573;
-  --color-muted: #8a8aa3;
+  --color-cream: #f9f3ea;      /* "Bege clarinho que sim" — fundo */
+  --color-cream-dark: #efe4cf; /* derivado para bordas suaves    */
+  --color-ink: #1a2949;        /* "Azul mais escuro" — títulos/texto */
+  --color-ink-soft: #41527a;   /* corpo de texto (aprox. do ink)  */
+  --color-muted: #8a9ab8;      /* nav inativo / legendas          */
 
-  /* Accents per project */
-  --color-blue: #2f3fb5;
-  --color-blue-soft: #5b6ed8;
+  /* Paleta azul (identidade institucional) */
+  --color-blue: #6f96ce;       /* "Azul querido" — acentos/links/botões */
+  --color-blue-soft: #baccEB;  /* "Azul gelo"                     */
+  --color-blue-pale: #e6eefa;  /* "azul clarinho que sim" — nav/card bg */
+  --color-blue-deep: #1a2949;  /* = ink, usado no gradiente do footer   */
+
+  /* Accents dos case studies — ESTIMADOS, confirmar nas Sessões 2-3
+     (Batuco-tuco = laranja, Pontinhas soltas = rosa) */
   --color-orange: #e88f3a;
   --color-orange-soft: #f4b870;
   --color-pink: #e4a4c3;
   --color-pink-soft: #f1d2e2;
 
-  /* Card placeholder gradient (lista de projetos "em breve") */
-  --gradient-placeholder: linear-gradient(135deg, #5b6ed8 0%, #2f3fb5 100%);
+  --color-blue-darkest: #08488f; /* fim do gradiente da banda/hero */
+
+  /* Sombra dos cards — Effect "cards" do Figma:
+     DROP_SHADOW #6F96CE @16%, offset (2,8), blur 8, spread 4 */
+  --shadow-card: 2px 8px 8px 4px rgba(111, 150, 206, 0.16);
+
+  /* Banda do hero + footer — gradiente azul nominal do Figma
+     (-70.88°, #BACCEB → #6F96CE → #08488F) */
+  --gradient-band: linear-gradient(-70.88deg, #bacceb 3.48%, #6f96ce 49.07%, #08488f 101.62%);
+  --gradient-footer: var(--gradient-band);
+
+  /* Card placeholder ("nulo" do Figma) — mesmo gradiente, ângulo -78.27° */
+  --gradient-placeholder: linear-gradient(-78.27deg, #bacceb 3.48%, #6f96ce 49.07%, #08488f 101.62%);
 
   /* Layout */
   --content-width: 705px;
@@ -44,6 +60,8 @@
   --color-muted: var(--color-muted);
   --color-blue: var(--color-blue);
   --color-blue-soft: var(--color-blue-soft);
+  --color-blue-pale: var(--color-blue-pale);
+  --color-blue-deep: var(--color-blue-deep);
   --color-orange: var(--color-orange);
   --color-orange-soft: var(--color-orange-soft);
   --color-pink: var(--color-pink);
@@ -82,10 +100,23 @@ a {
   text-decoration: none;
 }
 
-/* Container central — mimetiza a coluna de 705px do Figma */
+/* Container de conteúdo — largura total da tela com respiro lateral.
+   (O Figma é desenhado em 705px, mas o site ocupa a tela toda por
+   decisão do cliente; as bandas hero/footer vão de borda a borda.) */
 .container-narrow {
   width: 100%;
-  max-width: var(--content-width);
   margin-inline: auto;
-  padding-inline: var(--content-padding-x);
+  padding-inline: clamp(1.5rem, 4vw, 4rem);
+}
+
+/* Helpers de fundo/sombra — via classe (não inline) para reduzir
+   conflito com extensões tipo Dark Reader e ficar mais limpo. */
+.bg-band {
+  background: var(--gradient-band);
+}
+.bg-placeholder {
+  background: var(--gradient-placeholder);
+}
+.shadow-card {
+  box-shadow: var(--shadow-card);
 }
