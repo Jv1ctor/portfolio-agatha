@@ -13,7 +13,31 @@
       "Bash(curl -s -o \"public/images/projects/batuco-tuco/cover.png\" \"https://www.figma.com/api/mcp/asset/5908aff2-aa09-40da-80a3-59b03f2ee860\")",
       "Bash(curl -s -o \"public/images/projects/batuco-tuco/interfaces-graficas.png\" \"https://www.figma.com/api/mcp/asset/0d90b768-8b00-40ca-bea6-11566383be1f\")",
       "Bash(curl -s -o \"public/images/projects/batuco-tuco/proto-row.png\" \"https://www.figma.com/api/mcp/asset/19c3c0ae-d674-4630-a8d7-fd5bf322886b\")",
-      "Bash(curl -s -o \"public/images/projects/batuco-tuco/telas-1.png\" \"https://www.figma.com/api/mcp/asset/578d25ac-be8d-413b-bf66-02eadf39963c\")"
+      "Bash(curl -s -o \"public/images/projects/batuco-tuco/telas-1.png\" \"https://www.figma.com/api/mcp/asset/578d25ac-be8d-413b-bf66-02eadf39963c\")",
+      "Bash(curl -s http://localhost:3000)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/projetos)",
+      "Bash(cd \"C:/Users/kaike/Desktop/portifolio\")",
+      "Bash(grep '^FIGMA_TOKEN=' .env.local)",
+      "Bash(python -m json.tool)",
+      "Read(//tmp/**)",
+      "Bash(mkdir -p pontos-sem-no batuco-tuco)",
+      "Bash(mv \"Capa pontos sem nó.svg\"      \"pontos-sem-no/capa_Capa-pontos-sem-no.svg\")",
+      "Bash(mv \"Group 100754.svg\"            \"pontos-sem-no/sistema-identidade-visual_Group-100754.svg\")",
+      "Bash(mv \"Frame 100725.svg\"            \"pontos-sem-no/projeto-final_Frame-100725.svg\")",
+      "Bash(mv \"Group 100617.svg\"            \"pontos-sem-no/proto-criacao-de-paineis_Group-100617.svg\")",
+      "Bash(curl -s \"https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/8e959a26-a6b5-48d3-bd0b-bef23c00c548\" -o \"capa_272-3985.svg\")",
+      "Bash(curl -s \"https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/afa025bb-2514-433e-b5fe-f694c2e27139\" -o \"interfaces-graficas_272-4055.svg\")",
+      "Bash(curl -s \"https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/1da03d07-3d86-427c-b127-39a94dea16bc\" -o \"rabiscos-wireframes_272-4149.svg\")",
+      "Bash(curl -s \"https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/6355bc96-3f4d-4450-a4a8-e515dcd315fc\" -o \"telas-interface-assets_272-4170.svg\")",
+      "Bash(curl -s \"https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/be19dfe8-63d9-40c6-af55-f7f149f078a6\" -o \"telas-personagens_272-4257.svg\")",
+      "Bash(curl -s \"https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/f749f3d6-56bc-4a78-8e5e-71ecaf0d3862\" -o \"capa_272-3985@3x.png\")",
+      "Bash(curl -s \"https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/6ea08e3d-f790-472f-aac6-8fa7b0e994dc\" -o \"interfaces-graficas_272-4055@3x.png\")",
+      "Bash(curl -s \"https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/14c77a17-53a5-43f6-a978-43b5b569a7f4\" -o \"rabiscos-wireframes_272-4149@3x.png\")",
+      "Bash(curl -s \"https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/b34fa739-6a66-4da2-a92a-92108036650d\" -o \"telas-interface-assets_272-4170@3x.png\")",
+      "Bash(curl -s \"https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/e8bf7727-9af6-4e93-8d3c-cdee2a06c9be\" -o \"telas-personagens_272-4257@3x.png\")",
+      "Bash(sort -k2)",
+      "Bash(echo \"title: $\\(curl -s http://localhost:3000)",
+      "Bash(curl -s -o \"imports_figma/_pont_overview.png\" \"https://www.figma.com/api/mcp/asset/0e5783d9-80b9-4bb5-84df-6caa83589f8d\")"
     ]
   }
 }

@@ -38,6 +38,9 @@ yarn-error.log*
 /.figma-screenshots
 /.shots
 
+# exports-fonte do Figma (SVG/PNG@3x) — só working local; o site usa as cópias em /public
+/imports_figma
+
 # vercel
 .vercel
 

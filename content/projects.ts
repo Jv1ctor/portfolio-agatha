@@ -12,6 +12,8 @@ export type Project = {
   intro?: string;
   status: ProjectStatus;
   categories: CategoryKey[];
+  /** Título exibido no card da listagem, quando difere do subtítulo do case study */
+  cardTitle?: string;
   /** Tags do card: [tipo, categoria] — ex: ["Acadêmico", "Design de Identidade Visual"] */
   tags: string[];
   /** Data exibida na pill do card (formato dd.mm.aaaa, como no Figma) */
@@ -28,7 +30,7 @@ export const projects: Project[] = [
     title: "Pontos sem nó",
     subtitle: "IDV: Pontos sem nó",
     description:
-      "A marca “Pontos sem nó” procura nos transportar para as entrelinhas de nossas questões mais profundas não resolvidas que sempre voltam à nossa mente de alguma forma, convertendo memórias em sentimentos reconhecíveis…",
+      "A marca “Pontos sem nó” procura nos transportar para as entrelinhas de nossas questões mais profundas não resolvidas que sempre voltam à nossa mente de alguma forma, convertendo memórias em sentimentos reconhecíveis… (PLACEHOLDER)",
     intro:
       "A marca “Pontos sem nó” procura nos transportar para as entrelinhas de nossas questões mais profundas não resolvidas que sempre voltam à nossa mente de alguma forma, convertendo memórias em sentimentos reconhecíveis. A Pontos sem nó busca fazer parte do momento de identificação, transmitindo o processo de aceitação sobre esses sentimentos em forma de música.\n\nSendo representada em traços de ternura, serenidade com um toque lírico que nos faz assumir o papel de um peregrino em outras dimensões através do escapismo.",
     status: "concluido",
@@ -36,31 +38,40 @@ export const projects: Project[] = [
     tags: ["Acadêmico", "Design de Identidade Visual"],
     date: "08.12.2025",
     accent: "blue",
-    coverImage: "/images/projects/pontos-sem-no/cover.svg",
+    coverImage: "/images/projects/pontos-sem-no/cover.png",
   },
   {
     slug: "batuco-tuco",
     title: "Batuco-tuco",
     subtitle: "Batuco-tuco App",
+    cardTitle: "Batuco-tuco",
     description:
-      "App de ensino musical lúdico. Pesquisa, persona, interfaces gráficas, design system e protótipo.",
+      "O Batuco-Tuco é uma aplicação mobile focada na gamificação da teoria musical e prática de instrumentos. Seu nome alude ao “batuque” e homenageia uma espécie brasileira e sua sonoridade, o tuco-tuco… (PLACEHOLDER)",
+    intro:
+      "O Batuco-Tuco é uma aplicação mobile focada na gamificação da teoria musical e prática de instrumentos. Seu nome alude ao “batuque” e homenageia uma espécie brasileira e sua sonoridade, o tuco-tuco, inspirando a temática lúdica e visual do projeto que transforma animais em instrumentistas habilidosos.\n\nO projeto foi desenvolvido como um estudo prático de interfaces gráficas e UX/UI. Para garantir uma evolução fluida com feedbacks visuais em tempo real, o processo envolveu a estruturação de mapas de conteúdo, construção de design system e aplicação de metodologias centradas no usuário.",
     status: "em-progresso",
     categories: ["interacao"],
     tags: ["Acadêmico", "Design de Interfaces Gráficas"],
+    date: "04.12.2025",
     accent: "orange",
-    // coverImage: exportar na Sessão 3 (Batuco-tuco)
+    coverImage: "/images/projects/batuco-tuco/cover.png",
   },
   {
     slug: "pontinhas-soltas",
     title: "Pontinhas soltas",
     subtitle: "Pontinhas soltas",
     description:
-      "Design e modelagem 3D de personagens em torno de uma identidade de pontos soltos.",
+      "Design e modelagem 3D de personagens em torno de uma identidade de pontos soltos. (PLACEHOLDER)",
+    // ATENÇÃO: no Figma o intro está com o texto do Batuco-tuco (placeholder que a
+    // designer não trocou). Mantido com marca (PLACEHOLDER) até a Ágatha enviar o real.
+    intro:
+      "O Batuco-Tuco é uma aplicação mobile focada na gamificação da teoria musical e prática de instrumentos. Seu nome alude ao “batuque” e homenageia uma espécie brasileira e sua sonoridade, o tuco-tuco, inspirando a temática lúdica e visual do projeto que transforma animais em instrumentistas habilidosos.\n\nO projeto foi desenvolvido como um estudo prático de interfaces gráficas e UX/UI. Para garantir uma evolução fluida com feedbacks visuais em tempo real, o processo envolveu a estruturação de mapas de conteúdo, construção de design system e aplicação de metodologias centradas no usuário. (PLACEHOLDER)",
     status: "concluido",
     categories: ["3d"],
-    tags: ["Pessoal", "Design de personagens"],
+    tags: ["Pessoal", "Design de Personagens"],
+    date: "08.12.2025",
     accent: "pink",
-    // coverImage: exportar na Sessão 3 (Pontinhas soltas)
+    coverImage: "/images/projects/pontinhas-soltas/cover.png",
   },
 ];
 

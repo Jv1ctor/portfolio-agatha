@@ -10,9 +10,9 @@ const base = "/images/projects/pontos-sem-no";
 const protoTabs = ["Brainstorming", "Painel integrado", "Braindumping"];
 
 const protoThumbs = [
-  { src: `${base}/proto-1.svg`, caption: "Criação de painéis" },
-  { src: `${base}/proto-2.svg`, caption: "Esboços da logo" },
-  { src: `${base}/proto-3.svg`, caption: "Elementos de apoio" },
+  { src: `${base}/proto-1.png`, caption: "Criação de painéis" },
+  { src: `${base}/proto-2.png`, caption: "Esboços da logo" },
+  { src: `${base}/proto-3.png`, caption: "Elementos de apoio" },
 ];
 
 export default function PontosSemNoPage() {
@@ -32,10 +32,10 @@ export default function PontosSemNoPage() {
         </p>
       </CaseSection>
 
-      {/* Sistema de identidade visual — SVG do Figma (card infográfico + 3 tiles
-          de apoio compostos no próprio export). Vetor = retina-crisp. */}
+      {/* Sistema de identidade visual — PNG@3x do Figma (card infográfico + 3
+          tiles de apoio compostos no próprio export). */}
       <CaseImage
-        src={`${base}/sistema.svg`}
+        src={`${base}/sistema.png`}
         alt="Sistema de identidade visual em seis etapas: brainstorming de palavras conceito, análise de painel semântico, criação de esboços, testes gráficos, teste de impressão e manual de utilização da IDV."
       />
 
@@ -44,7 +44,7 @@ export default function PontosSemNoPage() {
           {protoTabs.map((tab) => (
             <span
               key={tab}
-              className="rounded-full bg-[color:var(--color-blue-pale)] px-3 py-1.5 text-[1rem] leading-none text-[color:var(--color-blue)]"
+              className="rounded-full bg-[color:var(--color-blue-pale)] px-3 py-1.5 text-[1rem] leading-none text-[color:var(--color-blue)] shadow-[2px_4px_8px_2px_rgba(111,150,206,0.16)]"
             >
               {tab}
             </span>
@@ -68,10 +68,10 @@ export default function PontosSemNoPage() {
       </CaseSection>
 
       <CaseSection title="Projeto final">
-        {/* SVG do Figma com os 4 blocos do projeto final (manual, biblioteca de
-            personagens, variações do logo e aplicações) já empilhados — vetor. */}
+        {/* PNG@2x do Figma com os 4 blocos do projeto final (manual, biblioteca de
+            personagens, variações do logo e aplicações) já empilhados. */}
         <CaseImage
-          src={`${base}/projeto-final.svg`}
+          src={`${base}/projeto-final.png`}
           alt="Projeto final: manual da marca, biblioteca de personagens, variações do logo e aplicações."
         />
       </CaseSection>

@@ -45,7 +45,7 @@ export function ProjectCard({ project }: { project: Project }) {
           className="font-bold text-[1.625rem] leading-tight text-[color:var(--color-blue)]"
           style={{ fontFamily: "var(--font-body)" }}
         >
-          {project.subtitle}
+          {project.cardTitle ?? project.subtitle}
         </h3>
         <span
           aria-hidden
