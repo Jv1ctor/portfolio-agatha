@@ -1,18 +1,6 @@
 import { BrandHero } from "@/components/layout/BrandHero";
 import { SectionHeading } from "@/components/home/SectionHeading";
-
-/** Placeholder de ilustração até exportarmos os assets de personagem do Figma. */
-function IllustrationSlot({ label }: { label: string }) {
-  return (
-    <div
-      aria-hidden
-      className="aspect-square w-full max-w-[260px] mx-auto rounded-[28px] bg-[color:var(--color-blue-pale)] flex items-center justify-center text-xs text-[color:var(--color-muted)]"
-    >
-      {/* TODO: substituir pela ilustração da Ágatha exportada do Figma */}
-      {label}
-    </div>
-  );
-}
+import { Illustration } from "@/components/home/Illustration";
 
 /** Parágrafo de destaque (Clother Bold 18px no Figma). */
 function Lead({ children }: { children: React.ReactNode }) {
@@ -39,7 +27,11 @@ export default function HomePage() {
       <div className="container-narrow py-12 flex flex-col gap-16">
         {/* Bloco 1 — Olá a todos (apresentação) */}
         <section className="grid grid-cols-1 md:grid-cols-[1fr_1.3fr] gap-8 items-center">
-          <IllustrationSlot label="ilustração — Ágatha" />
+          <Illustration
+            name="ola"
+            alt="Ilustração da Ágatha acenando"
+            className="mx-auto block"
+          />
           <div>
             <p className="font-display text-[3.5rem] leading-none text-[color:var(--color-blue)] mb-2">
               :D
@@ -71,12 +63,20 @@ export default function HomePage() {
               sejam verdadeiramente prestativas, memoráveis e sensíveis.
             </Body>
           </div>
-          <IllustrationSlot label="ilustração — Ágatha" />
+          <Illustration
+            name="filosofia"
+            alt="Ilustração da Ágatha pensando"
+            className="mx-auto block"
+          />
         </section>
 
         {/* Bloco 3 — Experiência */}
         <section className="grid grid-cols-1 md:grid-cols-[1fr_1.3fr] gap-8 items-center">
-          <IllustrationSlot label="ilustração — Ágatha" />
+          <Illustration
+            name="experiencia"
+            alt="Ilustração da Ágatha sentada"
+            className="mx-auto block"
+          />
           <div>
             <SectionHeading size="xl" className="mb-4">
               Experiência

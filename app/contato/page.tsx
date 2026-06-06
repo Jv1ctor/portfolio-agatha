@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { BrandHero } from "@/components/layout/BrandHero";
 import { ContactForm } from "@/components/contact/ContactForm";
+import { Illustration } from "@/components/home/Illustration";
 
 export const metadata: Metadata = { title: "Vamos trabalhar juntos?" };
 
@@ -25,13 +26,11 @@ export default function ContatoPage() {
             <ContactForm />
           </div>
 
-          {/* Ilustração da Ágatha — placeholder até exportarmos o asset (Sessão 2-3) */}
-          <div
-            aria-hidden
-            className="hidden md:flex aspect-square w-full max-w-[380px] mx-auto items-center justify-center rounded-[28px] bg-[color:var(--color-blue-pale)] text-xs text-[color:var(--color-muted)]"
-          >
-            ilustração — Ágatha
-          </div>
+          <Illustration
+            name="contato"
+            alt="Ilustração da Ágatha"
+            className="hidden md:block mx-auto"
+          />
         </div>
       </div>
     </>

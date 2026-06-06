@@ -36,6 +36,7 @@ yarn-error.log*
 
 # screenshots de referência do Figma (não versionar)
 /.figma-screenshots
+/.shots
 
 # vercel
 .vercel

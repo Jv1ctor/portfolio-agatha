@@ -6,7 +6,10 @@ export type Project = {
   slug: string;
   title: string;
   subtitle: string;
+  /** Resumo curto — usado no card da listagem */
   description: string;
+  /** Texto de abertura do case study (parágrafo longo do Figma) */
+  intro?: string;
   status: ProjectStatus;
   categories: CategoryKey[];
   /** Tags do card: [tipo, categoria] — ex: ["Acadêmico", "Design de Identidade Visual"] */
@@ -25,13 +28,15 @@ export const projects: Project[] = [
     title: "Pontos sem nó",
     subtitle: "IDV: Pontos sem nó",
     description:
-      "Identidade visual de marca focada em produtos de croché. Pesquisa, símbolo, paleta e manual de uso.",
+      "A marca “Pontos sem nó” procura nos transportar para as entrelinhas de nossas questões mais profundas não resolvidas que sempre voltam à nossa mente de alguma forma, convertendo memórias em sentimentos reconhecíveis…",
+    intro:
+      "A marca “Pontos sem nó” procura nos transportar para as entrelinhas de nossas questões mais profundas não resolvidas que sempre voltam à nossa mente de alguma forma, convertendo memórias em sentimentos reconhecíveis. A Pontos sem nó busca fazer parte do momento de identificação, transmitindo o processo de aceitação sobre esses sentimentos em forma de música.\n\nSendo representada em traços de ternura, serenidade com um toque lírico que nos faz assumir o papel de um peregrino em outras dimensões através do escapismo.",
     status: "concluido",
     categories: ["grafico"],
     tags: ["Acadêmico", "Design de Identidade Visual"],
     date: "08.12.2025",
     accent: "blue",
-    coverImage: "/images/projects/pontos-sem-no/cover.png",
+    coverImage: "/images/projects/pontos-sem-no/cover.svg",
   },
   {
     slug: "batuco-tuco",
@@ -40,10 +45,10 @@ export const projects: Project[] = [
     description:
       "App de ensino musical lúdico. Pesquisa, persona, interfaces gráficas, design system e protótipo.",
     status: "em-progresso",
-    categories: ["interacao", "grafico"],
+    categories: ["interacao"],
     tags: ["Acadêmico", "Design de Interfaces Gráficas"],
     accent: "orange",
-    coverImage: "/images/projects/batuco-tuco/cover.png",
+    // coverImage: exportar na Sessão 3 (Batuco-tuco)
   },
   {
     slug: "pontinhas-soltas",
@@ -52,10 +57,10 @@ export const projects: Project[] = [
     description:
       "Design e modelagem 3D de personagens em torno de uma identidade de pontos soltos.",
     status: "concluido",
-    categories: ["3d", "grafico"],
+    categories: ["3d"],
     tags: ["Pessoal", "Design de personagens"],
     accent: "pink",
-    coverImage: "/images/projects/pontinhas-soltas/cover.png",
+    // coverImage: exportar na Sessão 3 (Pontinhas soltas)
   },
 ];
 

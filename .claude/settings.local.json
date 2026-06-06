@@ -3,7 +3,17 @@
     "allow": [
       "PowerShell(npm *)",
       "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:3000\" -UseBasicParsing -TimeoutSec 30; \"Status: $\\($r.StatusCode\\)\"; \"Length: $\\($r.Content.Length\\)\" } catch { \"ERROR: $\\($_.Exception.Message\\)\" })",
-      "PowerShell(Test-Path *)"
+      "PowerShell(Test-Path *)",
+      "Bash(npm run *)",
+      "mcp__figma__get_screenshot",
+      "mcp__figma__get_metadata",
+      "Bash(curl -s -o \"C:/Users/kaike/Desktop/portifolio/imports_figma/_batuco_overview.png\" \"https://www.figma.com/api/mcp/asset/762fa4ba-7e68-4161-92e5-362a98dd7655\")",
+      "mcp__figma__get_design_context",
+      "Bash(mkdir -p public/images/projects/batuco-tuco)",
+      "Bash(curl -s -o \"public/images/projects/batuco-tuco/cover.png\" \"https://www.figma.com/api/mcp/asset/5908aff2-aa09-40da-80a3-59b03f2ee860\")",
+      "Bash(curl -s -o \"public/images/projects/batuco-tuco/interfaces-graficas.png\" \"https://www.figma.com/api/mcp/asset/0d90b768-8b00-40ca-bea6-11566383be1f\")",
+      "Bash(curl -s -o \"public/images/projects/batuco-tuco/proto-row.png\" \"https://www.figma.com/api/mcp/asset/19c3c0ae-d674-4630-a8d7-fd5bf322886b\")",
+      "Bash(curl -s -o \"public/images/projects/batuco-tuco/telas-1.png\" \"https://www.figma.com/api/mcp/asset/578d25ac-be8d-413b-bf66-02eadf39963c\")"
     ]
   }
 }

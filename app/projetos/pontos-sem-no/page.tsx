@@ -1,9 +1,19 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getProjectBySlug } from "@/content/projects";
-import { CaseShell, CaseSection } from "@/components/case-study/CaseShell";
+import { CaseShell, CaseSection, CaseImage } from "@/components/case-study/CaseShell";
 
 export const metadata: Metadata = { title: "Pontos sem nó" };
+
+const base = "/images/projects/pontos-sem-no";
+
+const protoTabs = ["Brainstorming", "Painel integrado", "Braindumping"];
+
+const protoThumbs = [
+  { src: `${base}/proto-1.svg`, caption: "Criação de painéis" },
+  { src: `${base}/proto-2.svg`, caption: "Esboços da logo" },
+  { src: `${base}/proto-3.svg`, caption: "Elementos de apoio" },
+];
 
 export default function PontosSemNoPage() {
   const project = getProjectBySlug("pontos-sem-no");
@@ -11,10 +21,60 @@ export default function PontosSemNoPage() {
 
   return (
     <CaseShell project={project}>
-      <CaseSection title="Processo de criação" />
-      <CaseSection title="Sistema" />
-      <CaseSection title="Prototipagem" />
-      <CaseSection title="Projeto final" />
+      <CaseSection title="Processo de criação">
+        <p className="font-light text-[1rem] leading-relaxed text-[color:var(--color-blue)]">
+          O início do processo foi marcado pela pesquisa guiada, montando um
+          painel semântico que pudesse orientar decisões conceituais do projeto.
+          Após a pesquisa, foram realizadas seleções de elementos, tipografias,
+          cores, dentre outras representações que serviram de apoio para
+          enriquecer o repertório conceitual da marca e facilitar a sua
+          aplicação.
+        </p>
+      </CaseSection>
+
+      {/* Sistema de identidade visual — SVG do Figma (card infográfico + 3 tiles
+          de apoio compostos no próprio export). Vetor = retina-crisp. */}
+      <CaseImage
+        src={`${base}/sistema.svg`}
+        alt="Sistema de identidade visual em seis etapas: brainstorming de palavras conceito, análise de painel semântico, criação de esboços, testes gráficos, teste de impressão e manual de utilização da IDV."
+      />
+
+      <CaseSection title="Prototipagem">
+        <div className="mb-6 flex flex-wrap gap-4">
+          {protoTabs.map((tab) => (
+            <span
+              key={tab}
+              className="rounded-full bg-[color:var(--color-blue-pale)] px-3 py-1.5 text-[1rem] leading-none text-[color:var(--color-blue)]"
+            >
+              {tab}
+            </span>
+          ))}
+        </div>
+        <div className="grid grid-cols-3 gap-[clamp(0.75rem,4cqw,2rem)]">
+          {protoThumbs.map((t) => (
+            <figure key={t.caption}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={t.src}
+                alt={t.caption}
+                className="block aspect-square w-full"
+              />
+              <figcaption className="mt-2 text-[1rem] text-[color:var(--color-blue)]">
+                {t.caption}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </CaseSection>
+
+      <CaseSection title="Projeto final">
+        {/* SVG do Figma com os 4 blocos do projeto final (manual, biblioteca de
+            personagens, variações do logo e aplicações) já empilhados — vetor. */}
+        <CaseImage
+          src={`${base}/projeto-final.svg`}
+          alt="Projeto final: manual da marca, biblioteca de personagens, variações do logo e aplicações."
+        />
+      </CaseSection>
     </CaseShell>
   );
 }

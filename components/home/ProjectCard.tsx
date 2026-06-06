@@ -37,27 +37,45 @@ function GearIcon({ className }: { className?: string }) {
 export function ProjectCard({ project }: { project: Project }) {
   return (
     <Link href={`/projetos/${project.slug}`} className="group block">
-      {/* Header — subtítulo (Clother Bold 26px) + ícone */}
+      {/* Header — subtítulo (Clother Bold 26px) + ícone.
+          Override do fontFamily: a regra global em globals.css força h1-h4 a usar
+          a fonte display (AM Novecento), mas o subtítulo é Clother Bold. */}
       <div className="mb-2 flex items-end justify-between gap-3">
-        <h3 className="font-bold text-[1.625rem] leading-tight text-[color:var(--color-blue)]">
+        <h3
+          className="font-bold text-[1.625rem] leading-tight text-[color:var(--color-blue)]"
+          style={{ fontFamily: "var(--font-body)" }}
+        >
           {project.subtitle}
         </h3>
         <span
           aria-hidden
-          className="grid h-[30px] w-[30px] shrink-0 place-items-center rounded-full bg-[color:var(--color-blue-soft)] text-[color:var(--color-blue-deep)] transition-transform group-hover:translate-x-0.5"
+          className="grid h-[30px] w-[30px] shrink-0 place-items-center rounded-full bg-[color:var(--color-blue-soft)] transition-transform group-hover:translate-x-0.5"
         >
-          ↗
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/card-icon.svg"
+            alt=""
+            className="block h-[18px] w-[18px]"
+          />
         </span>
       </div>
 
-      {/* Capa */}
+      {/* Capa — imagem real do Figma quando disponível, senão fallback de cor + título */}
       <div
-        className={`shadow-card relative flex aspect-[640/238] items-center justify-center overflow-hidden rounded-[8px] ${accentClasses[project.accent]}`}
+        className={`shadow-card relative flex aspect-[640/238] items-center justify-center overflow-hidden rounded-[8px] ${project.coverImage ? "" : accentClasses[project.accent]}`}
       >
-        {/* TODO: trocar pela imagem de capa exportada do Figma (Sessões 2-3) */}
-        <span className="px-6 text-center font-display text-4xl md:text-5xl uppercase leading-none text-[color:var(--color-cream)]">
-          {project.title}
-        </span>
+        {project.coverImage ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={project.coverImage}
+            alt={`Capa do projeto ${project.title}`}
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        ) : (
+          <span className="px-6 text-center font-display text-4xl md:text-5xl uppercase leading-none text-[color:var(--color-cream)]">
+            {project.title}
+          </span>
+        )}
       </div>
 
       {/* Pills — tipo · categoria (esquerda) · data (direita) */}
