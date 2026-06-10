@@ -38,7 +38,7 @@ export const projects: Project[] = [
     tags: ["Acadêmico", "Design de Identidade Visual"],
     date: "08.12.2025",
     accent: "blue",
-    coverImage: "/images/projects/pontos-sem-no/cover.png",
+    coverImage: "/images/projects/pontos-sem-no/cover.webp",
   },
   {
     slug: "batuco-tuco",
@@ -62,10 +62,12 @@ export const projects: Project[] = [
     subtitle: "Pontinhas soltas",
     description:
       "Design e modelagem 3D de personagens em torno de uma identidade de pontos soltos. (PLACEHOLDER)",
-    // ATENÇÃO: no Figma o intro está com o texto do Batuco-tuco (placeholder que a
-    // designer não trocou). Mantido com marca (PLACEHOLDER) até a Ágatha enviar o real.
+    // ATENÇÃO: este é o intro REAL do Pontinhas (Figma 274:8543), porém a designer
+    // o deixou INCOMPLETO — o texto termina literalmente em "...é que ". Mantido o
+    // (PLACEHOLDER) no fim até a Ágatha terminar a frase. O "Processo de criação" do
+    // case, esse sim, continua com o texto do Batuco (placeholder não trocado).
     intro:
-      "O Batuco-Tuco é uma aplicação mobile focada na gamificação da teoria musical e prática de instrumentos. Seu nome alude ao “batuque” e homenageia uma espécie brasileira e sua sonoridade, o tuco-tuco, inspirando a temática lúdica e visual do projeto que transforma animais em instrumentistas habilidosos.\n\nO projeto foi desenvolvido como um estudo prático de interfaces gráficas e UX/UI. Para garantir uma evolução fluida com feedbacks visuais em tempo real, o processo envolveu a estruturação de mapas de conteúdo, construção de design system e aplicação de metodologias centradas no usuário. (PLACEHOLDER)",
+      "As “Pontinhas soltas” são uma representação da extensão do projeto de marca “Pontos sem nó”. Elaboradas como personas atribuídas às palavras concito da marca, a caracterização delas busca transmitir conforto e fazer parte de contextos casuais.\n\nO objetivo central de ter uma extensão relativa à elas é que (PLACEHOLDER)",
     status: "concluido",
     categories: ["3d"],
     tags: ["Pessoal", "Design de Personagens"],

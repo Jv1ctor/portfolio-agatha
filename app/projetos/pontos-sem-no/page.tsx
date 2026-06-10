@@ -71,7 +71,7 @@ export default function PontosSemNoPage() {
         {/* PNG@2x do Figma com os 4 blocos do projeto final (manual, biblioteca de
             personagens, variações do logo e aplicações) já empilhados. */}
         <CaseImage
-          src={`${base}/projeto-final.png`}
+          src={`${base}/projeto-final.webp`}
           alt="Projeto final: manual da marca, biblioteca de personagens, variações do logo e aplicações."
         />
       </CaseSection>
