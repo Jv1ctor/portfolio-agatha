@@ -4,11 +4,39 @@ import { useState } from "react";
 import emailjs from "@emailjs/browser";
 import { z } from "zod";
 
-const schema = z.object({
-  nome: z.string().min(1, "Conta seu nome :)"),
-  email: z.email("Email inválido"),
-  mensagem: z.string().min(5, "Manda uma mensagem mais completa"),
-});
+const isValidEmail = (v: string) => z.email().safeParse(v).success;
+
+// Aceita formatos comuns (DDD, +55, espaços, traços, parênteses) e exige de 8 a
+// 13 dígitos (fixo c/ DDD até celular com +55).
+function isValidPhone(v: string) {
+  const digits = v.replace(/\D/g, "");
+  return /^[+()\d\s.-]+$/.test(v) && digits.length >= 8 && digits.length <= 13;
+}
+
+// email e telefone são opcionais (chegam como ""), mas pelo menos um precisa vir
+// preenchido pra Ágatha conseguir responder — e quando preenchidos, têm que ser
+// válidos. Cada erro tem mensagem própria.
+const schema = z
+  .object({
+    nome: z.string().min(1, "Conta seu nome :)"),
+    email: z.string(),
+    telefone: z.string(),
+    mensagem: z
+      .string()
+      .min(5, "Conta um pouquinho mais sobre o que você precisa :)"),
+  })
+  .refine((d) => d.email.trim() !== "" || d.telefone.trim() !== "", {
+    message: "Adicione uma forma de contato (email ou telefone) para enviar :)",
+    path: ["email"],
+  })
+  .refine((d) => d.email === "" || isValidEmail(d.email), {
+    message: "Esse email não parece válido, confere pra mim? :)",
+    path: ["email"],
+  })
+  .refine((d) => d.telefone === "" || isValidPhone(d.telefone), {
+    message: "Esse telefone não parece válido, confere os números? :)",
+    path: ["telefone"],
+  });
 
 type FormState = "idle" | "sending" | "success" | "error";
 
@@ -52,6 +80,7 @@ export function ContactForm() {
           // Os nomes precisam bater com as variáveis {{...}} do template no EmailJS
           name: parsed.data.nome,
           email: parsed.data.email,
+          phone: parsed.data.telefone,
           message: parsed.data.mensagem,
           time: new Date().toLocaleString("pt-BR"),
         },
@@ -73,11 +102,15 @@ export function ContactForm() {
       className="shadow-card flex w-full max-w-[480px] flex-col gap-3 rounded-[8px] bg-[color:var(--color-cream)] p-5"
       noValidate
     >
-      {/* Nome + email (adições funcionais — o EmailJS precisa do email pra responder) */}
+      {/* Nome (full) + contato (email/telefone, pelo menos um) */}
+      <input name="nome" type="text" autoComplete="name" placeholder="Seu nome" className={fieldClass} />
       <div className="grid gap-3 sm:grid-cols-2">
-        <input name="nome" type="text" autoComplete="name" placeholder="Seu nome" className={fieldClass} />
         <input name="email" type="email" autoComplete="email" placeholder="Seu email" className={fieldClass} />
+        <input name="telefone" type="tel" autoComplete="tel" placeholder="Seu telefone" className={fieldClass} />
       </div>
+      <p className="-mt-1 text-xs text-[color:var(--color-blue)]/70">
+        Deixe pelo menos um: email ou telefone.
+      </p>
 
       {/* Campo de solicitação — o protagonista, como no Figma */}
       <textarea
