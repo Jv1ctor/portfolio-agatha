@@ -100,13 +100,15 @@ a {
   text-decoration: none;
 }
 
-/* Container de conteúdo — largura total da tela com respiro lateral.
-   (O Figma é desenhado em 705px, mas o site ocupa a tela toda por
-   decisão do cliente; as bandas hero/footer vão de borda a borda.) */
+/* Container de conteúdo — coluna centralizada e CONTIDA (decisão da Ágatha em
+   2026-06-09: NÃO usar a tela inteira). As bandas de hero/footer continuam
+   full-width por fora (elementos pai); só o conteúdo interno fica limitado e
+   centralizado, como nos frames de desktop (MacBook 1512) do Figma. */
 .container-narrow {
   width: 100%;
+  max-width: 1080px;
   margin-inline: auto;
-  padding-inline: clamp(1.5rem, 4vw, 4rem);
+  padding-inline: clamp(1.5rem, 5vw, 2.5rem);
 }
 
 /* Helpers de fundo/sombra — via classe (não inline) para reduzir

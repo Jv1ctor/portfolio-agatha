@@ -16,7 +16,8 @@ export function CategoryPage({ category, heroTitle, placeholderCount = 2 }: Prop
     <>
       <BrandHero title={heroTitle} />
       <div className="container-narrow py-12">
-        <div className="flex flex-col gap-12">
+        {/* Coluna de cards = 702px (largura do card no desktop do Figma), centralizada */}
+        <div className="mx-auto flex max-w-[702px] flex-col gap-12">
           {projects.map((p) => (
             <ProjectCard key={p.slug} project={p} />
           ))}

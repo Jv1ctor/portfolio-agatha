@@ -43,9 +43,9 @@ export function CaseShell({
 
   return (
     <article className="container-narrow py-12">
-      {/* Coluna de conteúdo = 640px (largura exata do conteúdo no Figma).
-          Largura geral do site ainda é decisão pendente do Kaike. */}
-      <div className="mx-auto max-w-[640px]">
+      {/* Coluna de conteúdo = 786px (largura do conteúdo do case no desktop
+          do Figma — frame Responsividade/MacBook). Centralizada. */}
+      <div className="mx-auto max-w-[786px]">
         {cover ??
           (project.coverImage && (
             // eslint-disable-next-line @next/next/no-img-element
