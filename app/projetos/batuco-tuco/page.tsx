@@ -66,7 +66,7 @@ export default function BatucoTucoPage() {
           />
           <CaseImage
             src={`${base}/telas-3.png`}
-            alt="Apresentação final do Batuco-tuco — Música é saber: ludificação e pesquisa transformam o ensino."
+            alt="Apresentação final do Batuco-tuco: Música é saber, ludificação e pesquisa transformam o ensino."
           />
         </div>
       </CaseSection>

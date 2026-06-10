@@ -70,7 +70,7 @@ export default function PontinhasSoltasPage() {
         <div className="flex flex-col gap-8">
           <CaseImage
             src={`${base}/personagens.png`}
-            alt="Personagens finais — Jemmy, Nina, Haggy, Lac e Ali — em renderização 3D."
+            alt="Personagens finais: Jemmy, Nina, Haggy, Lac e Ali, em renderização 3D."
           />
           <CaseImage
             src={`${base}/personagens-desc.png`}
