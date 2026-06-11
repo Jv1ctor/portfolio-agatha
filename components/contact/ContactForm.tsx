@@ -40,8 +40,10 @@ const schema = z
 
 type FormState = "idle" | "sending" | "success" | "error";
 
+// font-normal: o Figma usa Clother Regular (400) no input/placeholder; o peso
+// global virou 300, então fixo o 400 aqui.
 const fieldClass =
-  "w-full rounded-lg border border-[color:var(--color-blue-soft)] bg-white/70 px-3 py-2 text-[color:var(--color-blue-deep)] outline-none placeholder:text-[color:var(--color-blue-soft)] focus:border-[color:var(--color-blue)] focus:ring-2 focus:ring-[color:var(--color-blue)]/20";
+  "w-full rounded-lg border border-[color:var(--color-blue-soft)] bg-white/70 px-3 py-2 font-normal text-[color:var(--color-blue-deep)] outline-none placeholder:text-[color:var(--color-blue-soft)] focus:border-[color:var(--color-blue)] focus:ring-2 focus:ring-[color:var(--color-blue)]/20";
 
 const EMPTY = { nome: "", email: "", telefone: "", mensagem: "" };
 

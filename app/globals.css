@@ -80,7 +80,10 @@ body {
   background: var(--color-cream);
   color: var(--color-ink);
   font-family: var(--font-body);
-  font-weight: 400;
+  /* Corpo = Clother Light (300), como no Figma. O kit zey0cjx já serve o 300.
+     Elementos mais pesados (lead Bold 700, nav ativo Black 900, headings) já
+     declaram o próprio peso, então só o texto de corpo "solto" herda o Light. */
+  font-weight: 300;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

@@ -61,7 +61,7 @@ export default function PontinhasSoltasPage() {
           {protoTabs.map((tab) => (
             <span
               key={tab}
-              className="rounded-full bg-[color:var(--color-blue-pale)] px-3 py-1.5 text-[1rem] leading-none text-[color:var(--color-blue)] shadow-[2px_4px_8px_2px_rgba(111,150,206,0.16)]"
+              className="rounded-full bg-[color:var(--color-blue-pale)] px-3 py-1.5 text-[1rem] font-normal leading-none text-[color:var(--color-blue)] shadow-[2px_4px_8px_2px_rgba(111,150,206,0.16)]"
             >
               {tab}
             </span>

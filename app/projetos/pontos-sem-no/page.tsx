@@ -44,7 +44,7 @@ export default function PontosSemNoPage() {
           {protoTabs.map((tab) => (
             <span
               key={tab}
-              className="rounded-full bg-[color:var(--color-blue-pale)] px-3 py-1.5 text-[1rem] leading-none text-[color:var(--color-blue)] shadow-[2px_4px_8px_2px_rgba(111,150,206,0.16)]"
+              className="rounded-full bg-[color:var(--color-blue-pale)] px-3 py-1.5 text-[1rem] font-normal leading-none text-[color:var(--color-blue)] shadow-[2px_4px_8px_2px_rgba(111,150,206,0.16)]"
             >
               {tab}
             </span>
@@ -59,7 +59,7 @@ export default function PontosSemNoPage() {
                 alt={t.caption}
                 className="block aspect-square w-full"
               />
-              <figcaption className="mt-2 text-[1rem] text-[color:var(--color-blue)]">
+              <figcaption className="mt-2 text-[1rem] font-normal text-[color:var(--color-blue)]">
                 {t.caption}
               </figcaption>
             </figure>

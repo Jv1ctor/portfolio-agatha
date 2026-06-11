@@ -20,7 +20,8 @@ export default function ContatoPage() {
               Vamos trabalhar juntos?
             </h2>
 
-            <p className="text-[1.125rem] text-[color:var(--color-blue)] mb-6 leading-relaxed">
+            {/* Figma: subtexto é Clother Regular (400); o peso global é 300, fixo o 400. */}
+            <p className="font-normal text-[1.125rem] text-[color:var(--color-blue)] mb-6 leading-relaxed">
               Entre em contato enviando um e-mail na caixa de texto abaixo!
             </p>
 

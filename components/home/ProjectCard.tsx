@@ -9,7 +9,7 @@ const accentClasses: Record<Project["accent"], string> = {
 
 function Pill({ children }: { children: string }) {
   return (
-    <span className="rounded-full bg-[color:var(--color-blue-soft)] px-3.5 py-1 text-base text-[color:var(--color-blue)] whitespace-nowrap">
+    <span className="rounded-full bg-[color:var(--color-blue-soft)] px-3.5 py-1 text-base font-normal text-[color:var(--color-blue)] whitespace-nowrap">
       {children}
     </span>
   );

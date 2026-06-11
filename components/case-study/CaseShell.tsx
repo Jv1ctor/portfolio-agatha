@@ -21,8 +21,9 @@ function Pill({
   children: ReactNode;
   variant?: "tag" | "status";
 }) {
+  // font-normal: Figma usa Clother Regular (400) nas pills; o peso global é 300.
   const base =
-    "inline-flex items-center rounded-full px-3.5 py-1 text-[1rem] leading-none text-[color:var(--color-blue)] whitespace-nowrap";
+    "inline-flex items-center rounded-full px-3.5 py-1 text-[1rem] font-normal leading-none text-[color:var(--color-blue)] whitespace-nowrap";
   const skin =
     variant === "status"
       ? "bg-[color:var(--color-blue-pale)] shadow-[2px_4px_8px_2px_rgba(111,150,206,0.16)]"
@@ -90,8 +91,9 @@ export function CaseShell({
 
         <div className="mt-12 flex flex-col gap-12">{children}</div>
 
+        {/* Figma: Clother Regular (400); o peso global é 300, fixo o 400. */}
         <p
-          className="mt-16 text-[2rem] leading-tight text-[color:var(--color-blue)]"
+          className="mt-16 font-normal text-[2rem] leading-tight text-[color:var(--color-blue)]"
           style={{ fontFamily: "var(--font-body)" }}
         >
           Obrigada por ter chegado até aqui!

@@ -58,7 +58,8 @@
       "PowerShell(node _tmp_inspect.js)",
       "PowerShell(node _tmp_fix.js)",
       "PowerShell(node _tmp_sample.js)",
-      "PowerShell(Out-Null *)"
+      "PowerShell(Out-Null *)",
+      "PowerShell(node _tmp_ids.js)"
     ]
   }
 }
