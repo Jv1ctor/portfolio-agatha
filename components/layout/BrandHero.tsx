@@ -68,7 +68,7 @@ export function BrandHero({ title }: { title?: string }) {
       { bottom: 0, left: "-0.5%", width: "101%", height: "auto", visibility: box ? "visible" : "hidden" };
 
   return (
-    <div className="bg-band relative w-full overflow-hidden h-[clamp(132px,14.55vw,236px)]">
+    <div className="bg-band relative w-full overflow-hidden h-[clamp(168px,17.5vw,290px)]">
       {/* h1 real pra semântica/SEO; o visual fica no SVG (aria-hidden). */}
       <h1 className="sr-only">{text}</h1>
       <svg

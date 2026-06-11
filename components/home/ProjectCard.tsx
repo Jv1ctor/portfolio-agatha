@@ -90,13 +90,14 @@ export function ProjectCard({ project }: { project: Project }) {
         )}
       </div>
 
-      {/* Descrição + Ver mais */}
+      {/* Descrição com "Ver mais." inline ao fim do texto (parte do parágrafo,
+          como no Figma) — não mais um bloco separado à direita. */}
       <p className="mt-3 text-base leading-relaxed text-[color:var(--color-blue)]">
-        {project.description}
+        {project.description}{" "}
+        <span className="font-bold whitespace-nowrap group-hover:underline">
+          Ver mais.
+        </span>
       </p>
-      <span className="mt-1 block text-right font-bold text-[color:var(--color-blue)] group-hover:underline">
-        Ver mais.
-      </span>
     </Link>
   );
 }

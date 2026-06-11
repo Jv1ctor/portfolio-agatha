@@ -11,10 +11,10 @@ function Lead({ children }: { children: React.ReactNode }) {
   );
 }
 
-/** Parágrafo de corpo (Clother Light 16px no Figma). */
+/** Parágrafo de corpo do "Sobre mim" — 20px (Kaike pediu subir de 16 → 20). */
 function Body({ children }: { children: React.ReactNode }) {
   return (
-    <p className="mt-3 text-base leading-relaxed text-[color:var(--color-blue)]">
+    <p className="mt-3 text-xl leading-relaxed text-[color:var(--color-blue)]">
       {children}
     </p>
   );

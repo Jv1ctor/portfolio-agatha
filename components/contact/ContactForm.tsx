@@ -43,15 +43,25 @@ type FormState = "idle" | "sending" | "success" | "error";
 const fieldClass =
   "w-full rounded-lg border border-[color:var(--color-blue-soft)] bg-white/70 px-3 py-2 text-[color:var(--color-blue-deep)] outline-none placeholder:text-[color:var(--color-blue-soft)] focus:border-[color:var(--color-blue)] focus:ring-2 focus:ring-[color:var(--color-blue)]/20";
 
+const EMPTY = { nome: "", email: "", telefone: "", mensagem: "" };
+
 export function ContactForm() {
   const [state, setState] = useState<FormState>("idle");
   const [errorMsg, setErrorMsg] = useState<string>("");
+  const [fields, setFields] = useState(EMPTY);
+
+  // Validade reativa — controla a COR do botão de enviar (azul = pode enviar;
+  // azul-gelo "apagado" = ainda não dá). Continua clicável p/ revelar o que falta.
+  const canSend = schema.safeParse(fields).success;
+
+  const update =
+    (name: keyof typeof fields) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+      setFields((f) => ({ ...f, [name]: e.target.value }));
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const form = e.currentTarget;
-    const data = Object.fromEntries(new FormData(form));
-    const parsed = schema.safeParse(data);
+    const parsed = schema.safeParse(fields);
 
     if (!parsed.success) {
       setState("error");
@@ -87,7 +97,7 @@ export function ContactForm() {
         { publicKey },
       );
       setState("success");
-      form.reset();
+      setFields(EMPTY);
     } catch (err) {
       setState("error");
       setErrorMsg(
@@ -99,48 +109,39 @@ export function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="shadow-card flex w-full max-w-[480px] flex-col gap-3 rounded-[8px] bg-[color:var(--color-cream)] p-5"
+      className="shadow-card flex w-full max-w-[520px] flex-col gap-3 rounded-[8px] bg-[color:var(--color-cream)] p-5"
       noValidate
     >
       {/* Nome (full) + contato (email/telefone, pelo menos um) */}
-      <input name="nome" type="text" autoComplete="name" placeholder="Seu nome" className={fieldClass} />
+      <input name="nome" type="text" autoComplete="name" placeholder="Seu nome" value={fields.nome} onChange={update("nome")} className={fieldClass} />
       <div className="grid gap-3 sm:grid-cols-2">
-        <input name="email" type="email" autoComplete="email" placeholder="Seu email" className={fieldClass} />
-        <input name="telefone" type="tel" autoComplete="tel" placeholder="Seu telefone" className={fieldClass} />
+        <input name="email" type="email" autoComplete="email" placeholder="Seu email" value={fields.email} onChange={update("email")} className={fieldClass} />
+        <input name="telefone" type="tel" autoComplete="tel" placeholder="Seu telefone" value={fields.telefone} onChange={update("telefone")} className={fieldClass} />
       </div>
       <p className="-mt-1 text-xs text-[color:var(--color-blue)]/70">
         Deixe pelo menos um: email ou telefone.
       </p>
 
-      {/* Campo de solicitação — o protagonista, como no Figma */}
-      <textarea
-        name="mensagem"
-        rows={5}
-        placeholder="Digite sua solicitação..."
-        className={`${fieldClass} resize-y`}
-      />
-
-      <div className="flex items-center justify-between gap-3">
-        <p
-          className={`text-sm ${
-            state === "error"
-              ? "text-red-600"
-              : "text-[color:var(--color-blue)]"
-          }`}
-          role="status"
-        >
-          {state === "success"
-            ? "Recebida! Vou responder em breve :)"
-            : state === "error"
-              ? errorMsg
-              : ""}
-        </p>
-
+      {/* Campo de solicitação — o protagonista, com o botão de enviar DENTRO da
+          caixa (canto inferior direito), como no Figma. */}
+      <div className="relative">
+        <textarea
+          name="mensagem"
+          rows={8}
+          placeholder="Digite sua solicitação..."
+          value={fields.mensagem}
+          onChange={update("mensagem")}
+          className={`${fieldClass} resize-none pb-16`}
+        />
         <button
           type="submit"
           aria-label="Enviar solicitação"
           disabled={state === "sending"}
-          className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[color:var(--color-blue)] text-[color:var(--color-cream)] transition-all hover:bg-[color:var(--color-blue-deep)] disabled:cursor-not-allowed disabled:opacity-50"
+          className={`absolute bottom-3 right-3 grid h-12 w-12 place-items-center rounded-full text-[color:var(--color-cream)] transition-all disabled:opacity-60 ${
+            canSend
+              ? "bg-[color:var(--color-blue)] hover:bg-[color:var(--color-blue-deep)]"
+              : "bg-[color:var(--color-blue-soft)]"
+          }`}
         >
           {state === "sending" ? (
             <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
@@ -152,6 +153,17 @@ export function ContactForm() {
           )}
         </button>
       </div>
+
+      <p
+        className={`text-sm ${state === "error" ? "text-red-600" : "text-[color:var(--color-blue)]"}`}
+        role="status"
+      >
+        {state === "success"
+          ? "Recebida! Vou responder em breve :)"
+          : state === "error"
+            ? errorMsg
+            : ""}
+      </p>
     </form>
   );
 }

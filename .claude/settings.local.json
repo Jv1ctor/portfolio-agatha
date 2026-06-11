@@ -37,7 +37,28 @@
       "Bash(curl -s \"https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/e8bf7727-9af6-4e93-8d3c-cdee2a06c9be\" -o \"telas-personagens_272-4257@3x.png\")",
       "Bash(sort -k2)",
       "Bash(echo \"title: $\\(curl -s http://localhost:3000)",
-      "Bash(curl -s -o \"imports_figma/_pont_overview.png\" \"https://www.figma.com/api/mcp/asset/0e5783d9-80b9-4bb5-84df-6caa83589f8d\")"
+      "Bash(curl -s -o \"imports_figma/_pont_overview.png\" \"https://www.figma.com/api/mcp/asset/0e5783d9-80b9-4bb5-84df-6caa83589f8d\")",
+      "Bash(curl -s -o _fig_desktop1.png \"https://www.figma.com/api/mcp/asset/ea3a7920-b1a0-42c4-9d37-385e5056b8e9\")",
+      "Bash(curl -s -o _fig_desktop6.png \"https://www.figma.com/api/mcp/asset/f42cd66d-6092-4cae-83c9-2cdaf3b54c72\")",
+      "Bash(curl -s -o _fig_d3.png \"https://www.figma.com/api/mcp/asset/f734d575-e257-4c8c-9e02-5c0033753841\")",
+      "Bash(curl -s -o _fig_d4.png \"https://www.figma.com/api/mcp/asset/8cfabca7-a64c-4dab-aab1-8cf8db3a3a8d\")",
+      "Bash(curl -s -o _fig_case.png \"https://www.figma.com/api/mcp/asset/f4515bcd-2e6f-404e-8573-13220dd3d80f\")",
+      "Bash(curl -s -o _fig_m_home.png \"https://www.figma.com/api/mcp/asset/89c8ad45-889a-4fac-8c1d-95b2e2c0acfa\")",
+      "Bash(curl -s -o _fig_m_land.png \"https://www.figma.com/api/mcp/asset/04468049-aa5f-4e00-b309-5f1dfc62c50e\")",
+      "Bash(curl -s -o _fig_m_contato.png \"https://www.figma.com/api/mcp/asset/ad78ea84-29db-48e2-a93b-acb4bdf38027\")",
+      "Bash(cd 'C:\\\\Users\\\\kaike\\\\Desktop\\\\portifolio')",
+      "Bash(seq 1 30)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/)",
+      "Bash(curl -s -o /dev/null http://localhost:3000/3d)",
+      "Bash(curl -s -o /dev/null http://localhost:3000/)",
+      "PowerShell(Remove-Item *)",
+      "PowerShell(node -e \"const fs=require\\('fs'\\); const p='C:/Users/kaike/.claude/projects/C--Users-kaike-Desktop-portifolio/425278af-3b4d-4804-baac-4cd93292d877/tool-results/mcp-figma-get_metadata-1781131952817.txt'; const arr=JSON.parse\\(fs.readFileSync\\(p,'utf8'\\)\\); const xml=arr.map\\(x=>x.text\\).join\\(''\\); const i=xml.indexOf\\('id=\\\\\"365:431\\\\\"'\\); console.log\\(xml.slice\\(i-700,i+700\\)\\);\")",
+      "PowerShell(node _tmp_figma.js)",
+      "mcp__figma__get_variable_defs",
+      "PowerShell(node _tmp_inspect.js)",
+      "PowerShell(node _tmp_fix.js)",
+      "PowerShell(node _tmp_sample.js)",
+      "PowerShell(Out-Null *)"
     ]
   }
 }

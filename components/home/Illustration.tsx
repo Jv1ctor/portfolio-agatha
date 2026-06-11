@@ -21,10 +21,14 @@ export function Illustration({
   name,
   alt,
   className,
+  maxWidth,
 }: {
   name: IllustrationName;
   alt: string;
   className?: string;
+  /** Limite de largura de exibição (px). Default = largura nativa do PNG.
+      Acima do nativo há leve upscaling — o grão disfarça. */
+  maxWidth?: number;
 }) {
   const { src, width, height } = ILLUSTRATIONS[name];
   return (
@@ -35,7 +39,7 @@ export function Illustration({
       width={width}
       height={height}
       className={className}
-      style={{ width: "100%", maxWidth: width, height: "auto" }}
+      style={{ width: "100%", maxWidth: maxWidth ?? width, height: "auto" }}
     />
   );
 }
