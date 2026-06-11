@@ -117,7 +117,15 @@ a {
 /* Helpers de fundo/sombra — via classe (não inline) para reduzir
    conflito com extensões tipo Dark Reader e ficar mais limpo. */
 .bg-band {
-  background: var(--gradient-band);
+  /* Gradiente em CSS (mantém ângulo/cor em qualquer largura) + grão raster por
+     cima via overlay. O grão (band-noise.png) foi extraído da própria banda do
+     Figma (high-pass). PNG raster e não SVG/feTurbulence (que aliasa no browser
+     — ver [[feedback-assets-e-decisoes]]). Tile pequeno repetido = grão nítido e
+     responsivo. */
+  background-image: url("/images/band-noise.png"), var(--gradient-band);
+  background-repeat: repeat, no-repeat;
+  background-size: 180px 180px, cover;
+  background-blend-mode: overlay, normal;
 }
 .bg-placeholder {
   background: var(--gradient-placeholder);

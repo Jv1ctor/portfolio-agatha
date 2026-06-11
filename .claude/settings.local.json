@@ -59,7 +59,8 @@
       "PowerShell(node _tmp_fix.js)",
       "PowerShell(node _tmp_sample.js)",
       "PowerShell(Out-Null *)",
-      "PowerShell(node _tmp_ids.js)"
+      "PowerShell(node _tmp_ids.js)",
+      "PowerShell(node _tmp_noise.js)"
     ]
   }
 }
