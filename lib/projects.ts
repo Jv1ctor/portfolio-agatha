@@ -23,7 +23,7 @@ export const slugToKey = {
   'pontinhas-soltas': 'pontinhasSoltas',
 } as const;
 
-export type ProjectI18nKey = keyof typeof slugToKey;
+export type ProjectI18nKey = (typeof slugToKey)[Slug];
 export type Slug = keyof typeof slugToKey;
 
 export type ProjectI18n = Dictionary['projects'][ProjectI18nKey];
