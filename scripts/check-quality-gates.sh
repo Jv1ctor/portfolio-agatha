@@ -267,8 +267,10 @@ gate_3() {
   log_gate "3" "Component Migration (Tasks 6-13)"
 
   log_sub "Search for hardcoded Portuguese strings..."
+  # Ignora linhas de COMENTÁRIO em tsx — strings em comentários não renderizam.
   HARDCODED=$(grep -rE '"(Sobre mim|Solicitar serviços|Gráfico|Interação|Serviços|Vamos trabalhar|Enviar solicitação|Obrigada por ter|Concluído|Em progresso|Em breve|Ver mais\.|Redes sociais|Processo de criação|Prototipagem|Projeto final)"' \
-    components/ "app/[lang]/" --include="*.tsx" --include="*.ts" 2>/dev/null || true)
+    components/ "app/[lang]/" --include="*.tsx" --include="*.ts" 2>/dev/null \
+    | grep -vE '^\S+:\s*//|/\*|\*/|\{/\*' || true)
 
   if [ -z "$HARDCODED" ]; then
     log_pass "No hardcoded Portuguese strings found"
@@ -305,8 +307,9 @@ gate_3() {
   done
 
   log_sub "Build passes..."
-  pnpm build > /tmp/gate3-build.log 2>&1
-  if [ $? -eq 0 ]; then
+  BUILD_EXIT=0
+  pnpm build > /tmp/gate3-build.log 2>&1 || BUILD_EXIT=$?
+  if [ $BUILD_EXIT -eq 0 ]; then
     log_pass "Build passes"
   elif grep -q "minimumReleaseAge" /tmp/gate3-build.log; then
     log_skip "Build blocked by pnpm minimumReleaseAge policy"
@@ -316,8 +319,9 @@ gate_3() {
   fi
 
   log_sub "Lint passes..."
-  pnpm lint > /tmp/gate3-lint.log 2>&1
-  if [ $? -eq 0 ]; then
+  LINT_EXIT=0
+  pnpm lint > /tmp/gate3-lint.log 2>&1 || LINT_EXIT=$?
+  if [ $LINT_EXIT -eq 0 ]; then
     log_pass "Lint passes"
   elif grep -q "minimumReleaseAge" /tmp/gate3-lint.log; then
     log_skip "Lint blocked by pnpm minimumReleaseAge policy"
@@ -431,7 +435,7 @@ gate_5() {
   done
 
   log_sub "Test: / redirects to /pt-BR/ (no cookie)..."
-  REDIRECT=$(curl -s -o /dev/null -w "%{redirect_url}" http://localhost:3000/)
+  REDIRECT=$(curl -s --max-time 15 -o /dev/null -w "%{redirect_url}" http://localhost:3000/)
   if [[ "$REDIRECT" == *"/pt-BR/"* ]] || [[ "$REDIRECT" == *"/pt-BR" ]]; then
     log_pass "Redirects to /pt-BR/"
   else
@@ -439,7 +443,7 @@ gate_5() {
   fi
 
   log_sub "Test: / redirects to /en/ (Accept-Language: en)..."
-  REDIRECT_EN=$(curl -s -o /dev/null -w "%{redirect_url}" -H "Accept-Language: en-US,en;q=0.9" http://localhost:3000/)
+  REDIRECT_EN=$(curl -s --max-time 15 -o /dev/null -w "%{redirect_url}" -H "Accept-Language: en-US,en;q=0.9" http://localhost:3000/)
   if [[ "$REDIRECT_EN" == *"/en"* ]]; then
     log_pass "Redirects to /en/"
   else
@@ -447,7 +451,7 @@ gate_5() {
   fi
 
   log_sub "Test: / with cookie NEXT_LOCALE=en..."
-  REDIRECT_COOKIE=$(curl -s -o /dev/null -w "%{redirect_url}" -H "Cookie: NEXT_LOCALE=en" http://localhost:3000/)
+  REDIRECT_COOKIE=$(curl -s --max-time 15 -o /dev/null -w "%{redirect_url}" -H "Cookie: NEXT_LOCALE=en" http://localhost:3000/)
   if [[ "$REDIRECT_COOKIE" == *"/en"* ]]; then
     log_pass "Cookie preference respected"
   else
@@ -455,18 +459,26 @@ gate_5() {
   fi
 
   log_sub "Test: direct locale access returns 200..."
+  # Sem trailing slash: o Next normaliza "/pt-BR/" → 308 → "/pt-BR" e o teste
+  # mediria o redirect, não a rota.
+  FAILED_ROUTES=0
   for locale in pt-BR en; do
     for path in "" "contato" "grafico" "interacao" "servicos" "3d" "projetos/pontos-sem-no" "projetos/batuco-tuco" "projetos/pontinhas-soltas"; do
-      STATUS=$(curl -s -o /dev/null -w "%{http_code}" "http://localhost:3000/$locale/$path")
+      STATUS=$(curl -s --max-time 15 -o /dev/null -w "%{http_code}" "http://localhost:3000/$locale${path:+/$path}")
       if [ "$STATUS" != "200" ]; then
         log_fail "/$locale/$path → HTTP $STATUS (expected 200)"
+        FAILED_ROUTES=$((FAILED_ROUTES + 1))
       fi
     done
   done
-  log_pass "All 18 routes return 200"
+  if [ "$FAILED_ROUTES" -eq 0 ]; then
+    log_pass "All 18 routes return 200"
+  else
+    log_fail "$FAILED_ROUTES of 18 routes did not return 200"
+  fi
 
   log_sub "Test: invalid locale returns 404..."
-  STATUS=$(curl -s -o /dev/null -w "%{http_code}" "http://localhost:3000/fr/contato")
+  STATUS=$(curl -s --max-time 15 -o /dev/null -w "%{http_code}" "http://localhost:3000/fr/contato")
   if [ "$STATUS" = "404" ]; then
     log_pass "Invalid locale returns 404"
   else
@@ -474,13 +486,17 @@ gate_5() {
   fi
 
   log_sub "Test: HTML lang attribute..."
-  LANG_PT=$(curl -s "http://localhost:3000/pt-BR/" | grep -o '<html[^>]*lang="[^"]*"' | grep -o 'lang="[^"]*"')
-  LANG_EN=$(curl -s "http://localhost:3000/en/" | grep -o '<html[^>]*lang="[^"]*"' | grep -o 'lang="[^"]*"')
+  # || true: sob set -e, atribuição com substituição de comando falhando (grep
+  # sem match) abortaria o runner no lugar de reportar a falha.
+  LANG_PT=$(curl -s --max-time 15 "http://localhost:3000/pt-BR" | grep -o '<html[^>]*lang="[^"]*"' | grep -o 'lang="[^"]*"') || true
+  LANG_EN=$(curl -s --max-time 15 "http://localhost:3000/en" | grep -o '<html[^>]*lang="[^"]*"' | grep -o 'lang="[^"]*"') || true
   [ "$LANG_PT" = 'lang="pt-BR"' ] && log_pass "pt-BR page has lang=\"pt-BR\"" || log_fail "pt-BR lang: $LANG_PT"
   [ "$LANG_EN" = 'lang="en"' ] && log_pass "en page has lang=\"en\"" || log_fail "en lang: $LANG_EN"
 
   log_sub "Test: hreflang alternates present..."
-  HREFLANG=$(curl -s "http://localhost:3000/pt-BR/" | grep -o 'hreflang="[^"]*"' | sort -u | tr '\n' ' ')
+  # -i: Next/React sério renderiza o atributo como hrefLang (mesmo atributo
+  # hreflang no HTML — parsing é case-insensitive).
+  HREFLANG=$(curl -s --max-time 15 "http://localhost:3000/pt-BR" | grep -io 'hreflang="[^"]*"' | sort -u | tr '\n' ' ') || true
   if [[ "$HREFLANG" == *"pt-BR"* ]] && [[ "$HREFLANG" == *"en"* ]]; then
     log_pass "hreflang alternates: $HREFLANG"
   else
@@ -488,7 +504,7 @@ gate_5() {
   fi
 
   log_sub "Test: no raw dictionary keys in HTML..."
-  RAW_KEYS=$(curl -s "http://localhost:3000/en/" | grep -oE '(home|nav|contact|projects|status|footer|metadata)\.[a-zA-Z]+' | head -5 || true)
+  RAW_KEYS=$(curl -s --max-time 15 "http://localhost:3000/en" | grep -oE '(home|nav|contact|projects|status|footer|metadata)\.[a-zA-Z]+' | head -5 || true)
   if [ -z "$RAW_KEYS" ]; then
     log_pass "No raw dictionary keys visible"
   else
@@ -496,8 +512,8 @@ gate_5() {
   fi
 
   log_sub "Test: translated content present..."
-  EN_TEXT=$(curl -s "http://localhost:3000/en/" | grep -ciE "hello|about|experience" || true)
-  PT_TEXT=$(curl -s "http://localhost:3000/pt-BR/" | grep -ciE "olá|sobre|experiência" || true)
+  EN_TEXT=$(curl -s --max-time 15 "http://localhost:3000/en" | grep -ciE "hello|about|experience" || true)
+  PT_TEXT=$(curl -s --max-time 15 "http://localhost:3000/pt-BR" | grep -ciE "olá|sobre|experiência" || true)
   [ "$EN_TEXT" -gt 0 ] && log_pass "English content found on /en/" || log_fail "No English content on /en/"
   [ "$PT_TEXT" -gt 0 ] && log_pass "Portuguese content found on /pt-BR/" || log_fail "No Portuguese content on /pt-BR/"
 
@@ -528,8 +544,9 @@ gate_6() {
   fi
 
   log_sub "Lint..."
-  pnpm lint > /tmp/gate6-lint.log 2>&1
-  if [ $? -eq 0 ]; then
+  LINT_EXIT=0
+  pnpm lint > /tmp/gate6-lint.log 2>&1 || LINT_EXIT=$?
+  if [ $LINT_EXIT -eq 0 ]; then
     log_pass "Lint passes"
   elif grep -q "minimumReleaseAge" /tmp/gate6-lint.log; then
     log_skip "Lint blocked by pnpm minimumReleaseAge policy"
@@ -539,8 +556,9 @@ gate_6() {
   fi
 
   log_sub "TypeScript..."
-  pnpm exec tsc --noEmit > /tmp/gate6-tsc.log 2>&1
-  if [ $? -eq 0 ]; then
+  TSC_EXIT=0
+  pnpm exec tsc --noEmit > /tmp/gate6-tsc.log 2>&1 || TSC_EXIT=$?
+  if [ $TSC_EXIT -eq 0 ]; then
     log_pass "TypeScript: no errors"
   elif grep -q "minimumReleaseAge" /tmp/gate6-tsc.log 2>/dev/null; then
     log_skip "TypeScript blocked by pnpm minimumReleaseAge policy"

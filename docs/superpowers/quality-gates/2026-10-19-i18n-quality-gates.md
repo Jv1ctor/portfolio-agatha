@@ -86,8 +86,11 @@ kill %1 2>/dev/null
 
 ### Gate Result
 
-- [ ] **PASS** — Proceed to Task 1
+- [x] **PASS** — Proceed to Task 1
 - [ ] **FAIL** — Fix baseline issues before starting
+
+> **Evidence (2026-10-19):** 4/4 checks PASS — `pnpm exec tsc --noEmit` clean,
+> lint clean, build 10 routes, dev server responds. Runner: `./scripts/check-quality-gates.sh 0` → exit 0.
 
 ---
 
@@ -152,8 +155,12 @@ Verify `pt-BR.json` has all required keys:
 
 ### Gate Result
 
-- [ ] **PASS** — Proceed to Task 5 (route migration)
+- [x] **PASS** — Proceed to Task 5 (route migration)
 - [ ] **FAIL** — Fix infrastructure before migrating routes
+
+> **Evidence (2026-10-19):** 15/15 PASS — tsc clean; negative type-safety test
+> (en.json truncado → build falha; restaurado → ok); JSON válido; exports presentes;
+> estrutura do dicionário completa (6/6). Runner exit 0.
 
 ---
 
@@ -230,8 +237,13 @@ Verify build output includes these routes (sample):
 
 ### Gate Result
 
-- [ ] **PASS** — Proceed to Task 6 (component updates)
+- [x] **PASS** — Proceed to Task 6 (component updates)
 - [ ] **FAIL** — Fix route structure before updating components
+
+> **Evidence (2026-10-19):** 18/18 PASS — 18 rotas estáticas (9 × pt-BR/en, contadas
+> com o regex `[├└] /(pt-BR|en)`), layout exporta `generateStaticParams` +
+> `generateMetadata`, `<html lang>` dinâmico, `notFound()` para locale inválido.
+> Runner exit 0.
 
 ---
 
@@ -351,8 +363,12 @@ pnpm lint
 
 ### Gate Result
 
-- [ ] **PASS** — Proceed to Task 14 (page updates)
+- [x] **PASS** — Proceed to Task 14 (page updates)
 - [ ] **FAIL** — Fix component translations before updating pages
+
+> **Evidence (2026-10-19):** 14/14 PASS — rodado após Task 14 (checks de build/lint
+> do gate só são verdadeiros com as páginas migradas; verificado no ledger).
+> Runner exit 0.
 
 ---
 
@@ -441,8 +457,12 @@ pnpm exec tsc --noEmit
 
 ### Gate Result
 
-- [ ] **PASS** — Proceed to Gate 5 (runtime verification)
+- [x] **PASS** — Proceed to Gate 5 (runtime verification)
 - [ ] **FAIL** — Fix page implementations
+
+> **Evidence (2026-10-19):** 20/20 PASS — zero strings hardcoded em
+> páginas/componentes traduzidos (grep filtra comentários), todos os textos
+> vêm de `dict.*`, chaves de dicionário resolvidas por tipo. Runner exit 0.
 
 ---
 
@@ -603,8 +623,14 @@ pnpm build 2>&1 | grep -E "First Load JS" | head -5
 
 ### Gate Result
 
-- [ ] **PASS** — Feature complete, ready for review/PR
+- [x] **PASS** — Feature complete, ready for review/PR
 - [ ] **FAIL** — Fix runtime issues
+
+> **Evidence (2026-10-20):** 11/11 PASS — redirects (cookie/Accept-Language/default),
+> 18 rotas diretas 200, `/fr/contato` → 404 (o proxy deixa passar e o layout
+> `[lang]` responde notFound), `<html lang>` correto nos dois idiomas, `hreflang`
+> presentes, sem chaves de dicionário cruas no HTML, conteúdo EN/PT verificado.
+> Runner exit 0.
 
 ---
 

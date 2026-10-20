@@ -18,6 +18,15 @@ export function proxy(request: NextRequest) {
   );
   if (pathnameHasLocale) return;
 
+  // Segmento inicial parece um locale não suportado (ex.: /fr/contato)? Deixa
+  // passar: o layout [lang] valida o locale e responde 404 direto — sem um
+  // redirect intermediário. Todas as rotas reais têm mais de 2 letras ('contato',
+  // 'grafico') ou começam com dígito ('3d'), então nada legítimo cai aqui.
+  const firstSegment = pathname.split('/')[1] ?? '';
+  if (firstSegment && /^[a-z]{2}(-[a-zA-Z0-9]{2,8})?$/i.test(firstSegment)) {
+    return;
+  }
+
   // Detect locale: cookie > Accept-Language > default
   const cookieLocale = request.cookies.get('NEXT_LOCALE')?.value;
   const acceptLang = request.headers.get('accept-language') ?? '';
