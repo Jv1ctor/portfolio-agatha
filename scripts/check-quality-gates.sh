@@ -149,8 +149,9 @@ gate_1() {
   log_sub "Type-safety negative test (en.json missing keys should fail build)..."
   cp dictionaries/en.json /tmp/en.json.backup 2>/dev/null || true
   echo '{"site": {}}' > dictionaries/en.json
-  pnpm build > /tmp/gate1-neg.log 2>&1
-  BUILD_EXIT=$?
+  # build é ESPERADO falhar aqui — sem `||`, o set -e mata o script
+  BUILD_EXIT=0
+  pnpm build > /tmp/gate1-neg.log 2>&1 || BUILD_EXIT=$?
   cp /tmp/en.json.backup dictionaries/en.json 2>/dev/null || true
 
   if [ $BUILD_EXIT -ne 0 ]; then
@@ -231,8 +232,8 @@ gate_2() {
   fi
 
   log_sub "Build and count routes..."
-  pnpm build > /tmp/gate2-build.log 2>&1
-  BUILD_EXIT=$?
+  BUILD_EXIT=0
+  pnpm build > /tmp/gate2-build.log 2>&1 || BUILD_EXIT=$?
   if [ $BUILD_EXIT -eq 0 ]; then
     log_pass "Build passes"
     LOCALE_ROUTES=$(grep -E "^[├└○●]" /tmp/gate2-build.log | grep -cE "/(pt-BR|en)" || true)
@@ -395,8 +396,8 @@ gate_4() {
   fi
 
   log_sub "Build passes..."
-  pnpm build > /tmp/gate4-build.log 2>&1
-  BUILD_EXIT=$?
+  BUILD_EXIT=0
+  pnpm build > /tmp/gate4-build.log 2>&1 || BUILD_EXIT=$?
   if [ $BUILD_EXIT -eq 0 ]; then
     log_pass "Build passes"
     ROUTES=$(grep -E "^[├└○●]" /tmp/gate4-build.log | grep -cE "/(pt-BR|en)" || true)
@@ -512,8 +513,8 @@ gate_6() {
 
   log_sub "Clean build from scratch..."
   rm -rf .next
-  pnpm build > /tmp/gate6-build.log 2>&1
-  BUILD_EXIT=$?
+  BUILD_EXIT=0
+  pnpm build > /tmp/gate6-build.log 2>&1 || BUILD_EXIT=$?
   if [ $BUILD_EXIT -eq 0 ]; then
     log_pass "Clean build passes"
     ROUTES=$(grep -E "^[├└○●]" /tmp/gate6-build.log | grep -cE "/(pt-BR|en)" || true)
