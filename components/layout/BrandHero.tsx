@@ -1,7 +1,6 @@
 "use client";
 
 import { useLayoutEffect, useRef, useState } from "react";
-import { site } from "@/lib/site";
 
 /**
  * Hero display no topo de cada página — banda full-width com gradiente azul e o
@@ -21,8 +20,8 @@ import { site } from "@/lib/site";
  *
  * Home/Contato usam "Ágatha sales"; landings, o nome da categoria.
  */
-export function BrandHero({ title }: { title?: string }) {
-  const text = title ?? site.name;
+export function BrandHero({ title }: { title: string }) {
+  const text = title;
   const textRef = useRef<SVGTextElement>(null);
   const [box, setBox] = useState<{ x: number; y: number; w: number; h: number } | null>(null);
 
