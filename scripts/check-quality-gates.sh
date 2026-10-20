@@ -236,7 +236,7 @@ gate_2() {
   pnpm build > /tmp/gate2-build.log 2>&1 || BUILD_EXIT=$?
   if [ $BUILD_EXIT -eq 0 ]; then
     log_pass "Build passes"
-    LOCALE_ROUTES=$(grep -E "^[├└○●]" /tmp/gate2-build.log | grep -cE "/(pt-BR|en)" || true)
+    LOCALE_ROUTES=$(grep -cE "[├└] /(pt-BR|en)" /tmp/gate2-build.log || true)
     log_info "Locale-prefixed routes: $LOCALE_ROUTES (expected: 18)"
     if [ "$LOCALE_ROUTES" -ge 18 ]; then
       log_pass "Route count >= 18"
@@ -400,7 +400,7 @@ gate_4() {
   pnpm build > /tmp/gate4-build.log 2>&1 || BUILD_EXIT=$?
   if [ $BUILD_EXIT -eq 0 ]; then
     log_pass "Build passes"
-    ROUTES=$(grep -E "^[├└○●]" /tmp/gate4-build.log | grep -cE "/(pt-BR|en)" || true)
+    ROUTES=$(grep -cE "[├└] /(pt-BR|en)" /tmp/gate4-build.log || true)
     log_info "Routes: $ROUTES"
     [ "$ROUTES" -ge 18 ] && log_pass "18+ routes generated" || log_fail "Less than 18 routes"
   elif grep -q "minimumReleaseAge" /tmp/gate4-build.log; then
@@ -517,7 +517,7 @@ gate_6() {
   pnpm build > /tmp/gate6-build.log 2>&1 || BUILD_EXIT=$?
   if [ $BUILD_EXIT -eq 0 ]; then
     log_pass "Clean build passes"
-    ROUTES=$(grep -E "^[├└○●]" /tmp/gate6-build.log | grep -cE "/(pt-BR|en)" || true)
+    ROUTES=$(grep -cE "[├└] /(pt-BR|en)" /tmp/gate6-build.log || true)
     log_info "Routes: $ROUTES"
     [ "$ROUTES" -ge 18 ] && log_pass "18+ routes" || log_fail "Route count issue"
   elif grep -q "minimumReleaseAge" /tmp/gate6-build.log; then
