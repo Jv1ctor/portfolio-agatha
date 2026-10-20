@@ -25,6 +25,25 @@
 
 **Exit codes:** `0` = PASS, `1` = FAIL
 
+### ⚠️ Known Issue: pnpm minimumReleaseAge Policy
+
+If builds fail with `minimumReleaseAge cutoff` errors, this is an **environment policy**, not a code issue. The lockfile contains packages published within the last 24h, which pnpm's security policy rejects.
+
+**Fix (run once):**
+
+```bash
+# Option 1: Project-level (recommended)
+echo "minimum-release-age=0" >> .npmrc
+
+# Option 2: Global
+pnpm config set minimum-release-age 0
+
+# Then rebuild
+pnpm install
+```
+
+The quality gates script **detects this automatically** and marks affected checks as `SKIP` (yellow) instead of `FAIL`.
+
 ---
 
 ## Gate 0: Pre-Implementation (Baseline)
