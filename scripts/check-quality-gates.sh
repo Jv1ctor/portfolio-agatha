@@ -214,7 +214,8 @@ gate_2() {
   log_gate "2" "Route Structure (Task 5)"
 
   log_sub "app/[lang]/ structure..."
-  for dir in "app/[lang]/layout.tsx" "app/[lang]/page.tsx" "app/[lang]/globals.css" "app/[lang]/favicon.ico" "app/[lang]/contato" "app/[lang]/grafico" "app/[lang]/interacao" "app/[lang]/servicos" "app/[lang]/3d" "app/[lang]/projetos"; do
+  # favicon.ico lives at app/ root — Next serves it at /favicon.ico, never from inside [lang]
+  for dir in "app/[lang]/layout.tsx" "app/[lang]/page.tsx" "app/[lang]/globals.css" "app/favicon.ico" "app/[lang]/contato" "app/[lang]/grafico" "app/[lang]/interacao" "app/[lang]/servicos" "app/[lang]/3d" "app/[lang]/projetos"; do
     if [ -e "$dir" ]; then
       log_pass "  $dir exists"
     else
@@ -223,8 +224,9 @@ gate_2() {
   done
 
   log_sub "No stray files at app/ root..."
+  # favicon.ico legitimately lives at app/ root (served at /favicon.ico) — excluded here like in the find below
   STRAY=$(find app -maxdepth 1 -type f ! -name "*.tsx" ! -name "*.ts" ! -name "*.css" ! -name "*.ico" 2>/dev/null | grep -v "\[lang\]" || true)
-  STRAY_FILES=$(ls app/*.tsx app/*.css app/*.ico 2>/dev/null | grep -v "\[lang\]" || true)
+  STRAY_FILES=$(ls app/*.tsx app/*.css 2>/dev/null | grep -v "\[lang\]" || true)
   if [ -z "$STRAY_FILES" ]; then
     log_pass "No stray page/layout files at app/ root"
   else
