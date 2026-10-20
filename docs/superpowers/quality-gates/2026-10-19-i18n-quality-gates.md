@@ -735,8 +735,13 @@ Before requesting external review:
 
 ### Gate Result
 
-- [ ] **PASS** — Ready for PR
+- [x] **PASS** — Ready for PR
 - [ ] **FAIL** — Fix issues before PR
+
+> **Evidence (2026-10-20):** 9/9 PASS — `rm -rf .next` + build limpo (18 rotas),
+> lint ok, `tsc --noEmit` limpo, sem secrets/debug logs/dangerouslySetInnerHTML,
+> paridade de dicionário 123 chaves (pt-BR ↔ en), 21 commits no branch.
+> Runner exit 0.
 
 ---
 
