@@ -74,9 +74,9 @@ export default async function RootLayout({
       </head>
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <I18nProvider dict={dict} locale={lang}>
-          <Header />
+          <Header locale={lang} dict={dict} />
           <main className="flex-1">{children}</main>
-          <Footer />
+          <Footer dict={dict} />
         </I18nProvider>
       </body>
     </html>
