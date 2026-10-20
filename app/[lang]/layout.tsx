@@ -22,6 +22,10 @@ export async function generateMetadata({
   const dict = await getDictionary(lang);
 
   return {
+    // hreflang exige URL absoluta (Google valida full-qualified); o SITE_URL é
+    // a origem pública do site (definido no deploy). O x-default aponta para o
+    // locale padrão — padrão de mercado para sets hreflang.
+    metadataBase: new URL(process.env.SITE_URL ?? 'http://localhost:3000'),
     title: {
       default: dict.site.name,
       template: `%s · ${dict.site.name}`,
@@ -37,6 +41,7 @@ export async function generateMetadata({
       languages: {
         'pt-BR': '/pt-BR',
         en: '/en',
+        'x-default': '/pt-BR',
       },
     },
   };

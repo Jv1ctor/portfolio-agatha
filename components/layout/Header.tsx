@@ -52,7 +52,7 @@ export function Header({
               );
             })}
           </nav>
-          <LanguageSwitcher currentLocale={locale} />
+          <LanguageSwitcher currentLocale={locale} dict={dict} />
         </div>
 
         {/* Direita: Gráfico · Interação · Serviços · 3D */}

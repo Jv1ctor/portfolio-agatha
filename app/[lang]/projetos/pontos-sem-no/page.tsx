@@ -20,6 +20,7 @@ export async function generateMetadata({
       languages: {
         "pt-BR": "/pt-BR/projetos/pontos-sem-no",
         en: "/en/projetos/pontos-sem-no",
+        "x-default": "/pt-BR/projetos/pontos-sem-no",
       },
     },
   };

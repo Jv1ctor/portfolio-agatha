@@ -16,7 +16,7 @@ export async function generateMetadata({
   return {
     title: dict.metadata.contato,
     alternates: {
-      languages: { "pt-BR": "/pt-BR/contato", en: "/en/contato" },
+      languages: { "pt-BR": "/pt-BR/contato", en: "/en/contato", "x-default": "/pt-BR/contato" },
     },
   };
 }

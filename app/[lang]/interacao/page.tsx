@@ -14,7 +14,7 @@ export async function generateMetadata({
   return {
     title: dict.metadata.interacao,
     alternates: {
-      languages: { "pt-BR": "/pt-BR/interacao", en: "/en/interacao" },
+      languages: { "pt-BR": "/pt-BR/interacao", en: "/en/interacao", "x-default": "/pt-BR/interacao" },
     },
   };
 }

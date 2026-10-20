@@ -20,6 +20,7 @@ export async function generateMetadata({
       languages: {
         "pt-BR": "/pt-BR/projetos/batuco-tuco",
         en: "/en/projetos/batuco-tuco",
+        "x-default": "/pt-BR/projetos/batuco-tuco",
       },
     },
   };

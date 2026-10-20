@@ -14,7 +14,7 @@ export async function generateMetadata({
   return {
     title: dict.metadata.grafico,
     alternates: {
-      languages: { "pt-BR": "/pt-BR/grafico", en: "/en/grafico" },
+      languages: { "pt-BR": "/pt-BR/grafico", en: "/en/grafico", "x-default": "/pt-BR/grafico" },
     },
   };
 }

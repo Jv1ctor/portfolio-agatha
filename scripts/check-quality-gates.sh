@@ -434,28 +434,40 @@ gate_5() {
     sleep 1
   done
 
+  # Asserções duras: redirect inesperado (ou 200 direto) aqui é FALHA — são a
+  # única cobertura do requisito central de detecção (cookie > Accept-Language
+  # > default). log_info silencioso permitiria erro passar como PASS.
   log_sub "Test: / redirects to /pt-BR/ (no cookie)..."
   REDIRECT=$(curl -s --max-time 15 -o /dev/null -w "%{redirect_url}" http://localhost:3000/)
-  if [[ "$REDIRECT" == *"/pt-BR/"* ]] || [[ "$REDIRECT" == *"/pt-BR" ]]; then
+  REDIRECT_CODE=$(curl -s --max-time 15 -o /dev/null -w "%{http_code}" http://localhost:3000/)
+  if [[ "$REDIRECT_CODE" == "307" ]] && [[ "$REDIRECT" == *"/pt-BR" ]]; then
     log_pass "Redirects to /pt-BR/"
   else
-    log_info "Redirect: $REDIRECT (may be direct 200 in dev mode)"
+    log_fail "/ → HTTP $REDIRECT_CODE redirect $REDIRECT (expected 307 → /pt-BR)"
   fi
 
   log_sub "Test: / redirects to /en/ (Accept-Language: en)..."
   REDIRECT_EN=$(curl -s --max-time 15 -o /dev/null -w "%{redirect_url}" -H "Accept-Language: en-US,en;q=0.9" http://localhost:3000/)
-  if [[ "$REDIRECT_EN" == *"/en"* ]]; then
+  if [[ "$REDIRECT_EN" == *"/en" ]]; then
     log_pass "Redirects to /en/"
   else
-    log_info "Redirect: $REDIRECT_EN (may be direct 200 in dev mode)"
+    log_fail "Accept-Language → $REDIRECT_EN (expected → /en)"
   fi
 
   log_sub "Test: / with cookie NEXT_LOCALE=en..."
   REDIRECT_COOKIE=$(curl -s --max-time 15 -o /dev/null -w "%{redirect_url}" -H "Cookie: NEXT_LOCALE=en" http://localhost:3000/)
-  if [[ "$REDIRECT_COOKIE" == *"/en"* ]]; then
+  if [[ "$REDIRECT_COOKIE" == *"/en" ]]; then
     log_pass "Cookie preference respected"
   else
-    log_info "Redirect: $REDIRECT_COOKIE"
+    log_fail "Cookie en → $REDIRECT_COOKIE (expected → /en)"
+  fi
+
+  log_sub "Test: favicon served at root..."
+  FAVICON=$(curl -s --max-time 15 -o /dev/null -w "%{http_code}" http://localhost:3000/favicon.ico)
+  if [ "$FAVICON" = "200" ]; then
+    log_pass "favicon.ico served (200)"
+  else
+    log_fail "/favicon.ico → HTTP $FAVICON (expected 200)"
   fi
 
   log_sub "Test: direct locale access returns 200..."
@@ -501,6 +513,16 @@ gate_5() {
     log_pass "hreflang alternates: $HREFLANG"
   else
     log_fail "hreflang missing or incomplete: $HREFLANG"
+  fi
+
+  log_sub "Test: hreflang hrefs are absolute..."
+  # Google exige full-qualified URL; href relativo significa metadataBase
+  # ausente (SITE_URL não configurado).
+  HREFABS=$(curl -s --max-time 15 "http://localhost:3000/pt-BR" | grep -io '<link rel="alternate" hreflang="[^"]*" href="[^"]*"' | grep -ic 'href="http') || true
+  if [ "${HREFABS:-0}" -ge 2 ]; then
+    log_pass "hreflang hrefs are absolute URLs"
+  else
+    log_fail "hreflang hrefs not absolute (found $HREFABS absolute): check metadataBase/SITE_URL"
   fi
 
   log_sub "Test: no raw dictionary keys in HTML..."

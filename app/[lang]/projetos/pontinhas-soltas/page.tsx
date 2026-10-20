@@ -20,6 +20,7 @@ export async function generateMetadata({
       languages: {
         "pt-BR": "/pt-BR/projetos/pontinhas-soltas",
         en: "/en/projetos/pontinhas-soltas",
+        "x-default": "/pt-BR/projetos/pontinhas-soltas",
       },
     },
   };

@@ -17,7 +17,7 @@ export async function generateMetadata({
   return {
     title: dict.metadata.home,
     alternates: {
-      languages: { "pt-BR": "/pt-BR", en: "/en" },
+      languages: { "pt-BR": "/pt-BR", en: "/en", "x-default": "/pt-BR" },
     },
   };
 }

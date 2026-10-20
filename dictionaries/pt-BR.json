@@ -9,7 +9,8 @@
     "grafico": "Gráfico",
     "interacao": "Interação",
     "servicos": "Serviços",
-    "3d": "3D"
+    "3d": "3D",
+    "switchLocale": "Mudar para {name}"
   },
   "home": {
     "greeting": "Olá a todos,",

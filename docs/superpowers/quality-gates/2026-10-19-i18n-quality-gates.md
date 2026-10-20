@@ -626,7 +626,7 @@ pnpm build 2>&1 | grep -E "First Load JS" | head -5
 - [x] **PASS** — Feature complete, ready for review/PR
 - [ ] **FAIL** — Fix runtime issues
 
-> **Evidence (2026-10-20):** 11/11 PASS — redirects (cookie/Accept-Language/default),
+> **Evidence (2026-10-20, pós fix pass):** 13/13 PASS — redirects com asserções duras (HTTP 307 + alvo; cookie/Accept-Language/default),
 > 18 rotas diretas 200, `/fr/contato` → 404 (o proxy deixa passar e o layout
 > `[lang]` responde notFound), `<html lang>` correto nos dois idiomas, `hreflang`
 > presentes, sem chaves de dicionário cruas no HTML, conteúdo EN/PT verificado.
@@ -738,10 +738,11 @@ Before requesting external review:
 - [x] **PASS** — Ready for PR
 - [ ] **FAIL** — Fix issues before PR
 
-> **Evidence (2026-10-20):** 9/9 PASS — `rm -rf .next` + build limpo (18 rotas),
-> lint ok, `tsc --noEmit` limpo, sem secrets/debug logs/dangerouslySetInnerHTML,
-> paridade de dicionário 123 chaves (pt-BR ↔ en), 21 commits no branch.
-> Runner exit 0.
+> **Evidence (2026-10-20, pós fix pass):** 9/9 PASS — `rm -rf .next` + build limpo
+> (18 rotas), lint ok, `tsc --noEmit` limpo, sem secrets/debug logs/
+> dangerouslySetInnerHTML, paridade de dicionário 124 chaves (pt-BR ↔ en),
+> 22 commits no branch. Runner exit 0. Fix pass do review: favicon no root
+> (200), hreflang absoluto com x-default, asserções duras no gate 5.
 
 ---
 

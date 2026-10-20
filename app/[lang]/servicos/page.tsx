@@ -14,7 +14,7 @@ export async function generateMetadata({
   return {
     title: dict.metadata.servicos,
     alternates: {
-      languages: { "pt-BR": "/pt-BR/servicos", en: "/en/servicos" },
+      languages: { "pt-BR": "/pt-BR/servicos", en: "/en/servicos", "x-default": "/pt-BR/servicos" },
     },
   };
 }

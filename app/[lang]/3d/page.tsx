@@ -14,7 +14,7 @@ export async function generateMetadata({
   return {
     title: dict.metadata["3d"],
     alternates: {
-      languages: { "pt-BR": "/pt-BR/3d", en: "/en/3d" },
+      languages: { "pt-BR": "/pt-BR/3d", en: "/en/3d", "x-default": "/pt-BR/3d" },
     },
   };
 }

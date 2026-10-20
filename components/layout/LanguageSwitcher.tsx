@@ -2,8 +2,15 @@
 
 import { usePathname, useRouter } from 'next/navigation';
 import { locales, localeNames, type Locale } from '@/i18n/config';
+import type { Dictionary } from '@/i18n/dictionaries';
 
-export function LanguageSwitcher({ currentLocale }: { currentLocale: Locale }) {
+export function LanguageSwitcher({
+  currentLocale,
+  dict,
+}: {
+  currentLocale: Locale;
+  dict: Dictionary;
+}) {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -29,7 +36,7 @@ export function LanguageSwitcher({ currentLocale }: { currentLocale: Locale }) {
         <button
           key={locale}
           onClick={() => switchLocale(locale)}
-          aria-label={`Switch to ${localeNames[locale]}`}
+          aria-label={dict.nav.switchLocale.replace('{name}', localeNames[locale])}
           aria-pressed={locale === currentLocale}
           className={`rounded-full px-3 py-1 text-sm transition-all ${
             locale === currentLocale
