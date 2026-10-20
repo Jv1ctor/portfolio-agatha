@@ -1,34 +1,56 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getProjectBySlug } from "@/content/projects";
+import { getDictionary, isLocale } from "@/i18n/dictionaries";
+import { getLocalizedProject } from "@/lib/projects";
 import { CaseShell, CaseSection, CaseImage } from "@/components/case-study/CaseShell";
-
-export const metadata: Metadata = { title: "Batuco-tuco" };
 
 const base = "/images/projects/batuco-tuco";
 
-const protoTabs = [
-  "Histórias do usuário",
-  "Mapa de conteúdo",
-  "Matriz A.C.",
-  "Design System",
-];
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  if (!isLocale(lang)) return {};
+  const dict = await getDictionary(lang);
+  return {
+    title: dict.metadata.batucoTuco,
+    alternates: {
+      languages: {
+        "pt-BR": "/pt-BR/projetos/batuco-tuco",
+        en: "/en/projetos/batuco-tuco",
+      },
+    },
+  };
+}
 
-export default function BatucoTucoPage() {
-  const project = getProjectBySlug("batuco-tuco");
+export default async function BatucoTucoPage({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
+  const { lang } = await params;
+  if (!isLocale(lang)) notFound();
+  const dict = await getDictionary(lang);
+  const project = getLocalizedProject("batuco-tuco", dict);
   if (!project) notFound();
 
+  const cp = project.sections.creationProcess;
+  const protoTabs = project.sections.prototyping.tabs;
+  const protoImages = project.sections.prototyping.images;
+
   return (
-    <CaseShell project={project}>
-      <CaseSection title="Processo de criação">
-        <p className="font-light text-[1rem] leading-relaxed text-[color:var(--color-blue)]">
-          Desenvolvido na disciplina de Design de Interfaces Gráficas (Unifor),
-          o desafio foi criar um Design System escalável e fluxos de usabilidade
-          coesos. Priorizei requisitos básicos, como as atividades práticas,
-          para garantir a funcionalidade antes de avançar para interações
-          complexas de banda. Em três semanas, finalizei toda a interface,
-          ativos e animações, focando na otimização da prototipagem.
-        </p>
+    <CaseShell project={project} dict={dict}>
+      <CaseSection title={cp.title}>
+        {cp.paragraphs.map((p) => (
+          <p
+            key={p.slice(0, 24)}
+            className="font-light text-[1rem] leading-relaxed text-[color:var(--color-blue)]"
+          >
+            {p}
+          </p>
+        ))}
       </CaseSection>
 
       {/* Infográfico "Interfaces Gráficas" + linha de rabiscos/wireframes.
@@ -36,15 +58,12 @@ export default function BatucoTucoPage() {
       <div className="flex flex-col gap-6">
         <CaseImage
           src={`${base}/interfaces-graficas.png`}
-          alt="Mapa do processo de Interfaces Gráficas: perfil do usuário, requisitos, métodos, similares e prototipagem."
+          alt={cp.images[0] ?? ""}
         />
-        <CaseImage
-          src={`${base}/proto-row.png`}
-          alt="Rabiscos e wireframes de baixa fidelidade das telas do app."
-        />
+        <CaseImage src={`${base}/proto-row.png`} alt={cp.images[1] ?? ""} />
       </div>
 
-      <CaseSection title="Prototipagem">
+      <CaseSection title={project.sections.prototyping.title}>
         <div className="mb-6 flex flex-wrap gap-4">
           {protoTabs.map((tab) => (
             <span
@@ -56,18 +75,9 @@ export default function BatucoTucoPage() {
           ))}
         </div>
         <div className="flex flex-col gap-8">
-          <CaseImage
-            src={`${base}/telas-1.png`}
-            alt="Interface do app e biblioteca de assets: telas de exercícios, sistema de pontos e acessórios dos personagens."
-          />
-          <CaseImage
-            src={`${base}/telas-2.png`}
-            alt="Personagens do Batuco-tuco: Yopi, Pepo, Hanni, Cybele e Gunter, cada um com seu instrumento."
-          />
-          <CaseImage
-            src={`${base}/telas-3.png`}
-            alt="Apresentação final do Batuco-tuco: Música é saber, ludificação e pesquisa transformam o ensino."
-          />
+          <CaseImage src={`${base}/telas-1.png`} alt={protoImages[0] ?? ""} />
+          <CaseImage src={`${base}/telas-2.png`} alt={protoImages[1] ?? ""} />
+          <CaseImage src={`${base}/telas-3.png`} alt={protoImages[2] ?? ""} />
         </div>
       </CaseSection>
     </CaseShell>

@@ -1,62 +1,71 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getProjectBySlug } from "@/content/projects";
+import { getDictionary, isLocale } from "@/i18n/dictionaries";
+import { getLocalizedProject } from "@/lib/projects";
 import { CaseShell, CaseSection, CaseImage } from "@/components/case-study/CaseShell";
-
-export const metadata: Metadata = { title: "Pontinhas soltas" };
 
 const base = "/images/projects/pontinhas-soltas";
 
-const protoTabs = [
-  "Design de personagens",
-  "Personas",
-  "Palavras Conceito",
-  "Blender",
-];
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  if (!isLocale(lang)) return {};
+  const dict = await getDictionary(lang);
+  return {
+    title: dict.metadata.pontinhasSoltas,
+    alternates: {
+      languages: {
+        "pt-BR": "/pt-BR/projetos/pontinhas-soltas",
+        en: "/en/projetos/pontinhas-soltas",
+      },
+    },
+  };
+}
 
-export default function PontinhasSoltasPage() {
-  const project = getProjectBySlug("pontinhas-soltas");
+export default async function PontinhasSoltasPage({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
+  const { lang } = await params;
+  if (!isLocale(lang)) notFound();
+  const dict = await getDictionary(lang);
+  const project = getLocalizedProject("pontinhas-soltas", dict);
   if (!project) notFound();
 
+  const cp = project.sections.creationProcess;
+  const protoTabs = project.sections.prototyping.tabs;
+  const protoImages = project.sections.prototyping.images;
+
   return (
-    <CaseShell project={project}>
-      <CaseSection title="Processo de criação">
-        {/* ATENÇÃO: texto do Figma é placeholder (copiado do Batuco). (PLACEHOLDER) */}
-        <p className="font-light text-[1rem] leading-relaxed text-[color:var(--color-blue)]">
-          Desenvolvido na disciplina de Design de Interfaces Gráficas (Unifor),
-          o desafio foi criar um Design System escalável e fluxos de usabilidade
-          coesos. Priorizei requisitos básicos, como as atividades práticas,
-          para garantir a funcionalidade antes de avançar para interações
-          complexas de banda. Em três semanas, finalizei toda a interface,
-          ativos e animações, focando na otimização da prototipagem.{" "}
-          (PLACEHOLDER)
-        </p>
+    <CaseShell project={project} dict={dict}>
+      <CaseSection title={cp.title}>
+        {/* ATENÇÃO: texto do Figma é placeholder (copiado do Batuco). */}
+        {cp.paragraphs.map((p) => (
+          <p
+            key={p.slice(0, 24)}
+            className="font-light text-[1rem] leading-relaxed text-[color:var(--color-blue)]"
+          >
+            {p}
+          </p>
+        ))}
       </CaseSection>
 
       {/* Sistema de identidade visual (infográfico 6 etapas) + processo em 3D
           (capturas do Blender) + biblioteca de personagens (turnarounds).
           Blocos densos do Figma — card já embutido no export. */}
       <div className="flex flex-col gap-6">
-        <CaseImage
-          src={`${base}/sistema.png`}
-          alt="Sistema de identidade visual em seis etapas: brainstorming de palavras conceito, análise de painel semântico, criação de esboços, testes gráficos, teste de impressão e manual."
-        />
-        <CaseImage
-          src={`${base}/process-1.png`}
-          alt="Capturas do processo de modelagem 3D dos personagens no Blender."
-        />
-        <CaseImage
-          src={`${base}/process-2.png`}
-          alt="Mais capturas do processo de modelagem 3D dos personagens no Blender."
-        />
+        <CaseImage src={`${base}/sistema.png`} alt={cp.images[0] ?? ""} />
+        <CaseImage src={`${base}/process-1.png`} alt={cp.images[1] ?? ""} />
+        <CaseImage src={`${base}/process-2.png`} alt={cp.images[2] ?? ""} />
       </div>
 
-      <CaseImage
-        src={`${base}/biblioteca.png`}
-        alt="Biblioteca de personagens: turnarounds (frente, 3/4 e lado) de Ali, Nina, Jemmy e demais personagens."
-      />
+      <CaseImage src={`${base}/biblioteca.png`} alt={cp.images[3] ?? ""} />
 
-      <CaseSection title="Prototipagem">
+      <CaseSection title={project.sections.prototyping.title}>
         <div className="mb-6 flex flex-wrap gap-4">
           {protoTabs.map((tab) => (
             <span
@@ -70,11 +79,11 @@ export default function PontinhasSoltasPage() {
         <div className="flex flex-col gap-8">
           <CaseImage
             src={`${base}/personagens.png`}
-            alt="Personagens finais: Jemmy, Nina, Haggy, Lac e Ali, em renderização 3D."
+            alt={protoImages[0] ?? ""}
           />
           <CaseImage
             src={`${base}/personagens-desc.png`}
-            alt="Personagens com suas descrições: Ali é serenidade, Jemmy é lirismo, Lac é ternura, Nina é peregrina e Haggy é escapismo."
+            alt={protoImages[1] ?? ""}
           />
         </div>
       </CaseSection>

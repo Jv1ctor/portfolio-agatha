@@ -1,45 +1,65 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getProjectBySlug } from "@/content/projects";
+import { getDictionary, isLocale } from "@/i18n/dictionaries";
+import { getLocalizedProject } from "@/lib/projects";
 import { CaseShell, CaseSection, CaseImage } from "@/components/case-study/CaseShell";
-
-export const metadata: Metadata = { title: "Pontos sem nó" };
 
 const base = "/images/projects/pontos-sem-no";
 
-const protoTabs = ["Brainstorming", "Painel integrado", "Braindumping"];
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  if (!isLocale(lang)) return {};
+  const dict = await getDictionary(lang);
+  return {
+    title: dict.metadata.pontosSemNo,
+    alternates: {
+      languages: {
+        "pt-BR": "/pt-BR/projetos/pontos-sem-no",
+        en: "/en/projetos/pontos-sem-no",
+      },
+    },
+  };
+}
 
-const protoThumbs = [
-  { src: `${base}/proto-1.png`, caption: "Criação de painéis" },
-  { src: `${base}/proto-2.png`, caption: "Esboços da logo" },
-  { src: `${base}/proto-3.png`, caption: "Elementos de apoio" },
-];
-
-export default function PontosSemNoPage() {
-  const project = getProjectBySlug("pontos-sem-no");
+export default async function PontosSemNoPage({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
+  const { lang } = await params;
+  if (!isLocale(lang)) notFound();
+  const dict = await getDictionary(lang);
+  const project = getLocalizedProject("pontos-sem-no", dict);
   if (!project) notFound();
 
+  const protoTabs = project.sections.prototyping.tabs;
+  const protoCaptions = project.sections.prototyping.thumbs.captions;
+
   return (
-    <CaseShell project={project}>
-      <CaseSection title="Processo de criação">
-        <p className="font-light text-[1rem] leading-relaxed text-[color:var(--color-blue)]">
-          O início do processo foi marcado pela pesquisa guiada, montando um
-          painel semântico que pudesse orientar decisões conceituais do projeto.
-          Após a pesquisa, foram realizadas seleções de elementos, tipografias,
-          cores, dentre outras representações que serviram de apoio para
-          enriquecer o repertório conceitual da marca e facilitar a sua
-          aplicação.
-        </p>
+    <CaseShell project={project} dict={dict}>
+      <CaseSection title={project.sections.creationProcess.title}>
+        {project.sections.creationProcess.paragraphs.map((p) => (
+          <p
+            key={p.slice(0, 24)}
+            className="font-light text-[1rem] leading-relaxed text-[color:var(--color-blue)]"
+          >
+            {p}
+          </p>
+        ))}
       </CaseSection>
 
       {/* Sistema de identidade visual — PNG@3x do Figma (card infográfico + 3
           tiles de apoio compostos no próprio export). */}
       <CaseImage
         src={`${base}/sistema.png`}
-        alt="Sistema de identidade visual em seis etapas: brainstorming de palavras conceito, análise de painel semântico, criação de esboços, testes gráficos, teste de impressão e manual de utilização da IDV."
+        alt={project.sections.creationProcess.images[0] ?? ""}
       />
 
-      <CaseSection title="Prototipagem">
+      <CaseSection title={project.sections.prototyping.title}>
         <div className="mb-6 flex flex-wrap gap-4">
           {protoTabs.map((tab) => (
             <span
@@ -51,28 +71,28 @@ export default function PontosSemNoPage() {
           ))}
         </div>
         <div className="grid grid-cols-3 gap-[clamp(0.75rem,4cqw,2rem)]">
-          {protoThumbs.map((t) => (
-            <figure key={t.caption}>
+          {protoCaptions.map((caption, i) => (
+            <figure key={caption}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={t.src}
-                alt={t.caption}
+                src={`${base}/proto-${i + 1}.png`}
+                alt={caption}
                 className="block aspect-square w-full"
               />
               <figcaption className="mt-2 text-[1rem] font-normal text-[color:var(--color-blue)]">
-                {t.caption}
+                {caption}
               </figcaption>
             </figure>
           ))}
         </div>
       </CaseSection>
 
-      <CaseSection title="Projeto final">
+      <CaseSection title={project.sections.finalProject.title}>
         {/* PNG@2x do Figma com os 4 blocos do projeto final (manual, biblioteca de
             personagens, variações do logo e aplicações) já empilhados. */}
         <CaseImage
           src={`${base}/projeto-final.webp`}
-          alt="Projeto final: manual da marca, biblioteca de personagens, variações do logo e aplicações."
+          alt={project.sections.finalProject.images[0] ?? ""}
         />
       </CaseSection>
     </CaseShell>

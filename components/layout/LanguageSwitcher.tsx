@@ -8,7 +8,10 @@ export function LanguageSwitcher({ currentLocale }: { currentLocale: Locale }) {
   const router = useRouter();
 
   const switchLocale = (newLocale: Locale) => {
-    // Persist preference (1 year)
+    // Persist preference (1 year). document.cookie é a única API síncrona de
+    // cookies no cliente; atribuição legítima num click handler, não uma
+    // mutação de estado do React.
+    // eslint-disable-next-line react-hooks/immutability
     document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
 
     // Swap locale prefix: /pt-BR/contato → /en/contato

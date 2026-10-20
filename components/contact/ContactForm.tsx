@@ -51,7 +51,7 @@ const fieldClass =
 const EMPTY = { nome: "", email: "", telefone: "", mensagem: "" };
 
 export function ContactForm() {
-  const { t, dict, locale } = useTranslations();
+  const { dict, locale } = useTranslations();
   const f = dict.contact.form;
   const schema = makeSchema(f);
 
