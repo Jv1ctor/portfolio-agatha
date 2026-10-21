@@ -42,13 +42,12 @@ export default async function HomePage({
         {/* ":d" gigante — Figma: x=819, y=499, 338.2px AM Novecento #BACCEB */}
         {/* Posição relativa ao wrapper: y=499 - 354 (hero bottom) = 145px */}
         <div
-          className="pointer-events-none absolute select-none font-display text-[color:var(--color-blue-soft)]"
+          className="pointer-events-none absolute -z-10 select-none font-display text-[color:var(--color-blue-soft)]"
           style={{
             fontSize: "clamp(120px, 19.57vw, 338px)",
             left: "47.4%", // 819/1728
             top: "145px", // 499 - 354 (hero height)
             lineHeight: 1,
-            zIndex: 0,
           }}
           aria-hidden="true"
         >
