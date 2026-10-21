@@ -40,8 +40,12 @@ export default async function HomePage({
       {/* Wrapper relativo para elementos absolutos entre hero e philosophy.
           overflow-x: clip — a elipse rosa sangra pra fora do canvas
           (1394+695=2089 > 1728, intencional no Figma) sem scrollbar horizontal
-          (clip, NÃO hidden — hidden criaria scroll container). */}
-      <div className="relative" style={{ overflowX: 'clip' }}>
+          (clip, NÃO hidden — hidden criaria scroll container).
+          z-0 — cria stacking context: os ornamentos decorativos em -z-10 (:d
+          gigante e elipses) precisam pintar ACIMA do background de html/body
+          (globals.css), que num stacking context externo cobriria descendentes
+          com z-index negativo. */}
+      <div className="relative z-0" style={{ overflowX: 'clip' }}>
         {/* ":d" gigante — Figma: x=819, y=499, 338.2px AM Novecento #BACCEB */}
         {/* Posição relativa ao wrapper: y=499 - 354 (hero bottom) = 145px */}
         <div
@@ -128,7 +132,9 @@ export default async function HomePage({
           (reescrita do ContactSection no Plan 5; por ela usar o padrão vw do
           Plan 2, o container-narrow foi substituído pelo próprio padding da
           section — aqui fica só o ritmo vertical py-12/md:py-20) */}
-      <div className="relative py-12 md:py-20">
+      {/* z-0 — mesma razão do wrapper de cima: stacking context para a elipse
+          rosa em -z-10 pintar acima do background de html/body. */}
+      <div className="relative z-0 py-12 md:py-20">
         {/* Elipse cyan-pink — Figma node 758:110: 455×455 at x=1131, y=3486 */}
         {/* Wrapper do contato começa em y≈3351 (fim da galeria: 2234+1117) */}
         {/* → top = 3486 − 3351 = 135px; left = 1131/1728 = 65.4% */}
