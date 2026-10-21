@@ -8,7 +8,8 @@ import type { Dictionary } from "@/i18n/dictionaries";
  * - Gradiente -63.62° (.bg-footer, token --gradient-footer próprio)
  * - Texto gigante (dict.footer.visitAlso): AM Novecento 120px cream
  *   (clamp 3rem→7.5rem), x=1, y=-45 relativos à banda → transborda ACIMA do
- *   footer (por isso overflow-visible, e não o clip padrão)
+ *   footer (por isso overflow-visible, e não o clip padrão); caixa de 166px
+ *   (lineHeight 1.383 — mesmo padrão do título Filosofia)
  * - Label de redes sociais (dict.footer.social): Clother Regular 24px cream,
  *   x=28, y=109
  * - Social rows: IG (16px Regular) + handle (16px Light, underline); gap
@@ -30,7 +31,7 @@ export function HomeFooter({ dict }: { dict: Dictionary }) {
           fontSize: "clamp(3rem, 6.94vw, 7.5rem)", // 120px @1728
           left: "1px",
           top: "-45px", // transborda acima!
-          lineHeight: 1,
+          lineHeight: 1.383, // caixa 166px = Figma (AM Novecento line-height auto)
         }}
       >
         {dict.footer.visitAlso}
