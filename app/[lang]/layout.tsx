@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getDictionary, isLocale } from '@/i18n/dictionaries';
 import { locales } from '@/i18n/config';
-import { Header } from '@/components/layout/Header';
+import { HeaderRouter } from '@/components/layout/HeaderRouter';
 import { Footer } from '@/components/layout/Footer';
 import { I18nProvider } from '@/lib/i18n/provider';
 import './globals.css';
@@ -79,7 +79,9 @@ export default async function RootLayout({
       </head>
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <I18nProvider dict={dict} locale={lang}>
-          <Header locale={lang} dict={dict} />
+          {/* Roteia: home v2 usa HomeHeader (Figma Pontossemno); demais
+              páginas mantêm o Header antigo */}
+          <HeaderRouter locale={lang} dict={dict} />
           <main className="flex-1">{children}</main>
           <Footer dict={dict} />
         </I18nProvider>
