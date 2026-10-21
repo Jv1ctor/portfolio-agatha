@@ -6,7 +6,9 @@ import { LanguageSwitcher } from './LanguageSwitcher';
  * Header específico da home — fiel ao Figma "Pontossemno" (spec v2 §4.1):
  * - 102px de altura, fundo cream SÓLIDO (#F9F3EA) — sem sticky nem blur
  * - Apenas 2 links: "sobre" (esquerda) e "projetos" (direita)
- * - AM Novecento 32px, cor #BACCEB, lowercase
+ * - AM Novecento 32px, cor #BACCEB, lowercase (22/24px até o md: em mobile
+ *   375px, "sobre" + switcher + "projetos" a 32px não cabem e criam overflow
+ *   horizontal no root — scrollWidth 422 vs 375)
  * - LanguageSwitcher no centro
  * - Padding horizontal de 120px (x=120 no canvas de 1728)
  *
@@ -24,7 +26,7 @@ export function HomeHeader({
 }) {
   const linkStyle = { color: 'var(--color-blue-soft)' } as const;
   const linkClass =
-    'font-display text-[32px] lowercase leading-none transition-opacity hover:opacity-70';
+    'font-display text-[22px] lowercase leading-none transition-opacity hover:opacity-70 sm:text-[24px] md:text-[32px]';
 
   // Sem rota /projetos única no repo (só /projetos/<slug>): o link aponta para
   // o case principal "Pontossemno" — decisão documentada no relatório do plan.
