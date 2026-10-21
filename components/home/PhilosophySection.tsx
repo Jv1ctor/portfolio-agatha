@@ -23,7 +23,11 @@ import type { Dictionary } from "@/i18n/dictionaries";
  *   6. Texto typewriter (crachaSaying): wrapper left=-1.7px, top=244.3px,
  *      186.964×161.345; child rotate 15.55° com p de 23px, leading 1.8,
  *      lowercase, width 159.843 — por último no DOM (pinta sobre as linhas)
- *   7. Clip (cracha-clip.png) — z-10, sempre o mais alto.
+ *
+ * NÃO renderizar o cracha-clip.png ("7. Clip" de uma leitura antiga): o Figma
+ * node 757:94 NÃO tem tal parte — o grande pêndulo azul-claro era um overlay
+ * z-10 cobrindo o crachá inteiro. O asset fica em public/images/home/ para
+ * uso por outras páginas (contato).
  * Nota: spec §4.5 linha 318 dizia que o texto vem "baked" no exclude.svg —
  * errado: os SVGs exportados não contêm o texto.
  */
@@ -196,17 +200,6 @@ function Cracha({ alt, saying }: { alt: string; saying: string }) {
         </div>
       </div>
 
-      {/* 7. Clip (prendedor/pétala) — z-10, sempre o mais alto */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src="/images/home/cracha-clip.png"
-        alt=""
-        aria-hidden="true"
-        width={228}
-        height={202}
-        className="absolute z-10"
-        style={{ left: "-9px", top: "56px", width: "361px" }}
-      />
     </div>
   );
 }
