@@ -124,8 +124,44 @@ export default async function HomePage({
       {/* Seção 3: Galeria de estudos (será reescrita no Plan 4) */}
       <StudiesGallery dict={dict} />
 
-      {/* Seção 4: Contato (será reescrita no Plan 5) */}
-      <div className="container-narrow py-12 md:py-20">
+      {/* Seção 4: Contato — wrapper com elipses decorativas absolutas.
+          (reescrita do ContactSection no Plan 5; por ela usar o padrão vw do
+          Plan 2, o container-narrow foi substituído pelo próprio padding da
+          section — aqui fica só o ritmo vertical py-12/md:py-20) */}
+      <div className="relative py-12 md:py-20">
+        {/* Elipse cyan-pink — Figma node 758:110: 455×455 at x=1131, y=3486 */}
+        {/* Wrapper do contato começa em y≈3351 (fim da galeria: 2234+1117) */}
+        {/* → top = 3486 − 3351 = 135px; left = 1131/1728 = 65.4% */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/home/ellipse-2.svg"
+          alt=""
+          aria-hidden="true"
+          width={455}
+          height={455}
+          className="pointer-events-none absolute -z-10 hidden md:block"
+          style={{
+            left: "65.4%", // 1131/1728
+            top: "135px", // 3486 − 3351
+          }}
+        />
+
+        {/* Elipse pink — Figma node 758:111: 695×695 at x=74, y=3669 */}
+        {/* → top = 3669 − 3351 = 318px; left = 74/1728 = 4.3% */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/home/ellipse-4.svg"
+          alt=""
+          aria-hidden="true"
+          width={695}
+          height={695}
+          className="pointer-events-none absolute -z-10 hidden md:block"
+          style={{
+            left: "4.3%", // 74/1728
+            top: "318px", // 3669 − 3351
+          }}
+        />
+
         <ContactSection dict={dict} />
       </div>
     </>
