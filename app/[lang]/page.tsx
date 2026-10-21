@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { BrandHero } from "@/components/layout/BrandHero";
 import { GreetingSection } from "@/components/home/GreetingSection";
 import { PhilosophySection } from "@/components/home/PhilosophySection";
+import { PeekingCharacter } from "@/components/home/PeekingCharacter";
 import { StudiesGallery } from "@/components/home/StudiesGallery";
 import { ContactSection } from "@/components/home/ContactSection";
 import { getDictionary, isLocale } from "@/i18n/dictionaries";
@@ -45,6 +46,9 @@ export default async function HomePage({
       <div className="container-narrow py-12 md:py-20">
         <PhilosophySection dict={dict} />
       </div>
+
+      {/* Personagem espiando por cima da galeria (Figma node 751:1329) */}
+      <PeekingCharacter dict={dict} />
 
       {/* Seção 3: Galeria de estudos (full-width, sem container) */}
       <StudiesGallery dict={dict} />

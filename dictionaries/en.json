@@ -41,9 +41,12 @@
     "studiesDoodlesAlt": "Blue panel with sea animal doodles",
     "careerAlt": "Illustration of a cute whale swimming with bubbles",
     "contactTitle": "Let's work together?",
+    "contactTitleLine1": "Let's",
+    "contactTitleLine2": "work together?",
     "contactSubtitle": "Get in touch by sending an email below!",
     "contactIllustrationAlt": "Illustration of Ágatha holding an envelope",
-    "crachaAlt": "Blue badge with the words 'I believe design is'"
+    "crachaAlt": "Blue badge with the words 'I believe design is'",
+    "peekingAlt": "Illustration of Ágatha peeking over the gallery"
   },
   "contact": {
     "title": "Let's work together?",

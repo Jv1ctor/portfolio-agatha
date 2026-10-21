@@ -1,0 +1,54 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="197.048" height="232.754" viewBox="0 0 197.048 232.754" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Group 100768">
+<g id="Group 100763">
+<path id="Vector 1151" d="M141.66 183.274C89.6761 222.991 51.8878 176.073 39.1715 150.88C29.908 137.009 66.4408 109.321 86.6182 95.4096C58.6936 61.3056 59.4788 43.5023 65.2883 28.8551C75.8662 14.3088 89.09 18.2761 93.0597 19.5984C106.284 30.1782 118.48 59.4314 128.996 76.1402C146.876 64.3484 165.143 97.5774 172.042 115.666C183.451 145.581 159.059 174.567 141.66 183.274Z" fill="#FADAE7"/>
+<g id="Vector 1150" filter="url(#filter0_d_0_6)">
+<path d="M36.6256 151.773C25.4955 106.291 78.4735 98.5183 86.6133 95.4139C112.569 117.837 110.536 139.125 106.274 146.966C90.3628 170.438 51.586 183.44 36.6256 151.773Z" fill="#FADAE7"/>
+</g>
+<g id="Vector 1152" filter="url(#filter1_d_0_6)">
+<path d="M119.507 130.686C119.507 105.295 146.838 91.8935 159.181 91.0119C168.439 101.592 165.794 109.526 164.471 118.784C164.471 120.106 159.782 133.331 152.569 139.943C136.699 154.49 119.948 140.384 119.507 130.686Z" fill="#FADAE7"/>
+</g>
+</g>
+<g id="Vector 1153" filter="url(#filter2_n_0_6)">
+<path d="M173.243 145.471C163.722 166.631 116.818 193.08 92.5729 199.692C92.5729 208.95 94.9533 228.522 104.475 232.754C130.924 228.787 186.468 210.801 197.048 170.598C195.285 162.222 188.055 145.471 173.243 145.471Z" fill="#1E3258"/>
+</g>
+</g>
+<defs>
+<filter id="filter0_d_0_6" x="35.0872" y="72.1827" width="120.206" height="121.617" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dx="23.2225"/>
+<feGaussianBlur stdDeviation="11.6156"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.668269 0 0 0 0 0.37483 0 0 0 0 0.444115 0 0 0 0.2 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_0_6"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_0_6" result="shape"/>
+</filter>
+<filter id="filter1_d_0_6" x="96.2848" y="91.0119" width="92.7971" height="101.629" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="23.2225"/>
+<feGaussianBlur stdDeviation="11.6113"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.666667 0 0 0 0 0.376471 0 0 0 0 0.443137 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_0_6"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_0_6" result="shape"/>
+</filter>
+<filter id="filter2_n_0_6" x="92.5729" y="145.471" width="104.475" height="87.2828" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feTurbulence type="fractalNoise" baseFrequency="0.75616264343261719 0.75616264343261719" stitchTiles="stitch" numOctaves="3" result="noise" seed="4348" />
+<feColorMatrix in="noise" type="luminanceToAlpha" result="alphaNoise" />
+<feComponentTransfer in="alphaNoise" result="coloredNoise1">
+<feFuncA type="discrete" tableValues="0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "/>
+</feComponentTransfer>
+<feComposite operator="in" in2="shape" in="coloredNoise1" result="noise1Clipped" />
+<feFlood flood-color="rgba(62, 98, 175, 0.56)" result="color1Flood" />
+<feComposite operator="in" in2="noise1Clipped" in="color1Flood" result="color1" />
+<feMerge result="effect1_noise_0_6">
+<feMergeNode in="shape" />
+<feMergeNode in="color1" />
+</feMerge>
+</filter>
+</defs>
+</svg>

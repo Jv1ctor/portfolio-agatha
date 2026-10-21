@@ -64,11 +64,18 @@ export function PhilosophySection({ dict }: { dict: Dictionary }) {
         </p>
       </div>
 
-      {/* Crachá + elipse decorativa */}
+      {/* Crachá + elipses decorativas */}
       <div className="relative">
+        {/* Figma: elipse ciano pequena à esquerda (758:298) + elipse ciano
+            grande no centro da página entre filosofia e galeria (758:112) */}
         <DecorativeBlob
           variant={3}
           className="-left-16 -top-10 -z-10 hidden opacity-60 md:block"
+          alt=""
+        />
+        <DecorativeBlob
+          variant={2}
+          className="-bottom-32 left-1/2 -z-10 hidden -translate-x-1/2 opacity-50 md:block"
           alt=""
         />
         <Cracha alt={home.crachaAlt} />

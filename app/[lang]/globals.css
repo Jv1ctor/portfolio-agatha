@@ -27,6 +27,12 @@
   --color-pink: #e4a4c3;
   --color-pink-soft: #f1d2e2;
 
+  /* Rosa clarinho que sim — fundo da seção de estudos (Figma #F9CEDC) */
+  --color-pink-light: #f9cedc;
+
+  /* Gradiente da sidebar de doodles (Figma: #485699 → #5C76B4 → #6F95CE) */
+  --gradient-sidebar: linear-gradient(to bottom, #485699 0%, #5c76b4 39.4%, #6f95ce 73.1%, #6f95ce 100%);
+
   --color-blue-darkest: #08488f; /* fim do gradiente da banda/hero */
 
   /* Sombra dos cards — Effect "cards" do Figma:
@@ -66,6 +72,7 @@
   --color-orange-soft: var(--color-orange-soft);
   --color-pink: var(--color-pink);
   --color-pink-soft: var(--color-pink-soft);
+  --color-pink-light: var(--color-pink-light);
 
   --font-display: var(--font-display);
   --font-body: var(--font-body);
