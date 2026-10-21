@@ -73,6 +73,38 @@ export default async function HomePage({
           }}
         />
 
+        {/* Elipse cyan pequena — Figma node 758:298: 455×455 at x=27, y=1125 */}
+        {/* Posição relativa ao wrapper: y=1125 − 354 (hero bottom) = 771px */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/home/ellipse-3.svg"
+          alt=""
+          aria-hidden="true"
+          width={455}
+          height={455}
+          className="pointer-events-none absolute -z-10 hidden md:block"
+          style={{
+            left: "1.56%", // 27/1728
+            top: "771px", // 1125 - 354
+          }}
+        />
+
+        {/* Elipse cyan grande — Figma node 758:112: 879×879 at x=581, y=1608 */}
+        {/* Posição relativa ao wrapper: y=1608 − 354 = 1254px */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/home/ellipse-1.svg"
+          alt=""
+          aria-hidden="true"
+          width={879}
+          height={879}
+          className="pointer-events-none absolute -z-10 hidden md:block"
+          style={{
+            left: "33.6%", // 581/1728
+            top: "1254px", // 1608 - 354
+          }}
+        />
+
         {/* Seção 1: Saudação — fora do container-narrow (geometria do Figma,
             ver GreetingSection); pt-[203px] = 557 (ilustração) − 354 (hero) */}
         <GreetingSection dict={dict} />
