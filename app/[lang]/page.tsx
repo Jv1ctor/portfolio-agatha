@@ -116,8 +116,10 @@ export default async function HomePage({
         {/* Seção 2: Filosofia — fora do .container-narrow (padrão vw do Plan 2):
             texto em x=222 (pl 222/1728 = 12.85vw), crachá 377px assentado em
             x=1259..1636 (pr = 1728−1636 = 92 → 5.32vw).
-            Figma: título da filosofia em y=1266, fim do intro ~y=1240 → gap = 26px */}
-        <div className="px-6 py-12 md:pb-20 md:pl-[12.85vw] md:pr-[5.32vw] md:pt-6">
+            Figma: título da filosofia em y=1266. O pb-195 da greeting já
+            entrega o wrapper aqui em 1242; + pt-6 (24) → título em y=1266.
+            pb-[66px]: fim do body2 (1828) → espiando em 1894. */}
+        <div className="px-6 py-12 md:pb-[66px] md:pl-[12.85vw] md:pr-[5.32vw] md:pt-6">
           <PhilosophySection dict={dict} />
         </div>
       </div>
@@ -131,13 +133,17 @@ export default async function HomePage({
       {/* Seção 4: Contato — wrapper com elipses decorativas absolutas.
           (reescrita do ContactSection no Plan 5; por ela usar o padrão vw do
           Plan 2, o container-narrow foi substituído pelo próprio padding da
-          section — aqui fica só o ritmo vertical py-12/md:py-20) */}
+          section). pt-[87px] assenta a ilustração em y=3437 (wrapper em 3350,
+          Figma) e o título em 3522 via mt-86 no h2 (ContactSection).
+          pb 0: o form (funcional, ~456px) é mais alto que o stub do Figma
+          (~129px, frame 750:1259) — o rodapé da home desce proporcional
+          (ver doc do HomeFooter). */}
       {/* z-0 — mesma razão do wrapper de cima: stacking context para a elipse
           rosa em -z-10 pintar acima do background de html/body. */}
-      <div className="relative z-0 py-12 md:py-20">
+      <div className="relative z-0 py-12 md:pb-0 md:pt-[87px]">
         {/* Elipse cyan-pink — Figma node 758:110: 455×455 at x=1131, y=3486 */}
-        {/* Wrapper do contato começa em y≈3351 (fim da galeria: 2234+1117) */}
-        {/* → top = 3486 − 3351 = 135px; left = 1131/1728 = 65.4% */}
+        {/* → top = 3486 − 3349 (wrapper, fim da galeria) = 137px;
+            left = 1131/1728 = 65.4% */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/images/home/ellipse-2.svg"
@@ -148,12 +154,12 @@ export default async function HomePage({
           className="pointer-events-none absolute -z-10 hidden md:block"
           style={{
             left: "65.4%", // 1131/1728
-            top: "135px", // 3486 − 3351
+            top: "137px",
           }}
         />
 
         {/* Elipse pink — Figma node 758:111: 695×695 at x=74, y=3669 */}
-        {/* → top = 3669 − 3351 = 318px; left = 74/1728 = 4.3% */}
+        {/* → top = 3669 − 3349 = 320px; left = 74/1728 = 4.3% */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/images/home/ellipse-4.svg"
@@ -164,7 +170,7 @@ export default async function HomePage({
           className="pointer-events-none absolute -z-10 hidden md:block"
           style={{
             left: "4.3%", // 74/1728
-            top: "318px", // 3669 − 3351
+            top: "320px",
           }}
         />
 

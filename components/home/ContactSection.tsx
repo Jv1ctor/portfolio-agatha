@@ -9,12 +9,17 @@ import { ContactForm } from "@/components/contact/ContactForm";
  *   offsets/tamanho em % da ilustração pra escalar proporcionalmente, idem
  *   ola-mao na greeting: left=312−254=58/555=10.45%, top=3814−3437=377/676=55.77%,
  *   width=208/555=37.48%)
- * - Título: x=891, y=3522 — 3 LINHAS:
- *   - Linha 1 "vAMOS": 120px AM Novecento uppercase #6F96CE
- *   - Linha 2 "TRABALHAR": 72px (mesma métrica)
- *   - Linha 3 "JUNTOS?": 72px (mesma métrica)
- * - Subtítulo: x=893, y=3908, w=517, Clother Regular 24px
+ * - Título: x=891, y=3522, box 351 — 3 LINHAS de 78px (4.51vw @1728),
+ *   lineHeight 1.5 (pitch 117: 78×1.5 = 351/3 exato; largura do box 511
+ *   confirma 78 — 84.8 daria 559.8). lineHeight inline: o h2
+ *   { line-height: 1 } de globals.css vence a utility leading-*
+ * - Subtítulo: x=893, y=3908, w=517, Clother Regular 24px (box 29 = 1.2×24);
+ *   gap título→subtítulo = 35 (3908 − (3522+351)); form (stub Figma
+ *   750:1259) começa 26px depois (3963)
  * - Formulário: ContactForm existente (nome/email/telefone/mensagem)
+ *   — o form REAL é ~456px (vs stub 129px do Figma), o que desce o rodapé
+ *   da home (~+153px vs o height 4614 do frame) — impossível de fechar sem
+ *   cortar funcionalidade do form.
  *
  * Container: fora do .container-narrow (padrão vw do Plan 2 — a coluna 1fr do
  * container limitava a ilustração a ~421px). Padding horizontal espelha o
@@ -28,7 +33,7 @@ import { ContactForm } from "@/components/contact/ContactForm";
 export function ContactSection({ dict }: { dict: Dictionary }) {
   const home = dict.home;
   return (
-    <section className="grid grid-cols-1 items-center gap-10 px-6 md:grid-cols-[32.12vw_1fr] md:gap-x-[4.74vw] md:px-0 md:pl-[14.70vw] md:pr-[4vw]">
+    <section className="grid grid-cols-1 items-center gap-10 px-6 md:grid-cols-[32.12vw_1fr] md:items-start md:gap-x-[4.74vw] md:px-0 md:pl-[14.70vw] md:pr-[4vw]">
       {/* Ilustração + envelope overlay */}
       <div className="relative mx-auto md:mx-0">
         {/* Ilustração principal: Ágatha com envelope (a coluna já limita a 32.12vw = 555px @1728) */}
@@ -64,24 +69,30 @@ export function ContactSection({ dict }: { dict: Dictionary }) {
 
       {/* Texto + formulário */}
       <div className="md:max-w-[517px]">
-        {/* Título em 3 LINHAS — Figma: vAMOS (120px) / TRABALHAR (72px) / JUNTOS? (72px) */}
-        <h2 className="font-display uppercase text-[color:var(--color-blue)] leading-none mb-6">
-          {/* Linha 1: 120px no Figma = clamp(3rem, 6.94vw, 7.5rem) */}
-          <span className="block text-[clamp(3rem,6.94vw,7.5rem)]">
+        {/* Título em 3 LINHAS — Figma: 78px (4.51vw @1728) nas 3, linha 1.5:
+            box 351 = 3×pitch 117 (117 = 78×1.5). As 3 linhas têm o MESMO
+            tamanho (o antigo 120/72/72 era leitura errada; o 84.8/1.38 da
+            inferência anterior estica a largura 559.8 vs box 511 do Figma).
+            mt-[86px]: ilustração assenta em 3437 (padding-top 87 do wrapper
+            em page.tsx) e o título em 3522 (3437+86) */}
+        <h2
+          className="w-fit font-display uppercase text-[color:var(--color-blue)] md:mt-[86px] mb-[35px]"
+          style={{ lineHeight: 1.5 }}
+        >
+          <span className="block text-[clamp(3.25rem,4.51vw,4.875rem)]">
             {home.contactTitleLine1}
           </span>
-          {/* Linha 2: 72px no Figma = clamp(1.875rem, 4.17vw, 4.5rem) */}
-          <span className="block text-[clamp(1.875rem,4.17vw,4.5rem)]">
+          <span className="block text-[clamp(3.25rem,4.51vw,4.875rem)]">
             {home.contactTitleLine2}
           </span>
-          {/* Linha 3: 72px (mesma métrica da linha 2) */}
-          <span className="block text-[clamp(1.875rem,4.17vw,4.5rem)]">
+          <span className="block text-[clamp(3.25rem,4.51vw,4.875rem)]">
             {home.contactTitleLine3}
           </span>
         </h2>
 
-        {/* Subtítulo: 24px no Figma = text-[1.5rem] */}
-        <p className="mb-6 text-[1.5rem] font-normal leading-relaxed text-[color:var(--color-blue)]">
+        {/* Subtítulo: 24px no Figma = text-[1.5rem], box 29 = 1.2×24;
+            mb-[26px]: stub do form no Figma começa em 3963 (3908+29+26) */}
+        <p className="mb-[26px] text-[1.5rem] font-normal leading-[1.2] text-[color:var(--color-blue)]">
           {home.contactSubtitle}
         </p>
 

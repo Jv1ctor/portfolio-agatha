@@ -24,10 +24,11 @@ import type { Dictionary } from "@/i18n/dictionaries";
  *      186.964×161.345; child rotate 15.55° com p de 23px, leading 1.8,
  *      lowercase, width 159.843 — por último no DOM (pinta sobre as linhas)
  *
- * NÃO renderizar o cracha-clip.png ("7. Clip" de uma leitura antiga): o Figma
- * node 757:94 NÃO tem tal parte — o grande pêndulo azul-claro era um overlay
- * z-10 cobrindo o crachá inteiro. O asset fica em public/images/home/ para
- * uso por outras páginas (contato).
+ * NÃO renderizar o cracha-clip.png: o Figma node 757:94 NÃO tem tal parte
+ * (verificado por metadata: Exclude, Ellipse 377, Ellipse 378, Union, 4 Lines
+ * e Texto — apenas); o grande teardrop azul-claro cobria o meio do crachá e o
+ * typewriter. O asset fica em public/ para uso por outras páginas.
+ *
  * Nota: spec §4.5 linha 318 dizia que o texto vem "baked" no exclude.svg —
  * errado: os SVGs exportados não contêm o texto.
  */
@@ -42,7 +43,7 @@ function Cracha({ alt, saying }: { alt: string; saying: string }) {
 
   return (
     <div
-      className="relative mx-auto"
+      className="cracha relative mx-auto"
       style={{ width: "377px", height: "506px" }}
     >
       {/* 1. Base do crachá (exclude — corpo principal) */}
@@ -207,12 +208,14 @@ function Cracha({ alt, saying }: { alt: string; saying: string }) {
 /**
  * Seção Philosophy — fiel ao Figma (node 751:1318):
  *
- * - Título "Filosofia": x=222, y=1266, 120px AM Novecento #6F96CE
- * - Lead: x=222, y=1481, w=705, Clother Bold 32px, justificado
- * - Body1: x=222, y=1590, w=702, 26px
- * - Body2: x=222, y=1704, w=702, 26px
+ * - Título "Filosofia": x=222, y=1266, 120px AM Novecento #6F96CE, box 166
+ *   (lineHeight 1.38 — altura natural da fonte no Figma)
+ * - Lead: x=222, y=1481, w=705, Clother Bold 32px, box 76 (2×38 = 1.19×32);
+ *   gap título→lead = 49 (1481 − (1266+166))
+ * - Body1: x=222, y=1590, w=702, 26px, box 93 (3×31); gap lead→body1 = 33
+ * - Body2: x=222, y=1704, w=702, 26px, box 124 (4×31); gap body1→body2 = 21
  * - Crachá: x=1259, y=1237 (grupo 377×506 — partes rotacionadas
- *   individualmente, ver doc do Cracha)
+ *   individualmente, ver doc do Cracha; topo 29px ACIMA do título)
  *
  * NÃO IMPLEMENTAR: Figma nodes 753:1649 e 753:1653 (duplicados leftover).
  *
@@ -226,28 +229,35 @@ function Cracha({ alt, saying }: { alt: string; saying: string }) {
 export function PhilosophySection({ dict }: { dict: Dictionary }) {
   const home = dict.home;
   return (
-    <section className="relative grid grid-cols-1 items-center gap-8 md:grid-cols-[1fr_377px] md:gap-x-0">
+    <section className="relative grid grid-cols-1 items-start gap-8 md:grid-cols-[1fr_377px] md:gap-x-0">
       {/* Texto esquerda */}
       <div>
-        {/* Título: 120px no Figma = clamp(3rem, 6.94vw, 7.5rem) */}
-        <h2 className="font-display text-[color:var(--color-blue)] text-[clamp(3rem,6.94vw,7.5rem)] leading-none mb-6">
+        {/* Título: 120px no Figma = clamp(3rem, 6.94vw, 7.5rem); o box do
+            Figma (166 = 120×1.38) é a ALTURA NATURAL da linha — inline style
+            (o h2 { line-height: 1 } de globals.css vence a utility leading-*) */}
+        <h2
+          className="w-fit font-display text-[color:var(--color-blue)] text-[clamp(3rem,6.94vw,7.5rem)] mb-[49px]"
+          style={{ lineHeight: 1.383 }}
+        >
           {home.philosophy}
         </h2>
 
-        {/* Lead: 32px no Figma = text-[2rem], justificado, w=705 → max-w-[705px] */}
-        <p className="max-w-[705px] text-[2rem] font-bold leading-snug text-justify text-[color:var(--color-blue)] mb-4">
+        {/* Lead: 32px no Figma = text-[2rem], justificado, w=705 → max-w-[705px];
+            2 linhas de 38 (1.19×32) = box 76 */}
+        <p className="max-w-[705px] text-[2rem] font-bold leading-[1.19] text-justify text-[color:var(--color-blue)] mb-[33px]">
           {home.philosophyLead}
         </p>
 
-        {/* Body1: 26px = text-[1.625rem], justificado, w=702; bold "experiência humana" */}
-        <p className="max-w-[702px] text-[1.625rem] leading-relaxed text-justify text-[color:var(--color-blue)] mb-3">
+        {/* Body1: 26px = text-[1.625rem], justificado, w=702; 3 linhas de 31
+            (1.19×26) = box 93; gap lead→body1 = 1590 − 1557 = 33 */}
+        <p className="max-w-[702px] text-[1.625rem] leading-[1.19] text-justify text-[color:var(--color-blue)] mb-[21px]">
           {home.philosophyBody1}
           <strong className="font-bold">{home.philosophyBody1Bold}</strong>
           {home.philosophyBody1End}
         </p>
 
-        {/* Body2: 26px, justificado; bolds "3D", "design de interfaces", "pesquisa" */}
-        <p className="max-w-[702px] text-[1.625rem] leading-relaxed text-justify text-[color:var(--color-blue)]">
+        {/* Body2: 26px, justificado; 4 linhas de 31 = box 124 */}
+        <p className="max-w-[702px] text-[1.625rem] leading-[1.19] text-justify text-[color:var(--color-blue)]">
           {home.philosophyBody2}
           <strong className="font-bold">{home.philosophyBody2Bold1}</strong>
           {home.philosophyBody2Mid}
@@ -258,8 +268,9 @@ export function PhilosophySection({ dict }: { dict: Dictionary }) {
         </p>
       </div>
 
-      {/* Crachá direita — 377px fixos, encostado à direita (x=1636 @1728) */}
-      <div className="flex justify-center md:justify-end">
+      {/* Crachá direita — 377px fixos, encostado à direita (x=1636 @1728).
+          O Figma alinha o crachá 29px ACIMA do topo do título (1237 vs 1266). */}
+      <div className="flex justify-center md:-mt-[29px] md:justify-end">
         <Cracha alt={home.crachaAlt} saying={home.crachaSaying} />
       </div>
     </section>
