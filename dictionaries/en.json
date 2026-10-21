@@ -10,6 +10,8 @@
     "interacao": "Interaction",
     "servicos": "Services",
     "3d": "3D",
+    "homeAbout": "about",
+    "homeProjects": "projects",
     "switchLocale": "Switch to {name}"
   },
   "home": {
