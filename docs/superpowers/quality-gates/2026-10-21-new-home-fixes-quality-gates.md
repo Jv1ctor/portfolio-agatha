@@ -48,7 +48,7 @@ Este gate é **manual e obrigatório**. Build/lint/tsc não detectam os problema
 #### 1. Elipses decorativas (cor e intensidade)
 
 - [ ] **Elipse cyan de contato** (direita da seção contato, node 758:110): intensidad visual igual ao Figma — **não** mais fraca, centro não "sujo" de rosa.
-- [ ] **Elipse cyan pequena** (esquerda, entre philosophy e peeking, node 758:298): **inalterada** visualmente (regression check).
+- [ ] **Elipse cyan pequena** (esquerda, entre philosophy e peeking, node 758:298): 2ª parada do gradiente = `#7FF2F2` (aplicada por decisão do usuário, revê spec §1.2 "não tocar"). Visual esperado **na impl**: núcleo cyan limpo, sem véu rosa (render Figma fresco mantém véu rosa/lavanda externa — divergência conhecida, ver nota na tabela de cores).
 - [ ] **Elipse cyan grande** (atrás da filosofia, node 758:112): **inalterada** visualmente (regression check).
 - [ ] **Elipse rosa do topo** (direita do hero, node 758:297): **inalterada** visualmente (regression check).
 - [ ] **Elipse rosa do contato** (esquerda do contato, node 758:111): **inalterada** visualmente (regression check).
@@ -117,6 +117,11 @@ Além do visual manual, rodar medições automatizadas. Valores-alvos (tolerânc
 | Régua 4 | 1215.47 | 1603.76 | 169.00 | 44.65 | ±2px |
 | Texto typewriter (p) | 1257.70 | 1481.30 | 186.96 | 161.34 | ±2px |
 | Topo 1ª linha texto vs topo régua 1 | ~+9px | — | — | — | ±3px |
+
+> **Nota knob M3 (crachá):** a 1ª linha do texto typewriter mediu **+6,2px**
+> abaixo do topo da régua-1 (alvo 9±3 — no limite da tolerância). Se um
+> render futuro divergir, o knob de ajuste é o `top` do wrapper do texto
+> (hoje `237.3px`) em `components/home/PhilosophySection.tsx`.
 | Ellipse 378 (img) — centro rel. ao .cracha | ~193.4 | ~126.9 | 123.70 | 115.26 | ±2px |
 | Texto footer h2 (caixa) | 1 | banda−45 | ~1018 | **166** | ±2px |
 | Filosofia lead | 222 | 1481 | 705 | 76 | ±2px |
@@ -129,12 +134,25 @@ Além do visual manual, rodar medições automatizadas. Valores-alvos (tolerânc
 |---|---|---|
 | Elipse 758:110 alpha médio (crop 400×400+1080+3450, creme mascarado fuzz 3%) | 139 | ±10 |
 | Elipse 758:110 pixel central | #CFD5E9 | ±8/canal |
-| Elipse 758:298 alpha médio (crop 400×400+20+1080) | 103 | ±5 (inalterada) |
+| Elipse 758:298 alpha médio (crop 400×400+20+1080) | impl pós-ruling **117,9**; Figma fresco **102,6** (medido 2026-10-21, render 1:1 1728×4614) — divergência +15,3 documentada, ver nota abaixo (pré-ruling: impl 100,1 ≈ alvo antigo 103 ±5) | histórico: 103 ±5 (pré-ruling) |
 | Elipse 758:112 alpha médio (crop região própria) | inalterado vs baseline | ±5 |
 | Elipse 758:297 alpha médio (crop 400×400+1290+640) | 117 | ±5 (inalterada) |
 | Elipse 758:111 alpha médio (crop 400×400+20+3620) | 97 | ±5 (inalterada) |
 | Filosofia body1 linha 1 justificada — largura | ~702 (cheia) | ±8px |
 | Filosofia: nº de linhas lead/body1/body2 | 2 / 3 / 4 | exato |
+
+> **Nota elipse 758:298 (ruling do usuário, 2026-10-21):** a 2ª parada do
+> gradiente de `public/images/home/ellipse-3.svg` foi trocada de
+> `#FFB5F6` → `#7FF2F2` (stop-opacity 0) durante o implement — decisão do
+> usuário que **revê a spec v3 §1.2 "não tocar"** (auditoria SVG achou a
+> mesma segunda parada rosa na irmã 758:110). Estado histórico pré-ruling
+> (não reescrito): impl 100,1 vs alvo 103. **Pós-ruling**, contra o render
+> Figma fresco 1:1 (1728×4614): impl 117,9 vs figma 102,6 (o alvo antigo 103
+> estava correto contra o Figma fresco; o ruling deixou a impl +15,3 além do
+> Figma — visualmente a impl fica cyan sem véu rosa, o Figma mantém véu
+> rosa/lavanda externa com núcleo cyan). O ruling **permanece em vigor**; a
+> divergência ficará registrada aqui até eventual reavaliação. Não reverter
+> o arquivo sem novo ruling.
 
 ---
 

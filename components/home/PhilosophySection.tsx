@@ -236,7 +236,7 @@ function Cracha({ alt, saying }: { alt: string; saying: string }) {
  * Seção Philosophy — fiel ao Figma (node 751:1318):
  *
  * - Título "Filosofia": x=222, y=1266, 120px AM Novecento #6F96CE, box 166
- *   (lineHeight 1.38 — altura natural da fonte no Figma)
+ *   (lineHeight 1.383 — altura natural da fonte no Figma)
  * - Lead: x=222, y=1481, w=705, Clother Bold 32px, box 76 (2×38 = 1.19×32);
  *   gap título→lead = 49 (1481 − (1266+166))
  * - Body1: x=222, y=1590, w=702, 26px, box 93 (3×31); gap lead→body1 = 33
