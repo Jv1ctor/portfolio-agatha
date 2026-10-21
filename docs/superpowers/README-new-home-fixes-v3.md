@@ -13,6 +13,7 @@ Esta rodada corrige **4 pontos reais** apontados pelo usuário após a entrega d
 | Documento | Caminho | Papel |
 |---|---|---|
 | **Análise de gaps (rodada 2)** | `docs/superpowers/analysis/2026-10-21-gap-analysis-v2-vs-figma-round2.md` | Diagnóstico completo dos 5 pontos, com medições reais (Playwright + ImageMagick + Figma MCP). **Leia primeiro.** |
+| **Auditoria de assets SVG** | `docs/superpowers/analysis/2026-10-21-svg-asset-audit.md` | Auditoria completa dos SVGs da home: confirma que todos são byte-idênticos ao Figma, que as sombras baked funcionam, e refina a spec (ellipse-3 tem o mesmo stop rosa da ellipse-2). |
 | **Spec (binding authority)** | `docs/superpowers/specs/2026-10-21-new-home-fixes-v3.md` | O que deve ser feito, com valores exatos do Figma e tolerâncias. |
 | **Plan 1** | `docs/superpowers/plans/2026-10-21-new-home-fix-plan-1-elipses-cracha.md` | Elipse cyan de contato (gradiente + grão) + crachá (alinhamento texto/régua + Ellipse 378 real). |
 | **Plan 2** | `docs/superpowers/plans/2026-10-21-new-home-fix-plan-2-footer.md` | Footer "visite também" — line-height 1 → 1.383. |
