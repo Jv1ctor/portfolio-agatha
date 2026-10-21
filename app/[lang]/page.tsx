@@ -71,13 +71,16 @@ export default async function HomePage({
           }}
         />
 
-        {/* Seção 1: Saudação */}
-        <div className="container-narrow py-12 md:py-20">
+        {/* Seção 1: Saudação
+            Figma: ilustração topo em y=557, hero termina em y=354 → gap = 203px
+            (só desktop; mobile usa py-12 padrão) */}
+        <div className="container-narrow pt-12 pb-12 md:pt-[203px] md:pb-20">
           <GreetingSection dict={dict} />
         </div>
 
-        {/* Seção 2: Filosofia (será reescrita no Plan 3) */}
-        <div className="container-narrow py-12 md:py-20">
+        {/* Seção 2: Filosofia (será reescrita no Plan 3)
+            Figma: título da filosofia em y=1266, fim do intro ~y=1240 → gap = 26px */}
+        <div className="container-narrow py-12 md:pt-6 md:pb-20">
           <PhilosophySection dict={dict} />
         </div>
       </div>
