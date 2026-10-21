@@ -6,7 +6,7 @@
 <filter id="filter0_n_0_80" x="0" y="0" width="454.566" height="454.566" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
-<feTurbulence type="fractalNoise" baseFrequency="2.6315789222717285 1.8561668395996094" stitchTiles="stitch" numOctaves="3" result="noise" seed="6293" />
+<feTurbulence type="fractalNoise" baseFrequency="2.1276595592498779 1.8561668395996094" stitchTiles="stitch" numOctaves="3" result="noise" seed="6293" />
 <feColorMatrix in="noise" type="luminanceToAlpha" result="alphaNoise" />
 <feComponentTransfer in="alphaNoise" result="coloredNoise1">
 <feFuncA type="discrete" tableValues="0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "/>
@@ -21,7 +21,7 @@
 </filter>
 <radialGradient id="paint0_radial_0_80" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(227.283 227.283) rotate(46.9902) scale(165.606)">
 <stop stop-color="#7FF2F2"/>
-<stop offset="1" stop-color="#FFB5F6" stop-opacity="0"/>
+<stop offset="1" stop-color="#7FF2F2" stop-opacity="0"/>
 </radialGradient>
 </defs>
 </svg>
