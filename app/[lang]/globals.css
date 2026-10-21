@@ -44,6 +44,10 @@
   --gradient-band: linear-gradient(-70.88deg, #bacceb 3.48%, #6f96ce 49.07%, #08488f 101.62%);
   --gradient-footer: var(--gradient-band);
 
+  /* Hero da home v2 ("Pontossemno") — mesmo gradiente, ângulo mais horizontal
+     (-62.1°, spec v2 §4.2). .bg-band fica intacto pras outras páginas. */
+  --gradient-hero: linear-gradient(-62.1deg, #bacceb 3.48%, #6f96ce 49.07%, #08488f 101.62%);
+
   /* Card placeholder ("nulo" do Figma) — mesmo gradiente, ângulo -78.27° */
   --gradient-placeholder: linear-gradient(-78.27deg, #bacceb 3.48%, #6f96ce 49.07%, #08488f 101.62%);
 
@@ -136,6 +140,13 @@ a {
 }
 .bg-placeholder {
   background: var(--gradient-placeholder);
+}
+.bg-hero {
+  /* Mesmo grão da .bg-band, mas com o gradiente -62.1° da home v2. */
+  background-image: url("/images/band-noise.png"), var(--gradient-hero);
+  background-repeat: repeat, no-repeat;
+  background-size: 180px 180px, cover;
+  background-blend-mode: overlay, normal;
 }
 .shadow-card {
   box-shadow: var(--shadow-card);

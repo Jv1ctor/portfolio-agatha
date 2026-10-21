@@ -35,7 +35,7 @@ export default async function HomePage({
 
   return (
     <>
-      <BrandHero title={dict.site.name} />
+      <BrandHero title={dict.site.name} variant="home" />
 
       {/* Seção 1: Saudação */}
       <div className="container-narrow py-12 md:py-20">
