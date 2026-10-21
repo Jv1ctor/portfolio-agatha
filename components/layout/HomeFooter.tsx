@@ -6,10 +6,11 @@ import type { Dictionary } from "@/i18n/dictionaries";
  *
  * - Altura fixa: 269px (band y=4345–4614 no Figma, 1728px)
  * - Gradiente -63.62° (.bg-footer, token --gradient-footer próprio)
- * - "visite também": AM Novecento 120px cream (clamp 3rem→7.5rem), x=1,
- *   y=-45 relativos à banda → transborda ACIMA do footer
- *   (por isso overflow-visible, e não o clip padrão)
- * - "Redes sociais": Clother Regular 24px cream, x=28, y=109
+ * - Texto gigante (dict.footer.visitAlso): AM Novecento 120px cream
+ *   (clamp 3rem→7.5rem), x=1, y=-45 relativos à banda → transborda ACIMA do
+ *   footer (por isso overflow-visible, e não o clip padrão)
+ * - Label de redes sociais (dict.footer.social): Clother Regular 24px cream,
+ *   x=28, y=109
  * - Social rows: IG (16px Regular) + handle (16px Light, underline); gap
  *   16px entre label e handle, 8px entre rows
  *
