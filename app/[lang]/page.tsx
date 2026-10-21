@@ -77,9 +77,11 @@ export default async function HomePage({
             ver GreetingSection); pt-[203px] = 557 (ilustração) − 354 (hero) */}
         <GreetingSection dict={dict} />
 
-        {/* Seção 2: Filosofia (será reescrita no Plan 3)
+        {/* Seção 2: Filosofia — fora do .container-narrow (padrão vw do Plan 2):
+            texto em x=222 (pl 222/1728 = 12.85vw), crachá 377px assentado em
+            x=1259..1636 (pr = 1728−1636 = 92 → 5.32vw).
             Figma: título da filosofia em y=1266, fim do intro ~y=1240 → gap = 26px */}
-        <div className="container-narrow py-12 md:pt-6 md:pb-20">
+        <div className="px-6 py-12 md:pb-20 md:pl-[12.85vw] md:pr-[5.32vw] md:pt-6">
           <PhilosophySection dict={dict} />
         </div>
       </div>
