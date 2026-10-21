@@ -12,7 +12,10 @@ import type { Dictionary } from "@/i18n/dictionaries";
  *   2. Buraco (Ellipse 377): wrapper left=72.63px, top=101.29px, 102.322²;
  *      child natural 83.34² (o viewBox do SVG é o tamanho natural)
  *   3. Ellipse 378 (bbox do vector): left=131.54px, top=69.27px, 123.702×115.263 —
- *      decorativa, div rounded-full
+ *      asset real do Figma (node 757:99, cracha-elipse-378.png) com sombra
+ *      baked: o wrapper é o bbox do vector, o filho (103.33×91.306,
+ *      rotate 15.24°) contém o img de 113.68×100.507 via inset % — NÃO é
+ *      mais rounded-full nem tem opacity CSS
  *   4. Union: wrapper left=108.08px, top=28.03px, 125.164×145.207; child
  *      natural 95.83×124.387 — img no tamanho do viewBox (107.329×134.738,
  *      mesmo bleed de sombra do exclude)
@@ -103,18 +106,41 @@ function Cracha({ alt, saying }: { alt: string; saying: string }) {
         </div>
       </div>
 
-      {/* 3. Ellipse decorativa (378) — azul gelo translúcido (bbox do vector) */}
+      {/* 3. Ellipse decorativa (378) — blob orgânico azul-gelo: asset REAL do
+          Figma (node 757:99 → PNG 228×202 @2× = 113.68×100.507) com sombra
+          baked no PNG. NÃO é um círculo (era div rounded-full): o asset entra
+          na mesma cadeia de rotação das outras partes (15.24°), dentro do
+          wrapper do bbox do vector (bbox é 123.702×115.263; o filho natural
+          é 103.33×91.306 — o img sangra +10.02%/+10.08% via inset %).
+          NÃO usar opacity CSS: a translucidez vem do asset. */}
       <div
-        className="absolute rounded-full bg-[color:var(--color-blue-soft)]"
+        className="absolute flex items-center justify-center"
         style={{
           left: "131.54px",
           top: "69.27px",
           width: "123.702px",
           height: "115.263px",
-          opacity: 0.6,
         }}
-        aria-hidden="true"
-      />
+      >
+        <div className="flex-none rotate-[15.24deg]">
+          <div
+            className="relative"
+            style={{ width: "103.33px", height: "91.306px" }}
+          >
+            <div className="absolute inset-[0_-10.02%_-10.08%_0]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/home/cracha-elipse-378.png"
+                alt=""
+                aria-hidden="true"
+                width={113.68}
+                height={100.507}
+                style={{ width: "113.68px", height: "100.507px" }}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* 4. Union (flor/pétala no topo) */}
       <div
