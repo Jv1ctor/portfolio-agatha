@@ -37,8 +37,11 @@ export default async function HomePage({
     <>
       <BrandHero title={dict.site.name} variant="home" />
 
-      {/* Wrapper relativo para elementos absolutos entre hero e philosophy */}
-      <div className="relative">
+      {/* Wrapper relativo para elementos absolutos entre hero e philosophy.
+          overflow-x: clip — a elipse rosa sangra pra fora do canvas
+          (1394+695=2089 > 1728, intencional no Figma) sem scrollbar horizontal
+          (clip, NÃO hidden — hidden criaria scroll container). */}
+      <div className="relative" style={{ overflowX: 'clip' }}>
         {/* ":d" gigante — Figma: x=819, y=499, 338.2px AM Novecento #BACCEB */}
         {/* Posição relativa ao wrapper: y=499 - 354 (hero bottom) = 145px */}
         <div
@@ -70,12 +73,9 @@ export default async function HomePage({
           }}
         />
 
-        {/* Seção 1: Saudação
-            Figma: ilustração topo em y=557, hero termina em y=354 → gap = 203px
-            (só desktop; mobile usa py-12 padrão) */}
-        <div className="container-narrow pt-12 pb-12 md:pt-[203px] md:pb-20">
-          <GreetingSection dict={dict} />
-        </div>
+        {/* Seção 1: Saudação — fora do container-narrow (geometria do Figma,
+            ver GreetingSection); pt-[203px] = 557 (ilustração) − 354 (hero) */}
+        <GreetingSection dict={dict} />
 
         {/* Seção 2: Filosofia (será reescrita no Plan 3)
             Figma: título da filosofia em y=1266, fim do intro ~y=1240 → gap = 26px */}
