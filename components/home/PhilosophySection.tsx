@@ -20,8 +20,9 @@ import type { Dictionary } from "@/i18n/dictionaries";
  *      escalonados -11.51/-22.32/-33.13/-44px e tops 244.43/285.21/325.98/
  *      366.76px; child w=174.802 h=0 (img com espessura natural 3.45) e
  *      rotate 14.8°
- *   6. Texto typewriter (crachaSaying): wrapper left=-1.7px, top=244.3px,
- *      186.964×161.345; child rotate 15.55° com p de 23px, leading 1.8,
+ *   6. Texto typewriter (crachaSaying): wrapper left=-1.7px, top=237.3px,
+ *      186.964×161.345; child rotate 14.8° (mesmo ângulo das réguas — spec
+ *      v3 §2.3) com p de 23px, leading 1.8,
  *      lowercase, width 159.843 — por último no DOM (pinta sobre as linhas)
  *
  * NÃO renderizar o cracha-clip.png: o Figma node 757:94 NÃO tem tal parte
@@ -183,12 +184,12 @@ function Cracha({ alt, saying }: { alt: string; saying: string }) {
         className="absolute flex items-center justify-center"
         style={{
           left: "-1.7px",
-          top: "244.3px",
+          top: "237.3px",
           width: "186.964px",
           height: "161.345px",
         }}
       >
-        <div className="flex-none rotate-[15.55deg]">
+        <div className="flex-none rotate-[14.8deg]">
           <p
             className="lowercase text-center text-[color:var(--color-blue-soft)] text-[23px] leading-[1.8]"
             style={{
