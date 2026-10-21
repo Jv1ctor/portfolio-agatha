@@ -37,23 +37,58 @@ export default async function HomePage({
     <>
       <BrandHero title={dict.site.name} variant="home" />
 
-      {/* Seção 1: Saudação */}
-      <div className="container-narrow py-12 md:py-20">
-        <GreetingSection dict={dict} />
+      {/* Wrapper relativo para elementos absolutos entre hero e philosophy */}
+      <div className="relative">
+        {/* ":d" gigante — Figma: x=819, y=499, 338.2px AM Novecento #BACCEB */}
+        {/* Posição relativa ao wrapper: y=499 - 354 (hero bottom) = 145px */}
+        <div
+          className="pointer-events-none absolute select-none font-display text-[color:var(--color-blue-soft)]"
+          style={{
+            fontSize: "clamp(120px, 19.57vw, 338px)",
+            left: "47.4%", // 819/1728
+            top: "145px", // 499 - 354 (hero height)
+            lineHeight: 1,
+            zIndex: 0,
+          }}
+          aria-hidden="true"
+        >
+          :d
+        </div>
+
+        {/* Elipse rosa — Figma node 758:297: 695×695 at x=1394, y=436 */}
+        {/* Posição relativa ao wrapper: y=436 - 354 = 82px */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/home/ellipse-5.svg"
+          alt=""
+          aria-hidden="true"
+          width={695}
+          height={695}
+          className="pointer-events-none absolute -z-10 hidden md:block"
+          style={{
+            left: "80.6%", // 1394/1728
+            top: "82px", // 436 - 354
+          }}
+        />
+
+        {/* Seção 1: Saudação */}
+        <div className="container-narrow py-12 md:py-20">
+          <GreetingSection dict={dict} />
+        </div>
+
+        {/* Seção 2: Filosofia (será reescrita no Plan 3) */}
+        <div className="container-narrow py-12 md:py-20">
+          <PhilosophySection dict={dict} />
+        </div>
       </div>
 
-      {/* Seção 2: Filosofia */}
-      <div className="container-narrow py-12 md:py-20">
-        <PhilosophySection dict={dict} />
-      </div>
-
-      {/* Personagem espiando por cima da galeria (Figma node 751:1329) */}
+      {/* Personagem espiando por cima da galeria (será ajustado no Plan 4) */}
       <PeekingCharacter dict={dict} />
 
-      {/* Seção 3: Galeria de estudos (full-width, sem container) */}
+      {/* Seção 3: Galeria de estudos (será reescrita no Plan 4) */}
       <StudiesGallery dict={dict} />
 
-      {/* Seção 4: Contato */}
+      {/* Seção 4: Contato (será reescrita no Plan 5) */}
       <div className="container-narrow py-12 md:py-20">
         <ContactSection dict={dict} />
       </div>
