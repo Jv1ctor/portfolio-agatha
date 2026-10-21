@@ -42,7 +42,11 @@
   /* Banda do hero + footer — gradiente azul nominal do Figma
      (-70.88°, #BACCEB → #6F96CE → #08488F) */
   --gradient-band: linear-gradient(-70.88deg, #bacceb 3.48%, #6f96ce 49.07%, #08488f 101.62%);
-  --gradient-footer: var(--gradient-band);
+
+  /* Footer da home v2 ("Pontossemno", spec v2 §4.9) — ângulo mais fechado
+     (-63.62°). Token próprio, não o gradiente da banda: o Footer antigo
+     (.bg-band, outras páginas) permanece byte-idêntico. */
+  --gradient-footer: linear-gradient(-63.62deg, #bacceb 3.48%, #6f96ce 49.07%, #08488f 101.62%);
 
   /* Hero da home v2 ("Pontossemno") — mesmo gradiente, ângulo mais horizontal
      (-62.1°, spec v2 §4.2). .bg-band fica intacto pras outras páginas. */
@@ -144,6 +148,15 @@ a {
 .bg-hero {
   /* Mesmo grão da .bg-band, mas com o gradiente -62.1° da home v2. */
   background-image: url("/images/band-noise.png"), var(--gradient-hero);
+  background-repeat: repeat, no-repeat;
+  background-size: 180px 180px, cover;
+  background-blend-mode: overlay, normal;
+}
+
+.bg-footer {
+  /* Espelho da .bg-band com o gradiente -63.62° do footer da home v2
+     (spec v2 §4.9) — mesmo grão (band-noise.png) das outras bandas. */
+  background-image: url("/images/band-noise.png"), var(--gradient-footer);
   background-repeat: repeat, no-repeat;
   background-size: 180px 180px, cover;
   background-blend-mode: overlay, normal;
