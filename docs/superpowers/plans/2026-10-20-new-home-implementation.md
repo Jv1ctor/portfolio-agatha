@@ -1,4 +1,20 @@
-# Nova Home Page — Implementation Plan
+# Nova Home Page — Implementation Plan (v1)
+
+> ⚠️ **SUPERSEDED** — This plan (v1) has been replaced by 6 detailed plans:
+> - `2026-10-20-new-home-plan-1-header-hero.md`
+> - `2026-10-20-new-home-plan-2-greeting.md`
+> - `2026-10-20-new-home-plan-3-philosophy.md`
+> - `2026-10-20-new-home-plan-4-gallery-peeking.md`
+> - `2026-10-20-new-home-plan-5-contact.md`
+> - `2026-10-20-new-home-plan-6-footer-final.md`
+>
+> See `docs/superpowers/specs/2026-10-20-new-home-design-v2.md` for the authoritative spec.
+> See `docs/superpowers/analysis/2026-10-20-gap-analysis-implementation-vs-figma.md` for gap analysis.
+> **DO NOT IMPLEMENT FROM THIS PLAN.**
+
+---
+
+# Nova Home Page — Implementation Plan (ORIGINAL v1 — SUPERSEDED)
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 

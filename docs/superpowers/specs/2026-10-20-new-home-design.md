@@ -1,8 +1,13 @@
 # Especificação: Nova Home Page — Landing "Pontossemno"
 
 **Data:** 2026-10-20
-**Status:** Aprovado
+**Status:** ⚠️ **SUPERSEDED** — Usar `2026-10-20-new-home-design-v2.md`
 **Branch:** `feature/new-home`
+
+> **AVISO:** Esta spec (v1) foi superseded pela v2 após análise visual detalhada
+> comparando a implementação com o Figma. A v1 tinha 9+ gaps críticos documentados
+> em `docs/superpowers/analysis/2026-10-20-gap-analysis-implementation-vs-figma.md`.
+> **NÃO IMPLEMENTAR A PARTIR DESTA SPEC.** Usar a v2.
 **Fonte do design:** [Figma — Pontossemno](https://www.figma.com/design/gpvzpeRYWxlqqonbHdj88g/Pontossemno?node-id=751-1318&m=dev) (node `751:1318`)
 
 ---
