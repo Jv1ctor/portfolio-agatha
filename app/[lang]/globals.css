@@ -39,7 +39,7 @@
      DROP_SHADOW #6F96CE @16%, offset (2,8), blur 8, spread 4 */
   --shadow-card: 2px 8px 8px 4px rgba(111, 150, 206, 0.16);
 
-  /* Banda do hero + footer — gradiente azul nominal do Figma
+  /* Banda do hero — gradiente azul nominal do Figma
      (-70.88°, #BACCEB → #6F96CE → #08488F) */
   --gradient-band: linear-gradient(-70.88deg, #bacceb 3.48%, #6f96ce 49.07%, #08488f 101.62%);
 
