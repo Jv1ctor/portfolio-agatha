@@ -6,8 +6,9 @@ import { ContactForm } from "@/components/contact/ContactForm";
  *
  * - Ilustração contato.svg: x=254, y=3437, 555×676 (esquerda; coluna = 32.12vw)
  * - Envelope contato-extra.svg: x=312, y=3814, 208×229, rotate 0.51° (overlay;
- *   offset em PX fixo, por spec: left=312−254=58, top=3814−3437=377 — os mesmos
- *   px do Figma, NÃO proporcional à ilustração como na greeting/ola-mao)
+ *   offsets/tamanho em % da ilustração pra escalar proporcionalmente, idem
+ *   ola-mao na greeting: left=312−254=58/555=10.45%, top=3814−3437=377/676=55.77%,
+ *   width=208/555=37.48%)
  * - Título: x=891, y=3522 — 3 LINHAS:
  *   - Linha 1 "vAMOS": 120px AM Novecento uppercase #6F96CE
  *   - Linha 2 "TRABALHAR": 72px (mesma métrica)
@@ -40,7 +41,9 @@ export function ContactSection({ dict }: { dict: Dictionary }) {
           className="h-auto w-full"
         />
         {/* Envelope extra — overlay absolute, rotate 0.51° */}
-        {/* Offset relativo ao contato.svg em px do Figma: left=58px, top=377px */}
+        {/* Offset relativo ao contato.svg proporcional (o wrapper é shrink-to-fit
+            da ilustração w-full h-auto na coluna — idem ola-mao na greeting):
+            left=58px/555=10.45%; top=377px/676=55.77%; 208px/555=37.48% */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/illustrations/contato-extra.svg"
@@ -50,9 +53,11 @@ export function ContactSection({ dict }: { dict: Dictionary }) {
           height={229}
           className="absolute hidden md:block"
           style={{
-            left: "58px",
-            top: "377px",
-            transform: "rotate(0.51deg)",
+            left: '10.45%',
+            top: '55.77%',
+            width: '37.48%',
+            height: 'auto',
+            transform: 'rotate(0.51deg)',
           }}
         />
       </div>
