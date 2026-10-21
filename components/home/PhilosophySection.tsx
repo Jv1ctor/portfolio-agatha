@@ -271,20 +271,29 @@ export function PhilosophySection({ dict }: { dict: Dictionary }) {
 
         {/* Lead: 32px no Figma = text-[2rem], justificado, w=705 → max-w-[705px];
             2 linhas de 38 (1.19×32) = box 76 */}
-        <p className="max-w-[705px] text-[2rem] font-bold leading-[1.19] text-justify text-[color:var(--color-blue)] mb-[33px]">
+        <p
+          className="max-w-[705px] text-[2rem] font-bold leading-[1.19] text-justify text-[color:var(--color-blue)] mb-[33px]"
+          style={{ wordSpacing: "0.08em" }}
+        >
           {home.philosophyLead}
         </p>
 
         {/* Body1: 26px = text-[1.625rem], justificado, w=702; 3 linhas de 31
             (1.19×26) = box 93; gap lead→body1 = 1590 − 1557 = 33 */}
-        <p className="max-w-[702px] text-[1.625rem] leading-[1.19] text-justify text-[color:var(--color-blue)] mb-[21px]">
+        <p
+          className="max-w-[702px] text-[1.625rem] leading-[1.19] text-justify text-[color:var(--color-blue)] mb-[21px]"
+          style={{ wordSpacing: "0.08em" }}
+        >
           {home.philosophyBody1}
           <strong className="font-bold">{home.philosophyBody1Bold}</strong>
           {home.philosophyBody1End}
         </p>
 
         {/* Body2: 26px, justificado; 4 linhas de 31 = box 124 */}
-        <p className="max-w-[702px] text-[1.625rem] leading-[1.19] text-justify text-[color:var(--color-blue)]">
+        <p
+          className="max-w-[702px] text-[1.625rem] leading-[1.19] text-justify text-[color:var(--color-blue)]"
+          style={{ wordSpacing: "0.08em" }}
+        >
           {home.philosophyBody2}
           <strong className="font-bold">{home.philosophyBody2Bold1}</strong>
           {home.philosophyBody2Mid}
