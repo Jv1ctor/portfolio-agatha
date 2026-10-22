@@ -27,11 +27,20 @@ import type { Dictionary } from "@/i18n/dictionaries";
  *      escalonados -11.51/-22.32/-33.13/-44px e tops 244.43/285.21/325.98/
  *      366.76px; child w=174.802 h=0 (img com espessura natural 3.45) e
  *      rotate 14.8° — continuam como SVG vivo (cracha-linha.svg)
- *   6. Texto typewriter (crachaSaying): wrapper left=-1.7px, top=237.3px,
+ *   6. Texto typewriter (crachaSaying): wrapper left=-36.7px, top=247.3px,
  *      186.964×161.345; child rotate 14.8° (mesmo ângulo das réguas — spec
  *      v3 §2.3) com p de 23px, leading 1.8, lowercase, width 159.843 — por
  *      último no DOM (pinta sobre as linhas). Texto SEMPRE vivo (i18n): nunca
  *      baked nos PNGs.
+ *
+ * Texto: o left/top do wrapper (-36.7/247.3, antes -1.7/237.3) foi medido
+ * contra o render do Figma (correlação das máscaras de glifo, réguas
+ * mascaradas, pt-BR): cada linha fica ENTRE o par de réguas, não sobre elas.
+ * Mobile (<md): a composição (corpo+réguas+texto, bbox visual 334px a partir
+ * de -99.4px do box) é centralizada na coluna com margin-left: 50% − 67.6px
+ * (centro do bbox em 67.6px do box) e justify-start; desktop inalterado. As
+ * 4 imgs de arte levam max-md:max-w-none: o reset global max-width:100% as
+ * encolheria quando o box encolhe como flex item na coluna estreita.
  *
  * NÃO re-exportar a pétala por screenshot do Figma (sai preta): os PNGs
  * vêm do download 2x com de-blend, versionados em public/images/home.
@@ -52,7 +61,7 @@ function Cracha({ alt, saying }: { alt: string; saying: string }) {
 
   return (
     <div
-      className="cracha relative mx-auto"
+      className="cracha relative mx-auto max-md:mx-0 max-md:ml-[calc(50%-67.6px)]"
       style={{ width: "377px", height: "506px" }}
     >
       {/* 1–4. Arte achatada (PNG já rotacionado — sem wrappers de rotate):
@@ -64,7 +73,7 @@ function Cracha({ alt, saying }: { alt: string; saying: string }) {
         alt={alt}
         width={334}
         height={434}
-        className="absolute"
+        className="absolute max-md:max-w-none"
         style={{
           left: "-99.4px",
           top: "79px",
@@ -79,7 +88,7 @@ function Cracha({ alt, saying }: { alt: string; saying: string }) {
         aria-hidden="true"
         width={83.5}
         height={83.5}
-        className="absolute"
+        className="absolute max-md:max-w-none"
         style={{
           left: "60.6px",
           top: "112px",
@@ -94,7 +103,7 @@ function Cracha({ alt, saying }: { alt: string; saying: string }) {
         aria-hidden="true"
         width={124}
         height={86}
-        className="absolute"
+        className="absolute max-md:max-w-none"
         style={{
           left: "107.6px",
           top: "88px",
@@ -109,7 +118,7 @@ function Cracha({ alt, saying }: { alt: string; saying: string }) {
         aria-hidden="true"
         width={105.5}
         height={125.5}
-        className="absolute"
+        className="absolute max-md:max-w-none"
         style={{
           left: "98.6px",
           top: "42px",
@@ -156,8 +165,8 @@ function Cracha({ alt, saying }: { alt: string; saying: string }) {
       <div
         className="absolute flex items-center justify-center"
         style={{
-          left: "-1.7px",
-          top: "237.3px",
+          left: "-36.7px",
+          top: "247.3px",
           width: "186.964px",
           height: "161.345px",
         }}
@@ -253,7 +262,7 @@ export function PhilosophySection({ dict }: { dict: Dictionary }) {
 
       {/* Crachá direita — 377px fixos, encostado à direita (x=1636 @1728).
           O Figma alinha o crachá 29px ACIMA do topo do título (1237 vs 1266). */}
-      <div className="flex justify-center md:-mt-[29px] md:justify-end">
+      <div className="flex justify-center max-md:justify-start md:-mt-[29px] md:justify-end">
         <Cracha alt={home.crachaAlt} saying={home.crachaSaying} />
       </div>
     </section>
