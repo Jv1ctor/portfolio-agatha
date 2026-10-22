@@ -4,9 +4,12 @@ import type { Dictionary } from "@/i18n/dictionaries";
  * Seção de saudação — fiel ao Figma Pontossemno (node 751:1318):
  *
  * Layout (canvas 1728px):
- * - Ilustração ola.svg: x=260, y=557, 513×477 (esquerda; coluna = 29.68vw)
- * - Mão acenando ola-mao.svg: x=121, y=882, 215×248, rotate -4.66° (overlay na ilustração;
- *   offsets/tamanho em % da ilustração pra escalar proporcionalmente: -27.10%/68.13%/41.91%)
+ * - Personagem ola-personagem.png (achatado: mão sobre a bochecha, sombras e
+ *   grain já baked — sem overlay): canvas content-cropped 622.5×563 em
+ *   x=166.5, y=557 (esquerda; coluna = 29.68vw). O canvas original do Figma
+ *   (668.5×563) começava em x=121, mas a exportação é content-cropped (a 1ª
+ *   coluna opaca = page x=166.5) → ml = 166.5−260 = −93.5px = −5.41vw;
+ *   largura 622.5/1728 = 36.03vw. Mobile: preenche a coluna (w-full).
  * - Título "Olá a todos,": x=1031, y=575, 120px AM Novecento #6F96CE, 2 linhas,
  *   lineHeight 1.383 (o box do Figma = fontSize×1.38 por linha: 2×166 = 332;
  *   inline style, porque o h2 { line-height: 1 } de globals.css (unlayered)
@@ -28,35 +31,15 @@ export function GreetingSection({ dict }: { dict: Dictionary }) {
   const home = dict.home;
   return (
     <section className="relative grid grid-cols-1 items-start gap-8 px-6 pb-12 pt-12 md:grid-cols-[29.68vw_1fr] md:gap-x-[14.93vw] md:pb-[196px] md:pl-[15.05vw] md:pr-[11.23vw] md:pt-[203px]">
-      {/* Ilustração + mão acenando (overlay) */}
+      {/* Ilustração — personagem achatado (mão + sombras baked, sem overlay) */}
       <div className="relative mx-auto md:mx-0">
-        {/* Ilustração principal: Ágatha acenando (a coluna já limita a 29.68vw) */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/illustrations/ola.svg"
+          src="/images/home/ola-personagem.png"
           alt={home.greetingAlt}
-          width={513}
-          height={477}
-          className="h-auto w-full"
-        />
-        {/* Mão acenando — overlay absolute sobre a ilustração */}
-        {/* Proporcional ao ola.svg: x=121−260 → −139/513 = −27.10%; y=882−557 → 325/477 = 68.13%;
-            215/513 = 41.91% de largura (altura em auto) */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/illustrations/ola-mao.svg"
-          alt=""
-          aria-hidden="true"
-          width={215}
-          height={248}
-          className="absolute hidden md:block"
-          style={{
-            left: '-27.10%',
-            top: '68.13%',
-            width: '41.91%',
-            height: 'auto',
-            transform: 'rotate(-4.66deg)',
-          }}
+          width={622}
+          height={563}
+          className="h-auto w-full md:ml-[-5.41vw] md:max-w-none md:w-[36.03vw]"
         />
       </div>
 
