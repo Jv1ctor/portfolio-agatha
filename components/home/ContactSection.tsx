@@ -4,11 +4,19 @@ import { ContactForm } from "@/components/contact/ContactForm";
 /**
  * Seção de contato — fiel ao Figma Pontossemno (node 751:1318):
  *
- * - Ilustração contato.svg: x=254, y=3437, 555×676 (esquerda; coluna = 32.12vw)
- * - Envelope contato-extra.svg: x=312, y=3814, 208×229, rotate 0.51° (overlay;
- *   offsets/tamanho em % da ilustração pra escalar proporcionalmente, idem
- *   ola-mao na greeting: left=312−254=58/555=10.45%, top=3814−3437=377/676=55.77%,
- *   width=208/555=37.48%)
+ * - Ilustração: PNG achatado contato-personagem.png (node 751:1360 achatado com
+ *   o grupo da MÃO no rosto 751:1389 "Group 100785" BAKED por cima — o antigo
+ *   overlay contato-extra.svg era esse mesmos grupo da mão; exatamente UMA mão
+ *   no render, sem overlay e sem rotate 0.51°). O container do Figma era 555×676 em x=254 y=3437, mas o
+ *   export é content-cropped (crop 2x [31,39,1109,1361] do canvas 1110×1362:
+ *   removeu 15.5px de bleed à esquerda e 19.5px no topo, em 1x) → o conteúdo
+ *   opaco assenta em page x=269.5, y=3456.5, CSS 539.5×661.5. Offsets/tamanho
+ *   em % da coluna (554.98px @1728; margens % e width % resolvem contra a
+ *   largura da coluna, então escalam com 32.12vw como o resto do layout):
+ *   ml 15.5/554.98 = 2.793%, mt 19.5/554.98 = 3.514%, w 539.5/554.98 = 97.21%
+ *   (classes md:* — mobile fica w-full centrado).
+ *   NÃO usar w-full: o PNG é mais estreito que a coluna e w-full esticaria
+ *   para 555 (preflight clamp: max-width 100% estica, não reduz).
  * - Título: x=891, y=3522, box 351 — 3 LINHAS de 78px (4.51vw @1728),
  *   lineHeight 1.5 (pitch 117: 78×1.5 = 351/3 exato; largura do box 511
  *   confirma 78 — 84.8 daria 559.8). lineHeight inline: o h2
@@ -34,36 +42,15 @@ export function ContactSection({ dict }: { dict: Dictionary }) {
   const home = dict.home;
   return (
     <section className="grid grid-cols-1 items-center gap-10 px-6 md:grid-cols-[32.12vw_1fr] md:items-start md:gap-x-[4.74vw] md:px-0 md:pl-[14.70vw] md:pr-[4vw]">
-      {/* Ilustração + envelope overlay */}
+      {/* Ilustração (mão no rosto BAKED no PNG — sem overlay) */}
       <div className="relative mx-auto md:mx-0">
-        {/* Ilustração principal: Ágatha com envelope (a coluna já limita a 32.12vw = 555px @1728) */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/illustrations/contato.svg"
+          src="/images/home/contato-personagem.png"
           alt={home.contactIllustrationAlt}
-          width={555}
-          height={676}
-          className="h-auto w-full"
-        />
-        {/* Envelope extra — overlay absolute, rotate 0.51° */}
-        {/* Offset relativo ao contato.svg proporcional (o wrapper é shrink-to-fit
-            da ilustração w-full h-auto na coluna — idem ola-mao na greeting):
-            left=58px/555=10.45%; top=377px/676=55.77%; 208px/555=37.48% */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/illustrations/contato-extra.svg"
-          alt=""
-          aria-hidden="true"
-          width={208}
-          height={229}
-          className="absolute hidden md:block"
-          style={{
-            left: '10.45%',
-            top: '55.77%',
-            width: '37.48%',
-            height: 'auto',
-            transform: 'rotate(0.51deg)',
-          }}
+          width={539}
+          height={661}
+          className="h-auto w-full md:h-auto md:w-[97.21%] md:ml-[2.793%] md:mt-[3.514%]"
         />
       </div>
 
