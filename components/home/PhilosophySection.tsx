@@ -1,40 +1,45 @@
 import type { Dictionary } from "@/i18n/dictionaries";
 
 /**
- * Crachá — geométria fiel ao Figma (Group 100805, node 757:94):
- * o grupo NÃO é rotacionado; cada parte é rotacionada individualmente dentro
- * de um wrapper absoluto do tamanho do bbox rotacionado
- * (flex items-center justify-center + child flex-none com o rotate):
- *   1. Base (exclude): wrapper left=-9.63px, top=56.26px, 361.355×448.188
- *      (bbox rotacionado); child natural 267.826×391.543 — o img é exibido no
- *      tamanho do viewBox (281.626×407.643) porque o SVG exporta com bleed da
- *      sombra pra direita/baixo (a forma ocupa o canto superior esquerdo)
- *   2. Buraco (Ellipse 377): wrapper left=72.63px, top=101.29px, 102.322²;
- *      child natural 83.34² (o viewBox do SVG é o tamanho natural)
- *   3. Ellipse 378 (bbox do vector): left=131.54px, top=69.27px, 123.702×115.263 —
- *      asset real do Figma (node 757:99, cracha-elipse-378.png) com sombra
- *      baked: o wrapper é o bbox do vector, o filho (103.33×91.306,
- *      rotate 15.24°) contém o img de 113.68×100.507 via inset % — NÃO é
- *      mais rounded-full nem tem opacity CSS
- *   4. Union: wrapper left=108.08px, top=28.03px, 125.164×145.207; child
- *      natural 95.83×124.387 — img no tamanho do viewBox (107.329×134.738,
- *      mesmo bleed de sombra do exclude)
+ * Crachá — arte achatada do Figma (Group 100805, node 757:94): os 4 elementos
+ * de arte são PNGs flat @2x (sombra, pétala, grão e furo baked) que já vêm
+ * ROTACIONADOS — a aparência final do node como o Figma renderiza. NÃO há
+ * cadeia de rotate para eles (manter os wrappers de 15.24° giraria a arte
+ * duas vezes, ~+15°): cada img é absoluta, no tamanho CSS (PNG/2) e na
+ * posição medida contra o render full-page 1x do Figma (MAE 1.66, varredura
+ * ±4px, texto/réguas fora da métrica). Posições (left/top) relativas ao box
+ * do grupo (1259.4,1237 no Figma):
+ *   1. Corpo (node 757:95, cracha-corpo.png 668×868 → 334×434): left=-99.4px,
+ *      top=79px. O render-bounds do node Exclude NÃO coincide com o AABB do
+ *      grupo (o corpo fica ~100px à ESQUERDA do box e 79px abaixo do topo): o
+ *      juiz é onde o render do Figma mostra a arte, não os números de
+ *      metadata. O corpo já traz o furo RECORTADO (alpha 0 no centro do anel):
+ *      o creme da página aparece pelo buraco. É o portador do alt.
+ *   2. Anel (node 757:98, cracha-anel.png 167² → 83.5²): left=60.6px,
+ *      top=112px — anel prata com centro transparente.
+ *   3. Ellipse 378 (node 757:99, cracha-elipse-378.png 248×172 → 124×86):
+ *      left=107.6px, top=88px — blob azul-gelo com grão/sombra baked. Sem
+ *      inset-%: o antigo PNG 228×202 tinha dimensões diferentes.
+ *   4. Pétala (node 757:100, cracha-petala.png 211×251 → 105.5×125.5):
+ *      left=98.6px, top=42px — prata com grão, pinta sobre o blob e o anel
+ *      (ordem do Figma: corpo, anel, 378, pétala).
  *   5. 4× Linha: wrapper 169.004×44.649 (bbox do traço rotacionado), lefts
  *      escalonados -11.51/-22.32/-33.13/-44px e tops 244.43/285.21/325.98/
  *      366.76px; child w=174.802 h=0 (img com espessura natural 3.45) e
- *      rotate 14.8°
+ *      rotate 14.8° — continuam como SVG vivo (cracha-linha.svg)
  *   6. Texto typewriter (crachaSaying): wrapper left=-1.7px, top=237.3px,
  *      186.964×161.345; child rotate 14.8° (mesmo ângulo das réguas — spec
- *      v3 §2.3) com p de 23px, leading 1.8,
- *      lowercase, width 159.843 — por último no DOM (pinta sobre as linhas)
+ *      v3 §2.3) com p de 23px, leading 1.8, lowercase, width 159.843 — por
+ *      último no DOM (pinta sobre as linhas). Texto SEMPRE vivo (i18n): nunca
+ *      baked nos PNGs.
+ *
+ * NÃO re-exportar a pétala por screenshot do Figma (sai preta): os PNGs
+ * vêm do download 2x com de-blend, versionados em public/images/home.
  *
  * NÃO renderizar o cracha-clip.png: o Figma node 757:94 NÃO tem tal parte
  * (verificado por metadata: Exclude, Ellipse 377, Ellipse 378, Union, 4 Lines
  * e Texto — apenas); o grande teardrop azul-claro cobria o meio do crachá e o
  * typewriter. O asset fica em public/ para uso por outras páginas.
- *
- * Nota: spec §4.5 linha 318 dizia que o texto vem "baked" no exclude.svg —
- * errado: os SVGs exportados não contêm o texto.
  */
 function Cracha({ alt, saying }: { alt: string; saying: string }) {
   // 5. Posições (left/top) dos wrappers das 4 linhas, do Figma
@@ -50,126 +55,68 @@ function Cracha({ alt, saying }: { alt: string; saying: string }) {
       className="cracha relative mx-auto"
       style={{ width: "377px", height: "506px" }}
     >
-      {/* 1. Base do crachá (exclude — corpo principal) */}
-      <div
-        className="absolute flex items-center justify-center"
+      {/* 1–4. Arte achatada (PNG já rotacionado — sem wrappers de rotate):
+          corpo (alt-bearer, furo recortado), anel, ellipse 378, pétala —
+          nessa ordem de pintura. Ver doc do Cracha. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/images/home/cracha-corpo.png"
+        alt={alt}
+        width={334}
+        height={434}
+        className="absolute"
         style={{
-          left: "-9.63px",
-          top: "56.26px",
-          width: "361.355px",
-          height: "448.188px",
+          left: "-99.4px",
+          top: "79px",
+          width: "334px",
+          height: "434px",
         }}
-      >
-        <div className="flex-none rotate-[15.24deg]">
-          <div
-            className="relative"
-            style={{ width: "267.826px", height: "391.543px" }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/home/cracha-exclude.svg"
-              alt={alt}
-              width={281.626}
-              height={407.643}
-              className="absolute"
-              style={{ left: 0, top: 0 }}
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* 2. Buraco (Ellipse 377) */}
-      <div
-        className="absolute flex items-center justify-center"
+      />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/images/home/cracha-anel.png"
+        alt=""
+        aria-hidden="true"
+        width={83.5}
+        height={83.5}
+        className="absolute"
         style={{
-          left: "72.63px",
-          top: "101.29px",
-          width: "102.322px",
-          height: "102.322px",
+          left: "60.6px",
+          top: "112px",
+          width: "83.5px",
+          height: "83.5px",
         }}
-      >
-        <div className="flex-none rotate-[15.24deg]">
-          <div
-            className="relative"
-            style={{ width: "83.34px", height: "83.34px" }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/home/cracha-buraco.svg"
-              alt=""
-              aria-hidden="true"
-              width={83.34}
-              height={83.34}
-              className="absolute inset-0"
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* 3. Ellipse decorativa (378) — blob orgânico azul-gelo: asset REAL do
-          Figma (node 757:99 → PNG 228×202 @2× = 113.68×100.507) com sombra
-          baked no PNG. NÃO é um círculo (era div rounded-full): o asset entra
-          na mesma cadeia de rotação das outras partes (15.24°), dentro do
-          wrapper do bbox do vector (bbox é 123.702×115.263; o filho natural
-          é 103.33×91.306 — o img sangra +10.02%/+10.08% via inset %).
-          NÃO usar opacity CSS: a translucidez vem do asset. */}
-      <div
-        className="absolute flex items-center justify-center"
+      />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/images/home/cracha-elipse-378.png"
+        alt=""
+        aria-hidden="true"
+        width={124}
+        height={86}
+        className="absolute"
         style={{
-          left: "131.54px",
-          top: "69.27px",
-          width: "123.702px",
-          height: "115.263px",
+          left: "107.6px",
+          top: "88px",
+          width: "124px",
+          height: "86px",
         }}
-      >
-        <div className="flex-none rotate-[15.24deg]">
-          <div
-            className="relative"
-            style={{ width: "103.33px", height: "91.306px" }}
-          >
-            <div className="absolute inset-[0_-10.02%_-10.08%_0]">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/images/home/cracha-elipse-378.png"
-                alt=""
-                aria-hidden="true"
-                width={113.68}
-                height={100.507}
-                style={{ width: "113.68px", height: "100.507px" }}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* 4. Union (flor/pétala no topo) */}
-      <div
-        className="absolute flex items-center justify-center"
+      />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/images/home/cracha-petala.png"
+        alt=""
+        aria-hidden="true"
+        width={105.5}
+        height={125.5}
+        className="absolute"
         style={{
-          left: "108.08px",
-          top: "28.03px",
-          width: "125.164px",
-          height: "145.207px",
+          left: "98.6px",
+          top: "42px",
+          width: "105.5px",
+          height: "125.5px",
         }}
-      >
-        <div className="flex-none rotate-[15.24deg]">
-          <div
-            className="relative"
-            style={{ width: "95.83px", height: "124.387px" }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/home/cracha-union.svg"
-              alt=""
-              aria-hidden="true"
-              width={107.329}
-              height={134.738}
-              className="absolute"
-              style={{ left: 0, top: 0 }}
-            />
-          </div>
-        </div>
-      </div>
+      />
 
       {/* 5. Quatro linhas decorativas (réguas do texto) — o svg é um traço
           fino (174.802×3.45) NATIVO não rotacionado; rotacionamos em CSS (14.8°)
