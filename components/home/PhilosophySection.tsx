@@ -48,7 +48,8 @@ import type { Dictionary } from "@/i18n/dictionaries";
  * NÃO renderizar o cracha-clip.png: o Figma node 757:94 NÃO tem tal parte
  * (verificado por metadata: Exclude, Ellipse 377, Ellipse 378, Union, 4 Lines
  * e Texto — apenas); o grande teardrop azul-claro cobria o meio do crachá e o
- * typewriter. O asset fica em public/ para uso por outras páginas.
+ * typewriter. O asset segue em public/, mas hoje nenhuma página o usa (órfão
+ * pré-existente, fora do escopo desta branch).
  */
 function Cracha({ alt, saying }: { alt: string; saying: string }) {
   // 5. Posições (left/top) dos wrappers das 4 linhas, do Figma
@@ -86,8 +87,8 @@ function Cracha({ alt, saying }: { alt: string; saying: string }) {
         src="/images/home/cracha-anel.png"
         alt=""
         aria-hidden="true"
-        width={83.5}
-        height={83.5}
+        width={84}
+        height={84}
         className="absolute max-md:max-w-none"
         style={{
           left: "60.6px",
@@ -116,8 +117,8 @@ function Cracha({ alt, saying }: { alt: string; saying: string }) {
         src="/images/home/cracha-petala.png"
         alt=""
         aria-hidden="true"
-        width={105.5}
-        height={125.5}
+        width={106}
+        height={126}
         className="absolute max-md:max-w-none"
         style={{
           left: "98.6px",
@@ -197,13 +198,18 @@ function Cracha({ alt, saying }: { alt: string; saying: string }) {
  *   gap título→lead = 49 (1481 − (1266+166))
  * - Body1: x=222, y=1590, w=702, 26px, box 93 (3×31); gap lead→body1 = 33
  * - Body2: x=222, y=1704, w=702, 26px, box 124 (4×31); gap body1→body2 = 21
- * - Crachá: x=1259, y=1237 (grupo 377×506 — partes rotacionadas
- *   individualmente, ver doc do Cracha; topo 29px ACIMA do título)
+ * - Crachá: x=1259, y=1237 (grupo 377×506 — arte em PNGs achatados
+ *   já rotacionados, ver doc do Cracha; topo 29px ACIMA do título)
  *
  * NÃO IMPLEMENTAR: Figma nodes 753:1649 e 753:1653 (duplicados leftover).
  *
  * Layout: grid 2 colunas — coluna do texto = 1037px (60.01vw: 1259−222),
  * coluna do crachá = 377px fixo (assenta em x=1259 = 72.8% @1728).
+ * O corpo do crachá sangra 99.4px para a ESQUERDA da coluna do crachá (ver doc
+ * do Cracha): a coluna do texto reserva esse sangramento com md:pr-[100px],
+ * senão o corpo (opaco, pintado depois no DOM) cobre a borda direita dos
+ * parágrafos entre 768 e ~1440px. A 1728 não muda nada (texto limitado a
+ * 705px dentro de 1037px).
  * O padding horizontal (pl 12.85vw / pr 5.32vw) mora no wrapper da página
  * (page.tsx), no padrão vw do Plan 2 — NÃO em .container-narrow.
  * As elipses decorativas (758:298 em x=27 y=1125, 758:112 em x=581 y=1608)
@@ -214,7 +220,7 @@ export function PhilosophySection({ dict }: { dict: Dictionary }) {
   return (
     <section className="relative grid grid-cols-1 items-start gap-8 md:grid-cols-[1fr_377px] md:gap-x-0">
       {/* Texto esquerda */}
-      <div>
+      <div className="md:pr-[100px]">
         {/* Título: 120px no Figma = clamp(3rem, 6.94vw, 7.5rem); o box do
             Figma (166 = 120×1.38) é a ALTURA NATURAL da linha — inline style
             (o h2 { line-height: 1 } de globals.css vence a utility leading-*) */}
