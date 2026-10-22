@@ -3,15 +3,28 @@ import type { Dictionary } from "@/i18n/dictionaries";
 /**
  * Personagem espiando por cima da galeria — fiel ao Figma (Group 100804):
  *
- * - Posição: x=901.7, y=1894, 676×361
- * - 901.7/1728 = 52.2% from left (NÃO centralizado!)
- * - Bottom do personagem (1894+361=2255) sobrepõe top da galeria (2234) em ~21px
- * - A ilustração "vaza" por cima da borda da galeria
+ * - O PNG (1533×841 @2x) é content-cropped: o canvas do export (766.5×420.5
+ *   CSS) inclui o bleed de sombra baked (o crop do Figma removeu um operando
+ *   invisível; o alpha restante é sombra real/grão + a arte).
+ * - A âncora é o CONTEÚDO opaco, não as bordas do bbox antigo: canvas
+ *   top-left em (849, 1912.5) page 1x → corpo (a≈255) ~1913..2248, mão/boca
+ *   cruzam o top da galeria (y=2234) como no Figma.
+ * - 849 − 364 (container-narrow content) = 485/1000 → marginLeft 48.5%.
+ * - O top do wrapper na página real é 1967.578 (a seção da filosofia é ~73px
+ *   mais alta que o stub do Figma por métrica de fonte), então marginTop
+ *   −55.078 ancora o canvas em y=1912.5; com o canvas mais alto que o box
+ *   antigo (676×360.52), o −mb-[99px] reassenta a galeria em y=2234 (Figma).
+ * - A sombra baked pode vazar além do corpo (até y 2333): z-10 +
+ *   pointer-events-none; esses pixels ficam com opacidade ≤ ~2% (grão) sobre
+ *   os cards — invisível.
  *
- * overflow-x: clip no wrapper — a largura é em px fixo (676px) somada a
- * marginLeft em %, então em viewports md intermediários (entre ~768 e ~1396px)
- * a imagem sangra pra fora do canvas; o clip mata a scrollbar horizontal sem
- * afetar o overlap vertical de 21px (eixo Y) e sem afetar o z-order.
+ * Plan 4: o peek mora no seam do Plan 4 (ver comentários no page.tsx) —
+ * snapshot congelado (spec §3.4): ancoragem/overlap/clip como estão aqui.
+ *
+ * overflow-x: clip no wrapper — a largura é em px fixo (766.5px) somada a
+ * marginLeft em %, então em viewports md intermediários (entre ~768 e
+ * ~1616px) a imagem sangra pra fora do canvas; o clip mata a scrollbar
+ * horizontal sem afetar o overlap vertical (eixo Y) nem o z-order.
  */
 export function PeekingCharacter({ dict }: { dict: Dictionary }) {
   return (
@@ -20,33 +33,28 @@ export function PeekingCharacter({ dict }: { dict: Dictionary }) {
       style={{ overflowX: "clip" }}
     >
       <div className="container-narrow">
-        {/* O SVG exportado tem canvas 1324.88×1292.58 com bleed de sombra: a
-            arte (getBBox) ocupa (602.44, 360.01, 667.92, 322.13) — NÃO o box
-            676×360.5 do Figma. Mapeamos a arte p/ box do Figma por
-            esticamento não-uniforme: a img renderiza 1340.6×1446.7 e é
-            deslocada (−609.7, −402.9) dentro do box absoluto; o bleed do lado
-            de fora é transparente (pixel scan confirmou). */}
+        {/* Img plana preenchendo o box — sem stretch, sem offsets, sem
+            maxWidth:none (o width/height explícitos em px blindam contra o
+            clamp de max-width:100% do preflight, que esmaga imgs in-flow
+            mais largas que o container — trap do Task 3). */}
         <div
-          className="peeking-box pointer-events-none relative -mb-[21px]" // overlap ~21px com a galeria
+          className="peeking-box pointer-events-none relative -mb-[99px]" // galeria assentada em y=2234 (Figma); snapshot do seam — spec §3.4 (Plan 4)
           style={{
-            width: "676px",
-            height: "360.52px",
-            marginLeft: "53.77%", // (901.7 − 364 (container content) ) / 1000
+            width: "766.5px", // canvas exato do PNG content-cropped
+            height: "420.5px",
+            marginTop: "-55.078px", // wrapper real em 1967.578 → canvas em 1912.5
+            marginLeft: "48.5%", // (849 − 364 (container content)) / 1000
           }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/illustrations/espiando.svg"
+            src="/images/home/espiando.png"
             alt={dict.home.peekingAlt}
-            width={1325}
-            height={1293}
-            className="absolute" // bleed transparente ao redor da arte
+            width={767}
+            height={421}
             style={{
-              left: "-609.7px",
-              top: "-402.9px",
-              width: "1340.6px",
-              height: "1446.7px",
-              maxWidth: "none",
+              width: "766.5px",
+              height: "420.5px",
             }}
           />
         </div>
