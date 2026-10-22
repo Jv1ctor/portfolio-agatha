@@ -6,9 +6,10 @@ import { ContactForm } from "@/components/contact/ContactForm";
  *
  * - Ilustração: PNG achatado contato-personagem.png (node 751:1360 achatado com
  *   o grupo da MÃO no rosto 751:1389 "Group 100785" BAKED por cima — o antigo
- *   overlay contato-extra.svg era esse mesmos grupo da mão; exatamente UMA mão
- *   no render, sem overlay e sem rotate 0.51°). O container do Figma era 555×676 em x=254 y=3437, mas o
- *   export é content-cropped (crop 2x [31,39,1109,1361] do canvas 1110×1362:
+ *   overlay contato-extra.svg era esse mesmo grupo da mão; exatamente UMA mão
+ *   no render, sem overlay e sem rotate 0.51°). O container do Figma era
+ *   555×676 em x=254 y=3437, mas o export é content-cropped (crop 2x
+ *   [31,39,1110,1362) — fim exclusivo — do canvas 1110×1362:
  *   removeu 15.5px de bleed à esquerda e 19.5px no topo, em 1x) → o conteúdo
  *   opaco assenta em page x=269.5, y=3456.5, CSS 539.5×661.5. Offsets/tamanho
  *   em % da coluna (554.98px @1728; margens % e width % resolvem contra a
@@ -48,9 +49,11 @@ export function ContactSection({ dict }: { dict: Dictionary }) {
         <img
           src="/images/home/contato-personagem.png"
           alt={home.contactIllustrationAlt}
+          loading="lazy"
+          decoding="async"
           width={539}
           height={661}
-          className="h-auto w-full md:h-auto md:w-[97.21%] md:ml-[2.793%] md:mt-[3.514%]"
+          className="h-auto w-full md:w-[97.21%] md:ml-[2.793%] md:mt-[3.514%]"
         />
       </div>
 

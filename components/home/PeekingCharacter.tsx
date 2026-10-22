@@ -50,6 +50,8 @@ export function PeekingCharacter({ dict }: { dict: Dictionary }) {
           <img
             src="/images/home/espiando.png"
             alt={dict.home.peekingAlt}
+            loading="lazy"
+            decoding="async"
             width={767}
             height={421}
             style={{

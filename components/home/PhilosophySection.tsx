@@ -72,6 +72,8 @@ function Cracha({ alt, saying }: { alt: string; saying: string }) {
       <img
         src="/images/home/cracha-corpo.png"
         alt={alt}
+        loading="lazy"
+        decoding="async"
         width={334}
         height={434}
         className="absolute max-md:max-w-none"
@@ -86,6 +88,8 @@ function Cracha({ alt, saying }: { alt: string; saying: string }) {
       <img
         src="/images/home/cracha-anel.png"
         alt=""
+        loading="lazy"
+        decoding="async"
         aria-hidden="true"
         width={84}
         height={84}
@@ -101,6 +105,8 @@ function Cracha({ alt, saying }: { alt: string; saying: string }) {
       <img
         src="/images/home/cracha-elipse-378.png"
         alt=""
+        loading="lazy"
+        decoding="async"
         aria-hidden="true"
         width={124}
         height={86}
@@ -116,6 +122,8 @@ function Cracha({ alt, saying }: { alt: string; saying: string }) {
       <img
         src="/images/home/cracha-petala.png"
         alt=""
+        loading="lazy"
+        decoding="async"
         aria-hidden="true"
         width={106}
         height={126}
