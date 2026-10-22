@@ -65,10 +65,10 @@ export default async function HomePage({
         {/* Posição relativa ao wrapper: y=436 - 354 = 82px */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/images/home/ellipse-5.svg"
+          src="/images/home/ellipse-5.png"
           alt=""
           aria-hidden="true"
-          width={695}
+          width={334}
           height={695}
           className="pointer-events-none absolute -z-10 hidden md:block"
           style={{
@@ -81,7 +81,7 @@ export default async function HomePage({
         {/* Posição relativa ao wrapper: y=1125 − 354 (hero bottom) = 771px */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/images/home/ellipse-3.svg"
+          src="/images/home/ellipse-3.png"
           alt=""
           aria-hidden="true"
           width={455}
@@ -97,7 +97,7 @@ export default async function HomePage({
         {/* Posição relativa ao wrapper: y=1608 − 354 = 1254px */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/images/home/ellipse-1.svg"
+          src="/images/home/ellipse-1.png"
           alt=""
           aria-hidden="true"
           width={879}
@@ -146,7 +146,7 @@ export default async function HomePage({
             left = 1131/1728 = 65.4% */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/images/home/ellipse-2.svg"
+          src="/images/home/ellipse-2.png"
           alt=""
           aria-hidden="true"
           width={455}
@@ -162,7 +162,7 @@ export default async function HomePage({
         {/* → top = 3669 − 3349 = 320px; left = 74/1728 = 4.3% */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/images/home/ellipse-4.svg"
+          src="/images/home/ellipse-4.png"
           alt=""
           aria-hidden="true"
           width={695}
