@@ -27,15 +27,18 @@ export function Header({
   // mesmo padrão que o ProjectCard usa pra sobrescrever a regra global de h1-h4.
   const linkStyle = { color: 'var(--color-blue)' } as const;
   const linkClass = (active: boolean) =>
-    `transition-opacity hover:opacity-70 ${active ? 'font-black' : 'font-normal'}`;
+    `whitespace-nowrap transition-opacity hover:opacity-70 ${active ? 'font-black' : 'font-normal'}`;
 
   return (
     <header className="w-full bg-[color:var(--color-cream)]/95 backdrop-blur supports-[backdrop-filter]:bg-[color:var(--color-cream)]/80 sticky top-0 z-30">
       {/* Fiel ao Figma: header NÃO centralizado — ocupa a largura cheia com
-          ~40px de respiro nas laterais (nav à esquerda, abas à direita). */}
-      <div className="flex w-full flex-col gap-3 px-10 py-4 text-base md:flex-row md:items-center md:justify-between">
+          ~40px de respiro nas laterais (nav à esquerda, abas à direita).
+          Mobile: px-6 + text-sm (padrão do HomeHeader, ad4bacd) — em 375px,
+          os dois links + switcher a 16px/px-10 estouram ~415px e os links
+          quebram em duas linhas; a 14px/px-6 cabe em uma. */}
+      <div className="flex w-full flex-col gap-3 px-6 py-4 text-sm md:flex-row md:items-center md:justify-between md:px-10 md:text-base">
         {/* Esquerda: Sobre mim · Solicitar serviços + seletor de idioma */}
-        <div className="flex items-center gap-6">
+        <div className="flex flex-wrap items-center gap-6">
           <nav className="flex items-center gap-4">
             {navLinks.map((link) => {
               const active = pathWithoutLocale === link.href;

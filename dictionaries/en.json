@@ -10,6 +10,8 @@
     "interacao": "Interaction",
     "servicos": "Services",
     "3d": "3D",
+    "homeAbout": "about",
+    "homeProjects": "projects",
     "switchLocale": "Switch to {name}"
   },
   "home": {
@@ -36,7 +38,18 @@
     "experienceBodyBold": "résumé",
     "experienceBodyMid": " or the ",
     "experienceBodyLink": "LinkedIn",
-    "experienceBodyEnd": " profile."
+    "experienceBodyEnd": " profile.",
+    "studiesAlt": "Illustration of studies — rabbits in a pink field with flowers",
+    "studiesDoodlesAlt": "Blue panel with sea animal doodles",
+    "careerAlt": "Illustration of a cute whale swimming with bubbles",
+    "contactTitleLine1": "LET'S",
+    "contactTitleLine2": "WORK",
+    "contactTitleLine3": "TOGETHER?",
+    "contactSubtitle": "Get in touch by sending an email below!",
+    "contactIllustrationAlt": "Illustration of Ágatha holding an envelope",
+    "crachaAlt": "Blue badge with the words 'i believe that design is'",
+    "crachaSaying": "i believe that design is",
+    "peekingAlt": "Illustration of Ágatha peeking over the gallery"
   },
   "contact": {
     "title": "Let's work together?",
@@ -228,7 +241,8 @@
     "emBreve": "Coming soon"
   },
   "footer": {
-    "social": "Social media"
+    "social": "Social media",
+    "visitAlso": "visit too"
   },
   "metadata": {
     "home": "Ágatha Sales",

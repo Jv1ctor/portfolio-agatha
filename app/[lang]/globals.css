@@ -27,16 +27,30 @@
   --color-pink: #e4a4c3;
   --color-pink-soft: #f1d2e2;
 
+  /* Rosa clarinho que sim — fundo da seção de estudos (Figma #F9CEDC) */
+  --color-pink-light: #f9cedc;
+
+  /* Gradiente da sidebar de doodles (Figma: #485699 → #5C76B4 → #6F95CE) */
+  --gradient-sidebar: linear-gradient(to bottom, #485699 0%, #5c76b4 39.4%, #6f95ce 73.1%, #6f95ce 100%);
+
   --color-blue-darkest: #08488f; /* fim do gradiente da banda/hero */
 
   /* Sombra dos cards — Effect "cards" do Figma:
      DROP_SHADOW #6F96CE @16%, offset (2,8), blur 8, spread 4 */
   --shadow-card: 2px 8px 8px 4px rgba(111, 150, 206, 0.16);
 
-  /* Banda do hero + footer — gradiente azul nominal do Figma
+  /* Banda do hero — gradiente azul nominal do Figma
      (-70.88°, #BACCEB → #6F96CE → #08488F) */
   --gradient-band: linear-gradient(-70.88deg, #bacceb 3.48%, #6f96ce 49.07%, #08488f 101.62%);
-  --gradient-footer: var(--gradient-band);
+
+  /* Footer da home v2 ("Pontossemno", spec v2 §4.9) — ângulo mais fechado
+     (-63.62°). Token próprio, não o gradiente da banda: o Footer antigo
+     (.bg-band, outras páginas) permanece byte-idêntico. */
+  --gradient-footer: linear-gradient(-63.62deg, #bacceb 3.48%, #6f96ce 49.07%, #08488f 101.62%);
+
+  /* Hero da home v2 ("Pontossemno") — mesmo gradiente, ângulo mais horizontal
+     (-62.1°, spec v2 §4.2). .bg-band fica intacto pras outras páginas. */
+  --gradient-hero: linear-gradient(-62.1deg, #bacceb 3.48%, #6f96ce 49.07%, #08488f 101.62%);
 
   /* Card placeholder ("nulo" do Figma) — mesmo gradiente, ângulo -78.27° */
   --gradient-placeholder: linear-gradient(-78.27deg, #bacceb 3.48%, #6f96ce 49.07%, #08488f 101.62%);
@@ -66,6 +80,7 @@
   --color-orange-soft: var(--color-orange-soft);
   --color-pink: var(--color-pink);
   --color-pink-soft: var(--color-pink-soft);
+  --color-pink-light: var(--color-pink-light);
 
   --font-display: var(--font-display);
   --font-body: var(--font-body);
@@ -129,6 +144,22 @@ a {
 }
 .bg-placeholder {
   background: var(--gradient-placeholder);
+}
+.bg-hero {
+  /* Mesmo grão da .bg-band, mas com o gradiente -62.1° da home v2. */
+  background-image: url("/images/band-noise.png"), var(--gradient-hero);
+  background-repeat: repeat, no-repeat;
+  background-size: 180px 180px, cover;
+  background-blend-mode: overlay, normal;
+}
+
+.bg-footer {
+  /* Espelho da .bg-band com o gradiente -63.62° do footer da home v2
+     (spec v2 §4.9) — mesmo grão (band-noise.png) das outras bandas. */
+  background-image: url("/images/band-noise.png"), var(--gradient-footer);
+  background-repeat: repeat, no-repeat;
+  background-size: 180px 180px, cover;
+  background-blend-mode: overlay, normal;
 }
 .shadow-card {
   box-shadow: var(--shadow-card);

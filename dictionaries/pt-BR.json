@@ -10,6 +10,8 @@
     "interacao": "Interação",
     "servicos": "Serviços",
     "3d": "3D",
+    "homeAbout": "sobre",
+    "homeProjects": "projetos",
     "switchLocale": "Mudar para {name}"
   },
   "home": {
@@ -36,7 +38,18 @@
     "experienceBodyBold": "currículo",
     "experienceBodyMid": " ou perfil do ",
     "experienceBodyLink": "LinkedIn",
-    "experienceBodyEnd": "."
+    "experienceBodyEnd": ".",
+    "studiesAlt": "Ilustração de estudos — coelhos em um campo rosa com flores",
+    "studiesDoodlesAlt": "Painel azul com doodles de animais marinhos",
+    "careerAlt": "Ilustração de uma baleia fofa nadando com bolhas",
+    "contactTitleLine1": "vAMOS",
+    "contactTitleLine2": "TRABALHAR",
+    "contactTitleLine3": "JUNTOS?",
+    "contactSubtitle": "Entre em contato enviando um e-mail abaixo!",
+    "contactIllustrationAlt": "Ilustração da Ágatha segurando um envelope",
+    "crachaAlt": "Crachá azul com os dizeres 'Acredito que o design é'",
+    "crachaSaying": "acredito que o design é",
+    "peekingAlt": "Ilustração da Ágatha espiando por cima da galeria"
   },
   "contact": {
     "title": "Vamos trabalhar juntos?",
@@ -185,7 +198,8 @@
     "emBreve": "Em breve"
   },
   "footer": {
-    "social": "Redes sociais"
+    "social": "Redes sociais",
+    "visitAlso": "visite também"
   },
   "metadata": {
     "home": "Ágatha Sales",
