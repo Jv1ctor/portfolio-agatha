@@ -164,3 +164,14 @@ a {
 .shadow-card {
   box-shadow: var(--shadow-card);
 }
+
+/* Seta de voltar ao topo no footer de /projetos (animate-[bob_…]). */
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}

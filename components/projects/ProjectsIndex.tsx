@@ -15,7 +15,13 @@ export function ProjectsIndex({ projects }: { projects: LocalizedProject[] }) {
 
   return (
     <div id="top">
-      <BrandHero variant="home" title={t('projectsPage.title')} />
+      <BrandHero
+        variant="home"
+        title={t('projectsPage.title')}
+        fullWidth
+        bleedBottom={0.16}
+        parallax
+      />
       <ul>
         {projects.map((project) => (
           <li key={project.slug}>

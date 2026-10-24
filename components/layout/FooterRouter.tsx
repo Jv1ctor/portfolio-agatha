@@ -27,5 +27,7 @@ export function FooterRouter({
   const isHome = segments.length === 0;
   const isProjectsIndex = segments.length === 1 && segments[0] === 'projetos';
 
-  return isHome || isProjectsIndex ? <HomeFooter dict={dict} /> : <Footer dict={dict} />;
+  if (isHome) return <HomeFooter dict={dict} />;
+  if (isProjectsIndex) return <HomeFooter dict={dict} variant="projects" />;
+  return <Footer dict={dict} />;
 }

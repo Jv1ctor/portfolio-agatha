@@ -16,6 +16,8 @@ import { LanguageSwitcher } from './LanguageSwitcher';
  * Substitui o Header antigo na home e no índice /projetos, via HeaderRouter no
  * layout. No índice, `active="projects"` marca o link "projetos" com
  * aria-current="page".
+ * Hover dos links: micro-movimento do design (sobe, inclina, cresce), desligado
+ * com reduced motion.
  * A cor vai inline: a regra global `a { color: inherit }` vence as utilities
  * do Tailwind no layer (mesmo padrão do Header antigo).
  */
@@ -30,7 +32,7 @@ export function HomeHeader({
 }) {
   const linkStyle = { color: 'var(--color-blue-soft)' } as const;
   const linkClass =
-    'font-display text-[22px] lowercase leading-none transition-opacity hover:opacity-70 sm:text-[24px] md:text-[32px]';
+    'font-display text-[22px] lowercase leading-none transition-[opacity,translate,rotate,scale] duration-[350ms] ease-[cubic-bezier(.2,.9,.3,1.4)] hover:opacity-70 motion-safe:hover:-translate-y-[3px] motion-safe:hover:-rotate-2 motion-safe:hover:scale-[1.04] motion-reduce:transition-none sm:text-[24px] md:text-[32px]';
 
   const projectsHref = `/${locale}/projetos`;
 
