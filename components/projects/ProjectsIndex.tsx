@@ -5,9 +5,10 @@ import { BrandHero } from '@/components/layout/BrandHero';
 import { useFinePointer, useReducedMotion } from '@/lib/hooks/use-media-query';
 import { useTranslations } from '@/lib/i18n/use-translation';
 import type { LocalizedProject } from '@/lib/projects';
-import { distributeColumns } from '@/lib/projects-search';
+import { bubbleKey, distributeColumns, filterProjects, type ProjectFilter } from '@/lib/projects-search';
 import { BentoCard } from './BentoCard';
 import { CustomCursor } from './CustomCursor';
+import { SearchAndFilters } from './SearchAndFilters';
 import s from './projects.module.css';
 
 /** Ative/desative efeitos aqui. */
@@ -24,11 +25,29 @@ const SETTINGS = {
 export function ProjectsIndex({ projects }: { projects: LocalizedProject[] }) {
   const { t } = useTranslations();
   const [hovered, setHovered] = useState<string | null>(null);
+  const [query, setQuery] = useState('');
+  const [filter, setFilter] = useState<ProjectFilter>('all');
   const finePointer = useFinePointer();
   const reducedMotion = useReducedMotion();
   const cursorEnabled = SETTINGS.customCursor && finePointer && !reducedMotion;
 
-  const columns = distributeColumns(projects);
+  const filtered = filterProjects(projects, query, filter, {
+    servicos: t('projectsPage.filters.servicos'),
+    '3d': t('projectsPage.filters.3d'),
+    interacao: t('projectsPage.filters.interacao'),
+    grafico: t('projectsPage.filters.grafico'),
+  });
+  const columns = distributeColumns(filtered);
+
+  const hoveredProject = projects.find((project) => project.slug === hovered);
+  const key = bubbleKey({ hovered: hoveredProject, query, filter, count: filtered.length });
+  const bubble = t(`projectsPage.bubble.${key}`).replace('{count}', String(filtered.length));
+  const mood = hoveredProject ? 'happy' : filtered.length === 0 ? 'sad' : 'idle';
+
+  const clear = () => {
+    setQuery('');
+    setFilter('all');
+  };
 
   return (
     <div id="top" className={s.page}>
@@ -40,9 +59,18 @@ export function ProjectsIndex({ projects }: { projects: LocalizedProject[] }) {
         parallax={SETTINGS.parallax}
       />
 
+      <SearchAndFilters
+        query={query}
+        onQuery={setQuery}
+        filter={filter}
+        onFilter={setFilter}
+        bubble={bubble}
+        mood={mood}
+      />
+
       <section className={s.main}>
         <h2 className={s.srOnly} style={{ fontFamily: 'var(--font-body)' }}>
-          {t('projectsPage.listHeading').replace('{count}', String(projects.length))}
+          {t('projectsPage.listHeading').replace('{count}', String(filtered.length))}
         </h2>
 
         <div className={s.cols}>
@@ -61,6 +89,15 @@ export function ProjectsIndex({ projects }: { projects: LocalizedProject[] }) {
             </div>
           ))}
         </div>
+
+        {filtered.length === 0 && (
+          <div className={s.empty}>
+            <p className={s.emptyText}>{t('projectsPage.emptyText')}</p>
+            <button type="button" className={s.emptyBtn} onClick={clear}>
+              {t('projectsPage.clearFilters')}
+            </button>
+          </div>
+        )}
       </section>
 
       {cursorEnabled && <CustomCursor active={hovered !== null} />}
