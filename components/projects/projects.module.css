@@ -1,0 +1,137 @@
+/* ============================================================
+   TOKENS (ficam na raiz da página: CSS Modules não aceita :root).
+   Cores que já existem em globals.css usam o token global.
+   ============================================================ */
+.page {
+  --navy: #175094;
+  --navy-deep: #0e488b;
+  --blue-300: #84a5cb;
+  --pink-outer: var(--color-pink-light); /* anel externo do selo */
+  --badge-fill: #f7cbda;
+  --badge-line: #daa0b7;
+  --badge-ink: var(--color-blue-darkest);
+
+  /* curvas */
+  --ease-out: cubic-bezier(.2, .8, .2, 1);       /* entradas suaves */
+  --ease-bouncy: cubic-bezier(.2, .9, .3, 1.6);  /* overshoot forte (selo, cursor) */
+
+  color: var(--navy);
+  font-family: var(--font-body), system-ui, sans-serif;
+  position: relative;
+}
+
+.srOnly {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* ============================================================
+   GRADE BENTO
+   ============================================================ */
+.main { padding: 44px 8px 24px; }
+.cols { display: flex; gap: 14px; align-items: flex-start; max-width: 1180px; margin-inline: auto; }
+.col { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.colNarrow { flex: 3 1 0; }
+.colWide { flex: 4 1 0; }
+
+.card {
+  position: relative; display: block; overflow: hidden; border-radius: 16px;
+  text-decoration: none; background: #b9ccec;
+  /* `backwards`: depois da entrada a inclinação (inline) volta a valer. Delay vem do inline style. */
+  animation: rise .8s var(--ease-out) backwards;
+  transition: transform .25s ease-out, box-shadow .4s ease;
+  will-change: transform;
+}
+.cardCursorHidden { cursor: none; }
+.card:hover { box-shadow: 0 24px 44px -20px rgba(14,72,139,.6); }
+
+.cardImg {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  transition: transform 1s var(--ease-out), filter .5s;
+}
+.card:hover .cardImg { transform: scale(1.08); filter: blur(2px) saturate(.75); }
+
+.overlay {
+  position: absolute; inset: 0; opacity: 0; transition: opacity .45s ease;
+  background: linear-gradient(180deg, rgba(23,80,148,.55) 0%, rgba(32,52,90,.86) 55%, rgba(26,43,75,.97) 100%);
+}
+.card:hover .overlay, .card:focus-visible .overlay { opacity: 1; }
+
+.cardText {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 0 24px 22px; display: flex; flex-direction: column; gap: 10px; color: #fff;
+}
+.up { opacity: 0; transform: translateY(18px); transition: opacity .45s ease, transform .55s var(--ease-out); }
+.card:hover .up, .card:focus-visible .up { opacity: 1; transform: none; }
+.card:hover .d1, .card:focus-visible .d1 { transition-delay: .05s; }
+.card:hover .d2, .card:focus-visible .d2 { transition-delay: .12s; }
+.card:hover .d3, .card:focus-visible .d3 { transition-delay: .19s; }
+
+.cardTitle { font-weight: 700; font-size: 18px; letter-spacing: .01em; text-transform: uppercase; line-height: 1.2; }
+.cardDesc {
+  font-weight: 500; font-size: 15px; line-height: 1.3; text-align: justify;
+  display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden;
+}
+.tags { display: flex; flex-wrap: wrap; gap: 10px; padding: 2px; }
+.tag {
+  font-weight: 600; font-size: 13.5px; color: var(--navy);
+  background: var(--color-blue-pale); border: 1.5px dashed var(--color-blue); border-radius: 999px;
+  padding: 2px 10px; box-shadow: 0 0 0 2px var(--color-blue-pale), 0 0 0 3px var(--blue-300);
+}
+
+.badge {
+  position: absolute; top: 34px; right: 34px; z-index: 1;
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--badge-fill); color: var(--badge-ink);
+  font-weight: 700; font-size: 19px; line-height: 1; letter-spacing: .03em;
+  padding: 7px 12px 7px 9px; border-radius: 2px;
+  box-shadow: inset 0 0 0 2px var(--pink-outer), inset 0 0 0 3.5px var(--badge-line), 0 2px 2px rgba(150,80,110,.45);
+  opacity: 0; transform: scale(.6) rotate(-8deg);
+  transition: opacity .3s, transform .45s var(--ease-bouncy);
+}
+.badge img { display: block; width: 25px; height: 24px; }
+.card:hover .badge, .card:focus-visible .badge { opacity: 1; transform: none; transition-delay: .15s; }
+
+/* ============================================================
+   CURSOR PERSONALIZADO
+   ============================================================ */
+.cursor {
+  position: fixed; left: 0; top: 0; width: 84px; height: 84px; margin: -42px 0 0 -42px;
+  pointer-events: none; z-index: 40; will-change: transform;
+}
+.cursorDot {
+  width: 100%; height: 100%; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  background: var(--badge-fill); color: var(--badge-ink);
+  font-weight: 700; font-size: 13px; line-height: 1.1;
+  box-shadow: inset 0 0 0 2px var(--pink-outer), inset 0 0 0 3.5px var(--badge-line), 0 10px 24px -8px rgba(14,72,139,.6);
+  transform: scale(0); transition: transform .35s var(--ease-bouncy);
+}
+.cursorOn .cursorDot { transform: scale(1); }
+
+/* foco visível */
+.card:focus-visible {
+  outline: 3px solid var(--navy-deep); outline-offset: 4px; border-radius: 16px;
+}
+
+/* ============================================================
+   KEYFRAMES
+   ============================================================ */
+@keyframes rise   { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
+
+/* ============================================================
+   RESPONSIVO
+   ============================================================ */
+@media (max-width: 900px) {
+  .cols { flex-wrap: wrap; }
+  .colNarrow, .colWide { flex: 1 1 300px; }
+}
+/* Sem hover (touch): conteúdo do card sempre visível */
+@media (hover: none) {
+  .overlay, .up, .badge { opacity: 1; transform: none; }
+}
+
+/* Menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  .page *, .page *::before, .page *::after { animation: none !important; transition: none !important; }
+}
