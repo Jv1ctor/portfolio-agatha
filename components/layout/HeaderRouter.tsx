@@ -8,8 +8,8 @@ import type { Dictionary, Locale } from '@/i18n/dictionaries';
 /**
  * Alterna entre o Header antigo (sticky, 6 links + category tabs) e o
  * HomeHeader novo (Figma "Pontossemno", spec v2 §4.1) conforme a rota:
- * a home v2 e o índice /projetos usam o header limpo (no índice, com o link
- * "projetos" marcado como página atual); TODAS as outras páginas (contato,
+ * a home v2 e o índice /projetos usam o header limpo (com o link da página atual
+ * marcado: "sobre" na home, "projetos" no índice); TODAS as outras páginas (contato,
  * categorias, cases em /projetos/<slug>) continuam no Header antigo, que é
  * renderizado no layout.
  *
@@ -38,7 +38,7 @@ export function HeaderRouter({
       <HomeHeader
         locale={locale}
         dict={dict}
-        active={isProjectsIndex ? 'projects' : undefined}
+        active={isProjectsIndex ? 'projects' : 'about'}
       />
     );
   }

@@ -15,7 +15,8 @@ import { LanguageSwitcher } from './LanguageSwitcher';
  * Server Component — recebe locale+dict como props (mesmo padrão do Header).
  * Substitui o Header antigo na home e no índice /projetos, via HeaderRouter no
  * layout. No índice, `active="projects"` marca o link "projetos" com
- * aria-current="page".
+ * aria-current="page"; na home o ativo é "sobre". O link ativo ganha azul forte,
+ * sombra e o mirtilo do design (decorativo, dentro do link).
  * Hover dos links: micro-movimento do design (sobe, inclina, cresce), desligado
  * com reduced motion.
  * A cor vai inline: a regra global `a { color: inherit }` vence as utilities
@@ -28,9 +29,28 @@ export function HomeHeader({
 }: {
   locale: Locale;
   dict: Dictionary;
-  active?: 'projects';
+  active?: 'about' | 'projects';
 }) {
   const linkStyle = { color: 'var(--color-blue-soft)' } as const;
+  // Link ativo (design da aba Projetos): azul forte, sombra suave abaixo das
+  // letras e o mirtilo logo depois da palavra.
+  const activeStyle = {
+    color: 'var(--color-blue-strong)',
+    textShadow: '0.03em 0.09em 0.06em rgba(120, 110, 95, 0.35)',
+  } as const;
+  const activeClass = 'flex items-center';
+  // O mirtilo escala com a fonte (≈1.4em de altura) e as margens verticais
+  // negativas o tiram do cálculo da altura do link: o texto não muda de lugar
+  // e a figura sobe acima das letras, como no design.
+  const berry = (
+    // eslint-disable-next-line @next/next/no-img-element -- ícone decorativo minúsculo
+    <img
+      src="/images/projetos/mirtilo.png"
+      alt=""
+      aria-hidden="true"
+      className="relative top-[-0.1em] -my-[1em] ml-[0.03em] h-[1.4em] w-auto max-w-none"
+    />
+  );
   const linkClass =
     'font-display text-[22px] lowercase leading-none transition-[opacity,translate,rotate,scale] duration-[350ms] ease-[cubic-bezier(.2,.9,.3,1.4)] hover:opacity-70 motion-safe:hover:-translate-y-[3px] motion-safe:hover:-rotate-2 motion-safe:hover:scale-[1.04] motion-reduce:transition-none sm:text-[24px] md:text-[32px]';
 
@@ -42,10 +62,12 @@ export function HomeHeader({
         {/* Esquerda: "sobre" — aponta pra própria home (igual ao nav.about antigo) */}
         <Link
           href={`/${locale}`}
-          className={linkClass}
-          style={linkStyle}
+          aria-current={active === 'about' ? 'page' : undefined}
+          className={active === 'about' ? `${linkClass} ${activeClass}` : linkClass}
+          style={active === 'about' ? activeStyle : linkStyle}
         >
           {dict.nav.homeAbout}
+          {active === 'about' && berry}
         </Link>
 
         {/* Centro: seletor de idioma (componente existente, i18n obrigatório) */}
@@ -55,10 +77,11 @@ export function HomeHeader({
         <Link
           href={projectsHref}
           aria-current={active === 'projects' ? 'page' : undefined}
-          className={linkClass}
-          style={linkStyle}
+          className={active === 'projects' ? `${linkClass} ${activeClass}` : linkClass}
+          style={active === 'projects' ? activeStyle : linkStyle}
         >
           {dict.nav.homeProjects}
+          {active === 'projects' && berry}
         </Link>
       </div>
     </header>
