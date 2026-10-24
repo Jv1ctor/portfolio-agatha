@@ -14,6 +14,7 @@
 #   4 - Page migration (Task 14)
 #   5 - Runtime verification (Task 16)
 #   6 - Final pre-merge
+#   7 - Projects page (static checks; runtime checks are appended later)
 #
 # Exit code: 0 = PASS, 1 = FAIL
 #
@@ -648,6 +649,104 @@ console.log('Parity OK: ' + ptKeys.length + ' keys');
 }
 
 # ============================================================
+# GATE 7: Projects page (/[lang]/projetos + case modal)
+# ============================================================
+gate_7() {
+  log_gate "7" "Projects page (/[lang]/projetos + case modal)"
+
+  # ----------------------------------------------------------
+  # Static checks (no server needed)
+  # ----------------------------------------------------------
+  log_sub "UI image assets in public/images/projetos/..."
+  for asset in "mascote.png" "icones/coelho.png" "icones/servicos.png" "icones/3d.png" "icones/interacao.png" "icones/grafico.png"; do
+    if [ -f "public/images/projetos/$asset" ]; then
+      log_pass "  $asset exists"
+    else
+      log_fail "  public/images/projetos/$asset missing"
+    fi
+  done
+
+  log_sub "No design-example assets in public/..."
+  # git ls-files pega o que está versionado; find pega também o que ficou só no disco.
+  EXAMPLE_RE='peixes|coelhinhos|jardim|cidade-3d|portfolio-banner|footer-bg|nav-about|nav-projects'
+  EXAMPLE_ASSETS=$( (git ls-files public; find public) 2>/dev/null | grep -E "$EXAMPLE_RE" || true)
+  if [ -z "$EXAMPLE_ASSETS" ]; then
+    log_pass "No example assets from the design in public/"
+  else
+    log_fail "Example assets from the design found in public/:"
+    echo "$EXAMPLE_ASSETS" | sort -u | head -10
+  fi
+
+  log_sub "No hardcoded visible strings from the design in components/ and app/..."
+  # Só casa a frase logo após uma aspa/crase/'>' (texto literal em JSX ou string);
+  # nomes de chave do dicionário e comentários sem aspa não entram.
+  HARDCODED_P=$(grep -rnIE "(['\">\`])(Olha que legal|Clica pra ver|Achei |Esse é o meu favorito|nada por aqui|DESTAQUE|voltar aos projetos|próximo:|Pesquise por|limpar busca|Nenhum projeto|voltar ao topo|Look how cool|Click to see|FEATURED|back to projects)" components app || true)
+  if [ -z "$HARDCODED_P" ]; then
+    log_pass "No hardcoded design strings in components/ or app/"
+  else
+    log_fail "Hardcoded design strings found:"
+    echo "$HARDCODED_P" | head -10
+  fi
+
+  log_sub "Dictionary keys: projectsPage parity (pt-BR ↔ en) and metadata.projetos..."
+  if node -e "
+const pt = require('./dictionaries/pt-BR.json');
+const en = require('./dictionaries/en.json');
+function leaves(obj, prefix) {
+  return Object.entries(obj).flatMap(([k, v]) =>
+    typeof v === 'object' && v !== null && !Array.isArray(v)
+      ? leaves(v, prefix + k + '.')
+      : [[prefix + k, v]]
+  );
+}
+const fail = (msg) => { console.error(msg); process.exit(1); };
+if (!pt.projectsPage || !en.projectsPage) fail('projectsPage missing in ' + (!pt.projectsPage ? 'pt-BR' : 'en'));
+const a = new Map(leaves(pt.projectsPage, 'projectsPage.'));
+const b = new Map(leaves(en.projectsPage, 'projectsPage.'));
+if (a.size === 0) fail('projectsPage is empty');
+const onlyPt = [...a.keys()].filter((k) => !b.has(k));
+const onlyEn = [...b.keys()].filter((k) => !a.has(k));
+if (onlyPt.length) fail('Only in pt-BR: ' + onlyPt.join(', '));
+if (onlyEn.length) fail('Only in en: ' + onlyEn.join(', '));
+const ph = (s) => (String(s).match(/\{[a-zA-Z]+\}/g) || []).sort().join(',');
+for (const [k, v] of a) {
+  if (typeof v !== 'string' || !v.trim()) fail('Empty value in pt-BR: ' + k);
+  if (typeof b.get(k) !== 'string' || !b.get(k).trim()) fail('Empty value in en: ' + k);
+  if (ph(v) !== ph(b.get(k))) fail('Placeholder mismatch: ' + k);
+}
+for (const [name, d] of [['pt-BR', pt], ['en', en]]) {
+  if (!d.metadata || typeof d.metadata.projetos !== 'string' || !d.metadata.projetos.trim()) fail('metadata.projetos missing in ' + name);
+}
+console.log('ok: ' + a.size + ' keys');
+"; then
+    log_pass "projectsPage keys match in both dictionaries; metadata.projetos present"
+  else
+    log_fail "projectsPage / metadata.projetos dictionary check failed"
+  fi
+
+  log_sub "No dictionary JSON imported by a Client Component..."
+  DICT_IMPORTS=""
+  # while-read (e não for): os caminhos têm "[lang]", que o shell expandiria como glob.
+  while IFS= read -r file; do
+    [ -n "$file" ] || continue
+    FOUND=$(grep -nE "from ['\"][^'\"]*dictionaries/" "$file" || true)
+    if [ -n "$FOUND" ]; then
+      DICT_IMPORTS="$DICT_IMPORTS$file: $FOUND"$'\n'
+    fi
+  done < <(grep -rlE "^['\"]use client['\"]" components app lib 2>/dev/null || true)
+  if [ -z "$DICT_IMPORTS" ]; then
+    log_pass "No Client Component imports from dictionaries/"
+  else
+    log_fail "Client Component imports from dictionaries/:"
+    echo "$DICT_IMPORTS" | head -10
+  fi
+
+  # ----------------------------------------------------------
+  # Runtime checks (dev server on :3000) — added in a later task
+  # ----------------------------------------------------------
+}
+
+# ============================================================
 # Summary
 # ============================================================
 print_summary() {
@@ -685,6 +784,7 @@ main() {
     4) gate_4 ;;
     5) gate_5 ;;
     6) gate_6 ;;
+    7) gate_7 ;;
     all)
       gate_0
       gate_1
@@ -693,9 +793,10 @@ main() {
       gate_4
       # gate_5  # Skip in 'all' — requires manual interaction
       # gate_6  # Skip in 'all' — run before PR
+      # gate_7  # Skip in 'all' — projects page, run per task
       ;;
     *)
-      echo "Usage: $0 [0|1|2|3|4|5|6|all]"
+      echo "Usage: $0 [0|1|2|3|4|5|6|7|all]"
       exit 1
       ;;
   esac
