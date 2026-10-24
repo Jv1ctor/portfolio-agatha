@@ -52,7 +52,7 @@ export function HomeHeader({
       src="/images/projetos/mirtilo.png"
       alt=""
       aria-hidden="true"
-      className="pointer-events-none absolute left-[calc(100%+0.03em)] top-[calc(50%-0.1em)] h-[1.2em] w-auto max-w-none -translate-y-1/2 md:h-[1.4em]"
+      className="pointer-events-none absolute left-[calc(100%+0.03em)] top-[calc(50%-0.1em)] h-[1.2em] w-auto max-w-none -translate-y-1/2 sm:h-[1.1em] md:h-[1.4em]"
     />
   );
   const linkClass =
