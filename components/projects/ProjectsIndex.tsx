@@ -8,7 +8,7 @@ import type { LocalizedProject } from '@/lib/projects';
 /**
  * Índice da página de projetos. Client Component: o estado da página (busca,
  * filtro, hover) entra aqui nas próximas tasks. Por ora, banner + lista simples
- * de links para os cases (o clique será interceptado pelo modal na Task 4).
+ * de links para os cases (o clique no cliente abre o case em modal, por rota interceptada).
  */
 export function ProjectsIndex({ projects }: { projects: LocalizedProject[] }) {
   const { t, locale } = useTranslations();
