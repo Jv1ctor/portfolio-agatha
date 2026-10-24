@@ -87,8 +87,9 @@ Canonical example: `app/[lang]/contato/page.tsx`.
 
 1. Add the slug to `slugToKey` (`lib/projects.ts`) — kebab-case slug →
    camelCase dictionary key — and the **non-translatable** metadata to
-   `projectMeta` (slug, status, categories, date, accent, coverImage; no text
-   there).
+   `projectMeta` (slug, status, categories, date, accent, coverImage, `grid`
+   — column/aspect/objectPosition/descLines for the bento card — and
+   `featured` for the highlighted card; no text there).
 2. Add the full entry to `dict.projects.<key>` in both dictionaries (title,
    subtitle, cardTitle, description, intro, tags, sections with image alts —
    `creationProcess.images[]`, `prototyping.images[]`, `finalProject.images[]`
@@ -97,6 +98,15 @@ Canonical example: `app/[lang]/contato/page.tsx`.
 4. The project page at `app/[lang]/projetos/<slug>/page.tsx` uses
    `getLocalizedProject(slug, dict)` and follows the `notFound()` pattern for
    invalid locale **and** unknown project.
+5. Put the case body (everything inside `<CaseShell>`) in a component under
+   `components/case-study/cases/` and register it in `caseBodies`
+   (`components/case-study/cases/index.ts`); the full page and the modal share it.
+6. Create `app/[lang]/projetos/@modal/(.)<slug>/page.tsx` rendering
+   `<InterceptedProject params={params} slug="<slug>" />` (copy an existing one).
+   It is one folder per slug, **not** a dynamic `(.)[slug]`: the dynamic form
+   answers 500 under `next dev` in this Next version. Without the folder the
+   project silently opens as a full page instead of the modal;
+   `./scripts/check-quality-gates.sh 7` fails if a slug and its folder do not match.
 
 ## Adding a new locale (someday)
 

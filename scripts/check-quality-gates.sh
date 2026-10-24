@@ -726,6 +726,34 @@ console.log('ok: ' + a.size + ' keys');
     log_fail "projectsPage / metadata.projetos dictionary check failed"
   fi
 
+  log_sub "Intercepted-route folder per project (@modal/(.)<slug>)..."
+  # Sem a pasta o projeto abre como página completa, sem erro; o (.)[slug] dinâmico não serve
+  # (500 no next dev). Os slugs vêm de `slugToKey` em lib/projects.ts.
+  MODAL_DIR="app/[lang]/projetos/@modal"
+  PROJECT_SLUGS=$(sed -n '/^export const slugToKey = {/,/^} as const;/p' lib/projects.ts | sed -nE "s/^[[:space:]]*'([a-z0-9-]+)':.*/\1/p" || true)
+  if [ -z "$PROJECT_SLUGS" ]; then
+    log_fail "Could not read project slugs from lib/projects.ts"
+  else
+    MODAL_OK=1
+    for slug in $PROJECT_SLUGS; do
+      if [ ! -f "$MODAL_DIR/(.)$slug/page.tsx" ]; then
+        log_fail "  $MODAL_DIR/(.)$slug/page.tsx missing for slug '$slug'"
+        MODAL_OK=0
+      fi
+    done
+    for dir in "$MODAL_DIR"/\(.\)*; do
+      [ -d "$dir" ] || continue
+      folder_slug=$(basename "$dir"); folder_slug="${folder_slug#(.)}"
+      if ! printf '%s\n' "$PROJECT_SLUGS" | grep -qx -- "$folder_slug"; then
+        log_fail "  $dir does not match any project slug"
+        MODAL_OK=0
+      fi
+    done
+    if [ "$MODAL_OK" -eq 1 ]; then
+      log_pass "Every project slug has its @modal/(.)<slug>/page.tsx and vice versa"
+    fi
+  fi
+
   log_sub "No dictionary JSON imported by a Client Component..."
   DICT_IMPORTS=""
   # while-read (e não for): os caminhos têm "[lang]", que o shell expandiria como glob.
