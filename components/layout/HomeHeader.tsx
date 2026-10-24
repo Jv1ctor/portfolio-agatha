@@ -9,7 +9,8 @@ import { LanguageSwitcher } from './LanguageSwitcher';
  * - AM Novecento 32px, cor #BACCEB, lowercase (22/24px até o md: em mobile
  *   375px, "sobre" + switcher + "projetos" a 32px não cabem e criam overflow
  *   horizontal no root — scrollWidth 422 vs 375)
- * - LanguageSwitcher no centro
+ * - LanguageSwitcher no centro exato (grid 1fr auto 1fr): o mirtilo alarga só
+ *   o link ativo e não pode deslocar o seletor
  * - Padding horizontal de 120px (x=120 no canvas de 1728)
  *
  * Server Component — recebe locale+dict como props (mesmo padrão do Header).
@@ -38,17 +39,20 @@ export function HomeHeader({
     color: 'var(--color-blue-strong)',
     textShadow: '0.03em 0.09em 0.06em rgba(120, 110, 95, 0.35)',
   } as const;
-  const activeClass = 'flex items-center';
-  // O mirtilo escala com a fonte (≈1.4em de altura) e as margens verticais
-  // negativas o tiram do cálculo da altura do link: o texto não muda de lugar
-  // e a figura sobe acima das letras, como no design.
+  const activeClass = 'relative';
+  const leftClass = 'justify-self-start';
+  const rightClass = 'justify-self-end';
+  // O mirtilo escala com a fonte (≈1.4em de altura no desktop, 1.2em abaixo do
+  // md para caber no padding lateral de 24px) e fica FORA do fluxo, pendurado à
+  // direita do texto: não alarga o link, então o seletor central não se move e
+  // as posições dos links não mudam. Sobe acima das letras, como no design.
   const berry = (
     // eslint-disable-next-line @next/next/no-img-element -- ícone decorativo minúsculo
     <img
       src="/images/projetos/mirtilo.png"
       alt=""
       aria-hidden="true"
-      className="relative top-[-0.1em] -my-[1em] ml-[0.03em] h-[1.4em] w-auto max-w-none"
+      className="pointer-events-none absolute left-[calc(100%+0.03em)] top-[calc(50%-0.1em)] h-[1.2em] w-auto max-w-none -translate-y-1/2 md:h-[1.4em]"
     />
   );
   const linkClass =
@@ -58,12 +62,12 @@ export function HomeHeader({
 
   return (
     <header className="h-[102px] w-full bg-[color:var(--color-cream)]">
-      <div className="flex h-full items-center justify-between px-6 md:px-[120px]">
+      <div className="grid h-full grid-cols-[1fr_auto_1fr] items-center px-6 md:px-[120px]">
         {/* Esquerda: "sobre" — aponta pra própria home (igual ao nav.about antigo) */}
         <Link
           href={`/${locale}`}
           aria-current={active === 'about' ? 'page' : undefined}
-          className={active === 'about' ? `${linkClass} ${activeClass}` : linkClass}
+          className={active === 'about' ? `${linkClass} ${leftClass} ${activeClass}` : `${linkClass} ${leftClass}`}
           style={active === 'about' ? activeStyle : linkStyle}
         >
           {dict.nav.homeAbout}
@@ -77,7 +81,7 @@ export function HomeHeader({
         <Link
           href={projectsHref}
           aria-current={active === 'projects' ? 'page' : undefined}
-          className={active === 'projects' ? `${linkClass} ${activeClass}` : linkClass}
+          className={active === 'projects' ? `${linkClass} ${rightClass} ${activeClass}` : `${linkClass} ${rightClass}`}
           style={active === 'projects' ? activeStyle : linkStyle}
         >
           {dict.nav.homeProjects}
