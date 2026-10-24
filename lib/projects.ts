@@ -6,7 +6,7 @@ export type ProjectStatus = 'concluido' | 'em-progresso' | 'em-breve';
 
 /** Posição do card na grade bento da página de projetos (não traduzível). */
 export type ProjectGrid = {
-  /** Coluna da grade: 0 = estreita, 1 = larga */
+  /** Coluna da grade bento: 0 = estreita (primeira), 1 = larga (segunda), 2 = terceira, também larga */
   column: 0 | 1 | 2;
   /** Proporção do card, no formato CSS `aspect-ratio` (ex.: '459 / 590') */
   aspect: string;

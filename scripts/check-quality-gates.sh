@@ -730,7 +730,7 @@ console.log('ok: ' + a.size + ' keys');
   # Sem a pasta o projeto abre como página completa, sem erro; o (.)[slug] dinâmico não serve
   # (500 no next dev). Os slugs vêm de `slugToKey` em lib/projects.ts.
   MODAL_DIR="app/[lang]/projetos/@modal"
-  PROJECT_SLUGS=$(sed -n '/^export const slugToKey = {/,/^} as const;/p' lib/projects.ts | sed -nE "s/^[[:space:]]*'([a-z0-9-]+)':.*/\1/p" || true)
+  PROJECT_SLUGS=$(sed -n '/^export const slugToKey = {/,/^} as const;/p' lib/projects.ts | sed -nE "s/^[[:space:]]*'?([a-z0-9-]+)'?:.*/\1/p" || true)
   if [ -z "$PROJECT_SLUGS" ]; then
     log_fail "Could not read project slugs from lib/projects.ts"
   else

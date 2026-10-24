@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale } from "@/i18n/dictionaries";
-import { getLocalizedProject, getNextSlug, type Slug } from "@/lib/projects";
+import { getLocalizedProject, getNextSlug, slugToKey, type Slug } from "@/lib/projects";
 import { CaseShell } from "@/components/case-study/CaseShell";
 import { caseBodies } from "@/components/case-study/cases";
 import { ProjectModal } from "./ProjectModal";
@@ -35,6 +35,7 @@ export async function InterceptedProject({
     <ProjectModal
       slug={slug}
       title={project.title}
+      documentTitle={`${dict.metadata[slugToKey[slug]]} · ${dict.site.name}`}
       nextHref={`/${lang}/projetos/${nextProject.slug}`}
       nextTitle={nextProject.title}
     >

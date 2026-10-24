@@ -3,7 +3,7 @@
 import { useSelectedLayoutSegments } from 'next/navigation';
 import { Footer } from './Footer';
 import { HomeFooter } from './HomeFooter';
-import type { Dictionary, Locale } from '@/i18n/dictionaries';
+import type { Dictionary } from '@/i18n/dictionaries';
 
 /**
  * Alterna entre o Footer antigo (bg-band, outras páginas) e o HomeFooter novo
@@ -15,14 +15,7 @@ import type { Dictionary, Locale } from '@/i18n/dictionaries';
  * /projetos/<slug>, mas o slot `children` segue em ['projetos']). Home = []
  * (sem segmentos); índice = exatamente ['projetos'] — ambos usam o HomeFooter.
  */
-export function FooterRouter({
-  dict,
-}: {
-  // `locale` segue na assinatura (o layout passa os mesmos props ao HeaderRouter),
-  // mas a decisão por segmentos não precisa dele.
-  locale: Locale;
-  dict: Dictionary;
-}) {
+export function FooterRouter({ dict }: { dict: Dictionary }) {
   const segments = useSelectedLayoutSegments();
   const isHome = segments.length === 0;
   const isProjectsIndex = segments.length === 1 && segments[0] === 'projetos';

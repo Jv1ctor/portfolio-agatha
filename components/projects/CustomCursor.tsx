@@ -21,19 +21,24 @@ export function CustomCursor({ active }: { active: boolean }) {
     const pos = { x: -200, y: -200 };
     let raf = 0;
 
+    // O laço só roda enquanto o círculo ainda está alcançando o mouse; parado, não gasta frame.
+    const start = () => {
+      if (raf === 0) raf = requestAnimationFrame(tick);
+    };
     const onMove = (e: MouseEvent) => {
       target.x = e.clientX;
       target.y = e.clientY;
+      start();
     };
-    const tick = () => {
+    function tick() {
       pos.x += (target.x - pos.x) * LERP;
       pos.y += (target.y - pos.y) * LERP;
       if (ref.current) ref.current.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0)`;
-      raf = requestAnimationFrame(tick);
-    };
+      const settled = Math.abs(target.x - pos.x) < 0.1 && Math.abs(target.y - pos.y) < 0.1;
+      raf = settled ? 0 : requestAnimationFrame(tick);
+    }
 
     window.addEventListener('mousemove', onMove, { passive: true });
-    raf = requestAnimationFrame(tick);
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener('mousemove', onMove);

@@ -39,12 +39,15 @@ let handedOver = false;
 export function ProjectModal({
   slug,
   title,
+  documentTitle,
   nextHref,
   nextTitle,
   children,
 }: {
   slug: string;
   title: string;
+  /** Título da aba, no mesmo formato do template do layout (`<página> · <site>`). */
+  documentTitle: string;
   nextHref: string;
   nextTitle: string;
   children: ReactNode;
@@ -110,6 +113,16 @@ export function ProjectModal({
       target?.focus({ preventScroll: true });
     };
   }, [locale, slug]);
+
+  // A rota interceptada não troca o título da aba (o Next não aplica o `metadata` do slot
+  // paralelo na navegação suave): a folha põe o título do case e devolve o anterior ao sair.
+  useEffect(() => {
+    const previous = document.title;
+    document.title = documentTitle;
+    return () => {
+      document.title = previous;
+    };
+  }, [documentTitle]);
 
   // Esc fecha; Tab e Shift+Tab ciclam entre os focáveis da folha. Escuta o documento
   // (e não só a folha) para valer também com o foco no body, por exemplo depois de

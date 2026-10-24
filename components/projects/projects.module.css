@@ -33,6 +33,7 @@
 }
 
 .page {
+  outline: none; /* alvo de foco programático do link do rodapé */
   color: var(--navy);
   font-family: var(--font-body), system-ui, sans-serif;
   position: relative;
@@ -62,6 +63,7 @@
 .search:focus-within {
   transform: scale(1.03);
   box-shadow: 0 0 0 2px #eaeef4, 0 0 0 4px var(--blue-200), 0 0 0 8px rgba(111,150,206,.25);
+  outline: 3px solid var(--color-blue-darkest); outline-offset: 6px;
 }
 .searchInput {
   flex: 1; min-width: 0; border: 0; background: transparent; outline: none;
@@ -97,7 +99,7 @@
   box-shadow: 0 0 0 3px var(--pink-outer);
   transition: transform .25s var(--ease-spring), background .2s, color .2s;
 }
-.pill:hover { transform: translateY(-2px) rotate(-1.5deg); }
+@media (hover: hover) { .pill:hover { transform: translateY(-2px) rotate(-1.5deg); } }
 .pill:active { transform: scale(.94); }
 .pillActive { background: var(--pink-dash); color: var(--color-cream); border-color: var(--pink-dash-active); }
 
@@ -129,29 +131,36 @@
   will-change: transform;
 }
 .cardCursorHidden { cursor: none; }
-.card:hover { box-shadow: 0 24px 44px -20px rgba(14,72,139,.6); }
+@media (hover: hover) { .card:hover { box-shadow: 0 24px 44px -20px rgba(14,72,139,.6); } }
 
 .cardImg {
   position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
   transition: transform 1s var(--ease-out), filter .5s;
 }
-.card:hover .cardImg { transform: scale(1.08); filter: blur(2px) saturate(.75); }
+@media (hover: hover) { .card:hover .cardImg { transform: scale(1.08); filter: blur(2px) saturate(.75); } }
 
 .overlay {
   position: absolute; inset: 0; opacity: 0; transition: opacity .45s ease;
   background: linear-gradient(180deg, rgba(23,80,148,.55) 0%, rgba(32,52,90,.86) 55%, rgba(26,43,75,.97) 100%);
 }
-.card:hover .overlay, .card:focus-visible .overlay { opacity: 1; }
+.card:focus-visible .overlay { opacity: 1; }
+@media (hover: hover) { .card:hover .overlay { opacity: 1; } }
 
 .cardText {
   position: absolute; left: 0; right: 0; bottom: 0;
   padding: 0 24px 22px; display: flex; flex-direction: column; gap: 10px; color: #fff;
 }
 .up { opacity: 0; transform: translateY(18px); transition: opacity .45s ease, transform .55s var(--ease-out); }
-.card:hover .up, .card:focus-visible .up { opacity: 1; transform: none; }
-.card:hover .d1, .card:focus-visible .d1 { transition-delay: .05s; }
-.card:hover .d2, .card:focus-visible .d2 { transition-delay: .12s; }
-.card:hover .d3, .card:focus-visible .d3 { transition-delay: .19s; }
+.card:focus-visible .up { opacity: 1; transform: none; }
+.card:focus-visible .d1 { transition-delay: .05s; }
+.card:focus-visible .d2 { transition-delay: .12s; }
+.card:focus-visible .d3 { transition-delay: .19s; }
+@media (hover: hover) {
+  .card:hover .up { opacity: 1; transform: none; }
+  .card:hover .d1 { transition-delay: .05s; }
+  .card:hover .d2 { transition-delay: .12s; }
+  .card:hover .d3 { transition-delay: .19s; }
+}
 
 .cardTitle { font-weight: 700; font-size: 18px; letter-spacing: .01em; text-transform: uppercase; line-height: 1.2; word-spacing: var(--word-gap); }
 .cardDesc {
@@ -176,7 +185,8 @@
   transition: opacity .3s, transform .45s var(--ease-bouncy);
 }
 .badge img { display: block; width: 25px; height: 24px; }
-.card:hover .badge, .card:focus-visible .badge { opacity: 1; transform: none; transition-delay: .15s; }
+.card:focus-visible .badge { opacity: 1; transform: none; transition-delay: .15s; }
+@media (hover: hover) { .card:hover .badge { opacity: 1; transform: none; transition-delay: .15s; } }
 
 .empty { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 50px 20px; text-align: center; }
 .emptyText { margin: 0; font-size: 20px; font-weight: 700; word-spacing: var(--word-gap); }
@@ -255,14 +265,14 @@
   box-shadow: 0 0 0 2px #eaeef4, 0 0 0 4px var(--blue-200);
   transition: transform .25s var(--ease-spring);
 }
-.backBtn:hover { transform: translateX(-4px); }
+@media (hover: hover) { .backBtn:hover { transform: translateX(-4px); } }
 .nextLink {
   display: flex; align-items: center; gap: 8px; margin-left: auto; cursor: pointer;
   background: none; border: 0; padding: 4px 0;
   font: 700 20px var(--font-body), sans-serif; word-spacing: var(--word-gap); color: var(--navy);
 }
 .arrow { display: inline-block; transition: transform .35s var(--ease-spring); }
-.nextLink:hover .arrow { transform: translateX(6px); }
+@media (hover: hover) { .nextLink:hover .arrow { transform: translateX(6px); } }
 .backBtn:focus-visible, .nextLink:focus-visible {
   outline: 3px solid var(--navy-deep); outline-offset: 4px; border-radius: 16px;
 }

@@ -107,6 +107,10 @@ Canonical example: `app/[lang]/contato/page.tsx`.
    answers 500 under `next dev` in this Next version. Without the folder the
    project silently opens as a full page instead of the modal;
    `./scripts/check-quality-gates.sh 7` fails if a slug and its folder do not match.
+7. Trap: any client-side link (`next/link`, `router.push`) from a page under
+   `/[lang]/projetos/` to a case page is intercepted and opens as a modal. A link
+   that must open the full page (e.g. a future "related projects" link on a case
+   page) has to do a full-page navigation, as `LanguageSwitcher` does.
 
 ## Adding a new locale (someday)
 
@@ -123,7 +127,7 @@ pass-through and the matcher must be re-evaluated).
 - [ ] `pnpm exec tsc --noEmit` clean
 - [ ] Applicable quality gates:
   `./scripts/check-quality-gates.sh 3` (components), `4` (content),
-  `5` (runtime), `6` (pre-merge). Doc:
+  `5` (runtime), `6` (pre-merge), `7` (projects page). Doc:
   `docs/superpowers/quality-gates/2026-10-19-i18n-quality-gates.md`
 
 ### Note on client components
