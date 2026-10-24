@@ -222,9 +222,8 @@
    RESPONSIVO
    ============================================================ */
 @media (max-width: 900px) {
-  /* Até 900px os blocos de coluna ficam um embaixo do outro, centralizados e com largura limitada. */
   .cols { flex-wrap: wrap; }
-  .colNarrow, .colWide { flex: 1 1 100%; max-width: 600px; margin-inline: auto; }
+  .colNarrow, .colWide { flex: 1 1 300px; }
 }
 @media (max-width: 700px) {
   .topRow { flex-direction: column-reverse; align-items: center; }
