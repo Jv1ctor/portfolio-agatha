@@ -27,6 +27,9 @@
   --ease-spring: cubic-bezier(.2, .9, .3, 1.4);  /* leve overshoot */
   --ease-bouncy: cubic-bezier(.2, .9, .3, 1.6);  /* overshoot forte (selo, cursor) */
   --ease-inout: cubic-bezier(.7, 0, .2, 1);      /* capa do modal */
+
+  /* A Clother em negrito pequeno fecha o vão entre palavras (~.135em); o mesmo ajuste da home. */
+  --word-gap: .13em;
 }
 
 .page {
@@ -62,7 +65,7 @@
 }
 .searchInput {
   flex: 1; min-width: 0; border: 0; background: transparent; outline: none;
-  font: italic 700 16px var(--font-body), sans-serif; color: var(--navy);
+  font: italic 700 16px var(--font-body), sans-serif; color: var(--navy); word-spacing: var(--word-gap);
 }
 .searchInput::placeholder { color: #5b7fb0; font-style: italic; }
 
@@ -73,7 +76,7 @@
   background: radial-gradient(circle at 35% 30%, var(--bubble-a), var(--bubble-b) 70%);
   border-radius: 52px 52px 6px 52px;
   box-shadow: 0 6px 16px -10px rgba(194,85,138,.6);
-  font-size: 14px; font-weight: 700; line-height: 1.25; color: var(--navy);
+  font-size: 14px; font-weight: 700; line-height: 1.25; color: var(--navy); word-spacing: var(--word-gap);
 }
 .bubbleA { display: inline-block; animation: popA .45s var(--ease-spring) both; }
 .bubbleB { display: inline-block; animation: popB .45s var(--ease-spring) both; }
@@ -87,7 +90,7 @@
 .pills { display: flex; flex-wrap: wrap; gap: 10px; }
 .pill {
   display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
-  font: 700 14.5px var(--font-body), sans-serif; line-height: 1;
+  font: 700 14.5px var(--font-body), sans-serif; line-height: 1; word-spacing: var(--word-gap);
   padding: 5px 11px; min-height: 26px; border-radius: 999px;
   background: var(--pink-100); color: var(--pink-ink);
   border: 1.5px dashed var(--pink-dash);
@@ -150,14 +153,14 @@
 .card:hover .d2, .card:focus-visible .d2 { transition-delay: .12s; }
 .card:hover .d3, .card:focus-visible .d3 { transition-delay: .19s; }
 
-.cardTitle { font-weight: 700; font-size: 18px; letter-spacing: .01em; text-transform: uppercase; line-height: 1.2; }
+.cardTitle { font-weight: 700; font-size: 18px; letter-spacing: .01em; text-transform: uppercase; line-height: 1.2; word-spacing: var(--word-gap); }
 .cardDesc {
-  font-weight: 500; font-size: 15px; line-height: 1.3; text-align: justify;
+  font-weight: 500; font-size: 15px; line-height: 1.3; text-align: justify; word-spacing: var(--word-gap);
   display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden;
 }
 .tags { display: flex; flex-wrap: wrap; gap: 10px; padding: 2px; }
 .tag {
-  font-weight: 600; font-size: 13.5px; color: var(--navy);
+  font-weight: 600; font-size: 13.5px; color: var(--navy); word-spacing: var(--word-gap);
   background: var(--color-blue-pale); border: 1.5px dashed var(--color-blue); border-radius: 999px;
   padding: 2px 10px; box-shadow: 0 0 0 2px var(--color-blue-pale), 0 0 0 3px var(--blue-300);
 }
@@ -166,7 +169,7 @@
   position: absolute; top: 34px; right: 34px; z-index: 1;
   display: inline-flex; align-items: center; gap: 8px;
   background: var(--badge-fill); color: var(--badge-ink);
-  font-weight: 700; font-size: 19px; line-height: 1; letter-spacing: .03em;
+  font-weight: 700; font-size: 19px; line-height: 1; letter-spacing: .03em; word-spacing: var(--word-gap);
   padding: 7px 12px 7px 9px; border-radius: 2px;
   box-shadow: inset 0 0 0 2px var(--pink-outer), inset 0 0 0 3.5px var(--badge-line), 0 2px 2px rgba(150,80,110,.45);
   opacity: 0; transform: scale(.6) rotate(-8deg);
@@ -176,9 +179,9 @@
 .card:hover .badge, .card:focus-visible .badge { opacity: 1; transform: none; transition-delay: .15s; }
 
 .empty { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 50px 20px; text-align: center; }
-.emptyText { margin: 0; font-size: 20px; font-weight: 700; }
+.emptyText { margin: 0; font-size: 20px; font-weight: 700; word-spacing: var(--word-gap); }
 .emptyBtn {
-  font: 700 15px var(--font-body), sans-serif; padding: 10px 18px; min-height: 44px;
+  font: 700 15px var(--font-body), sans-serif; word-spacing: var(--word-gap); padding: 10px 18px; min-height: 44px;
   border-radius: 999px; cursor: pointer; border: 2px dashed var(--blue-500);
   background: #eaeef4; color: var(--navy);
 }
@@ -194,7 +197,7 @@
   width: 100%; height: 100%; border-radius: 50%;
   display: flex; align-items: center; justify-content: center; text-align: center;
   background: var(--badge-fill); color: var(--badge-ink);
-  font-weight: 700; font-size: 13px; line-height: 1.1;
+  font-weight: 700; font-size: 13px; line-height: 1.1; word-spacing: var(--word-gap);
   box-shadow: inset 0 0 0 2px var(--pink-outer), inset 0 0 0 3.5px var(--badge-line), 0 10px 24px -8px rgba(14,72,139,.6);
   transform: scale(0); transition: transform .35s var(--ease-bouncy);
 }
@@ -219,8 +222,9 @@
    RESPONSIVO
    ============================================================ */
 @media (max-width: 900px) {
+  /* Até 900px os blocos de coluna ficam um embaixo do outro, centralizados e com largura limitada. */
   .cols { flex-wrap: wrap; }
-  .colNarrow, .colWide { flex: 1 1 300px; }
+  .colNarrow, .colWide { flex: 1 1 100%; max-width: 600px; margin-inline: auto; }
 }
 @media (max-width: 700px) {
   .topRow { flex-direction: column-reverse; align-items: center; }
@@ -242,9 +246,11 @@
 .sheetStatic { animation: none; }
 .sheetInner { padding-top: 24px; }
 .sheetFoot { padding-bottom: 64px; }
+/* Voltar e próximo seguem as bordas da coluna do case (786px, a mesma do CaseShell). */
+.sheetCol { max-width: 786px; margin-inline: auto; display: flex; }
 .backBtn {
   display: inline-flex; align-items: center; gap: 8px; cursor: pointer; min-height: 44px;
-  font: 700 15px var(--font-body), sans-serif; color: var(--navy);
+  font: 700 15px var(--font-body), sans-serif; word-spacing: var(--word-gap); color: var(--navy);
   background: linear-gradient(180deg, var(--search-fill-a), var(--search-fill-b));
   border: 2px dashed var(--blue-500); border-radius: 999px; padding: 8px 16px;
   box-shadow: 0 0 0 2px #eaeef4, 0 0 0 4px var(--blue-200);
@@ -254,7 +260,7 @@
 .nextLink {
   display: flex; align-items: center; gap: 8px; margin-left: auto; cursor: pointer;
   background: none; border: 0; padding: 4px 0;
-  font: 700 20px var(--font-body), sans-serif; color: var(--navy);
+  font: 700 20px var(--font-body), sans-serif; word-spacing: var(--word-gap); color: var(--navy);
 }
 .arrow { display: inline-block; transition: transform .35s var(--ease-spring); }
 .nextLink:hover .arrow { transform: translateX(6px); }
@@ -263,7 +269,8 @@
 }
 
 /* capa expandindo (clip-path) e texto subindo; o conteúdo remonta a cada "próximo" */
-.heroIn { animation: heroIn .9s var(--ease-inout) both; }
+/* `backwards`: depois de terminar o recorte sai, senão ele cortaria a sombra da capa. */
+.heroIn { animation: heroIn .9s var(--ease-inout) backwards; }
 .revealHeader { animation: rise .7s var(--ease-out) .35s both; }
 .revealBody { animation: rise .7s var(--ease-out) .5s both; }
 

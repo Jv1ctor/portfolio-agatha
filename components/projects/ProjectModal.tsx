@@ -161,35 +161,39 @@ export function ProjectModal({
       className={s.sheet}
     >
       <div className={`container-narrow ${s.sheetInner}`}>
-        <button
-          ref={backRef}
-          type="button"
-          onClick={close}
-          className={s.backBtn}
-        >
-          <span aria-hidden>←</span>
-          {t('projectsPage.back')}
-        </button>
+        <div className={s.sheetCol}>
+          <button
+            ref={backRef}
+            type="button"
+            onClick={close}
+            className={s.backBtn}
+          >
+            <span aria-hidden>←</span>
+            {t('projectsPage.back')}
+          </button>
+        </div>
       </div>
 
       {children}
 
       <div className={`container-narrow ${s.sheetFoot}`}>
-        <button
-          type="button"
-          onClick={() => {
-            if (closingRef.current) return;
-            pendingHandoff = {
-              opener: openerRef.current,
-              toSlug: nextHref.slice(nextHref.lastIndexOf('/') + 1),
-            };
-            router.replace(nextHref, { scroll: false });
-          }}
-          className={s.nextLink}
-        >
-          {t('projectsPage.next').replace('{title}', nextTitle)}
-          <span aria-hidden className={s.arrow}>→</span>
-        </button>
+        <div className={s.sheetCol}>
+          <button
+            type="button"
+            onClick={() => {
+              if (closingRef.current) return;
+              pendingHandoff = {
+                opener: openerRef.current,
+                toSlug: nextHref.slice(nextHref.lastIndexOf('/') + 1),
+              };
+              router.replace(nextHref, { scroll: false });
+            }}
+            className={s.nextLink}
+          >
+            {t('projectsPage.next').replace('{title}', nextTitle)}
+            <span aria-hidden className={s.arrow}>→</span>
+          </button>
+        </div>
       </div>
     </div>
   );
