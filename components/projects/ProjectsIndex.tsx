@@ -31,12 +31,13 @@ export function ProjectsIndex({ projects }: { projects: LocalizedProject[] }) {
   const reducedMotion = useReducedMotion();
   const cursorEnabled = SETTINGS.customCursor && finePointer && !reducedMotion;
 
-  const filtered = filterProjects(projects, query, filter, {
+  const categoryLabels = {
     servicos: t('projectsPage.filters.servicos'),
     '3d': t('projectsPage.filters.3d'),
     interacao: t('projectsPage.filters.interacao'),
     grafico: t('projectsPage.filters.grafico'),
-  });
+  };
+  const filtered = filterProjects(projects, query, filter, categoryLabels);
   const columns = distributeColumns(filtered);
 
   // Um card filtrado para fora desmonta sem disparar mouseleave: só vale o hover de quem está na lista.
@@ -45,9 +46,13 @@ export function ProjectsIndex({ projects }: { projects: LocalizedProject[] }) {
   const bubble = t(`projectsPage.bubble.${key}`).replace('{count}', String(filtered.length));
   const mood = hoveredProject ? 'happy' : filtered.length === 0 ? 'sad' : 'idle';
 
-  const clear = () => {
-    setQuery('');
-    setFilter('all');
+  // Um card filtrado para fora desmonta sem mouseleave; o hover velho é descartado aqui, na
+  // mudança da busca/filtro, para não reaparecer quando o card voltar.
+  const applyFilters = (nextQuery: string, nextFilter: ProjectFilter) => {
+    setQuery(nextQuery);
+    setFilter(nextFilter);
+    const next = filterProjects(projects, nextQuery, nextFilter, categoryLabels);
+    if (hovered !== null && !next.some((project) => project.slug === hovered)) setHovered(null);
   };
 
   return (
@@ -62,9 +67,9 @@ export function ProjectsIndex({ projects }: { projects: LocalizedProject[] }) {
 
       <SearchAndFilters
         query={query}
-        onQuery={setQuery}
+        onQuery={(v) => applyFilters(v, filter)}
         filter={filter}
-        onFilter={setFilter}
+        onFilter={(f) => applyFilters(query, f)}
         bubble={bubble}
         mood={mood}
       />
@@ -94,7 +99,7 @@ export function ProjectsIndex({ projects }: { projects: LocalizedProject[] }) {
         {filtered.length === 0 && (
           <div className={s.empty}>
             <p className={s.emptyText}>{t('projectsPage.emptyText')}</p>
-            <button type="button" className={s.emptyBtn} onClick={clear}>
+            <button type="button" className={s.emptyBtn} onClick={() => applyFilters('', 'all')}>
               {t('projectsPage.clearFilters')}
             </button>
           </div>
