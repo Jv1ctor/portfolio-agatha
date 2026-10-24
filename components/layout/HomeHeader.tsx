@@ -13,24 +13,26 @@ import { LanguageSwitcher } from './LanguageSwitcher';
  * - Padding horizontal de 120px (x=120 no canvas de 1728)
  *
  * Server Component — recebe locale+dict como props (mesmo padrão do Header).
- * Substitui o Header antigo SÓ na home, via HeaderRouter no layout.
+ * Substitui o Header antigo na home e no índice /projetos, via HeaderRouter no
+ * layout. No índice, `active="projects"` marca o link "projetos" com
+ * aria-current="page".
  * A cor vai inline: a regra global `a { color: inherit }` vence as utilities
  * do Tailwind no layer (mesmo padrão do Header antigo).
  */
 export function HomeHeader({
   locale,
   dict,
+  active,
 }: {
   locale: Locale;
   dict: Dictionary;
+  active?: 'projects';
 }) {
   const linkStyle = { color: 'var(--color-blue-soft)' } as const;
   const linkClass =
     'font-display text-[22px] lowercase leading-none transition-opacity hover:opacity-70 sm:text-[24px] md:text-[32px]';
 
-  // Sem rota /projetos única no repo (só /projetos/<slug>): o link aponta para
-  // o case principal "Pontossemno" — decisão documentada no relatório do plan.
-  const projectsHref = `/${locale}/projetos/pontos-sem-no`;
+  const projectsHref = `/${locale}/projetos`;
 
   return (
     <header className="h-[102px] w-full bg-[color:var(--color-cream)]">
@@ -50,6 +52,7 @@ export function HomeHeader({
         {/* Direita: "projetos" */}
         <Link
           href={projectsHref}
+          aria-current={active === 'projects' ? 'page' : undefined}
           className={linkClass}
           style={linkStyle}
         >

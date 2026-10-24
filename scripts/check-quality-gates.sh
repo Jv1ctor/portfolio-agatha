@@ -14,7 +14,7 @@
 #   4 - Page migration (Task 14)
 #   5 - Runtime verification (Task 16)
 #   6 - Final pre-merge
-#   7 - Projects page (static checks; runtime checks are appended later)
+#   7 - Projects page (static checks + runtime checks, which SKIP without a server on :3000)
 #
 # Exit code: 0 = PASS, 1 = FAIL
 #
@@ -678,9 +678,11 @@ gate_7() {
   fi
 
   log_sub "No hardcoded visible strings from the design in components/ and app/..."
-  # Só casa a frase logo após uma aspa/crase/'>' (texto literal em JSX ou string);
-  # nomes de chave do dicionário e comentários sem aspa não entram.
-  HARDCODED_P=$(grep -rnIE "(['\">\`])(Olha que legal|Clica pra ver|Achei |Esse é o meu favorito|nada por aqui|DESTAQUE|voltar aos projetos|próximo:|Pesquise por|limpar busca|Nenhum projeto|voltar ao topo|Look how cool|Click to see|FEATURED|back to projects)" components app || true)
+  # Só casa a frase logo após uma aspa/crase/'>' (texto literal em JSX ou string),
+  # tolerando espaços entre o ancorador e a frase (`> Olha que legal`); nomes de
+  # chave do dicionário e comentários sem aspa não entram. Quebra de linha entre
+  # o ancorador e a frase não é coberta (grep casa linha a linha).
+  HARDCODED_P=$(grep -rnIE "(['\">\`])[[:space:]]*(Olha que legal|Clica pra ver|Achei |Esse é o meu favorito|nada por aqui|Hmm…|DESTAQUE|voltar aos projetos|próximo:|Pesquise por|limpar busca|Nenhum projeto|voltar ao topo|Look how cool|Click to see|FEATURED|back to projects)" components app || true)
   if [ -z "$HARDCODED_P" ]; then
     log_pass "No hardcoded design strings in components/ or app/"
   else
@@ -742,8 +744,149 @@ console.log('ok: ' + a.size + ' keys');
   fi
 
   # ----------------------------------------------------------
-  # Runtime checks (dev server on :3000) — added in a later task
+  # Runtime checks (dev or prod server on :3000) — SKIP if nothing answers
   # ----------------------------------------------------------
+  log_sub "Runtime: server on :3000..."
+  # Mesmo critério do gate 5, mas sem subir o servidor: este gate roda por task,
+  # com `pnpm dev` (ou `pnpm build && pnpm start`) já no ar. Sem servidor, SKIP.
+  # --connect-timeout curto + --max-time longo: recusa de conexão falha na hora,
+  # mas um `pnpm dev` frio ainda tem tempo de compilar a primeira rota.
+  if ! curl -s --connect-timeout 3 --max-time 60 -o /dev/null "http://localhost:3000/pt-BR"; then
+    log_skip "Nothing answers on :3000 — start 'pnpm dev' (or 'pnpm start') and re-run for the runtime checks"
+    return 0
+  fi
+
+  local BASE="http://localhost:3000"
+  # || true em tudo que pode não casar: sob set -e/pipefail, um grep sem match
+  # abortaria o runner no lugar de reportar a falha.
+  http_code() { curl -s --max-time 60 -o /dev/null -w "%{http_code}" "$@" || true; }
+  page() { curl -s --max-time 60 "$BASE$1" | tr '\n' ' ' || true; }
+  # Só o primeiro <header>…</header> (os links do header não podem ser confundidos
+  # com links do corpo da página).
+  header_of() { printf '%s' "$1" | grep -o '<header.*' | sed 's#</header>.*#</header>#' | head -1 || true; }
+
+  log_sub "Test: /{locale}/projetos returns 200..."
+  for locale in pt-BR en; do
+    STATUS=$(http_code "$BASE/$locale/projetos")
+    [ "$STATUS" = "200" ] && log_pass "/$locale/projetos → 200" || log_fail "/$locale/projetos → HTTP $STATUS (expected 200)"
+  done
+
+  log_sub "Test: /projetos (no cookie) redirects to /pt-BR/projetos..."
+  RCODE=$(http_code "$BASE/projetos")
+  RURL=$(curl -s --max-time 60 -o /dev/null -w "%{redirect_url}" "$BASE/projetos" || true)
+  if [ "$RCODE" = "307" ] && [[ "$RURL" == *"/pt-BR/projetos" ]]; then
+    log_pass "/projetos → 307 → /pt-BR/projetos"
+  else
+    log_fail "/projetos → HTTP $RCODE redirect '$RURL' (expected 307 → /pt-BR/projetos)"
+  fi
+
+  log_sub "Test: invalid locale returns 404 on /fr/projetos..."
+  STATUS=$(http_code "$BASE/fr/projetos")
+  [ "$STATUS" = "404" ] && log_pass "/fr/projetos → 404" || log_fail "/fr/projetos → HTTP $STATUS (expected 404)"
+
+  local HTML_PT HTML_EN
+  HTML_PT=$(page "/pt-BR/projetos")
+  HTML_EN=$(page "/en/projetos")
+
+  log_sub "Test: <title> per locale..."
+  TITLE_PT=$(printf '%s' "$HTML_PT" | grep -o '<title>[^<]*</title>' | head -1 || true)
+  TITLE_EN=$(printf '%s' "$HTML_EN" | grep -o '<title>[^<]*</title>' | head -1 || true)
+  [ "$TITLE_PT" = "<title>Projetos · Ágatha Sales</title>" ] && log_pass "pt-BR title: Projetos · Ágatha Sales" || log_fail "pt-BR title: '$TITLE_PT'"
+  [ "$TITLE_EN" = "<title>Projects · Ágatha Sales</title>" ] && log_pass "en title: Projects · Ágatha Sales" || log_fail "en title: '$TITLE_EN'"
+
+  log_sub "Test: hreflang pt-BR / en / x-default are absolute and end in /projetos..."
+  for locale in pt-BR en; do
+    HTML_VAR=$([ "$locale" = "pt-BR" ] && printf '%s' "$HTML_PT" || printf '%s' "$HTML_EN")
+    for hl in pt-BR en x-default; do
+      # -i: Next/React renderiza o atributo como hrefLang (parsing case-insensitive).
+      HL_HREF=$(printf '%s' "$HTML_VAR" | grep -io "<link rel=\"alternate\" hreflang=\"$hl\" href=\"[^\"]*\"" | grep -o 'href="[^"]*"' | head -1 || true)
+      if [[ "$HL_HREF" =~ ^href=\"https?://[^\"]+/projetos\"$ ]]; then
+        log_pass "/$locale/projetos hreflang $hl → $HL_HREF"
+      else
+        log_fail "/$locale/projetos hreflang $hl: '$HL_HREF' (expected absolute URL ending in /projetos)"
+      fi
+    done
+  done
+
+  log_sub "Test: header \"projetos\" link points to /{locale}/projetos (home and index)..."
+  for locale in pt-BR en; do
+    for route in "" "/projetos"; do
+      HDR=$(header_of "$(page "/$locale$route")")
+      if printf '%s' "$HDR" | grep -q "href=\"/$locale/projetos\""; then
+        log_pass "/$locale$route header links to /$locale/projetos"
+      else
+        log_fail "/$locale$route header has no href=\"/$locale/projetos\""
+      fi
+    done
+  done
+
+  log_sub "Test: header per route (HomeHeader on index, aria-current on projetos only there)..."
+  HDR_IDX_PT=$(header_of "$HTML_PT")
+  HDR_IDX_EN=$(header_of "$HTML_EN")
+  HDR_HOME_PT=$(header_of "$(page "/pt-BR")")
+  HDR_CASE_PT=$(header_of "$(page "/pt-BR/projetos/batuco-tuco")")
+  # Índice → HomeHeader ("sobre"/"about", não "Sobre mim"); aria-current só ali.
+  if printf '%s' "$HDR_IDX_PT" | grep -q '>sobre<' && printf '%s' "$HDR_IDX_EN" | grep -q '>about<'; then
+    log_pass "Index uses HomeHeader (sobre / about)"
+  else
+    log_fail "Index header is not the HomeHeader (expected '>sobre<' in pt-BR and '>about<' in en)"
+  fi
+  if printf '%s' "$HDR_IDX_PT" | grep -q 'aria-current="page"[^>]*href="/pt-BR/projetos"\|href="/pt-BR/projetos"[^>]*aria-current="page"' \
+    && printf '%s' "$HDR_IDX_EN" | grep -q 'aria-current="page"[^>]*href="/en/projetos"\|href="/en/projetos"[^>]*aria-current="page"'; then
+    log_pass "aria-current=\"page\" on the projetos link (index, both locales)"
+  else
+    log_fail "projetos link lacks aria-current=\"page\" on the index"
+  fi
+  if printf '%s' "$HDR_HOME_PT" | grep -q 'aria-current'; then
+    log_fail "Home header has aria-current (only the index should)"
+  else
+    log_pass "Home header has no aria-current"
+  fi
+  # Case aberto direto → Header antigo ("Sobre mim"), como hoje.
+  if printf '%s' "$HDR_CASE_PT" | grep -q 'Sobre mim'; then
+    log_pass "Case page opened directly keeps the old Header"
+  else
+    log_fail "Case page opened directly does not show the old Header (expected 'Sobre mim')"
+  fi
+
+  log_sub "Test: the 3 project links per locale (/{locale}/projetos/<slug>)..."
+  for locale in pt-BR en; do
+    HTML_VAR=$([ "$locale" = "pt-BR" ] && printf '%s' "$HTML_PT" || printf '%s' "$HTML_EN")
+    other=$([ "$locale" = "pt-BR" ] && echo "en" || echo "pt-BR")
+    for slug in pontos-sem-no batuco-tuco pontinhas-soltas; do
+      if printf '%s' "$HTML_VAR" | grep -q "href=\"/$locale/projetos/$slug\""; then
+        log_pass "/$locale/projetos links to /$locale/projetos/$slug"
+      else
+        log_fail "/$locale/projetos has no href=\"/$locale/projetos/$slug\""
+      fi
+      if printf '%s' "$HTML_VAR" | grep -q "href=\"/$other/projetos/$slug\""; then
+        log_fail "/$locale/projetos links to the wrong locale: /$other/projetos/$slug"
+      fi
+    done
+  done
+
+  log_sub "Test: no raw projectsPage.* keys in the HTML..."
+  RAW_P=$(printf '%s\n%s' "$HTML_PT" "$HTML_EN" | grep -o 'projectsPage\.[a-zA-Z.]*' | sort -u | head -5 || true)
+  if [ -z "$RAW_P" ]; then
+    log_pass "No raw projectsPage.* keys visible"
+  else
+    log_fail "Raw dictionary keys found: $RAW_P"
+  fi
+
+  log_sub "Test: case opened directly is the full page (200, no dialog)..."
+  for locale in pt-BR en; do
+    STATUS=$(http_code "$BASE/$locale/projetos/batuco-tuco")
+    CASE_HTML=$(page "/$locale/projetos/batuco-tuco")
+    if [ "$STATUS" = "200" ] && ! printf '%s' "$CASE_HTML" | grep -q 'role="dialog"'; then
+      log_pass "/$locale/projetos/batuco-tuco → 200, no role=\"dialog\""
+    else
+      log_fail "/$locale/projetos/batuco-tuco → HTTP $STATUS or contains role=\"dialog\""
+    fi
+  done
+
+  log_sub "Test: unknown project returns 404..."
+  STATUS=$(http_code "$BASE/pt-BR/projetos/nao-existe")
+  [ "$STATUS" = "404" ] && log_pass "/pt-BR/projetos/nao-existe → 404" || log_fail "/pt-BR/projetos/nao-existe → HTTP $STATUS (expected 404)"
 }
 
 # ============================================================
