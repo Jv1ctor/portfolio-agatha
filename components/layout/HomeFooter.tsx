@@ -92,7 +92,14 @@ export function HomeFooter({
       {isProjects ? (
         <a
           href="#top"
-          className="absolute right-[28px] top-[109px] text-[0.9375rem] font-medium no-underline"
+          // Sem JS o âncora nativa funciona; com JS não criamos entrada de histórico (um
+          // `#top` no histórico, com state nulo, faria o "voltar" do modal não fechar nada).
+          onClick={(event) => {
+            event.preventDefault();
+            window.scrollTo({ top: 0, behavior: "instant" });
+            document.getElementById("top")?.focus({ preventScroll: true });
+          }}
+          className="absolute right-[28px] top-[109px] rounded-sm text-[0.9375rem] font-medium !text-[color:var(--color-blue-darkest)] no-underline outline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[color:var(--color-blue-darkest)]"
         >
           {dict.projectsPage.backToTop}{" "}
           <span
