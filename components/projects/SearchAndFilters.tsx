@@ -63,13 +63,11 @@ export function SearchAndFilters({ query, onQuery, filter, onFilter, bubble, moo
           </label>
 
           <div className={s.mascotWrap}>
-            <div
-              key={bubble}
-              role="status"
-              aria-live="polite"
-              className={`${s.bubble} ${shown.flip ? s.bubbleA : s.bubbleB}`}
-            >
-              {bubble}
+            {/* A região viva fica estável; só o conteúdo remonta para reiniciar o pop. */}
+            <div role="status" aria-live="polite" className={s.bubble}>
+              <span key={bubble} className={shown.flip ? s.bubbleA : s.bubbleB}>
+                {bubble}
+              </span>
             </div>
             <div className={s.float}>
               <div ref={followRef} className={s.mascotFollow}>

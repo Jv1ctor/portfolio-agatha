@@ -39,7 +39,8 @@ export function ProjectsIndex({ projects }: { projects: LocalizedProject[] }) {
   });
   const columns = distributeColumns(filtered);
 
-  const hoveredProject = projects.find((project) => project.slug === hovered);
+  // Um card filtrado para fora desmonta sem disparar mouseleave: só vale o hover de quem está na lista.
+  const hoveredProject = filtered.find((project) => project.slug === hovered);
   const key = bubbleKey({ hovered: hoveredProject, query, filter, count: filtered.length });
   const bubble = t(`projectsPage.bubble.${key}`).replace('{count}', String(filtered.length));
   const mood = hoveredProject ? 'happy' : filtered.length === 0 ? 'sad' : 'idle';
@@ -100,7 +101,7 @@ export function ProjectsIndex({ projects }: { projects: LocalizedProject[] }) {
         )}
       </section>
 
-      {cursorEnabled && <CustomCursor active={hovered !== null} />}
+      {cursorEnabled && <CustomCursor active={hoveredProject !== undefined} />}
     </div>
   );
 }

@@ -71,8 +71,8 @@
   box-shadow: 0 6px 16px -10px rgba(194,85,138,.6);
   font-size: 14px; font-weight: 700; line-height: 1.25; color: var(--navy);
 }
-.bubbleA { animation: popA .45s var(--ease-spring) both; }
-.bubbleB { animation: popB .45s var(--ease-spring) both; }
+.bubbleA { display: inline-block; animation: popA .45s var(--ease-spring) both; }
+.bubbleB { display: inline-block; animation: popB .45s var(--ease-spring) both; }
 
 .float { animation: float 3.2s ease-in-out infinite; }
 .mascotFollow { transition: transform .45s var(--ease-spring); will-change: transform; }
