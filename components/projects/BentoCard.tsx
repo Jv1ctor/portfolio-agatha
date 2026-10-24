@@ -49,7 +49,7 @@ export function BentoCard({ project: p, index, tiltDegrees, hideCursor, onHover 
       aria-label={t('projectsPage.openProject').replace('{title}', p.title)}
       className={`${s.card}${hideCursor ? ` ${s.cardCursorHidden}` : ''}`}
       style={{ aspectRatio: p.grid.aspect, animationDelay: `${index * 110}ms` }}
-      onClick={() => onHover(null)}
+      onClick={reset}
       onMouseEnter={() => onHover(p.slug)}
       onMouseMove={onMove}
       onMouseLeave={reset}

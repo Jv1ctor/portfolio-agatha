@@ -2,7 +2,8 @@
    TOKENS (ficam na raiz da página: CSS Modules não aceita :root).
    Cores que já existem em globals.css usam o token global.
    ============================================================ */
-.page {
+.page,
+.sheet {
   --navy: #175094;
   --navy-deep: #0e488b;
   --blue-500: #527fb0;
@@ -25,7 +26,10 @@
   --ease-out: cubic-bezier(.2, .8, .2, 1);       /* entradas suaves */
   --ease-spring: cubic-bezier(.2, .9, .3, 1.4);  /* leve overshoot */
   --ease-bouncy: cubic-bezier(.2, .9, .3, 1.6);  /* overshoot forte (selo, cursor) */
+  --ease-inout: cubic-bezier(.7, 0, .2, 1);      /* capa do modal */
+}
 
+.page {
   color: var(--navy);
   font-family: var(--font-body), system-ui, sans-serif;
   position: relative;
@@ -207,6 +211,8 @@
 @keyframes rise   { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
 @keyframes popA   { 0% { opacity: 0; transform: scale(.6) rotate(-6deg); } 70% { transform: scale(1.06) rotate(2deg); } 100% { opacity: 1; transform: none; } }
 @keyframes popB   { 0% { opacity: 0; transform: scale(.6) rotate(6deg); }  70% { transform: scale(1.06) rotate(-2deg); } 100% { opacity: 1; transform: none; } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes heroIn { from { clip-path: inset(30% 25% 30% 25% round 24px); } to { clip-path: inset(0 round 8px); } }
 @keyframes float  { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
 
 /* ============================================================
@@ -224,7 +230,45 @@
   .overlay, .up, .badge { opacity: 1; transform: none; }
 }
 
+/* ============================================================
+   MODAL DO CASE (a folha vive no slot @modal, fora de .page)
+   ============================================================ */
+.sheet {
+  position: fixed; inset: 0; z-index: 60; overflow-y: auto; overscroll-behavior: contain;
+  background: var(--color-cream); outline: none;
+  animation: fadeIn .5s ease both;
+}
+/* "Próximo" remonta a folha: só a primeira abertura faz o fundo aparecer aos poucos. */
+.sheetStatic { animation: none; }
+.sheetInner { padding-top: 24px; }
+.sheetFoot { padding-bottom: 64px; }
+.backBtn {
+  display: inline-flex; align-items: center; gap: 8px; cursor: pointer; min-height: 44px;
+  font: 700 15px var(--font-body), sans-serif; color: var(--navy);
+  background: linear-gradient(180deg, var(--search-fill-a), var(--search-fill-b));
+  border: 2px dashed var(--blue-500); border-radius: 999px; padding: 8px 16px;
+  box-shadow: 0 0 0 2px #eaeef4, 0 0 0 4px var(--blue-200);
+  transition: transform .25s var(--ease-spring);
+}
+.backBtn:hover { transform: translateX(-4px); }
+.nextLink {
+  display: flex; align-items: center; gap: 8px; margin-left: auto; cursor: pointer;
+  background: none; border: 0; padding: 4px 0;
+  font: 700 20px var(--font-body), sans-serif; color: var(--navy);
+}
+.arrow { display: inline-block; transition: transform .35s var(--ease-spring); }
+.nextLink:hover .arrow { transform: translateX(6px); }
+.backBtn:focus-visible, .nextLink:focus-visible {
+  outline: 3px solid var(--navy-deep); outline-offset: 4px; border-radius: 16px;
+}
+
+/* capa expandindo (clip-path) e texto subindo; o conteúdo remonta a cada "próximo" */
+.heroIn { animation: heroIn .9s var(--ease-inout) both; }
+.revealHeader { animation: rise .7s var(--ease-out) .35s both; }
+.revealBody { animation: rise .7s var(--ease-out) .5s both; }
+
 /* Menos movimento */
 @media (prefers-reduced-motion: reduce) {
-  .page *, .page *::before, .page *::after { animation: none !important; transition: none !important; }
+  .page *, .page *::before, .page *::after,
+  .sheet, .sheet *, .sheet *::before, .sheet *::after { animation: none !important; transition: none !important; }
 }

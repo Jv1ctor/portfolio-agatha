@@ -4,6 +4,7 @@ import { getLocalizedProject, getNextSlug, type Slug } from "@/lib/projects";
 import { CaseShell } from "@/components/case-study/CaseShell";
 import { caseBodies } from "@/components/case-study/cases";
 import { ProjectModal } from "./ProjectModal";
+import s from "./projects.module.css";
 
 /**
  * Case aberto em modal por cima do índice. Só é renderizado em navegação no
@@ -25,17 +26,23 @@ export async function InterceptedProject({
   if (!isLocale(lang)) notFound();
   const dict = await getDictionary(lang);
   const project = getLocalizedProject(slug, dict);
+  if (!project) notFound();
   const nextProject = getLocalizedProject(getNextSlug(slug), dict);
-  if (!project || !nextProject) notFound();
+  if (!nextProject) notFound();
   const Body = caseBodies[slug];
 
   return (
     <ProjectModal
+      slug={slug}
       title={project.title}
       nextHref={`/${lang}/projetos/${nextProject.slug}`}
       nextTitle={nextProject.title}
     >
-      <CaseShell project={project} dict={dict}>
+      <CaseShell
+        project={project}
+        dict={dict}
+        motion={{ cover: s.heroIn, header: s.revealHeader, body: s.revealBody }}
+      >
         <Body project={project} />
       </CaseShell>
     </ProjectModal>
