@@ -45,16 +45,19 @@ export function ContactSection({ dict }: { dict: Dictionary }) {
     <section className="grid grid-cols-1 items-center gap-10 px-6 md:grid-cols-[32.12vw_1fr] md:items-start md:gap-x-[4.74vw] md:px-0 md:pl-[14.70vw] md:pr-[4vw]">
       {/* Ilustração (mão no rosto BAKED no PNG — sem overlay) */}
       <div className="relative mx-auto md:mx-0">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/images/home/contato-personagem.png"
-          alt={home.contactIllustrationAlt}
-          loading="lazy"
-          decoding="async"
-          width={539}
-          height={661}
-          className="h-auto w-full md:w-[97.21%] md:ml-[2.793%] md:mt-[3.514%]"
-        />
+        {/* Wrapper flutuando (spec §4.1, fora de fase com o "Olá") */}
+        <div className="anim-float-2">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/home/contato-personagem.png"
+            alt={home.contactIllustrationAlt}
+            loading="lazy"
+            decoding="async"
+            width={539}
+            height={661}
+            className="h-auto w-full md:w-[97.21%] md:ml-[2.793%] md:mt-[3.514%]"
+          />
+        </div>
       </div>
 
       {/* Texto + formulário */}
