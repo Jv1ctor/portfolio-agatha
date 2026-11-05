@@ -15,6 +15,7 @@
 #   5 - Runtime verification (Task 16)
 #   6 - Final pre-merge
 #   7 - Projects page (static checks + runtime checks, which SKIP without a server on :3000)
+#   8 - Home texts, animations and hovers (static + runtime; runtime SKIPs without a server; browser checks in the e2e.mjs)
 #
 # Exit code: 0 = PASS, 1 = FAIL
 #
@@ -918,6 +919,162 @@ console.log('ok: ' + a.size + ' keys');
 }
 
 # ============================================================
+# GATE 8: Home — textos, animações e hovers do protótipo About
+# ============================================================
+gate_8() {
+  log_gate "8" "Home texts, animations and hovers"
+
+  # ----------------------------------------------------------
+  # Static checks (no server needed)
+  # ----------------------------------------------------------
+  log_sub "Dictionary keys: new home keys (pt-BR ↔ en parity, no empty values)..."
+  # philosophyColUx pt-BR = "O " e en = "" (por desenho): só a paridade de existência vale
+  # para essa chave; as demais não podem ser vazias.
+  if node -e "
+const pt = require('./dictionaries/pt-BR.json');
+const en = require('./dictionaries/en.json');
+const fail = (msg) => { console.error(msg); process.exit(1); };
+const keys = [
+  'intro', 'philosophyBody1',
+  'philosophyBody2', 'philosophyBody2Bold1', 'philosophyBody2Mid', 'philosophyBody2Bold2',
+  'philosophyBody2Mid2', 'philosophyBody2Bold3', 'philosophyBody2End',
+  'philosophyColUx', 'philosophyColUxBold', 'philosophyColUxEnd',
+  'philosophyCol3d', 'philosophyCol3dBold1', 'philosophyCol3dMid', 'philosophyCol3dBold2', 'philosophyCol3dEnd',
+];
+const allowEmpty = new Set(['philosophyColUx']);
+let n = 0;
+for (const [name, d] of [['pt-BR', pt], ['en', en]]) {
+  for (const k of keys) {
+    const v = d.home && d.home[k];
+    if (typeof v !== 'string') fail('home.' + k + ' missing in ' + name);
+    if (!v.trim() && !(allowEmpty.has(k) && name === 'en')) fail('home.' + k + ' empty in ' + name);
+    n++;
+  }
+  for (const t of ['studies', 'career', 'gallery']) {
+    for (const f of ['title', 'text']) {
+      const v = d.home && d.home.tiles && d.home.tiles[t] && d.home.tiles[t][f];
+      if (typeof v !== 'string' || !v.trim()) fail('home.tiles.' + t + '.' + f + ' missing/empty in ' + name);
+      n++;
+    }
+  }
+  for (const k of ['philosophyBody1Bold', 'philosophyBody1End']) {
+    if (d.home && k in d.home) fail('home.' + k + ' must be removed in ' + name);
+  }
+}
+if (!pt.home.intro.startsWith('Prazer, sou a Ágatha!')) fail('pt-BR home.intro must start with \"Prazer, sou a Ágatha!\"');
+if (!en.home.intro.startsWith('Nice to meet you')) fail('en home.intro must start with \"Nice to meet you\"');
+console.log('ok: ' + n + ' checks');
+"; then
+    log_pass "home.* new keys present in both dictionaries; Body1Bold/Body1End removed; intro starts right"
+  else
+    log_fail "home.* new keys check failed"
+  fi
+
+  log_sub "Image assets in public/images/home/..."
+  for asset in "espiando-cabeca.png" "espiando-dedos.png" "icones/estudos.png" "icones/carreira.png" "icones/galeria.png"; do
+    if [ -f "public/images/home/$asset" ]; then
+      log_pass "  $asset exists"
+    else
+      log_fail "  public/images/home/$asset missing"
+    fi
+  done
+
+  log_sub "globals.css: keyframes and prefers-reduced-motion block..."
+  CSS="app/[lang]/globals.css"
+  for kf in float breathe swing swingHover; do
+    if grep -qE "@keyframes[[:space:]]+$kf[[:space:]]*\{" "$CSS"; then
+      log_pass "  @keyframes $kf"
+    else
+      log_fail "  @keyframes $kf missing in $CSS"
+    fi
+  done
+  # O bloco de movimento reduzido tem que citar as 4 classes de animação (Tasks 3 e 4).
+  RM_BLOCK=$(awk '/@media[[:space:]]*\(prefers-reduced-motion:[[:space:]]*reduce\)/{f=1} f{print} ' "$CSS" || true)
+  if [ -z "$RM_BLOCK" ]; then
+    log_fail "  no @media (prefers-reduced-motion: reduce) block in $CSS"
+  else
+    for cls in anim-float anim-float-2 anim-breathe cracha-swing; do
+      if printf '%s' "$RM_BLOCK" | grep -qF ".$cls"; then
+        log_pass "  reduced-motion block covers .$cls"
+      else
+        log_fail "  reduced-motion block does not mention .$cls"
+      fi
+    done
+  fi
+
+  log_sub "No hardcoded tile strings in components/ and app/..."
+  # Mesma ancoragem da gate 7: só casa a frase logo após aspa/crase/'>'.
+  HARDCODED_8=$(grep -rnIE "(['\">\`])[[:space:]]*(Minha carreira no design|Minha galeria|estudos despretensiosos|My design career|My gallery)" components app || true)
+  if [ -z "$HARDCODED_8" ]; then
+    log_pass "No hardcoded tile strings in components/ or app/"
+  else
+    log_fail "Hardcoded tile strings found:"
+    echo "$HARDCODED_8" | head -10
+  fi
+
+  log_sub "ContactForm.tsx untouched since the spec commit (535defa)..."
+  if git diff --quiet 535defa -- components/contact/ContactForm.tsx 2>/dev/null; then
+    log_pass "components/contact/ContactForm.tsx unchanged"
+  else
+    log_fail "components/contact/ContactForm.tsx changed since 535defa"
+  fi
+
+  log_sub "Peeking client component starts with 'use client'..."
+  if [ -f components/home/PeekingReveal.tsx ] && head -n 5 components/home/PeekingReveal.tsx | grep -qE "^['\"]use client['\"]"; then
+    log_pass "components/home/PeekingReveal.tsx is a Client Component"
+  else
+    log_fail "components/home/PeekingReveal.tsx missing or without 'use client'"
+  fi
+
+  # ----------------------------------------------------------
+  # Runtime checks (GATE_BASE_URL or :3000) — SKIP if nothing answers
+  # ----------------------------------------------------------
+  local BASE="${GATE_BASE_URL:-http://localhost:3000}"
+  BASE="${BASE%/}"
+  log_sub "Runtime: server on $BASE..."
+  if ! curl -s --connect-timeout 3 --max-time 60 -o /dev/null "$BASE/pt-BR"; then
+    log_skip "Nothing answers on $BASE — start 'pnpm build && pnpm start' (or set GATE_BASE_URL) and re-run for the runtime checks"
+    return 0
+  fi
+
+  page() { curl -s --max-time 60 "$BASE$1" | tr '\n' ' ' || true; }
+  local HTML_PT HTML_EN
+  HTML_PT=$(page "/pt-BR")
+  HTML_EN=$(page "/en")
+
+  # Âncoras `>…` / `<` casam o texto renderizado no DOM e não o payload RSC (dict em props).
+  log_sub "Test: /pt-BR has the new intro, 3 tile titles, id=\"top\" and the back-to-top link..."
+  for pair in ">Prazer, sou a Ágatha!" ">Estudos<" ">Minha carreira no design<" ">Minha galeria<" ">voltar ao topo" 'id="top"'; do
+    if printf '%s' "$HTML_PT" | grep -qF -- "$pair"; then
+      log_pass "  /pt-BR contains: $pair"
+    else
+      log_fail "  /pt-BR does not contain: $pair"
+    fi
+  done
+
+  log_sub "Test: /en has the new intro, 3 tile titles, id=\"top\" and the back-to-top link..."
+  for pair in ">Nice to meet you, I" ">Studies<" ">My design career<" ">My gallery<" ">back to top" 'id="top"'; do
+    if printf '%s' "$HTML_EN" | grep -qF -- "$pair"; then
+      log_pass "  /en contains: $pair"
+    else
+      log_fail "  /en does not contain: $pair"
+    fi
+  done
+
+  log_sub "Test: footer back-to-top is a link inside <footer> (both locales)..."
+  for locale in pt-BR en; do
+    HTML_VAR=$([ "$locale" = "pt-BR" ] && printf '%s' "$HTML_PT" || printf '%s' "$HTML_EN")
+    TXT=$([ "$locale" = "pt-BR" ] && echo "voltar ao topo" || echo "back to top")
+    FOOT=$(printf '%s' "$HTML_VAR" | grep -o '<footer.*' | sed 's#</footer>.*#</footer>#' | head -1 || true)
+    if printf '%s' "$FOOT" | grep -qE "<a [^>]*href=\"#top\"[^>]*>$TXT"; then
+      log_pass "  /$locale footer has the \"$TXT\" link to #top"
+    else
+      log_fail "  /$locale footer has no <a href=\"#top\"> with \"$TXT\""
+    fi
+  done
+}
+
+# ============================================================
 # Summary
 # ============================================================
 print_summary() {
@@ -956,6 +1113,7 @@ main() {
     5) gate_5 ;;
     6) gate_6 ;;
     7) gate_7 ;;
+    8) gate_8 ;;
     all)
       gate_0
       gate_1
@@ -965,9 +1123,10 @@ main() {
       # gate_5  # Skip in 'all' — requires manual interaction
       # gate_6  # Skip in 'all' — run before PR
       # gate_7  # Skip in 'all' — projects page, run per task
+      # gate_8  # Skip in 'all' — home texts/animations, run per task
       ;;
     *)
-      echo "Usage: $0 [0|1|2|3|4|5|6|7|all]"
+      echo "Usage: $0 [0|1|2|3|4|5|6|7|8|all]"
       exit 1
       ;;
   esac
