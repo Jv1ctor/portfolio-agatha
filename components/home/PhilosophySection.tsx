@@ -255,8 +255,6 @@ export function PhilosophySection({ dict }: { dict: Dictionary }) {
           style={{ wordSpacing: "0.08em" }}
         >
           {home.philosophyBody1}
-          <strong className="font-bold">{home.philosophyBody1Bold}</strong>
-          {home.philosophyBody1End}
         </p>
 
         {/* Body2: 26px, justificado; 4 linhas de 31 = box 124 */}
@@ -272,6 +270,29 @@ export function PhilosophySection({ dict }: { dict: Dictionary }) {
           <strong className="font-bold">{home.philosophyBody2Bold3}</strong>
           {home.philosophyBody2End}
         </p>
+
+        {/* Colunas UX e 3D: vêm do protótipo (philoCols, gap 86.3/1728 em vw);
+            empilhadas abaixo de md, lado a lado a partir dele */}
+        <div className="mt-[21px] grid grid-cols-1 gap-y-[21px] md:grid-cols-2 md:gap-x-[4.99vw] max-w-[702px]">
+          <p
+            className="text-[1.625rem] leading-[1.19] text-justify text-[color:var(--color-blue)]"
+            style={{ wordSpacing: "0.08em" }}
+          >
+            {home.philosophyColUx}
+            <strong className="font-bold">{home.philosophyColUxBold}</strong>
+            {home.philosophyColUxEnd}
+          </p>
+          <p
+            className="text-[1.625rem] leading-[1.19] text-justify text-[color:var(--color-blue)]"
+            style={{ wordSpacing: "0.08em" }}
+          >
+            {home.philosophyCol3d}
+            <strong className="font-bold">{home.philosophyCol3dBold1}</strong>
+            {home.philosophyCol3dMid}
+            <strong className="font-bold">{home.philosophyCol3dBold2}</strong>
+            {home.philosophyCol3dEnd}
+          </p>
+        </div>
       </div>
 
       {/* Crachá direita — 377px fixos, encostado à direita (x=1636 @1728).
