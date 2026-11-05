@@ -62,7 +62,7 @@ function Cracha({ alt, saying }: { alt: string; saying: string }) {
 
   return (
     <div
-      className="cracha relative mx-auto max-md:mx-0 max-md:ml-[calc(50%-67.6px)]"
+      className="cracha cracha-swing relative mx-auto max-md:mx-0 max-md:ml-[calc(50%-67.6px)]"
       style={{ width: "377px", height: "506px" }}
     >
       {/* 1–4. Arte achatada (PNG já rotacionado — sem wrappers de rotate):
@@ -214,7 +214,7 @@ function Cracha({ alt, saying }: { alt: string; saying: string }) {
  * Layout: grid 2 colunas — coluna do texto = 1037px (60.01vw: 1259−222),
  * coluna do crachá = 377px fixo (assenta em x=1259 = 72.8% @1728).
  * O corpo do crachá sangra 99.4px para a ESQUERDA da coluna do crachá (ver doc
- * do Cracha): a coluna do texto reserva esse sangramento com md:pr-[100px],
+ * do Cracha): a coluna do texto reserva esse sangramento com md:pr-[121px],
  * senão o corpo (opaco, pintado depois no DOM) cobre a borda direita dos
  * parágrafos entre 768 e ~1440px. A 1728 não muda nada (texto limitado a
  * 705px dentro de 1037px).
@@ -228,7 +228,7 @@ export function PhilosophySection({ dict }: { dict: Dictionary }) {
   return (
     <section className="relative grid grid-cols-1 items-start gap-8 md:grid-cols-[1fr_377px] md:gap-x-0">
       {/* Texto esquerda */}
-      <div className="md:pr-[100px]">
+      <div className="md:pr-[121px]">
         {/* Título: 120px no Figma = clamp(3rem, 6.94vw, 7.5rem); o box do
             Figma (166 = 120×1.38) é a ALTURA NATURAL da linha — inline style
             (o h2 { line-height: 1 } de globals.css vence a utility leading-*) */}

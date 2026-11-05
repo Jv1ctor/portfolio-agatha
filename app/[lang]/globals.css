@@ -215,10 +215,52 @@ a {
   transform-origin: center;
 }
 
+/* Crachá: balança a partir do furo (pivô = centro do furo no box 377×506).
+   No hover o push substitui o balanço; ao fim (1.6s) repousa em 0° e, ao
+   sair, volta a balançar. */
+@keyframes swing {
+  0%,
+  100% {
+    transform: rotate(-1.2deg);
+  }
+  50% {
+    transform: rotate(1.2deg);
+  }
+}
+
+@keyframes swingHover {
+  0% {
+    transform: rotate(0deg);
+  }
+  30% {
+    transform: rotate(3.5deg);
+  }
+  60% {
+    transform: rotate(-2deg);
+  }
+  85% {
+    transform: rotate(0.8deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.cracha-swing {
+  animation: swing 5s ease-in-out infinite;
+  transform-origin: 27.1% 30.4%;
+}
+
+.cracha-swing:hover {
+  animation: swingHover 1.6s ease-in-out;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .anim-float,
   .anim-float-2,
-  .anim-breathe {
+  .anim-breathe,
+  .cracha-swing,
+  .cracha-swing:hover {
     animation: none;
   }
 }
