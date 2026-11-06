@@ -866,10 +866,19 @@ console.log('ok: ' + a.size + ' keys');
   else
     log_fail "projetos link lacks aria-current=\"page\" on the index"
   fi
-  if printf '%s' "$HDR_HOME_PT" | grep -q 'aria-current'; then
-    log_fail "Home header has aria-current (only the index should)"
+  # Home → o ativo é "sobre" (link p/ a própria home); "projetos" não é ativo.
+  HDR_HOME_EN=$(header_of "$(page "/en")")
+  if printf '%s' "$HDR_HOME_PT" | grep -q 'aria-current="page"[^>]*href="/pt-BR"\|href="/pt-BR"[^>]*aria-current="page"' \
+    && printf '%s' "$HDR_HOME_EN" | grep -q 'aria-current="page"[^>]*href="/en"\|href="/en"[^>]*aria-current="page"'; then
+    log_pass "Home header marks the sobre/about link with aria-current=\"page\""
   else
-    log_pass "Home header has no aria-current"
+    log_fail "Home header sobre/about link lacks aria-current=\"page\""
+  fi
+  if printf '%s' "$HDR_HOME_PT" | grep -q 'aria-current="page"[^>]*href="/pt-BR/projetos"\|href="/pt-BR/projetos"[^>]*aria-current="page"' \
+    || printf '%s' "$HDR_HOME_EN" | grep -q 'aria-current="page"[^>]*href="/en/projetos"\|href="/en/projetos"[^>]*aria-current="page"'; then
+    log_fail "Home header projetos link has aria-current (only sobre should)"
+  else
+    log_pass "Home header projetos link has no aria-current"
   fi
   # Case aberto direto → Header antigo ("Sobre mim"), como hoje.
   if printf '%s' "$HDR_CASE_PT" | grep -q 'Sobre mim'; then
