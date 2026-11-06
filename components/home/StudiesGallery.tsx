@@ -25,7 +25,7 @@ function TileOverlay({
   return (
     <>
       <span className={s.veil} aria-hidden="true" />
-      <div className={`${s.tileText} ${textCls}`} data-tile-text>
+      <div className={`${s.tileText} ${textCls}`} data-tile-text aria-hidden="true">
         <p className={s.tileTitle}>
           <i className={`${s.tileIcon} ${iconCls}`} aria-hidden="true" />
           {title}
