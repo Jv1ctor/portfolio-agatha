@@ -1056,8 +1056,8 @@ console.log('ok: ' + n + ' checks');
   HTML_EN=$(page "/en")
 
   # Âncoras `>…` / `<` casam o texto renderizado no DOM e não o payload RSC (dict em props).
-  log_sub "Test: /pt-BR has the new intro, 3 tile titles, id=\"top\" and the back-to-top link..."
-  for pair in ">Prazer, sou a Ágatha!" ">Estudos<" ">Minha carreira no design<" ">Minha galeria<" ">voltar ao topo" 'id="top"'; do
+  log_sub "Test: /pt-BR has the new intro, 3 tile titles, id=\"top\" and the back-to-top link (aria-label)..."
+  for pair in ">Prazer, sou a Ágatha!" ">Estudos<" ">Minha carreira no design<" ">Minha galeria<" 'aria-label="voltar ao topo"' 'id="top"'; do
     if printf '%s' "$HTML_PT" | grep -qF -- "$pair"; then
       log_pass "  /pt-BR contains: $pair"
     else
@@ -1065,8 +1065,8 @@ console.log('ok: ' + n + ' checks');
     fi
   done
 
-  log_sub "Test: /en has the new intro, 3 tile titles, id=\"top\" and the back-to-top link..."
-  for pair in ">Nice to meet you, I" ">Studies<" ">My design career<" ">My gallery<" ">back to top" 'id="top"'; do
+  log_sub "Test: /en has the new intro, 3 tile titles, id=\"top\" and the back-to-top link (aria-label)..."
+  for pair in ">Nice to meet you, I" ">Studies<" ">My design career<" ">My gallery<" 'aria-label="back to top"' 'id="top"'; do
     if printf '%s' "$HTML_EN" | grep -qF -- "$pair"; then
       log_pass "  /en contains: $pair"
     else
@@ -1079,10 +1079,10 @@ console.log('ok: ' + n + ' checks');
     HTML_VAR=$([ "$locale" = "pt-BR" ] && printf '%s' "$HTML_PT" || printf '%s' "$HTML_EN")
     TXT=$([ "$locale" = "pt-BR" ] && echo "voltar ao topo" || echo "back to top")
     FOOT=$(printf '%s' "$HTML_VAR" | grep -o '<footer.*' | sed 's#</footer>.*#</footer>#' | head -1 || true)
-    if printf '%s' "$FOOT" | grep -qE "<a [^>]*href=\"#top\"[^>]*>$TXT"; then
-      log_pass "  /$locale footer has the \"$TXT\" link to #top"
+    if printf '%s' "$FOOT" | grep -qE "<a [^>]*href=\"#top\"[^>]*aria-label=\"$TXT\"|<a [^>]*aria-label=\"$TXT\"[^>]*href=\"#top\""; then
+      log_pass "  /$locale footer has the icon-only #top link with aria-label \"$TXT\""
     else
-      log_fail "  /$locale footer has no <a href=\"#top\"> with \"$TXT\""
+      log_fail "  /$locale footer has no <a href=\"#top\"> with aria-label \"$TXT\""
     fi
   done
 }

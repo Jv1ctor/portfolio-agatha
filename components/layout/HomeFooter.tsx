@@ -16,8 +16,8 @@ import type { Dictionary } from "@/i18n/dictionaries";
  *   16px entre label e handle, 8px entre rows
  *
  * IG/IN e os handles são dados (lib/site.ts), não tradução (AGENTS.md).
- * Ambas as variantes (home e projects) ganham o link de voltar ao topo, com a
- * seta que balança, e a seta ↗ no hover dos links sociais. O prop `variant`
+ * Ambas as variantes (home e projects) ganham o link de voltar ao topo (botão só
+ * de ícone, com a seta que balança), e a seta ↗ no hover dos links sociais. O prop `variant`
  * continua existindo para os callers (FooterRouter), mas não muda mais o visual.
  * O Footer antigo continua sendo usado pelas outras páginas via FooterRouter.
  */
@@ -96,14 +96,29 @@ export function HomeFooter({
           window.scrollTo({ top: 0, behavior: "instant" });
           document.getElementById("top")?.focus({ preventScroll: true });
         }}
-        className="absolute right-[28px] top-[109px] rounded-sm text-[0.9375rem] font-medium !text-[color:var(--color-blue-darkest)] no-underline outline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[color:var(--color-blue-darkest)]"
+        aria-label={dict.projectsPage.backToTop}
+        title={dict.projectsPage.backToTop}
+        // Botão só de ícone: quadrado 76px (diâmetro medido no print de referência,
+        // 147×122) com cantos 8px (padrão do site) e fundo #BACCEA. O tracejado
+        // #527FB0 (3px, recuo de 4px, como no print) é o ::before, que acompanha os cantos.
+        className="absolute right-[28px] top-[109px] grid h-[76px] w-[76px] place-items-center rounded-[8px] bg-[#BACCEA] no-underline outline-offset-4 before:pointer-events-none before:absolute before:inset-[4px] before:rounded-[4px] before:border-[3px] before:border-dashed before:border-[#527FB0] before:content-[''] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[color:var(--color-blue-darkest)]"
       >
-        {dict.projectsPage.backToTop}{" "}
+        {/* seta-topo.png é o "‹" do usuário (13×40, arte 11×18 em +0+12, 1x). Gira 90°
+            no CSS para apontar pra CIMA; o translate de 1px recentra a arte, que fica
+            1px fora do centro do PNG. */}
+        {/* O bob (translateY) fica no span: a animação sobrescreve o transform do elemento. */}
         <span
           aria-hidden
-          className="inline-block animate-[bob_1.8s_ease-in-out_infinite] motion-reduce:animate-none"
+          className="inline-flex animate-[bob_1.8s_ease-in-out_infinite] motion-reduce:animate-none"
         >
-          ↑
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/icones/seta-topo.png"
+            alt=""
+            width={13}
+            height={40}
+            className="h-[40px] w-[13px] max-w-none [transform:translate(1px,1px)_rotate(90deg)]"
+          />
         </span>
       </a>
     </footer>
