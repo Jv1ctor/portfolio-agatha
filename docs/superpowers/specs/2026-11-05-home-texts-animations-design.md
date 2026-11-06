@@ -431,3 +431,8 @@ Mudanças em relação ao texto acima, decididas durante a execução.
   mensagem de 5 caracteres ou mais) e reaproveitando as mensagens de erro de
   `contact.form`. O e2e (grupo `form`) intercepta a requisição; nunca envia
   e-mail de verdade.
+- **Ícones do formulário da home:** o asterisco e o avião de enviar do
+  `HomeContactForm` são agora os SVGs originais da usuária
+  (`public/images/home/form/asterisco.svg` e `enviar.svg`, sem alteração),
+  renderizados como `<img alt="" aria-hidden>` em tamanho nativo (29×27 e 23×26;
+  menores abaixo de `md`), no lugar dos SVGs inline do protótipo.

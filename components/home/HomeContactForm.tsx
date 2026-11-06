@@ -103,17 +103,16 @@ export function HomeContactForm() {
           }}
           placeholder={t.emailPlaceholder}
         />
-        <svg
-          className={s.asterisk}
-          viewBox="0 0 24 24"
+        {/* Ícone original da usuária (SVG sem alteração), decorativo. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/home/form/asterisco.svg"
+          alt=""
           aria-hidden
-          fill="none"
-          stroke="#B4C3DF"
-          strokeWidth="3"
-          strokeLinecap="round"
-        >
-          <path d="M12 4v16M5 8l14 8M19 8L5 16" />
-        </svg>
+          width={29}
+          height={27}
+          className={s.asterisk}
+        />
       </div>
 
       <div className={s.fieldWrap}>
@@ -138,9 +137,14 @@ export function HomeContactForm() {
           disabled={status === "sending"}
           aria-busy={status === "sending"}
         >
-          <svg viewBox="0 0 24 24" aria-hidden fill="#FFFFFF">
-            <path d="M21.4 3.3c.5-.2 1 .3.8.8l-6.6 16.6c-.2.6-1.1.6-1.3 0l-2.3-6.3-6.3-2.3c-.6-.2-.6-1.1 0-1.3z" />
-          </svg>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/home/form/enviar.svg"
+            alt=""
+            aria-hidden
+            width={23}
+            height={26}
+          />
         </button>
       </div>
 

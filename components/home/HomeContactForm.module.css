@@ -65,7 +65,7 @@
   right: 24px;
   top: 50%;
   width: 29px;
-  height: 29px;
+  height: auto;
   transform: translateY(-50%);
   pointer-events: none;
 }
@@ -100,9 +100,9 @@
   outline: 3px solid var(--focus);
   outline-offset: 4px;
 }
-.send svg {
-  width: 60%;
-  height: 60%;
+.send img {
+  width: 23px;
+  height: auto;
 }
 
 .toast {
@@ -145,7 +145,7 @@
   }
   .asterisk {
     width: 18px;
-    height: 18px;
+    height: auto;
     right: 14px;
   }
   .send {
@@ -153,6 +153,9 @@
     bottom: 10px;
     width: 32px;
     height: 32px;
+  }
+  .send img {
+    width: 15px;
   }
   .toast {
     font-size: 15px;
