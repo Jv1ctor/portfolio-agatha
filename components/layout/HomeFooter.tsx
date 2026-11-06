@@ -98,27 +98,47 @@ export function HomeFooter({
         }}
         aria-label={dict.projectsPage.backToTop}
         title={dict.projectsPage.backToTop}
-        // Botão só de ícone: quadrado 76px (diâmetro medido no print de referência,
-        // 147×122) com cantos 8px (padrão do site) e fundo #BACCEA. O tracejado
-        // #527FB0 (3px, recuo de 4px, como no print) é o ::before, que acompanha os cantos.
-        className="absolute right-[28px] top-[109px] grid h-[76px] w-[76px] place-items-center rounded-[8px] bg-[#BACCEA] no-underline outline-offset-4 before:pointer-events-none before:absolute before:inset-[4px] before:rounded-[4px] before:border-[3px] before:border-dashed before:border-[#527FB0] before:content-[''] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[color:var(--color-blue-darkest)]"
+        // Botão só de ícone, medido no print de referência (147×122): 76px, cantos de 8px
+        // (padrão do site). Três camadas: faixa externa sólida #BACCEA (4px), anel
+        // tracejado #527FB0 (3.5px, dash 16 / vão 9.3) e miolo pálido #E7ECF2.
+        className="absolute right-[28px] top-[109px] grid h-[76px] w-[76px] place-items-center rounded-[8px] bg-[#BACCEA] no-underline outline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[color:var(--color-blue-darkest)]"
       >
-        {/* seta-topo.png é o "‹" do usuário (13×40, arte 11×18 em +0+12, 1x). Gira 90°
-            no CSS para apontar pra CIMA; o translate de 1px recentra a arte, que fica
-            1px fora do centro do PNG. */}
-        {/* O bob (translateY) fica no span: a animação sobrescreve o transform do elemento. */}
+        <svg
+          aria-hidden
+          viewBox="0 0 76 76"
+          className="pointer-events-none absolute inset-0 h-full w-full"
+          fill="none"
+        >
+          <rect x="4" y="4" width="68" height="68" rx="4" fill="#E7ECF2" />
+          <rect
+            x="5.75"
+            y="5.75"
+            width="64.5"
+            height="64.5"
+            rx="3"
+            stroke="#527FB0"
+            strokeWidth="3.5"
+            strokeDasharray="16 9.3"
+          />
+        </svg>
+        {/* Seta: o "‹" do usuário (seta-topo.png, 13×40, arte 11×18) refeito como path
+            SVG com a mesma silhueta. O PNG é 1x e a seta no print ocupa ~26px (34% do
+            botão), ou seja ~1.45x a arte — o PNG ampliado fica borrado, então o traço
+            vetorial (#527FB0) o substitui. Gira 90° para apontar pra CIMA. O bob fica no
+            span (a animação sobrescreve o transform do elemento girado). */}
         <span
           aria-hidden
-          className="inline-flex animate-[bob_1.8s_ease-in-out_infinite] motion-reduce:animate-none"
+          className="relative inline-flex animate-[bob_1.8s_ease-in-out_infinite] motion-reduce:animate-none"
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/images/icones/seta-topo.png"
-            alt=""
-            width={13}
-            height={40}
-            className="h-[40px] w-[13px] max-w-none [transform:translate(1px,1px)_rotate(90deg)]"
-          />
+          <svg
+            viewBox="0 12 12 17"
+            width="18.35"
+            height="26"
+            className="rotate-90"
+            fill="#527FB0"
+          >
+            <path d="M10.2 12 L11.8 12.4 L12 13.6 L7.6 20.5 L12 27.4 L11.8 28.6 L10.2 29 L0.2 20.5 Z" />
+          </svg>
         </span>
       </a>
     </footer>
