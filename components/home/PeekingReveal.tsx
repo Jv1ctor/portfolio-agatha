@@ -44,7 +44,9 @@ export function PeekingReveal({ alt }: { alt: string }) {
       const vh = window.innerHeight || 800;
       const line = el.getBoundingClientRect().bottom;
       const next = clamp01((vh - line) / (vh * 0.55));
-      setP((prev) => (Math.abs(prev - next) > 0.005 ? next : prev));
+      setP((prev) =>
+        next === 0 || next === 1 || Math.abs(prev - next) > 0.005 ? next : prev,
+      );
     };
     const schedule = () => {
       if (!raf) raf = requestAnimationFrame(measure);
