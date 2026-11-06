@@ -272,8 +272,8 @@ export function PhilosophySection({ dict }: { dict: Dictionary }) {
         </p>
 
         {/* Colunas UX e 3D: vêm do protótipo (philoCols, gap 86.3/1728 em vw);
-            empilhadas abaixo de md, lado a lado a partir dele */}
-        <div className="mt-[21px] grid grid-cols-1 gap-y-[21px] md:grid-cols-2 md:gap-x-[4.99vw] max-w-[702px]">
+            empilhadas abaixo de xl, lado a lado a partir de xl (1280px: colunas >= 240px sem palavra vazando, pt-BR e en) */}
+        <div className="mt-[21px] grid grid-cols-1 gap-y-[21px] xl:grid-cols-2 xl:gap-x-[4.99vw] max-w-[702px]">
           <p
             className="text-[1.625rem] leading-[1.19] text-justify text-[color:var(--color-blue)]"
             style={{ wordSpacing: "0.08em" }}
