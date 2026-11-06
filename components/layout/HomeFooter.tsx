@@ -101,23 +101,19 @@ export function HomeFooter({
         // O nome acessível é o texto visível.
         className={`${s.backTop} absolute right-[28px] top-[109px]`}
       >
-        {/* Seta pra cima: silhueta do "‹" da usuária traçada em SVG (o PNG 1x borrava
-            ampliado), girada 90°, em currentColor. O bob fica no span (a animação
-            sobrescreve o transform do elemento girado). */}
-        <span
+        {/* Seta pra cima: silhueta do "‹" da usuária traçada em SVG e já girada no
+            path (viewBox justo 17×12, sem rotação CSS: o rotate-90 de uma caixa não
+            quadrada deslocava o layout e a seta caía). currentColor. */}
+        <svg
           aria-hidden
-          className="relative inline-block h-[14px] w-[20px] animate-[bob_1.8s_ease-in-out_infinite] motion-reduce:animate-none"
+          viewBox="0 0 17 12"
+          width="14"
+          height="9.9"
+          fill="currentColor"
+          className={s.arrow}
         >
-          <svg
-            viewBox="0 12 12 17"
-            width="14"
-            height="19.8"
-            className="absolute left-1/2 top-1/2 max-w-none -translate-x-1/2 -translate-y-1/2 rotate-90"
-            fill="currentColor"
-          >
-            <path d="M10.2 12 L11.8 12.4 L12 13.6 L7.6 20.5 L12 27.4 L11.8 28.6 L10.2 29 L0.2 20.5 Z" />
-          </svg>
-        </span>
+          <path d="M17 10.2 L16.6 11.8 L15.4 12 L8.5 7.6 L1.6 12 L0.4 11.8 L0 10.2 L8.5 0.2 Z" />
+        </svg>
         {dict.projectsPage.backToTop}
       </a>
     </footer>

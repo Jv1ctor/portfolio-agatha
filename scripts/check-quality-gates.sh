@@ -1079,7 +1079,7 @@ console.log('ok: ' + n + ' checks');
     HTML_VAR=$([ "$locale" = "pt-BR" ] && printf '%s' "$HTML_PT" || printf '%s' "$HTML_EN")
     TXT=$([ "$locale" = "pt-BR" ] && echo "voltar ao topo" || echo "back to top")
     FOOT=$(printf '%s' "$HTML_VAR" | grep -o '<footer.*' | sed 's#</footer>.*#</footer>#' | head -1 || true)
-    if printf '%s' "$FOOT" | grep -qE "<a [^>]*href=\"#top\"[^>]*>(<span[^>]*>.*</span>)?$TXT</a>"; then
+    if printf '%s' "$FOOT" | grep -qE "<a [^>]*href=\"#top\"[^>]*>(<svg[^>]*>.*</svg>)?$TXT</a>"; then
       log_pass "  /$locale footer has the pill link to #top with visible text \"$TXT\""
     else
       log_fail "  /$locale footer has no <a href=\"#top\"> with visible text \"$TXT\""

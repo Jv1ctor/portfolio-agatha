@@ -38,7 +38,25 @@
   outline-offset: 4px;
   border-radius: 16px;
 }
+/* Bob de 2px: o de 6px do bob global empurraria a seta para fora de uma pílula
+   de 26px (padding 5px). */
+.arrow {
+  flex: none;
+  animation: bobSm 1.8s ease-in-out infinite;
+}
+@keyframes bobSm {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(2px);
+  }
+}
 @media (prefers-reduced-motion: reduce) {
+  .arrow {
+    animation: none;
+  }
   .backTop {
     transition: none;
   }
