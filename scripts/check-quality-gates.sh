@@ -989,7 +989,7 @@ console.log('ok: ' + n + ' checks');
   done
 
   log_sub "globals.css: keyframes and prefers-reduced-motion block..."
-  CSS="app/[lang]/globals.css"
+  CSS="${GATE8_CSS:-app/[lang]/globals.css}"
   for kf in float breathe swing swingHover; do
     if grep -qE "@keyframes[[:space:]]+$kf[[:space:]]*\{" "$CSS"; then
       log_pass "  @keyframes $kf"
@@ -998,12 +998,16 @@ console.log('ok: ' + n + ' checks');
     fi
   done
   # O bloco de movimento reduzido tem que citar as 4 classes de animação (Tasks 3 e 4).
-  RM_BLOCK=$(awk '/@media[[:space:]]*\(prefers-reduced-motion:[[:space:]]*reduce\)/{f=1} f{print} ' "$CSS" || true)
+  # Extrai só o bloco @media (contando chaves) e casa a classe exata (.anim-float != .anim-float-2).
+  RM_BLOCK=$(awk '
+    !f && /@media[[:space:]]*\(prefers-reduced-motion:[[:space:]]*reduce\)/ {f=1}
+    f { print; n=gsub(/\{/,"{"); m=gsub(/\}/,"}"); d+=n-m; if (d<=0 && (n+m)>0) exit }
+  ' "$CSS" || true)
   if [ -z "$RM_BLOCK" ]; then
     log_fail "  no @media (prefers-reduced-motion: reduce) block in $CSS"
   else
     for cls in anim-float anim-float-2 anim-breathe cracha-swing; do
-      if printf '%s' "$RM_BLOCK" | grep -qF ".$cls"; then
+      if printf '%s' "$RM_BLOCK" | grep -qE "\.${cls}([^-a-zA-Z0-9_]|$)"; then
         log_pass "  reduced-motion block covers .$cls"
       else
         log_fail "  reduced-motion block does not mention .$cls"
