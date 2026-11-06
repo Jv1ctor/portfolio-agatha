@@ -121,7 +121,7 @@ export function HomeFooter({
             strokeDasharray="16 9.3"
           />
         </svg>
-        {/* Seta: o "‹" do usuário (seta-topo.png, 13×40, arte 11×18) refeito como path
+        {/* Seta: o "‹" do usuário (PNG 1x de 13×40, arte 11×18) refeito como path
             SVG com a mesma silhueta. O PNG é 1x e a seta no print ocupa ~26px (34% do
             botão), ou seja ~1.45x a arte — o PNG ampliado fica borrado, então o traço
             vetorial (#527FB0) o substitui. Gira 90° para apontar pra CIMA. O bob fica no

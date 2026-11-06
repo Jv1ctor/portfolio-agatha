@@ -410,12 +410,16 @@ Mudanças em relação ao texto acima, decididas durante a execução.
   (`md:pr-[121px]`). É o menor inteiro que zera a sobreposição em qualquer
   ângulo, largura e idioma; com 120px ainda sobrepunha 43 a 92 px².
 - **Botão "voltar ao topo" só de ícone (pedido posterior da usuária):** o link
-  `#top` do `HomeFooter` (home e /projetos) virou um quadrado de 76px (diâmetro
-  medido no print de referência), cantos de 8px, fundo `#BACCEA` e tracejado
-  interno `#527FB0` (3px, recuo de 4px). O ícone é o "‹" da usuária
-  (`public/images/icones/seta-topo.png`, 1x), girado 90° por CSS para apontar
-  pra cima, com o `bob` num `span` em volta. O texto `projectsPage.backToTop`
-  virou `aria-label` e `title`; a gate 8 passou a checar o `aria-label`.
+  `#top` do `HomeFooter` (home e /projetos) virou um quadrado de 76px (medido
+  no print de referência) com `rounded-[8px]`, em três camadas: faixa externa
+  de 4px `#BACCEA`, anel tracejado `#527FB0` de 3,5px (traço 16, vão 9,3) que
+  acompanha os cantos, e miolo `#E7ECF2`. A seta é o "‹" da usuária, girado 90°
+  para apontar pra cima, ocupando cerca de 26px (34% do botão), com o `bob` num
+  `span` em volta. **Desvio deliberado de "não vetorize":** o PNG 1x da usuária
+  ficava borrado a 1,45×, então a silhueta exata dele foi traçada num `<svg>`
+  inline (mesma forma, `#527FB0`); o PNG foi removido do repositório. Aprovado
+  pelo controller na fix round 1. O texto `projectsPage.backToTop` virou
+  `aria-label` e `title`; a gate 8 passou a checar o `aria-label`.
 - **Formulário do protótipo na home, contradizendo o não-objetivo da §2:** a
   home agora usa `HomeContactForm` (e-mail com asterisco + solicitação com o
   botão de enviar no canto, animações da ANIMACOES.md §7), a pedido da usuária.
