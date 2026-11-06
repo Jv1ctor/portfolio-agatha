@@ -409,17 +409,17 @@ Mudanças em relação ao texto acima, decididas durante a execução.
 - **Reserva de texto do crachá (Task 4):** a reserva passou de 100 para 121px
   (`md:pr-[121px]`). É o menor inteiro que zera a sobreposição em qualquer
   ângulo, largura e idioma; com 120px ainda sobrepunha 43 a 92 px².
-- **Botão "voltar ao topo" só de ícone (pedido posterior da usuária):** o link
-  `#top` do `HomeFooter` (home e /projetos) virou um quadrado de 76px (medido
-  no print de referência) com `rounded-[8px]`, em três camadas: faixa externa
-  de 4px `#BACCEA`, anel tracejado `#527FB0` de 3,5px (traço 16, vão 9,3) que
-  acompanha os cantos, e miolo `#E7ECF2`. A seta é o "‹" da usuária, girado 90°
-  para apontar pra cima, ocupando cerca de 26px (34% do botão), com o `bob` num
-  `span` em volta. **Desvio deliberado de "não vetorize":** o PNG 1x da usuária
-  ficava borrado a 1,45×, então a silhueta exata dele foi traçada num `<svg>`
-  inline (mesma forma, `#527FB0`); o PNG foi removido do repositório. Aprovado
-  pelo controller na fix round 1. O texto `projectsPage.backToTop` virou
-  `aria-label` e `title`; a gate 8 passou a checar o `aria-label`.
+- **Botão "voltar ao topo" como pílula azul (pedido posterior da usuária,
+  substitui o quadrado só de ícone):** o link `#top` do `HomeFooter` (home e
+  /projetos) é agora uma pílula no estilo dos botões de filtro de /projetos
+  (`.pill`: `border-radius` 999px, `700 14.5px`, padding `5px 11px`, borda
+  tracejada de 1,5px, halo de 3px, hover `translateY(-2px) rotate(-1.5deg)` só
+  com `(hover: hover)`, active `scale(.94)`), em azul: miolo `#E7ECF2`, texto,
+  ícone e tracejado `#527FB0`, halo `#BACCEA`. Mostra a seta pra cima (a
+  silhueta do "‹" da usuária traçada em SVG, `currentColor`, ~14px, com o
+  `bob`) e o texto VISÍVEL `projectsPage.backToTop`; `aria-label` e `title`
+  saíram, o nome acessível é o texto. Estilos em `HomeFooter.module.css`. A gate
+  8 e o e2e checam o texto visível nos dois idiomas.
 - **Formulário do protótipo na home, contradizendo o não-objetivo da §2:** a
   home agora usa `HomeContactForm` (e-mail com asterisco + solicitação com o
   botão de enviar no canto, animações da ANIMACOES.md §7), a pedido da usuária.

@@ -1,0 +1,45 @@
+/*
+ * Botão de voltar ao topo do footer: pílula AZUL, copiada do `.pill` dos filtros de
+ * /projetos (components/projects/projects.module.css): forma, fonte, padding,
+ * borda tracejada, halo, hover/active e foco. Cores (R11): miolo #E7ECF2, texto,
+ * ícone e tracejado #527FB0, halo #BACCEA. Sem `word-spacing`: --word-gap é uma
+ * variável local do módulo de /projetos, não existe no footer.
+ */
+.backTop {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font: 700 14.5px var(--font-body), sans-serif;
+  line-height: 1;
+  padding: 5px 11px;
+  min-height: 26px;
+  border-radius: 999px;
+  background: #e7ecf2;
+  color: #527fb0 !important;
+  text-decoration: none;
+  border: 1.5px dashed #527fb0;
+  box-shadow: 0 0 0 3px #baccea;
+  transition:
+    transform 0.25s var(--ease-spring),
+    background 0.2s,
+    color 0.2s;
+}
+@media (hover: hover) {
+  .backTop:hover {
+    transform: translateY(-2px) rotate(-1.5deg);
+  }
+}
+.backTop:active {
+  transform: scale(0.94);
+}
+.backTop:focus-visible {
+  outline: 3px solid var(--color-blue-darkest);
+  outline-offset: 4px;
+  border-radius: 16px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .backTop {
+    transition: none;
+  }
+}

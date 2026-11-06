@@ -1,4 +1,5 @@
 import { site } from "@/lib/site";
+import s from "./HomeFooter.module.css";
 import type { Dictionary } from "@/i18n/dictionaries";
 
 /**
@@ -16,8 +17,8 @@ import type { Dictionary } from "@/i18n/dictionaries";
  *   16px entre label e handle, 8px entre rows
  *
  * IG/IN e os handles são dados (lib/site.ts), não tradução (AGENTS.md).
- * Ambas as variantes (home e projects) ganham o link de voltar ao topo (botão só
- * de ícone, com a seta que balança), e a seta ↗ no hover dos links sociais. O prop `variant`
+ * Ambas as variantes (home e projects) ganham o link de voltar ao topo (pílula azul no
+ * estilo dos filtros de /projetos, com texto e a seta que balança), e a seta ↗ no hover dos links sociais. O prop `variant`
  * continua existindo para os callers (FooterRouter), mas não muda mais o visual.
  * O Footer antigo continua sendo usado pelas outras páginas via FooterRouter.
  */
@@ -96,50 +97,28 @@ export function HomeFooter({
           window.scrollTo({ top: 0, behavior: "instant" });
           document.getElementById("top")?.focus({ preventScroll: true });
         }}
-        aria-label={dict.projectsPage.backToTop}
-        title={dict.projectsPage.backToTop}
-        // Botão só de ícone, medido no print de referência (147×122): 76px, cantos de 8px
-        // (padrão do site). Três camadas: faixa externa sólida #BACCEA (4px), anel
-        // tracejado #527FB0 (3.5px, dash 16 / vão 9.3) e miolo pálido #E7ECF2.
-        className="absolute right-[28px] top-[109px] grid h-[76px] w-[76px] place-items-center rounded-[8px] bg-[#BACCEA] no-underline outline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[color:var(--color-blue-darkest)]"
+        // Pílula azul no estilo dos filtros de /projetos (ver HomeFooter.module.css).
+        // O nome acessível é o texto visível.
+        className={`${s.backTop} absolute right-[28px] top-[109px]`}
       >
-        <svg
-          aria-hidden
-          viewBox="0 0 76 76"
-          className="pointer-events-none absolute inset-0 h-full w-full"
-          fill="none"
-        >
-          <rect x="4" y="4" width="68" height="68" rx="4" fill="#E7ECF2" />
-          <rect
-            x="5.75"
-            y="5.75"
-            width="64.5"
-            height="64.5"
-            rx="3"
-            stroke="#527FB0"
-            strokeWidth="3.5"
-            strokeDasharray="16 9.3"
-          />
-        </svg>
-        {/* Seta: o "‹" do usuário (PNG 1x de 13×40, arte 11×18) refeito como path
-            SVG com a mesma silhueta. O PNG é 1x e a seta no print ocupa ~26px (34% do
-            botão), ou seja ~1.45x a arte — o PNG ampliado fica borrado, então o traço
-            vetorial (#527FB0) o substitui. Gira 90° para apontar pra CIMA. O bob fica no
-            span (a animação sobrescreve o transform do elemento girado). */}
+        {/* Seta pra cima: silhueta do "‹" da usuária traçada em SVG (o PNG 1x borrava
+            ampliado), girada 90°, em currentColor. O bob fica no span (a animação
+            sobrescreve o transform do elemento girado). */}
         <span
           aria-hidden
-          className="relative inline-flex animate-[bob_1.8s_ease-in-out_infinite] motion-reduce:animate-none"
+          className="relative inline-block h-[14px] w-[20px] animate-[bob_1.8s_ease-in-out_infinite] motion-reduce:animate-none"
         >
           <svg
             viewBox="0 12 12 17"
-            width="18.35"
-            height="26"
-            className="rotate-90"
-            fill="#527FB0"
+            width="14"
+            height="19.8"
+            className="absolute left-1/2 top-1/2 max-w-none -translate-x-1/2 -translate-y-1/2 rotate-90"
+            fill="currentColor"
           >
             <path d="M10.2 12 L11.8 12.4 L12 13.6 L7.6 20.5 L12 27.4 L11.8 28.6 L10.2 29 L0.2 20.5 Z" />
           </svg>
         </span>
+        {dict.projectsPage.backToTop}
       </a>
     </footer>
   );
