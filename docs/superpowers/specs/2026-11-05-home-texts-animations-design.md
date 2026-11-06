@@ -380,3 +380,32 @@ O plano marca o modelo de cada task. As tasks mecânicas vão para modelo menor,
 a pedido da usuária: dicionários, cópia de assets, keyframes. As de
 integração (personagem espiando, quadros) ficam com modelo médio. A revisão
 final da branch usa o modelo mais capaz.
+
+## Emendas da execução
+
+Mudanças em relação ao texto acima, decididas durante a execução.
+
+- **Texto dos quadros da Galeria (R4):** entre 768 e 959.98px o texto quebra
+  linha (`white-space: normal`, `right: 5.556%`) em vez de ficar em nowrap.
+  Um nowrap ali vaza do quadro de 256px, e o §9.5 diz que o texto nunca pode
+  sair do quadro. Custo: o título da Galeria quebra em 2 linhas em tablets.
+- **Gate 7 (R5):** a asserção do header da home foi alinhada ao design do link
+  ativo. O "sobre" da home tem `aria-current="page"` e o "projetos" não tem. A
+  falha era pré-existente (commit 465c2ff, anterior à base da branch); só o
+  teste mudou, o header não.
+- **Alvo do "voltar ao topo" (R6):** passa a existir um único
+  `<div id="top" tabIndex={-1} className="outline-none" />` em
+  `app/[lang]/layout.tsx`, antes do `HeaderRouter`. Saem o `id`/`tabIndex` do
+  wrapper da home (o wrapper some) e do `ProjectsIndex`. Assim o próximo Tab
+  depois de voltar ao topo cai no header, em todas as páginas, com ou sem JS, e
+  sem `id` duplicado. Antes, o Tab levava à galeria, cerca de 2000px abaixo.
+- **Colunas UX/3D (R7):** o §3.2 pedia 2 colunas a partir de `md`. Passam a
+  ser 2 colunas a partir de `xl` (1280px); abaixo disso ficam empilhadas, com
+  `gap-y-[21px]`. Motivo, medido de 768 a 1920 (passo de 16px), nos 2 idiomas:
+  com 2 colunas a partir de `md`, em pt-BR as colunas tinham 135px em 768 e
+  236,6px em 1264, e "descobrimos" vazava da coluna entre 768 e 800; em en as
+  colunas ficavam abaixo de 240px até 1104. A partir de 1280 todas as colunas
+  têm 242,8px ou mais (pt-BR) e 274,6px ou mais (en), sem palavra fora delas.
+- **Reserva de texto do crachá (Task 4):** a reserva passou de 100 para 121px
+  (`md:pr-[121px]`). É o menor inteiro que zera a sobreposição em qualquer
+  ângulo, largura e idioma; com 120px ainda sobrepunha 43 a 92 px².
