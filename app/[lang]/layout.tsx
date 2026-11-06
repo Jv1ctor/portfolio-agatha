@@ -79,6 +79,8 @@ export default async function RootLayout({
       </head>
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <I18nProvider dict={dict} locale={lang}>
+          {/* Single back-to-top target, before the header so the next Tab lands on the nav */}
+          <div id="top" tabIndex={-1} className="outline-none" />
           {/* Roteia: home v2 usa HomeHeader (Figma Pontossemno); demais
               páginas mantêm o Header antigo */}
           <HeaderRouter locale={lang} dict={dict} />

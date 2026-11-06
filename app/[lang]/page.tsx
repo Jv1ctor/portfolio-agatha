@@ -34,7 +34,7 @@ export default async function HomePage({
   const dict = await getDictionary(lang);
 
   return (
-    <div id="top" tabIndex={-1} className="outline-none">
+    <>
       <BrandHero title={dict.site.name} variant="home" />
 
       {/* Wrapper relativo para elementos absolutos entre hero e philosophy.
@@ -197,6 +197,6 @@ export default async function HomePage({
 
         <ContactSection dict={dict} />
       </div>
-    </div>
+    </>
   );
 }
