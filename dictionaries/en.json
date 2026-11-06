@@ -69,7 +69,15 @@
     "contactIllustrationAlt": "Illustration of Ágatha holding an envelope",
     "crachaAlt": "Blue badge with the words 'i believe that design is'",
     "crachaSaying": "i believe that design is",
-    "peekingAlt": "Illustration of Ágatha peeking over the gallery"
+    "peekingAlt": "Illustration of Ágatha peeking over the gallery",
+    "contactForm": {
+      "emailPlaceholder": "Enter your email",
+      "messagePlaceholder": "Type your request...",
+      "success": "Message sent! Thank you ✦",
+      "emailLabel": "Your email",
+      "messageLabel": "Your request",
+      "sendLabel": "Send message"
+    }
   },
   "contact": {
     "title": "Let's work together?",

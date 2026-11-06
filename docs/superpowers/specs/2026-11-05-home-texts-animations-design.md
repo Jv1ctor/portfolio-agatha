@@ -409,3 +409,21 @@ Mudanças em relação ao texto acima, decididas durante a execução.
 - **Reserva de texto do crachá (Task 4):** a reserva passou de 100 para 121px
   (`md:pr-[121px]`). É o menor inteiro que zera a sobreposição em qualquer
   ângulo, largura e idioma; com 120px ainda sobrepunha 43 a 92 px².
+- **Botão "voltar ao topo" só de ícone (pedido posterior da usuária):** o link
+  `#top` do `HomeFooter` (home e /projetos) virou um quadrado de 76px (diâmetro
+  medido no print de referência), cantos de 8px, fundo `#BACCEA` e tracejado
+  interno `#527FB0` (3px, recuo de 4px). O ícone é o "‹" da usuária
+  (`public/images/icones/seta-topo.png`, 1x), girado 90° por CSS para apontar
+  pra cima, com o `bob` num `span` em volta. O texto `projectsPage.backToTop`
+  virou `aria-label` e `title`; a gate 8 passou a checar o `aria-label`.
+- **Formulário do protótipo na home, contradizendo o não-objetivo da §2:** a
+  home agora usa `HomeContactForm` (e-mail com asterisco + solicitação com o
+  botão de enviar no canto, animações da ANIMACOES.md §7), a pedido da usuária.
+  O `ContactForm` antigo segue só em `/contato`. Textos novos em
+  `home.contactForm`, nos dois dicionários.
+- **Envio real via EmailJS:** diferente do protótipo, que só simulava, o
+  `HomeContactForm` envia pelo mesmo EmailJS e as mesmas env vars
+  `NEXT_PUBLIC_EMAILJS_*` do `ContactForm`, validando com zod (e-mail e
+  mensagem de 5 caracteres ou mais) e reaproveitando as mensagens de erro de
+  `contact.form`. O e2e (grupo `form`) intercepta a requisição; nunca envia
+  e-mail de verdade.

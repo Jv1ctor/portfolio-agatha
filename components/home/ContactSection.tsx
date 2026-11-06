@@ -1,5 +1,5 @@
 import type { Dictionary } from "@/i18n/dictionaries";
-import { ContactForm } from "@/components/contact/ContactForm";
+import { HomeContactForm } from "@/components/home/HomeContactForm";
 
 /**
  * Seção de contato — fiel ao Figma Pontossemno (node 751:1318):
@@ -25,10 +25,9 @@ import { ContactForm } from "@/components/contact/ContactForm";
  * - Subtítulo: x=893, y=3908, w=517, Clother Regular 24px (box 29 = 1.2×24);
  *   gap título→subtítulo = 35 (3908 − (3522+351)); form (stub Figma
  *   750:1259) começa 26px depois (3963)
- * - Formulário: ContactForm existente (nome/email/telefone/mensagem)
- *   — o form REAL é ~456px (vs stub 129px do Figma), o que desce o rodapé
- *   da home (~+153px vs o height 4614 do frame) — impossível de fechar sem
- *   cortar funcionalidade do form.
+ * - Formulário: HomeContactForm (e-mail + solicitação, do protótipo; envio real
+ *   via EmailJS). Mais compacto que o antigo ContactForm (~456px) e mais perto
+ *   do stub de 129px do Figma.
  *
  * Container: fora do .container-narrow (padrão vw do Plan 2 — a coluna 1fr do
  * container limitava a ilustração a ~421px). Padding horizontal espelha o
@@ -89,8 +88,9 @@ export function ContactSection({ dict }: { dict: Dictionary }) {
           {home.contactSubtitle}
         </p>
 
-        {/* Formulário — REUTILIZAR ContactForm existente (não modificar!) */}
-        <ContactForm />
+        {/* Formulário do protótipo (envio real via EmailJS). O ContactForm antigo
+            segue só em /contato. */}
+        <HomeContactForm />
       </div>
     </section>
   );
