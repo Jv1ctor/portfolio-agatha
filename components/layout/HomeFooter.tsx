@@ -99,7 +99,7 @@ export function HomeFooter({
         }}
         // Pílula azul no estilo dos filtros de /projetos (ver HomeFooter.module.css).
         // O nome acessível é o texto visível.
-        className={`${s.backTop} absolute right-[28px] top-[109px]`}
+        className={`${s.backTop} absolute right-[28px] top-[109px] max-[379.98px]:right-[14px]`}
       >
         {/* Seta pra cima: silhueta do "‹" da usuária traçada em SVG e já girada no
             path (viewBox justo 17×12, sem rotação CSS: o rotate-90 de uma caixa não
@@ -107,8 +107,8 @@ export function HomeFooter({
         <svg
           aria-hidden
           viewBox="0 0 17 12"
-          width="14"
-          height="9.9"
+          width="18"
+          height="12.7"
           fill="currentColor"
           className={s.arrow}
         >
