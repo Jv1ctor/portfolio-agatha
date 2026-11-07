@@ -1,4 +1,5 @@
 import { site } from "@/lib/site";
+import s from "./HomeFooter.module.css";
 import type { Dictionary } from "@/i18n/dictionaries";
 
 /**
@@ -16,29 +17,27 @@ import type { Dictionary } from "@/i18n/dictionaries";
  *   16px entre label e handle, 8px entre rows
  *
  * IG/IN e os handles são dados (lib/site.ts), não tradução (AGENTS.md).
- * variant="projects" (índice /projetos): acrescenta o link de voltar ao topo, com a
- * seta que balança e a seta ↗ no hover dos links sociais. A home não muda.
+ * Ambas as variantes (home e projects) ganham o link de voltar ao topo (pílula azul no
+ * estilo dos filtros de /projetos, com texto e a seta que balança), e a seta ↗ no hover dos links sociais. O prop `variant`
+ * continua existindo para os callers (FooterRouter), mas não muda mais o visual.
  * O Footer antigo continua sendo usado pelas outras páginas via FooterRouter.
  */
 export function HomeFooter({
   dict,
-  variant = "home",
 }: {
   dict: Dictionary;
   variant?: "home" | "projects";
 }) {
-  const isProjects = variant === "projects";
-  const arrow = isProjects ? (
+  const arrow = (
     <span
       aria-hidden
       className="ml-1 inline-block -translate-x-1 translate-y-1 opacity-0 transition-[opacity,translate] duration-300 ease-[cubic-bezier(.2,.9,.3,1.4)] group-hover/social:translate-x-0 group-hover/social:translate-y-0 group-hover/social:opacity-100 group-focus-visible/social:translate-x-0 group-focus-visible/social:translate-y-0 group-focus-visible/social:opacity-100 motion-reduce:transition-none"
     >
       ↗
     </span>
-  ) : null;
-  const socialClass = `text-base font-light underline decoration-from-font hover:opacity-80${
-    isProjects ? " group/social" : ""
-  }`;
+  );
+  const socialClass =
+    "group/social text-base font-light underline decoration-from-font hover:opacity-80";
 
   return (
     <footer
@@ -89,27 +88,34 @@ export function HomeFooter({
         </ul>
       </div>
 
-      {isProjects ? (
-        <a
-          href="#top"
-          // Sem JS o âncora nativa funciona; com JS não criamos entrada de histórico (um
-          // `#top` no histórico, com state nulo, faria o "voltar" do modal não fechar nada).
-          onClick={(event) => {
-            event.preventDefault();
-            window.scrollTo({ top: 0, behavior: "instant" });
-            document.getElementById("top")?.focus({ preventScroll: true });
-          }}
-          className="absolute right-[28px] top-[109px] rounded-sm text-[0.9375rem] font-medium !text-[color:var(--color-blue-darkest)] no-underline outline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[color:var(--color-blue-darkest)]"
+      <a
+        href="#top"
+        // Sem JS o âncora nativa funciona; com JS não criamos entrada de histórico (um
+        // `#top` no histórico, com state nulo, faria o "voltar" do modal não fechar nada).
+        onClick={(event) => {
+          event.preventDefault();
+          window.scrollTo({ top: 0, behavior: "instant" });
+          document.getElementById("top")?.focus({ preventScroll: true });
+        }}
+        // Pílula azul no estilo dos filtros de /projetos (ver HomeFooter.module.css).
+        // O nome acessível é o texto visível.
+        className={`${s.backTop} absolute right-[28px] top-[109px] max-[379.98px]:right-[14px]`}
+      >
+        {/* Seta pra cima: silhueta do "‹" da usuária traçada em SVG e já girada no
+            path (viewBox justo 17×12, sem rotação CSS: o rotate-90 de uma caixa não
+            quadrada deslocava o layout e a seta caía). currentColor. */}
+        <svg
+          aria-hidden
+          viewBox="0 0 17 12"
+          width="18"
+          height="12.7"
+          fill="currentColor"
+          className={s.arrow}
         >
-          {dict.projectsPage.backToTop}{" "}
-          <span
-            aria-hidden
-            className="inline-block animate-[bob_1.8s_ease-in-out_infinite] motion-reduce:animate-none"
-          >
-            ↑
-          </span>
-        </a>
-      ) : null}
+          <path d="M17 10.2 L16.6 11.8 L15.4 12 L8.5 7.6 L1.6 12 L0.4 11.8 L0 10.2 L8.5 0.2 Z" />
+        </svg>
+        {dict.projectsPage.backToTop}
+      </a>
     </footer>
   );
 }

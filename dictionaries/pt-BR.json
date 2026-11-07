@@ -17,20 +17,26 @@
   "home": {
     "greeting": "Olá a todos,",
     "greetingAlt": "Ilustração da Ágatha acenando",
-    "intro": "Não sou boa com textinhos mas bora lá sksk Prazer! sou a designer do seu bairro, da sua empresa multinacional e do seu jogo indie fofinho.",
+    "intro": "Prazer, sou a Ágatha! A designer do seu bairro, da sua empresa multinacional e do seu jogo indie fofinho. Trabalho com pesquisa (UX e UI), ilustração e Design 3D.",
     "philosophy": "Filosofia",
     "philosophyAlt": "Ilustração da Ágatha pensando",
     "philosophyLead": "Para mim o design é pesquisa, ilustração e perspectiva.",
-    "philosophyBody1": "Acredito que o design é a manipulação intencional da ",
-    "philosophyBody1Bold": "experiência humana",
-    "philosophyBody1End": ": uma ferramenta capaz de impactar hábitos e devolver humanidade ao nosso cotidiano.",
-    "philosophyBody2": "Nesse contexto, encaro o ",
-    "philosophyBody2Bold1": "3D",
-    "philosophyBody2Mid": ", o ",
-    "philosophyBody2Bold2": "design de interfaces",
-    "philosophyBody2Mid2": " e a ",
-    "philosophyBody2Bold3": "pesquisa",
-    "philosophyBody2End": " como extensões de um mesmo propósito: construir experiências que sejam verdadeiramente prestativas, memoráveis e sensíveis.",
+    "philosophyBody1": "Acredito que o design traduz como enxergo o mundo e como gostaria de projetá-lo, de coração aberto às pessoas, culturas e histórias que encontro.",
+    "philosophyBody2": "Por isso, encaro a ",
+    "philosophyBody2Bold1": "pesquisa",
+    "philosophyBody2Mid": ", as ",
+    "philosophyBody2Bold2": "interfaces",
+    "philosophyBody2Mid2": " e o ",
+    "philosophyBody2Bold3": "3D",
+    "philosophyBody2End": " como extensões de um mesmo propósito: escutar realidades que não são minhas e transformá-las em experiências e mundos especialmente sensíveis.",
+    "philosophyColUx": "O ",
+    "philosophyColUxBold": "UX",
+    "philosophyColUxEnd": " me aproxima da vivência do outro e faz da pesquisa um momento de escuta e partilha, em que descobrimos juntos.",
+    "philosophyCol3d": "No ",
+    "philosophyCol3dBold1": "3D",
+    "philosophyCol3dMid": " e na ",
+    "philosophyCol3dBold2": "ilustração",
+    "philosophyCol3dEnd": ", conto o que ouvi em cenas miúdas, das que fazem parar para ver uma joaninha subir a folha.",
     "experience": "Experiência",
     "experienceAlt": "Ilustração da Ágatha sentada",
     "experienceLead": "O futuro está na atividade humana, e é o que torna nossas experiências tão importantes.",
@@ -42,6 +48,20 @@
     "studiesAlt": "Ilustração de estudos — coelhos em um campo rosa com flores",
     "studiesDoodlesAlt": "Painel azul com doodles de animais marinhos",
     "careerAlt": "Ilustração de uma baleia fofa nadando com bolhas",
+    "tiles": {
+      "studies": {
+        "title": "Estudos",
+        "text": "Alguns estudos despretensiosos e outros nem tanto :0"
+      },
+      "career": {
+        "title": "Minha carreira no design",
+        "text": "Um pouquinho sobre minha trajetória em diferentes áreas do design e como cheguei às minhas áreas dominantes hoje :)"
+      },
+      "gallery": {
+        "title": "Minha galeria",
+        "text": "Compilei algumas artes minhas aqui ^^"
+      }
+    },
     "contactTitleLine1": "vAMOS",
     "contactTitleLine2": "TRABALHAR",
     "contactTitleLine3": "JUNTOS?",
@@ -49,7 +69,15 @@
     "contactIllustrationAlt": "Ilustração da Ágatha segurando um envelope",
     "crachaAlt": "Crachá azul com os dizeres 'Acredito que o design é'",
     "crachaSaying": "acredito que o design é",
-    "peekingAlt": "Ilustração da Ágatha espiando por cima da galeria"
+    "peekingAlt": "Ilustração da Ágatha espiando por cima da galeria",
+    "contactForm": {
+      "emailPlaceholder": "Digite seu email",
+      "messagePlaceholder": "Digite sua solicitação...",
+      "success": "Mensagem enviada! Obrigada ✦",
+      "emailLabel": "Seu e-mail",
+      "messageLabel": "Sua solicitação",
+      "sendLabel": "Enviar mensagem"
+    }
   },
   "contact": {
     "title": "Vamos trabalhar juntos?",

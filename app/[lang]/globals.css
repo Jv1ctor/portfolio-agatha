@@ -65,6 +65,11 @@
      Clother (corpo, subtítulos): weight 400 regular, 700 bold, italic disponível */
   --font-display: "am-novecento", "Arial Narrow", sans-serif;
   --font-body: "clother", "Helvetica Neue", Arial, sans-serif;
+
+  /* Curvas de animação (spec §4) */
+  --ease-out: cubic-bezier(.2,.8,.2,1);
+  --ease-spring: cubic-bezier(.2,.9,.3,1.4);
+  --ease-bouncy: cubic-bezier(.2,.9,.3,1.6);
 }
 
 @theme inline {
@@ -174,5 +179,88 @@ a {
   }
   50% {
     transform: translateY(6px);
+  }
+}
+
+/* Personagens flutuando (spec §4.1) e elipses respirando (spec §4.2).
+   Os wrappers/imgs não recebem layout novo: só transform e opacity. */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-1vw);
+  }
+}
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+.anim-float {
+  animation: float 3.4s ease-in-out infinite;
+}
+.anim-float-2 {
+  animation: float 3.8s ease-in-out 0.6s infinite;
+}
+.anim-breathe {
+  animation: breathe 6s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* Crachá: balança a partir do furo (pivô = centro do furo no box 377×506).
+   No hover o push substitui o balanço; ao fim (1.6s) repousa em 0° e, ao
+   sair, volta a balançar. */
+@keyframes swing {
+  0%,
+  100% {
+    transform: rotate(-1.2deg);
+  }
+  50% {
+    transform: rotate(1.2deg);
+  }
+}
+
+@keyframes swingHover {
+  0% {
+    transform: rotate(0deg);
+  }
+  30% {
+    transform: rotate(3.5deg);
+  }
+  60% {
+    transform: rotate(-2deg);
+  }
+  85% {
+    transform: rotate(0.8deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.cracha-swing {
+  animation: swing 5s ease-in-out infinite;
+  transform-origin: 27.1% 30.4%;
+}
+
+.cracha-swing:hover {
+  animation: swingHover 1.6s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-float,
+  .anim-float-2,
+  .anim-breathe,
+  .cracha-swing,
+  .cracha-swing:hover {
+    animation: none;
   }
 }
