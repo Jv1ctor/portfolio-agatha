@@ -30,6 +30,12 @@ export type ProjectMeta = {
   featured?: boolean;
   /** Dados de layout da grade bento */
   grid: ProjectGrid;
+  /**
+   * Layout da página do case. 'wide' = coluna de 1352px do Figma novo, com o
+   * cabeçalho (título, tags, intro) desenhado pelo próprio corpo do case.
+   * Sem valor = coluna estreita padrão do CaseShell.
+   */
+  layout?: 'wide';
 };
 
 // Chaves do dicionário por slug (texto translatável vive em dict.projects.*)
@@ -68,6 +74,7 @@ const projectMeta: ProjectMeta[] = [
     accent: 'orange',
     coverImage: '/images/projects/batuco-tuco/cover.png',
     grid: { column: 1, aspect: '612 / 344', objectPosition: 'left center', descLines: 2 },
+    layout: 'wide',
   },
   {
     slug: 'pontinhas-soltas',

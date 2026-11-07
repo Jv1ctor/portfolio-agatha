@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import localFont from 'next/font/local';
 import { notFound } from 'next/navigation';
 import { getDictionary, isLocale } from '@/i18n/dictionaries';
 import { locales } from '@/i18n/config';
@@ -49,6 +50,17 @@ export async function generateMetadata({
 
 const TYPEKIT_ID = process.env.NEXT_PUBLIC_TYPEKIT_ID;
 
+// Nunito (OFL) — textos do app no case Batuco-tuco. Arquivo variável (400–800,
+// subset latin do Google Fonts) versionado no repo: o next/font/google baixa a
+// fonte durante o build e falhava quando a rede oscilava. Exposta como
+// --font-nunito-next e consumida por --font-nunito (globals.css).
+const nunito = localFont({
+  src: '../fonts/nunito-latin-wght.woff2',
+  weight: '400 800',
+  display: 'swap',
+  variable: '--font-nunito-next',
+});
+
 export default async function RootLayout({
   children,
   params,
@@ -62,7 +74,7 @@ export default async function RootLayout({
   const dict = await getDictionary(lang);
 
   return (
-    <html lang={lang} className="h-full" suppressHydrationWarning>
+    <html lang={lang} className={`h-full ${nunito.variable}`} suppressHydrationWarning>
       <head>
         {/* Adobe Fonts (Typekit) — define NEXT_PUBLIC_TYPEKIT_ID em .env.local
             com o ID do kit. Sem essa variável, o site cai no fallback

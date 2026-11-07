@@ -257,6 +257,8 @@
 .sheetFoot { padding-bottom: 64px; }
 /* Voltar e próximo seguem as bordas da coluna do case (786px, a mesma do CaseShell). */
 .sheetCol { max-width: 786px; margin-inline: auto; display: flex; }
+/* Cases com layout 'wide' (coluna de 1352px do CaseShell). */
+.sheetColWide { max-width: 1352px; }
 .backBtn {
   display: inline-flex; align-items: center; gap: 8px; cursor: pointer; min-height: 44px;
   font: 700 15px var(--font-body), sans-serif; word-spacing: var(--word-gap); color: var(--navy);

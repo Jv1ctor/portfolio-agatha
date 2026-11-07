@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { getDictionary, isLocale } from "@/i18n/dictionaries";
 import { getLocalizedProject } from "@/lib/projects";
 import { CaseShell } from "@/components/case-study/CaseShell";
-import { BatucoTucoCase } from "@/components/case-study/cases";
+import { BatucoTucoCase, BatucoTucoHero } from "@/components/case-study/cases";
 
 export async function generateMetadata({
   params,
@@ -37,7 +37,7 @@ export default async function BatucoTucoPage({
   if (!project) notFound();
 
   return (
-    <CaseShell project={project} dict={dict}>
+    <CaseShell project={project} dict={dict} cover={<BatucoTucoHero project={project} />}>
       <BatucoTucoCase project={project} />
     </CaseShell>
   );
