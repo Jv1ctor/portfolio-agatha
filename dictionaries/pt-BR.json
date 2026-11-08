@@ -218,6 +218,114 @@
         }
       },
       "thanks": "Obrigada por ter chegado até aqui!"
+    },
+    "identidadeEvento15Anos": {
+      "title": "Identidade de evento: 15 anos",
+      "subtitle": "Identidade de evento: 15 anos",
+      "cardTitle": "Identidade de evento: 15 anos",
+      "description": "Identidade visual ilustrada para o aniversário de 15 anos de um par de gêmeos, do save the date às aplicações no dia do evento.",
+      "intro": "A contratação do serviço demandou a criação de uma identidade visual para o evento de aniversário de 15 anos de um par de gêmeos. O serviço foi planejado em um cronograma de entregas para atualizar a cliente rapidamente dos processos e orientá-la de como é previsto o processo do meu trabalho.",
+      "tags": [
+        "Profissional",
+        "Design gráfico"
+      ],
+      "sections": {
+        "creationProcess": {
+          "title": "Processo de criação",
+          "paragraphs": [
+            "O processo foi dividido em formulação de escopo junto à cliente, criação de moodboard de referências visuais, definição de informações textuais, criação de esboços e prototipação. A partir das respostas do meu formulário geral para briefing em solicitação de serviços, foi estabelecido o escopo de produção, configurando as peças com as seguintes características: minimalista e elegante, delicado e orgânico, priorizando as cores rosa, amarelo e verde, tendo como elementos principais flores. Nível de detalhamento moderado e estilizado, sendo o tipo de uso para divulgação em mídia digital e impressa."
+          ],
+          "images": [
+            "Primeiro painel de referências: convites florais em aquarela, adesivos botânicos, flores amarelas e molduras delicadas.",
+            "Segundo painel de referências: pinturas de jardins e paisagens com flores em tons de verde, laranja e rosa."
+          ],
+          "captions": [
+            "Painel de referências - Versão 1",
+            "Painel de referências - Versão 2"
+          ]
+        },
+        "prototyping": {
+          "title": "Prototipagem",
+          "tabs": [
+            "Painel Moodboard",
+            "Planejamento de peças",
+            "Rafes",
+            "Testes de cores",
+            "Renderização digital",
+            "Testes de impressão"
+          ],
+          "paragraphs": [
+            "O processo inicial envolveu a criação do “Save the date”, o que também estruturaria o convite e demais peças adiante. Mas a contribuição de mais pessoas mudou um pouco a visão do projeto, adicionando novas referências e modificando a complexidade da ilustração. A ilustração principal guiou a composição para mais peças, como tags para lembrancinhas, menus, adesivos para caixas de bolo, até o adesivamento de um carrinho dos “minibolos” de lembrancinha contratado pela cliente. Ao testar as impressões e realizar as devidas revisões, o material foi aplicado à divulgação e às superfícies impressas. Todas as etapas passaram pela validação da cliente."
+          ],
+          "thumbs": {
+            "captions": [
+              "Teste de diagramação",
+              "Rascunho da ilustração",
+              "Ilustração crua",
+              "Primeira versão do Save The Date",
+              "Teste de cores"
+            ]
+          },
+          "images": [
+            "Teste de diagramação do save the date com moldura floral e os nomes dos aniversariantes.",
+            "Rascunho da ilustração floral do convite sobre fundo bege.",
+            "Ilustração crua da moldura floral, ainda sem textos.",
+            "Primeira versão do save the date, com moldura de flores e a data do evento.",
+            "Teste de cores do save the date com flores em tons mais quentes."
+          ],
+          "invitation": {
+            "label": "Desenvolvimento da identidade final para o convite",
+            "images": [
+              "Esboço a lápis do jardim com árvores e chafariz.",
+              "Ilustração digital do jardim com árvores, flores e chafariz.",
+              "Convite final com o monograma C e A em uma moldura de renda oval sobre a ilustração do jardim.",
+              "Variação do convite final com o monograma e as informações do evento."
+            ]
+          }
+        },
+        "finalProject": {
+          "title": "Projeto final",
+          "paragraphs": [
+            "O projeto entregue compunha o sistema de identidade do evento e suas aplicações."
+          ],
+          "toolsTitle": "Ferramentas utilizadas",
+          "tools": [
+            "Adobe Illustrator",
+            "Autodesk Sketchbook",
+            "Adobe Fonts",
+            "Figma",
+            "Adobe Photoshop"
+          ],
+          "images": [
+            "Banners do evento com o monograma C e A em moldura de renda sobre recortes da ilustração do jardim."
+          ],
+          "ledPanel": {
+            "label": "Arte para painel de Led",
+            "images": [
+              "Duas artes horizontais para o painel de LED com o monograma e “15 anos” sobre a ilustração do jardim."
+            ]
+          },
+          "menuTags": {
+            "label": "Arte para Menu, Tags e adesivos de caixa de bolo",
+            "images": [
+              "Frente e verso do menu, tags numeradas para sandálias e adesivos para caixas de bolo, todos com a ilustração do jardim."
+            ]
+          },
+          "event": {
+            "label": "Aplicações no evento",
+            "images": [
+              "Carrinho de minibolos adesivado com a ilustração do jardim e o monograma.",
+              "Outro ângulo do carrinho de minibolos adesivado.",
+              "Menu impresso sobre guardanapo verde em um prato decorado.",
+              "Caixas de bolo com os adesivos da identidade.",
+              "Sacolas kraft com as tags da identidade.",
+              "Caixa de lembrancinha com adesivo e tag aplicados."
+            ]
+          },
+          "aiNote": "* Não foi utilizado nenhum agente IA de geração de imagens para as criações visuais (sketches, vetores, ilustrações…) neste projeto."
+        }
+      },
+      "thanks": "Obrigada por ter chegado até aqui!"
     }
   },
   "status": {
@@ -239,7 +347,8 @@
     "projetos": "Projetos",
     "pontosSemNo": "Pontos sem nó",
     "batucoTuco": "Batuco-tuco",
-    "pontinhasSoltas": "Pontinhas soltas"
+    "pontinhasSoltas": "Pontinhas soltas",
+    "identidadeEvento15Anos": "Identidade de evento: 15 anos"
   },
   "projectsPage": {
     "title": "Portfólio",

@@ -37,6 +37,7 @@ export const slugToKey = {
   'pontos-sem-no': 'pontosSemNo',
   'batuco-tuco': 'batucoTuco',
   'pontinhas-soltas': 'pontinhasSoltas',
+  'identidade-evento-15-anos': 'identidadeEvento15Anos',
 } as const;
 
 export type ProjectI18nKey = (typeof slugToKey)[Slug];
@@ -77,6 +78,15 @@ const projectMeta: ProjectMeta[] = [
     accent: 'pink',
     coverImage: '/images/projects/pontinhas-soltas/cover.png',
     grid: { column: 1, aspect: '612 / 230', objectPosition: 'left center', descLines: 1 },
+  },
+  {
+    slug: 'identidade-evento-15-anos',
+    status: 'concluido',
+    categories: ['grafico'],
+    date: '28.10.2026',
+    accent: 'pink',
+    coverImage: '/images/projects/identidade-evento-15-anos/cover.webp',
+    grid: { column: 2, aspect: '612 / 590', objectPosition: 'center', descLines: 3 },
   },
 ];
 
