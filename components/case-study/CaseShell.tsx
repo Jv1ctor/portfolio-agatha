@@ -55,26 +55,29 @@ export function DashedPill({ children }: { children: ReactNode }) {
 }
 
 /**
- * Balão de agradecimento dos cases 'wide' (Figma: fundo #ffe9f2, ponta no canto
- * inferior direito, sombra interna rosa) + avatar da Ágatha girado 10.99°.
+ * Balão de agradecimento dos cases 'wide' (Figma node 17:2842: fundo #ffe9f2,
+ * 160 × 98, ponta no canto inferior direito, sombra interna rosa) + avatar da
+ * Ágatha. O avatar é PNG @2x exportado do Figma já girado (10.99°), na caixa
+ * de 138.74 × 132.09 do Figma: o SVG tinha grão (feTurbulence), que o Chrome
+ * desenha bem mais grosso que o Figma.
  */
 function ThanksBubble({ text, className }: { text: string; className?: string }) {
   return (
-    <div className={withMotion("mt-6 flex items-center justify-end gap-2", className)}>
+    <div className={withMotion("mt-7 flex items-center justify-end gap-2", className)}>
       <p
-        className="w-[160px] rounded-[60px_60px_0_60px] bg-[#ffe9f2] pb-[26px] pl-5 pr-6 pt-8 text-center text-[0.875rem] font-normal text-[color:var(--color-blue-darkest)] shadow-[inset_-3px_-4px_9.5px_1px_#f4aecc]"
+        className="flex h-[98px] w-[160px] items-center justify-center rounded-[60px_60px_0_60px] bg-[#ffe9f2] pl-5 pr-6 text-center text-[0.875rem] font-normal leading-[1.1875] text-[color:var(--color-blue-darkest)] shadow-[inset_-3px_-4px_9.5px_1px_#f4aecc]"
         style={bodyFont}
       >
         {text}
       </p>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="/images/avatar-agatha.svg"
+        src="/images/avatar-agatha.png"
         alt=""
         aria-hidden
-        width={129}
-        height={121}
-        className="w-[129px] shrink-0 rotate-[10.99deg]"
+        width={139}
+        height={132}
+        className="h-auto w-[138.74px] shrink-0"
       />
     </div>
   );
@@ -121,7 +124,8 @@ export function CaseShell({
             )
           )}
 
-          <div className={withMotion("mt-8 flex flex-col gap-8", motion?.body)}>
+          {/* Figma: hero de 467 e corpo em y=500 (33px); seções a cada 32px. */}
+          <div className={withMotion("mt-[33px] flex flex-col gap-8", motion?.body)}>
             {children}
           </div>
 
@@ -217,22 +221,29 @@ export function CaseSection({
   title,
   size,
   className,
+  titleClassName,
   children,
 }: {
   title: string;
   /** 'lg' = 32px com 24px até o conteúdo (Figma dos cases 'wide'). */
   size?: "lg";
   className?: string;
+  /**
+   * Classes extras do título (ex.: line-height/letter-spacing do case). Precisam
+   * ser unlayered (CSS Module): a regra global de h1–h4 ganha dos utilitários.
+   */
+  titleClassName?: string;
   children?: ReactNode;
 }) {
   return (
     <section className={className}>
       <h2
-        className={
+        className={withMotion(
           size === "lg"
-            ? "mb-6 font-bold text-[1.75rem] leading-tight text-[color:var(--color-blue)] md:text-[2rem]"
-            : "mb-5 font-bold text-[1.625rem] leading-tight text-[color:var(--color-blue)]"
-        }
+            ? "mb-6 font-bold text-[1.75rem] text-[color:var(--color-blue)] md:text-[2rem]"
+            : "mb-5 font-bold text-[1.625rem] leading-tight text-[color:var(--color-blue)]",
+          titleClassName,
+        )}
         style={size === "lg" ? bodyFontBold : bodyFont}
       >
         {title}

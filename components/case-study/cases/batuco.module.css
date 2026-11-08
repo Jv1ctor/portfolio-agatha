@@ -2,8 +2,8 @@
    Case Batuco-tuco — composições ilustradas do Figma
    ("MacBook Pro 16" - 10", node 17:2368; coluna de 1352px).
 
-   As seções desenhadas em posição livre (hero, Interface/Assets, Personagens
-   e Marca) usam a mesma régua: cada seção é um container
+   As seções desenhadas em posição livre (Interface/Assets, Personagens e
+   Marca) usam a mesma régua: cada seção é um container
    (container-type: inline-size) e --u = 1px do Figma na largura atual
    (100cqw / 1352). Coordenadas e tamanhos ficam em "px do Figma" via
    --x/--y/--w/--h, então a composição escala inteira sem perder o texto real.
@@ -42,17 +42,36 @@
   top: var(--it);
 }
 
-/* ---------- Hero (node 17:2475, 1352 × 467) ---------- */
+/* Títulos em Clother Bold 32px. No Figma: line-height "normal" e letter-spacing 0.
+   O "normal" da Clother no Figma é 1.1875 (caixa de 38px em 32px); no Chrome
+   ele vira 1.4375 (a fonte tem line gap), então o valor vai explícito.
+   Classe (unlayered) porque a regra global de h1–h4 (line-height 1,
+   letter-spacing -0.01em) ganharia de um utilitário do Tailwind. */
+.title {
+  line-height: 1.1875;
+  letter-spacing: 0;
+}
+@media (min-width: 64rem) {
+  /* Algumas caixas de título têm tamanho fixo no Figma e o conteúdo seguinte
+     começa 24px abaixo da caixa: "Batuco-tuco App" e "Processo de criação"
+     (altura 30) e "Projeto final" (line-height 18). */
+  .titleBox30 {
+    height: 30px;
+  }
+  .titleLine18 {
+    line-height: 18px;
+  }
+}
+
+/* ---------- Hero (node 17:2475, 1352 × 467): PNG achatado do Figma ---------- */
 .hero {
-  position: relative;
-  overflow: hidden;
+  display: block;
+  width: 100%;
+  height: auto;
   aspect-ratio: 1352 / 467;
   background: #ffbd86;
-  container-type: inline-size;
 }
-.hero > * {
-  --u: calc(100cqw / 1352);
-}
+
 .layer {
   position: absolute;
   display: block;
@@ -85,13 +104,16 @@
   .diagram {
     grid-template-columns: repeat(3, 205.4px);
     column-gap: 16.5px;
+    /* Figma: a cabeça (152.35) acaba em 152.35 e o título "03" começa em
+       177.54 (com a margem de 3.33 do .stepTitle). */
+    row-gap: 21.86px;
     padding-left: 8.88px;
   }
 }
 .diagramHead {
   position: relative;
   display: none;
-  height: 152px;
+  height: 152.35px;
 }
 @media (min-width: 48rem) {
   .diagramHead {
@@ -127,24 +149,31 @@
   font-size: 17.75px;
   white-space: nowrap;
 }
+/* Cards do Figma: 98.755 × 48.823, texto numa caixa de 74.344 centralizada
+   (12.2px de cada lado), centrado na vertical. */
 .stepItems {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 9.99px 6.66px;
+  grid-template-columns: repeat(2, minmax(0, 98.755px));
+  gap: 9.99px 6.655px;
   margin-top: 15.5px;
 }
 .stepItem {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 48.82px;
-  padding: 4px 10px;
+  min-height: 48.823px;
+  padding: 2px 12.2px;
   border-radius: 8.88px;
   background: var(--color-batuco-butter);
   font-family: var(--font-nunito);
-  font-size: 11.1px;
-  line-height: 1.36;
+  font-size: 11.096px;
+  line-height: normal;
   text-align: center;
+}
+/* "Matriz de atribuição de confiança": o Figma usa 8.877px numa caixa de 82.111. */
+.stepItemSmall {
+  padding-inline: 8.32px;
+  font-size: 8.877px;
 }
 
 /* ---------- Interface / Assets (node 17:2705, 1352 × 1446) ---------- */

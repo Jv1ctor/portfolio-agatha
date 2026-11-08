@@ -8,8 +8,21 @@ const base = "/images/projects/batuco-tuco";
 /** Texto corrido do Figma novo: Clother Regular 15px/18px, justificado a partir do md. */
 const textClass =
   "font-normal text-[0.9375rem] leading-[18px] text-[color:var(--color-blue)] md:text-justify";
-/** Legenda das imagens: Clother Bold 16px. */
-const captionClass = "font-bold text-[1rem] text-[color:var(--color-blue)]";
+/**
+ * Legenda das imagens: Clother Bold 16px. Caixa de 19px no Figma ("normal" da
+ * Clother lá = 1.1875; no Chrome "normal" daria 23px).
+ */
+const captionClass = "font-bold text-[1rem] leading-[1.1875] text-[color:var(--color-blue)]";
+
+/** Títulos (Clother Bold 32px) com as caixas do Figma — ver .title* em batuco.module.css. */
+const title = {
+  base: s.title,
+  box30: `${s.title} ${s.titleBox30}`,
+  line18: `${s.title} ${s.titleLine18}`,
+};
+
+/** Cards do diagrama com fonte menor no Figma: "etapa-item" (dado de layout, não texto). */
+const smallStepItems = new Set(["2-1"]);
 
 /** Caixa em px do Figma: x, y, largura, altura. */
 type Box = readonly [number, number, number, number];
@@ -49,8 +62,8 @@ function Sprite({
 function Paragraphs({ items, className }: { items: string[]; className?: string }) {
   return (
     <div className={`flex flex-col gap-[18px] ${className ?? ""}`}>
-      {items.map((p) => (
-        <p key={p.slice(0, 24)} className={textClass}>
+      {items.map((p, i) => (
+        <p key={i} className={textClass}>
           {p}
         </p>
       ))}
@@ -120,7 +133,7 @@ export function BatucoTucoCase({ project }: { project: LocalizedProject }) {
       <section className="grid gap-10 xl:grid-cols-[minmax(0,1fr)_658px] xl:gap-[41px]">
         <div className="flex min-w-0 flex-col gap-6">
           <h1
-            className="text-[1.75rem] leading-tight text-[color:var(--color-blue)] md:text-[2rem]"
+            className={`text-[1.75rem] text-[color:var(--color-blue)] md:text-[2rem] ${title.box30}`}
             style={bodyFontBold}
           >
             {project.subtitle}
@@ -160,8 +173,11 @@ export function BatucoTucoCase({ project }: { project: LocalizedProject }) {
                   <span className={s.stepLabel}>{steps[slot].label}</span>
                 </p>
                 <ul className={s.stepItems}>
-                  {steps[slot].items.map((item) => (
-                    <li key={item} className={s.stepItem}>
+                  {steps[slot].items.map((item, i) => (
+                    <li
+                      key={item}
+                      className={`${s.stepItem} ${smallStepItems.has(`${slot}-${i}`) ? s.stepItemSmall : ""}`}
+                    >
                       {item}
                     </li>
                   ))}
@@ -187,7 +203,7 @@ export function BatucoTucoCase({ project }: { project: LocalizedProject }) {
             {cp.planningCaption}
           </figcaption>
         </figure>
-        <CaseSection title={cp.title} size="lg">
+        <CaseSection title={cp.title} size="lg" titleClassName={title.box30}>
           <Paragraphs items={cp.paragraphs} />
         </CaseSection>
       </div>
@@ -213,7 +229,7 @@ export function BatucoTucoCase({ project }: { project: LocalizedProject }) {
           ))}
         </ul>
 
-        <CaseSection title={prototyping.title} size="lg">
+        <CaseSection title={prototyping.title} size="lg" titleClassName={title.base}>
           <ul className="mb-6 flex flex-wrap gap-2.5">
             {prototyping.tabs.map((tab) => (
               <li key={tab}>
@@ -227,11 +243,11 @@ export function BatucoTucoCase({ project }: { project: LocalizedProject }) {
 
       {/* 4. Projeto final + Ferramentas (node 17:2684) */}
       <div className="grid items-start gap-8 lg:grid-cols-[669fr_641fr] lg:gap-[41px]">
-        <CaseSection title={finalProject.title} size="lg">
+        <CaseSection title={finalProject.title} size="lg" titleClassName={title.line18}>
           <Paragraphs items={finalProject.paragraphs} />
           <p className={`${textClass} mt-[18px] italic`}>{finalProject.fontsNote}</p>
         </CaseSection>
-        <CaseSection title={tools.title} size="lg">
+        <CaseSection title={tools.title} size="lg" titleClassName={title.base}>
           <ul className="flex flex-wrap gap-2.5">
             {tools.items.map((tool) => (
               <li key={tool}>
