@@ -135,6 +135,13 @@ a {
   padding-inline: clamp(1.5rem, 5vw, 2.5rem);
 }
 
+/* Coluna dos cases (Figma: 1354px num frame de 1728 → 188px de margem, ≈10.9%).
+   Margem lateral proporcional, mínimo de 24px no celular. */
+.container-case {
+  width: min(1354px, calc(100% - 2 * max(1.5rem, 10.9vw)));
+  margin-inline: auto;
+}
+
 /* Helpers de fundo/sombra — via classe (não inline) para reduzir
    conflito com extensões tipo Dark Reader e ficar mais limpo. */
 .bg-band {

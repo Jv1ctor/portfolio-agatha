@@ -880,11 +880,14 @@ console.log('ok: ' + a.size + ' keys');
   else
     log_pass "Home header projetos link has no aria-current"
   fi
-  # Case aberto direto → Header antigo ("Sobre mim"), como hoje.
-  if printf '%s' "$HDR_CASE_PT" | grep -q 'Sobre mim'; then
-    log_pass "Case page opened directly keeps the old Header"
+  # Case aberto direto → CaseHeader do Figma: voltar (aria-label traduzido) e "projetos",
+  # ambos para o índice; nada do Header antigo ("Sobre mim").
+  if printf '%s' "$HDR_CASE_PT" | grep -q 'aria-label="voltar aos projetos"' \
+    && printf '%s' "$HDR_CASE_PT" | grep -q 'href="/pt-BR/projetos"' \
+    && ! printf '%s' "$HDR_CASE_PT" | grep -q 'Sobre mim'; then
+    log_pass "Case page opened directly uses the CaseHeader (back + projetos)"
   else
-    log_fail "Case page opened directly does not show the old Header (expected 'Sobre mim')"
+    log_fail "Case page opened directly does not show the CaseHeader (expected back aria-label and /pt-BR/projetos link, no 'Sobre mim')"
   fi
 
   log_sub "Test: the 3 project links per locale (/{locale}/projetos/<slug>)..."

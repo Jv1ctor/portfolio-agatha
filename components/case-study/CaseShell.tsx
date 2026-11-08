@@ -55,82 +55,80 @@ export function CaseShell({
   const intro = project.intro ?? project.description;
 
   return (
-    <article className="container-narrow py-12">
-      {/* Coluna de conteúdo = 786px (largura do conteúdo do case no desktop
-          do Figma — frame Responsividade/MacBook). Centralizada. */}
-      <div className="mx-auto max-w-[786px]">
-        {cover ??
-          (project.coverImage && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={project.coverImage}
-              alt={dict.projects.coverAlt.replace("{title}", project.title)}
-              className={withMotion("shadow-card block w-full rounded-[8px]", motion?.cover)}
-            />
-          ))}
+    <article className="container-case pt-16 pb-12">
+      {/* Coluna do Figma (`.container-case`): 66px entre o header e a capa,
+          32px entre os blocos. */}
+      {cover ??
+        (project.coverImage && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={project.coverImage}
+            alt={dict.projects.coverAlt.replace("{title}", project.title)}
+            className={withMotion("shadow-card block w-full rounded-[8px]", motion?.cover)}
+          />
+        ))}
 
-        {/* Subtítulo (Clother Bold 26px) + status */}
-        <div
-          className={withMotion(
-            "mt-8 flex items-center justify-between gap-3",
-            motion?.header,
-          )}
-        >
-          <h1
-            className="font-bold text-[1.625rem] leading-tight text-[color:var(--color-blue)]"
-            style={bodyFont}
-          >
-            {project.subtitle}
-          </h1>
-          <Pill variant="status">{dict.status[statusKey[project.status]]}</Pill>
-        </div>
-
-        {/* Tags (esquerda) + data (direita) */}
-        <div
-          className={withMotion(
-            "mt-3 flex flex-wrap items-center gap-2",
-            motion?.header,
-          )}
-        >
-          {project.tags.map((tag) => (
-            <Pill key={tag}>{tag}</Pill>
-          ))}
-          {project.date && (
-            <span className="ml-auto">
-              <Pill>{project.date}</Pill>
-            </span>
-          )}
-        </div>
-
-        {/* Intro — Clother Light 16px, parágrafos preservando as quebras do Figma */}
-        {intro && (
-          <div
-            className={withMotion(
-              "mt-6 flex flex-col gap-4 font-light text-[1rem] leading-relaxed text-[color:var(--color-blue)]",
-              motion?.header,
-            )}
-          >
-            {intro.split("\n\n").map((para, i) => (
-              <p key={i}>{para}</p>
-            ))}
-          </div>
+      {/* Subtítulo (Clother Bold 26px) + status */}
+      <div
+        className={withMotion(
+          "mt-8 flex items-center justify-between gap-3",
+          motion?.header,
         )}
-
-        <div className={withMotion("mt-12 flex flex-col gap-12", motion?.body)}>
-          {children}
-        </div>
-
-        {/* Figma: Clother Regular (400); o peso global é 300, fixo o 400. */}
-        <p
-          className={withMotion(
-            "mt-16 font-normal text-[2rem] leading-tight text-[color:var(--color-blue)]",
-            motion?.body,
-          )}
-          style={{ fontFamily: "var(--font-body)" }}
+      >
+        <h1
+          className="font-bold text-[1.625rem] leading-tight text-[color:var(--color-blue)]"
+          style={bodyFont}
         >
-          {project.thanks}
-        </p>
+          {project.subtitle}
+        </h1>
+        <Pill variant="status">{dict.status[statusKey[project.status]]}</Pill>
       </div>
+
+      {/* Tags (esquerda) + data (direita) */}
+      <div
+        className={withMotion(
+          "mt-3 flex flex-wrap items-center gap-2",
+          motion?.header,
+        )}
+      >
+        {project.tags.map((tag) => (
+          <Pill key={tag}>{tag}</Pill>
+        ))}
+        {project.date && (
+          <span className="ml-auto">
+            <Pill>{project.date}</Pill>
+          </span>
+        )}
+      </div>
+
+      {/* Intro — Clother Light 16px, parágrafos preservando as quebras do Figma */}
+      {intro && (
+        <div
+          className={withMotion(
+            "mt-6 flex flex-col gap-4 font-light text-[1rem] leading-relaxed text-[color:var(--color-blue)]",
+            motion?.header,
+          )}
+        >
+          {intro.split("\n\n").map((para, i) => (
+            <p key={i}>{para}</p>
+          ))}
+        </div>
+      )}
+
+      <div className={withMotion("mt-8 flex flex-col gap-8", motion?.body)}>
+        {children}
+      </div>
+
+      {/* Figma: Clother Regular (400); o peso global é 300, fixo o 400. */}
+      <p
+        className={withMotion(
+          "mt-16 font-normal text-[2rem] leading-tight text-[color:var(--color-blue)]",
+          motion?.body,
+        )}
+        style={{ fontFamily: "var(--font-body)" }}
+      >
+        {project.thanks}
+      </p>
     </article>
   );
 }

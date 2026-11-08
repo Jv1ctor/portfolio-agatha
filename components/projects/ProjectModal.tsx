@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, type ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from '@/lib/i18n/use-translation';
+import { CaseHeader } from '@/components/case-study/CaseHeader';
 import s from './projects.module.css';
 
 const FOCUSABLE =
@@ -29,7 +30,7 @@ let handedOver = false;
 
 /**
  * Folha do modal de case (aberta por rota interceptada, por cima do índice).
- * Comportamento: foco no botão voltar ao abrir e devolvido ao elemento que abriu
+ * Comportamento: foco no botão voltar do CaseHeader ao abrir e devolvido ao elemento que abriu
  * ao fechar (ou ao card do projeto aberto, se quem abriu era o body); scroll do
  * body travado enquanto aberto, sem deslocar a página atrás; Esc e "voltar" fecham
  * com `router.back()`, uma vez só; Tab fica preso dentro da folha; "próximo" troca
@@ -173,23 +174,11 @@ export function ProjectModal({
       tabIndex={-1}
       className={s.sheet}
     >
-      <div className={`container-narrow ${s.sheetInner}`}>
-        <div className={s.sheetCol}>
-          <button
-            ref={backRef}
-            type="button"
-            onClick={close}
-            className={s.backBtn}
-          >
-            <span aria-hidden>←</span>
-            {t('projectsPage.back')}
-          </button>
-        </div>
-      </div>
+      <CaseHeader onBack={close} backRef={backRef} />
 
       {children}
 
-      <div className={`container-narrow ${s.sheetFoot}`}>
+      <div className={`container-case ${s.sheetFoot}`}>
         <div className={s.sheetCol}>
           <button
             type="button"
