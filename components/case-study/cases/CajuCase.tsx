@@ -60,28 +60,27 @@ type CajuSections = {
   };
 };
 
-/** Nomes semânticos dos recortes do frame 17:5070 (mapa em docs/.../figma-caju-assets.md). */
+/**
+ * Nomes semânticos dos recortes do frame 17:5070 (mapa em
+ * docs/superpowers/analysis/figma-caju-assets.md).
+ *
+ * Ordem do Figma: brainstorming + painel visual ficam no fim da seção
+ * "Processo de criação" (acima do título "Prototipagem", y≈1316..1881);
+ * dentro de "Prototipagem" vêm teste de cores, personagens, rafes e pintura.
+ */
+const PROCESS_FILES = ["brainstorming.jpg", "painel-visual.jpg"] as const;
+const PROCESS_CAPS = ["brainstorming", "visualPanel"] as const;
 const PROTO_FILES = [
-  "brainstorming.jpg",
-  "painel-visual.jpg",
   "teste-cores-storyboard.jpg",
   "design-personagens.jpg",
   "rafe-1.jpg",
   "rafe-2.jpg",
   "pintura-tablet.jpg",
   "pintura-clip-studio.jpg",
-];
-const CAPTION_KEYS = [
-  "brainstorming",
-  "visualPanel",
-  "colorTests",
-  "characters",
-  "roughs",
-  "painting",
-  "painting",
-  "painting",
 ] as const;
+const PROTO_CAPS = ["colorTests", "characters", "roughs", "roughs", "painting", "painting"] as const;
 const PRINTED_FILES = ["impresso-1.jpg", "impresso-2.jpg", "impresso-3.jpg", "livro-capa.jpg"];
+/** 6 páginas do livro na ordem do Figma 17:5473..5481 (col0: 5475/5476/5477, col1: 5479/5480/5481). */
 const STACK_FILES = [
   "livro-pag-1.jpg",
   "livro-pag-2.jpg",
@@ -89,11 +88,11 @@ const STACK_FILES = [
   "livro-pag-4.jpg",
   "livro-pag-5.jpg",
   "livro-pag-6.jpg",
-  "livro-pag-7.jpg",
-  "livro-pag-8.jpg",
 ];
 const BOOK_FACE_POOL = [
   ...STACK_FILES,
+  "livro-pag-7.jpg",
+  "livro-pag-8.jpg",
   "capa-versoes.jpg",
   "quadro-processo.jpg",
   "diagramacao-indesign.jpg",
@@ -108,13 +107,14 @@ export const cajuSlots: CaseSlotsFn = (project, { coverClassName }) => ({
       index={0}
       cap={(project.sections as unknown as CajuSections).creationProcess.caps?.[0] ?? project.title}
       className={`rounded-[8px] ${coverClassName ?? ""}`}
+      imgClassName={s.heroImg}
     />
   ),
   aside: (
     <CaseImageButton
       src={`${base}/capa-versoes.jpg`}
       alt={(project.sections as unknown as CajuSections).bookStack?.label ?? "Capa do livro"}
-      index={1 + PROTO_FILES.length + PRINTED_FILES.length}
+      index={1}
       cap={(project.sections as unknown as CajuSections).bookStack?.label ?? "Capa do livro"}
     />
   ),
@@ -131,24 +131,24 @@ export function CajuCase({ project }: { project: LocalizedProject }) {
 
   const lbImages: LightboxImage[] = [
     { src: `${base}/hero.jpg`, alt: cp.images[0] ?? project.title, cap: cp.caps?.[0] ?? project.title },
-    ...proto.blocks.map((b, i) => ({
-      src: `${base}/${PROTO_FILES[i]}`,
-      alt: b.imageAlt,
-      cap: cp.captions[CAPTION_KEYS[i]] ?? b.caption,
+    {
+      src: `${base}/capa-versoes.jpg`,
+      alt: sections.bookStack?.label ?? "Capa do livro",
+      cap: sections.bookStack?.label ?? "Capa do livro",
+    },
+    ...PROTO_FILES.map((f, i) => ({
+      src: `${base}/${f}`,
+      alt: proto.blocks[i]?.imageAlt ?? "",
+      cap: cp.captions[PROTO_CAPS[i]] ?? proto.blocks[i]?.caption ?? "",
     })),
     ...fin.images.map((alt, i) => ({
       src: `${base}/${PRINTED_FILES[i]}`,
       alt,
       cap: fin.printedTitle,
     })),
-    {
-      src: `${base}/capa-versoes.jpg`,
-      alt: sections.bookStack?.label ?? "Capa do livro",
-      cap: sections.bookStack?.label ?? "Capa do livro",
-    },
   ];
 
-  const stackImgs = STACK_FILES.slice(0, 6).map((f, i) => ({
+  const stackImgs = STACK_FILES.map((f, i) => ({
     src: `${base}/${f}`,
     alt: sections.bookStack.images[i] ?? "",
   }));
@@ -162,7 +162,7 @@ export function CajuCase({ project }: { project: LocalizedProject }) {
 
   return (
     <>
-      {/* Processo de criação: lead (negrito em Ana/Thays) + parágrafos + grid de cards */}
+      {/* Processo de criação: lead + parágrafos + grid de cards + brainstorming/painel (Figma y1316..1881) */}
       <Reveal>
         <CaseSection title={cp.title}>
           <div className={s.paras}>
@@ -204,7 +204,7 @@ export function CajuCase({ project }: { project: LocalizedProject }) {
             <Reveal className={s.card}>
               <h3 className={s.cardTitle}>{cp.cards.paleta.title}</h3>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={`${base}/capa-versoes.jpg`} alt={cp.cards.paleta.alt} className={s.cardImg} />
+              <img src={`${base}/paleta.png`} alt={cp.cards.paleta.alt} className={s.cardImg} />
             </Reveal>
             <Reveal className={s.card}>
               <h3 className={s.cardTitle}>{cp.cards.personagens.title}</h3>
@@ -216,6 +216,16 @@ export function CajuCase({ project }: { project: LocalizedProject }) {
                 ))}
               </ul>
             </Reveal>
+          </div>
+          {/* Brainstorming + painel visual: fim da seção de processo, antes de "Prototipagem" (17:5356/5369) */}
+          <div className={`${s.protoGrid} mt-8`}>
+            {PROCESS_FILES.map((f, i) => (
+              <figure key={f} className={s.fig}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={`${base}/${f}`} alt={cp.images[2 + i] ?? ""} loading="lazy" decoding="async" />
+                <figcaption className={s.cap}>{cp.captions[PROCESS_CAPS[i]]}</figcaption>
+              </figure>
+            ))}
           </div>
         </CaseSection>
       </Reveal>
@@ -238,39 +248,22 @@ export function CajuCase({ project }: { project: LocalizedProject }) {
             ))}
           </div>
           <div className={`${s.protoGrid} mt-6`}>
-            {proto.blocks.map((b, i) => (
-              <figure key={b.caption} className={s.fig}>
+            {PROTO_FILES.map((f, i) => (
+              <figure key={f} className={s.fig}>
                 <CaseImageButton
-                  src={`${base}/${PROTO_FILES[i]}`}
-                  alt={b.imageAlt}
-                  index={1 + i}
-                  cap={cp.captions[CAPTION_KEYS[i]] ?? b.caption}
+                  src={`${base}/${f}`}
+                  alt={proto.blocks[i]?.imageAlt ?? ""}
+                  index={2 + i}
+                  cap={cp.captions[PROTO_CAPS[i]] ?? proto.blocks[i]?.caption ?? ""}
                 />
-                <figcaption className={s.cap}>{cp.captions[CAPTION_KEYS[i]] ?? b.caption}</figcaption>
+                <figcaption className={s.cap}>{cp.captions[PROTO_CAPS[i]] ?? proto.blocks[i]?.caption}</figcaption>
               </figure>
             ))}
           </div>
         </CaseSection>
       </Reveal>
 
-      {/* Pilha sticky de páginas do livro (ANIMACOES §4.1) */}
-      <Reveal>
-        <CaseSection title={sections.bookStack.title}>
-          <CajuStack label={book.stackLabel}>
-            <div className={s.stackGrid}>
-              {stackImgs.map((im) => (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img key={im.src} src={im.src} alt={im.alt} loading="lazy" decoding="async" />
-              ))}
-            </div>
-          </CajuStack>
-        </CaseSection>
-      </Reveal>
-
-      {/* Simulação de leitura: flipbook + trava de leitura com mascote (ANIMACOES §4.2/§4.3) */}
-      <CajuReadingSim sections={sections} faces={faces} />
-
-      {/* Projeto final | Ferramentas + mídia impressa (17:5444) */}
+      {/* Projeto final | Ferramentas + mídia impressa (Figma 17:5443 y3768, antes da pilha) */}
       <Reveal className={s.two}>
         <CaseSection title={fin.title}>
           <div className={s.paras}>
@@ -299,12 +292,33 @@ export function CajuCase({ project }: { project: LocalizedProject }) {
             <CaseImageButton
               src={`${base}/${PRINTED_FILES[i]}`}
               alt={alt}
-              index={1 + PROTO_FILES.length + i}
+              index={2 + PROTO_FILES.length + i}
               cap={fin.printedTitle}
             />
           </figure>
         ))}
       </Reveal>
+
+      {/* Pilha sticky de páginas do livro em leque (Figma 17:5473 + ANIMACOES §4.1) */}
+      <Reveal>
+        <CaseSection title={sections.bookStack.title}>
+          <CajuStack label={book.stackLabel}>
+            {stackImgs.map((im, i) => {
+              const col = i < 3 ? s.sCol0 : s.sCol1;
+              const row = i % 3 === 0 ? s.sRow0 : i % 3 === 1 ? s.sRow1 : s.sRow2;
+              return (
+                <div key={im.src} className={`${s.sCard} ${col} ${row}`}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={im.src} alt={im.alt} loading="lazy" decoding="async" />
+                </div>
+              );
+            })}
+          </CajuStack>
+        </CaseSection>
+      </Reveal>
+
+      {/* Simulação de leitura: flipbook + trava de leitura com mascote (ANIMACOES §4.2/§4.3) */}
+      <CajuReadingSim sections={sections} faces={faces} mascotSrc={`${base}/mascote.png`} />
 
       <Lightbox images={lbImages} />
       <CursorAmpliar />

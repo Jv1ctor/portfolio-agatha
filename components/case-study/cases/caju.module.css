@@ -170,6 +170,17 @@
   width: 100%;
   height: auto;
 }
+/* Hero do case: Figma 17:5177 = 1354×461 (aspect-ratio 2,94:1) */
+.heroImg {
+  aspect-ratio: 1354 / 461;
+  object-fit: cover;
+}
+/* A pilha em leque (ANIMACOES §4.1) não vira grade no mobile: continua leque. */
+@media (max-width: 767px) {
+  .stack {
+    aspect-ratio: 1360 / 1273;
+  }
+}
 
 /* ---------- duas colunas: projeto final 667 | ferramentas 641, vão 22 ---------- */
 .two {
@@ -182,9 +193,13 @@
 @media (max-width: 767px) {
   .cards,
   .protoGrid,
-  .printedGrid,
-  .stackGrid {
+  .printedGrid {
     grid-template-columns: minmax(0, 1fr);
+  }
+  /* padding lateral no mobile para as imagens não tocarem as bordas */
+  .protoGrid,
+  .printedGrid {
+    padding-inline: 4px;
   }
   .row {
     flex-wrap: wrap;

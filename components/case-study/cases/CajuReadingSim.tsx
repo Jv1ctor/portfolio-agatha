@@ -23,9 +23,11 @@ type Sections = {
 export function CajuReadingSim({
   sections,
   faces,
+  mascotSrc,
 }: {
   sections: Sections;
   faces: string[];
+  mascotSrc: string;
 }) {
   const lockRef = useRef<HTMLElement>(null);
   const book = sections.book;
@@ -35,7 +37,7 @@ export function CajuReadingSim({
       <Book
         cover={faces[0]}
         pages={faces.slice(1, 31)}
-        mascotSrc={faces[faces.length - 1]}
+        mascotSrc={mascotSrc}
         texts={{
           title: book.title,
           cover: book.cover,
