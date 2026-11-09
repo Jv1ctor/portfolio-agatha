@@ -90,10 +90,6 @@
   color: #fff;
   text-underline-offset: 3px;
 }
-/* Variante do case (Figma 17:2446): handles em branco. */
-.socialCase {
-  color: #fff;
-}
 .social:focus-visible {
   outline: 2px solid var(--color-cream);
   outline-offset: 3px;

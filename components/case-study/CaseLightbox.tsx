@@ -14,7 +14,8 @@ export type LightboxItem = {
 
 /**
  * Imagem ampliada (guia §6 do Batuco-tuco): fundo azul com fade, imagem com "pop" (que
- * se repete a cada troca, via `key`), fechar × e setas com navegação circular. Esc e
+ * se repete a cada troca, via `key`), fechar × e setas < > com navegação circular — os três
+ * no estilo pontilhado do botão de voltar do CaseTopBar. Esc e
  * ← → no teclado, clique no fundo fecha, Tab fica preso no diálogo e o scroll da
  * página trava por trás (com a mesma compensação da barra de rolagem do ProjectModal).
  * O foco volta para quem abriu: isso é feito pelo dono (`onClose`).
@@ -112,7 +113,9 @@ export function CaseLightbox({
         aria-label={t('projectsPage.lightbox.close')}
         onClick={onClose}
       >
-        <span aria-hidden>×</span>
+        <span aria-hidden className={s.lbBtnInner}>
+          <span className={s.lbGlyph}>×</span>
+        </span>
       </button>
       {/* `key`: imagem nova a cada troca → o "pop" roda de novo. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -127,22 +130,26 @@ export function CaseLightbox({
       <div className={s.lbBar}>
         <button
           type="button"
-          className={`${s.lbBtn} ${s.lbNav}`}
+          className={`${s.lbBtn} ${s.lbPrev}`}
           aria-label={t('projectsPage.lightbox.prev')}
           onClick={() => go(-1)}
         >
-          <span aria-hidden>←</span>
+          <span aria-hidden className={s.lbBtnInner}>
+            <span className={s.lbGlyph}>{"<"}</span>
+          </span>
         </button>
         <span className={s.lbLabel} aria-live="polite">
           {counter}
         </span>
         <button
           type="button"
-          className={`${s.lbBtn} ${s.lbNav}`}
+          className={`${s.lbBtn} ${s.lbNext}`}
           aria-label={t('projectsPage.lightbox.next')}
           onClick={() => go(1)}
         >
-          <span aria-hidden>→</span>
+          <span aria-hidden className={s.lbBtnInner}>
+            <span className={s.lbGlyph}>{">"}</span>
+          </span>
         </button>
       </div>
     </div>

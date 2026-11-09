@@ -80,6 +80,14 @@ Every route lives in `app/[lang]/<route>/page.tsx` and follows the pattern:
    `alternates`** — the layout's is overridden, so new pages need all three
    entries.
 5. Add the new key to `dict.metadata` in **both** dictionaries.
+6. **Every page must show the language switcher** (`LanguageSwitcher`,
+   `components/layout/LanguageSwitcher.tsx`, props `currentLocale` + `dict`).
+   Pages that keep the site header get it for free (`Header` and `HomeHeader`
+   both render it). A page that hides the site header in `HeaderRouter` (today:
+   the full Batuco-tuco case page) must render the switcher in its own top bar —
+   pattern: `components/case-study/CaseTopBar.tsx` (centered in a
+   `grid-cols-[1fr_auto_1fr]`). Do not ship a page without a way to switch
+   language.
 
 Canonical example: `app/[lang]/contato/page.tsx`.
 

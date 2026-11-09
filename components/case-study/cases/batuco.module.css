@@ -871,24 +871,38 @@
   word-spacing: 0.13em;
   text-align: center;
 }
+/* Fechar e setas: mesmo botão pontilhado do voltar do CaseTopBar — casca Azul gelo
+   48px (4px de respiro) + miolo 40px #eaeef4 com borda 2px tracejada #527fb0 e o
+   glifo em AM Novecento 32px, recortado (padding 6/16/8 + overflow). */
 .lbBtn {
   display: inline-flex;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  padding: 4px;
+  border: 0;
+  border-radius: 9999px;
+  background: var(--color-blue-soft);
+  cursor: pointer;
+  transition: translate 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.4), rotate 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.4);
+}
+.lbBtnInner {
+  display: flex;
+  width: 40px;
+  height: 40px;
   align-items: center;
   justify-content: center;
-  padding: 0;
-  border: 0;
-  border-radius: 50%;
-  color: #175094;
-  font: 700 18px var(--font-body), sans-serif;
-  line-height: 1;
-  cursor: pointer;
-  transition:
-    transform 0.25s var(--ease-spring),
-    background 0.2s;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 6px 16px 8px;
+  border: 2px dashed #527fb0;
+  border-radius: 60px;
+  background: #eaeef4;
 }
-.lbBtn:hover {
-  transform: scale(1.08);
-  background: #fff;
+.lbGlyph {
+  white-space: nowrap;
+  color: #527fb0;
+  font: 400 2rem / normal var(--font-display);
 }
 .lbBtn:focus-visible {
   outline: 3px solid #0e488b;
@@ -898,15 +912,21 @@
   position: absolute;
   top: 20px;
   right: 20px;
-  width: 48px;
-  height: 48px;
-  background: var(--color-cream);
-  font-size: 22px;
 }
-.lbNav {
-  width: 44px;
-  height: 44px;
-  background: #eaeef4;
+/* Hovers no espírito do voltar: as setas deslizam e giram para o lado que apontam;
+   o fechar gira. */
+@media (prefers-reduced-motion: no-preference) {
+  .lbPrev:hover {
+    translate: -4px 0;
+    rotate: -10deg;
+  }
+  .lbNext:hover {
+    translate: 4px 0;
+    rotate: 10deg;
+  }
+  .lbClose:hover {
+    rotate: 90deg;
+  }
 }
 @keyframes lbFade {
   from {
