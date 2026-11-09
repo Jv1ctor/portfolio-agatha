@@ -57,7 +57,8 @@
   margin: 0;
   font-weight: 300;
   font-size: 1rem;
-  line-height: 1.5;
+  /* Figma: todos os blocos de texto têm altura múltipla de 18px */
+  line-height: 1.125;
   color: var(--color-blue);
   text-align: justify;
   hyphens: auto;

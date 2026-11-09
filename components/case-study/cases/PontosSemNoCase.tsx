@@ -159,7 +159,7 @@ function Pills({ items }: { items: string[] }) {
 
 function Paragraphs({ items }: { items: string[] }) {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-[1.125rem]">
       {items.map((p) => (
         <p key={p.slice(0, 32)} className={s.p}>
           {p}
