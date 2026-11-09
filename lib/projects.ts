@@ -39,7 +39,8 @@ export type ProjectMeta = {
   /**
    * Abre como página completa a partir de /projetos (card e "próximo" do modal fazem
    * navegação de página inteira), em vez do modal interceptado. Usado quando a página
-   * do case tem coisas que o modal não tem (Batuco-tuco: animações, barra e footer do Figma).
+   * do case tem coisas que o modal não tem (Batuco-tuco e Pontinhas soltas: animações,
+   * lightbox, barra e footer do Figma). Também tira o header do site (`isFullPageCase`).
    */
   opensAsPage?: boolean;
 };
@@ -89,13 +90,27 @@ const projectMeta: ProjectMeta[] = [
     categories: ['3d'],
     date: '08.12.2025',
     accent: 'pink',
-    coverImage: '/images/projects/pontinhas-soltas/cover.png',
-    grid: { column: 1, aspect: '612 / 230', objectPosition: 'left center', descLines: 1 },
+    // Capa = imagem principal do case (1352 × 459). Centralizada: nos cards largos
+    // (/projetos, /3d) aparecem as cinco Pontinhas; no 16:9 do "Talvez você goste…"
+    // o recorte fica nas três centrais (Lac, Haggy e Nina).
+    coverImage: '/images/projects/pontinhas-soltas/hero.webp',
+    grid: { column: 1, aspect: '612 / 230', objectPosition: 'center', descLines: 1 },
+    layout: 'wide',
+    opensAsPage: true,
   },
 ];
 
 /** Slugs na ordem de `projectMeta` (ordem da grade e do "próximo" do modal). */
 export const projectSlugs: Slug[] = projectMeta.map((p) => p.slug as Slug);
+
+/**
+ * Cases que abrem como página completa (`opensAsPage`): o frame do Figma não tem o
+ * header do site (a barra de voltar é do próprio case) e usa o footer "visite também".
+ * HeaderRouter e FooterRouter consultam isto.
+ */
+export function isFullPageCase(slug: string): boolean {
+  return projectMeta.some((p) => p.slug === slug && p.opensAsPage === true);
+}
 
 export function getLocalizedProject(
   slug: string,

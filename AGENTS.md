@@ -84,7 +84,8 @@ Every route lives in `app/[lang]/<route>/page.tsx` and follows the pattern:
    `components/layout/LanguageSwitcher.tsx`, props `currentLocale` + `dict`).
    Pages that keep the site header get it for free (`Header` and `HomeHeader`
    both render it). A page that hides the site header in `HeaderRouter` (today:
-   the full Batuco-tuco case page) must render the switcher in its own top bar —
+   every case flagged `opensAsPage` in `lib/projects.ts` — Batuco-tuco and
+   Pontinhas soltas, via `isFullPageCase()`) must render the switcher in its own top bar —
    pattern: `components/case-study/CaseTopBar.tsx` (centered in a
    `grid-cols-[1fr_auto_1fr]`). Do not ship a page without a way to switch
    language.
@@ -119,6 +120,13 @@ Canonical example: `app/[lang]/contato/page.tsx`.
    `/[lang]/projetos/` to a case page is intercepted and opens as a modal. A link
    that must open the full page (e.g. a future "related projects" link on a case
    page) has to do a full-page navigation, as `LanguageSwitcher` does.
+8. Optional — **full-page case** (the new Figma layout, e.g. Batuco-tuco and
+   Pontinhas soltas): set `layout: 'wide'` and `opensAsPage: true` in
+   `projectMeta`. The `/projetos` card then does a full-page navigation, and
+   `HeaderRouter`/`FooterRouter` drop the site header and use `HomeFooter`
+   (`isFullPageCase()`). The page passes `top={<CaseTopBar/>}`,
+   `bottom={<RelatedProjects/>}` and wraps everything in `BatucoMotion` for the
+   zoom/lightbox; pattern: `app/[lang]/projetos/pontinhas-soltas/page.tsx`.
 
 ## Adding a new locale (someday)
 

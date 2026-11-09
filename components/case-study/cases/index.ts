@@ -4,8 +4,9 @@ import { PontosSemNoCase } from "./PontosSemNoCase";
 import { BatucoTucoCase } from "./BatucoTucoCase";
 import { BatucoTucoHero } from "./BatucoTucoHero";
 import { PontinhasSoltasCase } from "./PontinhasSoltasCase";
+import { PontinhasSoltasHero } from "./PontinhasSoltasHero";
 
-export { PontosSemNoCase, BatucoTucoCase, BatucoTucoHero, PontinhasSoltasCase };
+export { PontosSemNoCase, BatucoTucoCase, BatucoTucoHero, PontinhasSoltasCase, PontinhasSoltasHero };
 
 /** Slug → corpo do case, para reutilizar fora da página completa (ex.: no modal). */
 export const caseBodies: Record<
@@ -25,4 +26,5 @@ export const caseCovers: Partial<
   Record<Slug, (props: { project: LocalizedProject }) => ReactNode>
 > = {
   "batuco-tuco": BatucoTucoHero,
+  "pontinhas-soltas": PontinhasSoltasHero,
 };
