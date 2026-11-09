@@ -139,42 +139,166 @@
       "subtitle": "Brand Identity: Pontos sem nó",
       "cardTitle": "Pontos sem nó",
       "description": "The “Pontos sem nó” brand seeks to transport us to the space between the lines of our deepest unresolved questions that always return to our minds in some way, converting memories into recognizable feelings… (PLACEHOLDER)",
-      "intro": "The “Pontos sem nó” brand seeks to transport us to the space between the lines of our deepest unresolved questions that always return to our minds in some way, converting memories into recognizable feelings. Pontos sem nó seeks to be part of the moment of identification, conveying the process of acceptance of those feelings in the form of music.\n\nRepresented through lines of tenderness, serenity with a lyrical touch that makes us take on the role of a pilgrim in other dimensions through escapism.",
+      "intro": "The work compiled here is a study of the brand design process carried out during the Visual Identity Systems course of my undergraduate degree in Design. In this study, students were asked to use design research, data collection, analysis and selection methods, and the technical application of tests and settings of the piece produced in Illustrator (Adobe Cloud) to build their own visual identity manual. The brand I created was the idea of my own studio of musical animations, called “Pontos sem nó”.\n\nThe “Pontos sem nó” brand seeks to transport us to the space between the lines of our deepest unresolved questions, which always return to our minds in some way, converting memories into recognizable feelings. Pontos sem nó seeks to be part of the moment of identification, conveying the process of acceptance of those feelings in the form of music.\n\nRepresented through lines of tenderness and serenity with a lyrical touch that makes us take on the role of a pilgrim in other dimensions through escapism.\n\nI divided the planning into 6 stages, shown in the panel below.",
       "tags": [
         "Academic",
-        "Brand Identity Design"
+        "Brand Identity Design",
+        "Authorial project",
+        "High complexity"
       ],
       "sections": {
         "creationProcess": {
           "title": "Creation process",
           "paragraphs": [
-            "The beginning of the process was marked by guided research, building a semantic board to orient the conceptual decisions of the project. After the research, selections of elements, typefaces, colors and other representations were made to enrich the brand's conceptual repertoire and make its application easier."
+            "Within the design process used, the start was marked by guided research, building a semantic board that could orient the project's conceptual decisions. This guided the concepts of tenderness, lyricism, escapism, serenity and pilgrim, which are later recognized in symbols, typefaces, colors and other representations that served as support to enrich the brand's conceptual repertoire, but also to select the sketches and tests most consistent with the characteristics attributed to the brand (carried out in steps 01 to 04).",
+            "Once that was done, we ran print tests to ensure the readability of the typeface and to simulate the behavior of the colors (which, from the start, were selected in CMYK) on printed media and products."
           ],
+          "steps": [
+            {
+              "n": "01",
+              "title": "Concept word brainstorming",
+              "chips": [
+                "Tenderness",
+                "Escapism",
+                "Pilgrim",
+                "Serenity",
+                "Lyricism"
+              ]
+            },
+            {
+              "n": "02",
+              "title": "Semantic board analysis",
+              "chips": [
+                "Typefaces",
+                "Colors",
+                "Shapes",
+                "Textures",
+                "Symbols",
+                "Patterns",
+                "Effects"
+              ]
+            },
+            {
+              "n": "03",
+              "title": "Sketch creation",
+              "chips": [
+                "Symbol sketches",
+                "Grid",
+                "Protection area",
+                "Reduction"
+              ]
+            },
+            {
+              "n": "04",
+              "title": "Graphic tests",
+              "chips": [
+                "Color palette selection",
+                "Pattern selection",
+                "Support elements",
+                "Manual layout",
+                "Brand versions"
+              ]
+            },
+            {
+              "n": "05",
+              "title": "Print test",
+              "chips": [
+                "Manual dummy printing",
+                "Printed typeface tests",
+                "Printed color tests"
+              ]
+            },
+            {
+              "n": "06",
+              "title": "Brand identity usage manual",
+              "chips": [
+                "Printing of the brand identity manual"
+              ]
+            }
+          ],
+          "supportLabel": "Support element",
+          "supportLabelPlural": "Support elements",
           "images": [
-            "Visual identity system in six steps: brainstorming of concept words, semantic board analysis, sketch creation, graphic tests, print test and brand identity manual."
-          ]
+            "Project banner: flowers behind a rain-speckled glass, with the white bunny mascot in the center.",
+            "CABE poster: people suspended by umbrellas on a blue background, with the brand's rabbit in white line art.",
+            "Brand construction: logo guide circles, boards with mascot variations and blue cards with the characters.",
+            "Pencil sketch of a support element: a jumping character holding a flower.",
+            "Pencil sketch board with several characters (support elements).",
+            "Mascot evolution sequence: from the first draft to the final character.",
+            "Board creation: reference moodboard and a curated board with notes.",
+            "Pencil logo sketches: little rabbit with a spiral and a scribbled wordmark.",
+            "Vector tests: dark boards with rows of characters, facial expressions and icons.",
+            "Applications: mockups with the characters, plush toys and presentation boards.",
+            "Complete brand identity manual: institutional colors, typography, support elements, characters and brand versions.",
+            "Poster with the bunny ballerina mascot on a spotlighted stage with giant flowers.",
+            "Jogo do tempo poster: tic-tac-toe board with the characters and the poem.",
+            "Final collage: 'Hoje não sou mais só' poster, CABE poster and the campaign photos (flowers with bubbles, people on umbrellas, girl tossing petals)."
+          ],
+          "caps": {
+            "hero": "Pontos sem nó banner",
+            "posterCabe": "CABE poster",
+            "construcao": "Brand construction",
+            "apoio1": "Support element (sketch)",
+            "apoio2": "Support elements (sketches)",
+            "protoDiagrama": "Mascot evolution",
+            "protoPaineis": "Board creation",
+            "protoEsbocos": "Logo sketches",
+            "protoVetores": "Vector tests",
+            "protoAplicacoes": "Applications",
+            "manual": "Brand identity manual",
+            "bailarina": "Ballerina poster",
+            "jogoDoTempo": "Jogo do tempo poster",
+            "postersFinais": "Final posters"
+          }
         },
         "prototyping": {
           "title": "Prototyping",
           "tabs": [
             "Brainstorming",
-            "Semantic board",
-            "Braindumping"
+            "Braindumping",
+            "Integrated board",
+            "Layout",
+            "Printing"
+          ],
+          "paragraphs": [
+            "The elements created for the brand brought a strong feeling of comfort and enchantment, with support elements being imaginary characters called “Pontinhas soltas” and color contrasts and gradient transitions that bring a certain freshness and seem to glow, even though they are closer to pastel colors than to bright ones."
           ],
           "thumbs": {
             "captions": [
               "Board creation",
               "Logo sketches",
-              "Support elements"
+              "Vector tests",
+              "Applications"
             ]
           },
-          "images": []
+          "images": [
+            "Board creation: reference moodboard and a curated board with notes.",
+            "Pencil logo sketches: little rabbit with a spiral and a scribbled wordmark.",
+            "Vector tests: dark boards with rows of characters, facial expressions and icons.",
+            "Applications: mockups with the characters, plush toys and presentation boards."
+          ]
         },
         "finalProject": {
           "title": "Final project",
+          "paragraphs": [
+            "The final project is made up of a complete brand identity usage manual, which includes all of its versions, application examples, definitions of the brand's identity and guidelines on its positioning and approach, along with concept posters and other visual models.",
+            "The typeface used is AM Novecento, found on Adobe Fonts."
+          ],
+          "toolsTitle": "Tools used",
+          "tools": [
+            "Autodesk Sketchbook",
+            "Adobe Fonts",
+            "Adobe Illustrator",
+            "Figma"
+          ],
           "images": [
-            "Final project: brand manual, character library, logo variations and applications."
-          ]
+            "Complete brand identity manual: institutional colors, typography, support elements, characters and brand versions.",
+            "Poster with the bunny ballerina mascot on a spotlighted stage with giant flowers.",
+            "Jogo do tempo poster: tic-tac-toe board with the characters and the poem.",
+            "Final collage: 'Hoje não sou mais só' poster, CABE poster and the campaign photos (flowers with bubbles, people on umbrellas, girl tossing petals).",
+            "Checkerboard grid with the “Pontos sem nó” logo variations on alternating blue and cream backgrounds."
+          ],
+          "aiNote": "* No AI image-generation agent was used for the visual creations (sketches, vectors, illustrations…) in this project."
         }
       },
       "thanks": "Thank you for making it this far!"
