@@ -42,6 +42,8 @@ export function ProjectModal({
   documentTitle,
   nextHref,
   nextTitle,
+  nextOpensAsPage = false,
+  wide = false,
   children,
 }: {
   slug: string;
@@ -50,8 +52,18 @@ export function ProjectModal({
   documentTitle: string;
   nextHref: string;
   nextTitle: string;
+  /**
+   * O próximo projeto abre como página completa (`opensAsPage`): "próximo" troca a
+   * entrada do histórico com carga completa, sem passar pelo modal. Continua valendo
+   * "um único voltar leva ao índice".
+   */
+  nextOpensAsPage?: boolean;
+  /** Case com layout 'wide': voltar e próximo seguem a coluna de 1352px. */
+  wide?: boolean;
   children: ReactNode;
 }) {
+  const container = wide ? 'container-wide' : 'container-narrow';
+  const col = wide ? `${s.sheetCol} ${s.sheetColWide}` : s.sheetCol;
   const router = useRouter();
   const { t, locale } = useTranslations();
   const sheetRef = useRef<HTMLDivElement>(null);
@@ -173,8 +185,8 @@ export function ProjectModal({
       tabIndex={-1}
       className={s.sheet}
     >
-      <div className={`container-narrow ${s.sheetInner}`}>
-        <div className={s.sheetCol}>
+      <div className={`${container} ${s.sheetInner}`}>
+        <div className={col}>
           <button
             ref={backRef}
             type="button"
@@ -189,12 +201,17 @@ export function ProjectModal({
 
       {children}
 
-      <div className={`container-narrow ${s.sheetFoot}`}>
-        <div className={s.sheetCol}>
+      <div className={`${container} ${s.sheetFoot}`}>
+        <div className={col}>
           <button
             type="button"
             onClick={() => {
               if (closingRef.current) return;
+              if (nextOpensAsPage) {
+                closingRef.current = true;
+                window.location.replace(nextHref);
+                return;
+              }
               pendingHandoff = {
                 opener: openerRef.current,
                 toSlug: nextHref.slice(nextHref.lastIndexOf('/') + 1),

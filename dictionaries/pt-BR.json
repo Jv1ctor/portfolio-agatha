@@ -153,34 +153,206 @@
       "subtitle": "Batuco-tuco App",
       "cardTitle": "Batuco-tuco",
       "description": "O Batuco-Tuco é uma aplicação mobile focada na gamificação da teoria musical e prática de instrumentos. Seu nome alude ao “batuque” e homenageia uma espécie brasileira e sua sonoridade, o tuco-tuco… (PLACEHOLDER)",
-      "intro": "O Batuco-Tuco é uma aplicação mobile focada na gamificação da teoria musical e prática de instrumentos. Seu nome alude ao “batuque” e homenageia uma espécie brasileira e sua sonoridade, o tuco-tuco, inspirando a temática lúdica e visual do projeto que transforma animais em instrumentistas habilidosos.\n\nO projeto foi desenvolvido como um estudo prático de interfaces gráficas e UX/UI. Para garantir uma evolução fluida com feedbacks visuais em tempo real, o processo envolveu a estruturação de mapas de conteúdo, construção de design system e aplicação de metodologias centradas no usuário.",
-      "tags": ["Acadêmico", "Design de Interfaces Gráficas"],
+      "intro": "A produção do Batuco-tuco muito se deu em função da oportunidade de integrar contextos lúdicos à experiência de aprendizado contínuo na área musical. Na disciplina de Design de Interfaces Gráficas, fomos desafiados a criar uma aplicação seguindo um processo de priorização de requisitos e gestão de projeto, buscando entender pontos de convergência e de divergência para trabalhar e entregar a aplicação seguindo o escopo estabelecido nessas etapas iniciais.\n\nO Batuco-Tuco é uma aplicação mobile focada na gamificação da teoria musical e prática de instrumentos. Seu nome alude ao \"batuque\" e homenageia uma espécie brasileira e sua sonoridade, o tuco-tuco, inspirando a temática lúdica e visual do projeto que transforma animais em instrumentistas habilidosos.\n\nO projeto foi desenvolvido como um estudo prático de interfaces gráficas e UX/UI. Para garantir uma evolução fluida com feedbacks visuais em tempo real, o processo envolveu a estruturação de mapas de conteúdo, construção de design system e aplicação de metodologias centradas no usuário.",
+      "tags": [
+        "Acadêmico",
+        "Design de Interfaces Gráficas",
+        "Projeto autoral",
+        "Média complexidade"
+      ],
+      "heroAlt": "Hanni, Yopi, Gunter, Cybele e Pepo tocando seus instrumentos juntos num palco iluminado.",
+      "lightbox": {
+        "processCaption": "Etapas do processo",
+        "processAlt": "Quadro das etapas do processo: 01 Perfil do usuário, 02 Requisitos, 03 Métodos, 04 Similares e 05 Prototipagem, com a cabeça da raposinha.",
+        "interfaceCaption": "Interface e assets",
+        "interfaceAlt": "Quadro Interface: telas do app em nove celulares, texto sobre os exercícios e o sistema de pontos e três personagens; quadro Assets com os itens da lojinha e seus preços em pontos.",
+        "charactersAlt": "Quadro dos personagens: Yopi, esquilinho baterista; Pepo, ursinho pianista; Hanni, raposinha violinista; Cybele, coelhinha no kalimba; Gunter, gatinho baixista.",
+        "finalAlt": "Apresentação final: logotipo Batuco-tuco, a frase “Sua expressão conta, e ela é saber.”, “Música é saber.” e dois celulares com o app."
+      },
       "sections": {
         "creationProcess": {
           "title": "Processo de criação",
           "paragraphs": [
-            "Desenvolvido na disciplina de Design de Interfaces Gráficas (Unifor), o desafio foi criar um Design System escalável e fluxos de usabilidade coesos. Priorizei requisitos básicos, como as atividades práticas, para garantir a funcionalidade antes de avançar para interações complexas de banda. Em três semanas, finalizei toda a interface, ativos e animações, focando na otimização da prototipagem."
+            "O desafio foi criar um design system escalável e fluxos de usabilidade coesos. Para isso, o processo foi dividido em cinco etapas, em que cada uma alimentava a seguinte: o perfil do usuário (persona, análise de entrevista e histórias do usuário) mostrou quem usaria o app e o que esperava dele; os requisitos traduziram essas expectativas em funcionalidades essenciais, desejáveis e de performance; os métodos (priorização de requisitos, matriz de atribuição de valor e confiança, mapa de conteúdo e fluxogramas) definiram o escopo e a estrutura do app; os similares (benchmarking, rabiscoframes e design system) orientaram as decisões visuais; e a prototipagem deu forma a tudo isso (etapa seguinte).",
+            "Priorizei requisitos básicos, como as atividades práticas, para garantir a funcionalidade antes de avançar para interações complexas de banda. Nas matrizes, percebemos que tocar em tempo real com outros usuários seria pouco viável, pois a sincronização dependeria da rede de cada um."
           ],
           "images": [
-            "Mapa do processo de Interfaces Gráficas: perfil do usuário, requisitos, métodos, similares e prototipagem.",
-            "Rabiscos e wireframes de baixa fidelidade das telas do app."
-          ]
+            "Painéis de planejamento: apresentação do projeto, persona, requisitos, histórias do usuário, fluxograma e matriz de priorização por nível de confiança."
+          ],
+          "planningCaption": "Painéis de planejamento",
+          "diagram": {
+            "label": "Etapas do processo de criação",
+            "steps": [
+              {
+                "label": "Perfil do usuário",
+                "items": [
+                  "Construção de Persona",
+                  "Análise de entrevista",
+                  "Histórias do usuário"
+                ]
+              },
+              {
+                "label": "Requisitos",
+                "items": [
+                  "Requisitos funcionais",
+                  "Requisitos essenciais",
+                  "Requisitos de performance",
+                  "Requisitos desejáveis"
+                ]
+              },
+              {
+                "label": "Métodos",
+                "items": [
+                  "Priorização de requisitos",
+                  "Matriz de atribuição de confiança",
+                  "Fluxograma",
+                  "Mapa de conteúdo"
+                ]
+              },
+              {
+                "label": "Similares",
+                "items": [
+                  "Benchmarking",
+                  "Rabiscoframe",
+                  "Design System"
+                ]
+              },
+              {
+                "label": "Prototipagem",
+                "items": [
+                  "Telas de baixa fidelidade",
+                  "Telas de alta fidelidade",
+                  "Protótipo no figma",
+                  "Ilustrações e assets"
+                ]
+              }
+            ]
+          }
         },
+        "sketches": [
+          {
+            "caption": "Esboços de personagens",
+            "alt": "Página de caderno com esboços a lápis dos personagens e seus instrumentos."
+          },
+          {
+            "caption": "Rabiscoframe de home e perfil",
+            "alt": "Rabiscoframe a lápis das telas de home e de perfil, com anotações."
+          },
+          {
+            "caption": "Rabiscoframe de home e atividades",
+            "alt": "Rabiscoframe a lápis das telas de home e de atividades."
+          },
+          {
+            "caption": "Rabiscoframe de entrada",
+            "alt": "Rabiscoframe a lápis das telas de entrada do app."
+          }
+        ],
         "prototyping": {
           "title": "Prototipagem",
-          "tabs": ["Histórias do usuário", "Mapa de conteúdo", "Matriz A.C.", "Design System"],
-          "thumbs": { "captions": [] },
+          "tabs": [
+            "Histórias do usuário",
+            "Mapa de conteúdo",
+            "Matriz A.C.",
+            "Design System"
+          ],
+          "thumbs": {
+            "captions": []
+          },
+          "paragraphs": [
+            "Das telas de baixa fidelidade ao protótipo de alta fidelidade no Figma, os fluxos principais da aplicação se estruturam na realização de exercícios teóricos e sistema de pontos. Os exercícios realizados pelo usuário resultam no ganho de moedas para a compra de novos itens para o personagem que o representa no jogo, como laço de fita, boné, clave de sol e joaninha.",
+            "Os personagens são o Yopi, esquilinho baterista; o Pepo, ursinho pianista; a Hanni, raposinha violinista; a Cybele, coelhinha no kalimba; e o Gunter, gatinho baixista. Eles tiveram muita inspiração de jogos da Nintendo e mobile cozy conhecidos, como Animal Crossing e Cats and Soup, em uma estética e abordagem mais “soft” e “cozy”. Em três semanas, finalizei toda a interface, os assets e as animações, focando na otimização da prototipagem."
+          ],
           "images": [
-            "Interface do app e biblioteca de assets: telas de exercícios, sistema de pontos e acessórios dos personagens.",
-            "Personagens do Batuco-tuco: Yopi, Pepo, Hanni, Cybele e Gunter, cada um com seu instrumento.",
-            "Apresentação final do Batuco-tuco: Música é saber, ludificação e pesquisa transformam o ensino."
+            "Tela inicial com a Hanni no palco, os dias da semana e as atividades diárias.",
+            "Tela de teoria musical com o progresso do usuário e os módulos de estudo.",
+            "Tela de exercício com uma pergunta sobre intervalos na partitura e as alternativas.",
+            "Guarda-roupas com a Hanni e os acessórios disponíveis.",
+            "Lojinha pedindo a confirmação da compra do laço de fita.",
+            "Perfil do usuário com interesses musicais e instrumentos.",
+            "Tela inicial com a Hanni e o Pepo tocando juntos.",
+            "Outra tela de exercício sobre intervalos.",
+            "Tela inicial com a Cybele no palco."
           ]
+        },
+        "interface": {
+          "title": "Interface",
+          "textBefore": "Os fluxos principais da aplicação se estruturam na realização de ",
+          "bold1": "exercícios teóricos",
+          "textMid": " e ",
+          "bold2": "sistema de pontos",
+          "textAfter": ". Os exercícios realizados pelo usuário resultam no ganho de moedas para a compra de novos itens para o personagem que o representa no jogo.",
+          "charactersAlt": "Hanni, Cybele e Pepo tocando violino, kalimba e teclado.",
+          "assetsTitle": "Assets",
+          "assets": [
+            "Laço de Fita",
+            "Presilha",
+            "Boné",
+            "Clave de sol",
+            "Flores",
+            "Joaninha"
+          ],
+          "pointsLabel": "{points} PTS",
+          "lockedLabel": "Bloqueado"
+        },
+        "characters": {
+          "label": "Personagens",
+          "list": [
+            {
+              "name": "Yopi",
+              "role": "Esquilinho baterista"
+            },
+            {
+              "name": "Pepo",
+              "role": "Ursinho pianista"
+            },
+            {
+              "name": "Hanni",
+              "role": "Raposinha violinista"
+            },
+            {
+              "name": "Cybele",
+              "role": "Coelhinha no kalimba"
+            },
+            {
+              "name": "Gunter",
+              "role": "Gatinho baixista"
+            }
+          ]
+        },
+        "brand": {
+          "logoLabel": "Batuco-tuco",
+          "logoTop": "BATUCO",
+          "logoBottom": "TUCO",
+          "taglineLine1": "Sua expressão conta,",
+          "taglineBefore": "e ela é ",
+          "taglineBold": "saber",
+          "taglineAfter": ".",
+          "heading": "Música é saber.",
+          "pills": [
+            "Ludificação e pesquisa transformam o ensino",
+            "O aprendizado tem infinitas possibilidades",
+            "Aprender também deve ser divertido"
+          ],
+          "mockupAlt": "Dois celulares com o Batuco-tuco aberto: o guarda-roupas da Hanni e a tela inicial com a Cybele."
         },
         "finalProject": {
           "title": "Projeto final",
+          "paragraphs": [
+            "O projeto final é o protótipo navegável do app no Figma, com seu design system, personagens e assets, e atualmente voltou à etapa de pesquisa e aprofundamento do tema."
+          ],
+          "fontsNote": "As fontes usadas são AM Futurismo, encontrada no Adobe Fonts e Nunito encontrada, no Figma.",
           "images": []
+        },
+        "tools": {
+          "title": "Ferramentas utilizadas",
+          "items": [
+            "Autodesk Sketchbook",
+            "Adobe Fonts",
+            "Figma"
+          ]
         }
       },
+      "footnote": "* Não foi utilizado nenhum agente IA de geração de imagens para as criações visuais (sketches, vetores, ilustrações…) neste projeto.",
       "thanks": "Obrigada por ter chegado até aqui!"
     },
     "pontinhasSoltas": {
@@ -272,6 +444,17 @@
     "clearFilters": "limpar busca e filtros",
     "back": "voltar aos projetos",
     "next": "próximo: {title}",
-    "backToTop": "voltar ao topo"
+    "backToTop": "voltar ao topo",
+    "related": "Talvez você goste...",
+    "zoomCursor": "ampliar +",
+    "projectCursor": "ver projeto →",
+    "lightbox": {
+      "label": "Imagem ampliada",
+      "open": "Ampliar: {caption}",
+      "close": "Fechar",
+      "prev": "Imagem anterior",
+      "next": "Próxima imagem",
+      "counter": "{caption} · {index} / {total}"
+    }
   }
 }

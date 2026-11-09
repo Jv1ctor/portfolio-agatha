@@ -176,22 +176,100 @@
       "subtitle": "Batuco-tuco App",
       "cardTitle": "Batuco-tuco",
       "description": "Batuco-Tuco is a mobile application focused on the gamification of music theory and instrument practice. Its name alludes to the “batuque” and pays tribute to a Brazilian species and its sound, the tuco-tuco… (PLACEHOLDER)",
-      "intro": "Batuco-Tuco is a mobile application focused on the gamification of music theory and instrument practice. Its name alludes to the “batuque” and pays tribute to a Brazilian species and its sound, the tuco-tuco, inspiring the playful theme and visual style of the project, which turns animals into skilled musicians.\n\nThe project was developed as a hands-on study of graphical interfaces and UX/UI. To ensure a smooth evolution with real-time visual feedback, the process involved structuring content maps, building a design system and applying user-centered methodologies.",
+      "intro": "Batuco-tuco was born largely from the opportunity to bring playful contexts into the experience of continuous learning in music. In the Graphical Interface Design course, we were challenged to create an application following a process of requirement prioritization and project management, seeking to understand points of convergence and divergence in order to work on and deliver the application within the scope set in those early stages.\n\nBatuco-Tuco is a mobile application focused on the gamification of music theory and instrument practice. Its name alludes to the \"batuque\" and pays tribute to a Brazilian species and its sound, the tuco-tuco, inspiring the playful theme and visual style of the project, which turns animals into skilled musicians.\n\nThe project was developed as a hands-on study of graphical interfaces and UX/UI. To ensure a smooth evolution with real-time visual feedback, the process involved structuring content maps, building a design system and applying user-centered methodologies.",
       "tags": [
         "Academic",
-        "Graphical Interface Design"
+        "Graphical Interface Design",
+        "Personal project",
+        "Medium complexity"
       ],
+      "heroAlt": "Hanni, Yopi, Gunter, Cybele and Pepo playing their instruments together on a lit stage.",
+      "lightbox": {
+        "processCaption": "Process stages",
+        "processAlt": "Board of the process stages: 01 User profile, 02 Requirements, 03 Methods, 04 Similar apps and 05 Prototyping, with the little fox's head (Portuguese text).",
+        "interfaceCaption": "Interface and assets",
+        "interfaceAlt": "Interface board: app screens on nine phones, text about the exercises and the points system and three characters; Assets board with the shop items and their prices in points (Portuguese text).",
+        "charactersAlt": "Characters board: Yopi, drummer squirrel; Pepo, pianist bear; Hanni, violinist fox; Cybele, kalimba bunny; Gunter, bassist cat (Portuguese text).",
+        "finalAlt": "Final presentation: Batuco-tuco logo, the phrase “Your expression matters, and it is knowledge.”, “Music is knowledge.” and two phones with the app (Portuguese text)."
+      },
       "sections": {
         "creationProcess": {
           "title": "Creation process",
           "paragraphs": [
-            "Developed in the Graphical Interface Design course (Unifor), the challenge was to create a scalable Design System and cohesive usability flows. I prioritized basic requirements, such as the practice activities, to guarantee functionality before moving on to complex band interactions. In three weeks, I finished the entire interface, assets and animations, focusing on prototyping optimization."
+            "The challenge was to create a scalable design system and cohesive usability flows. To do that, the process was split into five stages, each one feeding the next: the user profile (persona, interview analysis and user stories) showed who would use the app and what they expected from it; the requirements turned those expectations into essential, desirable and performance features; the methods (requirement prioritization, value and confidence attribution matrix, content map and flowcharts) defined the scope and structure of the app; the similar products (benchmarking, rough wireframes and design system) guided the visual decisions; and prototyping gave shape to all of it (next stage).",
+            "I prioritized basic requirements, such as the practice activities, to guarantee functionality before moving on to complex band interactions. In the matrices, we realized that playing in real time with other users would hardly be feasible, since synchronization would depend on each person's network."
           ],
           "images": [
-            "Map of the Graphical Interfaces process: user profile, requirements, methods, alternatives and prototyping.",
-            "Scribbles and low-fidelity wireframes of the app screens."
-          ]
+            "Planning boards: project overview, persona, requirements, user stories, flowchart and prioritization matrix by confidence level."
+          ],
+          "planningCaption": "Planning boards",
+          "diagram": {
+            "label": "Stages of the creation process",
+            "steps": [
+              {
+                "label": "User profile",
+                "items": [
+                  "Persona building",
+                  "Interview analysis",
+                  "User stories"
+                ]
+              },
+              {
+                "label": "Requirements",
+                "items": [
+                  "Functional requirements",
+                  "Essential requirements",
+                  "Performance requirements",
+                  "Desirable requirements"
+                ]
+              },
+              {
+                "label": "Methods",
+                "items": [
+                  "Requirement prioritization",
+                  "Confidence attribution matrix",
+                  "Flowchart",
+                  "Content map"
+                ]
+              },
+              {
+                "label": "Similar products",
+                "items": [
+                  "Benchmarking",
+                  "Rough wireframe",
+                  "Design System"
+                ]
+              },
+              {
+                "label": "Prototyping",
+                "items": [
+                  "Low-fidelity screens",
+                  "High-fidelity screens",
+                  "Figma prototype",
+                  "Illustrations and assets"
+                ]
+              }
+            ]
+          }
         },
+        "sketches": [
+          {
+            "caption": "Character sketches",
+            "alt": "Notebook page with pencil sketches of the characters and their instruments."
+          },
+          {
+            "caption": "Home and profile wireframe",
+            "alt": "Pencil wireframe of the home and profile screens, with notes."
+          },
+          {
+            "caption": "Home and activities wireframe",
+            "alt": "Pencil wireframe of the home and activities screens."
+          },
+          {
+            "caption": "Onboarding wireframe",
+            "alt": "Pencil wireframe of the app's sign-in screens."
+          }
+        ],
         "prototyping": {
           "title": "Prototyping",
           "tabs": [
@@ -203,17 +281,101 @@
           "thumbs": {
             "captions": []
           },
+          "paragraphs": [
+            "From the low-fidelity screens to the high-fidelity prototype in Figma, the main flows of the app are built around theory exercises and a points system. The exercises the user completes earn coins to buy new items for the character that represents them in the game, such as a ribbon bow, a cap, a treble clef and a ladybug.",
+            "The characters are Yopi, the drummer squirrel; Pepo, the pianist bear cub; Hanni, the violinist fox; Cybele, the bunny on the kalimba; and Gunter, the bassist kitten. They were heavily inspired by well-known Nintendo and cozy mobile games, such as Animal Crossing and Cats and Soup, with a softer, “cozy” look and approach. In three weeks, I finished the entire interface, the assets and the animations, focusing on optimizing the prototype."
+          ],
           "images": [
-            "App interface and asset library: exercise screens, points system and character accessories.",
-            "Batuco-tuco characters: Yopi, Pepo, Hanni, Cybele and Gunter, each with their instrument.",
-            "Final presentation of Batuco-tuco: Music is knowledge, playfulness and research transform teaching."
+            "Home screen with Hanni on stage, the days of the week and the daily activities.",
+            "Music theory screen with the user's progress and the study modules.",
+            "Exercise screen with a question about intervals on the staff and the answer options.",
+            "Wardrobe with Hanni and the available accessories.",
+            "Shop asking to confirm the purchase of the ribbon bow.",
+            "User profile with musical interests and instruments.",
+            "Home screen with Hanni and Pepo playing together.",
+            "Another exercise screen about intervals.",
+            "Home screen with Cybele on stage."
           ]
+        },
+        "interface": {
+          "title": "Interface",
+          "textBefore": "The main flows of the app are built around ",
+          "bold1": "theory exercises",
+          "textMid": " and a ",
+          "bold2": "points system",
+          "textAfter": ". The exercises the user completes earn coins to buy new items for the character that represents them in the game.",
+          "charactersAlt": "Hanni, Cybele and Pepo playing violin, kalimba and keyboard.",
+          "assetsTitle": "Assets",
+          "assets": [
+            "Ribbon Bow",
+            "Hair Clip",
+            "Cap",
+            "Treble Clef",
+            "Flowers",
+            "Ladybug"
+          ],
+          "pointsLabel": "{points} PTS",
+          "lockedLabel": "Locked"
+        },
+        "characters": {
+          "label": "Characters",
+          "list": [
+            {
+              "name": "Yopi",
+              "role": "Drummer squirrel"
+            },
+            {
+              "name": "Pepo",
+              "role": "Pianist bear cub"
+            },
+            {
+              "name": "Hanni",
+              "role": "Violinist fox"
+            },
+            {
+              "name": "Cybele",
+              "role": "Bunny on the kalimba"
+            },
+            {
+              "name": "Gunter",
+              "role": "Bassist kitten"
+            }
+          ]
+        },
+        "brand": {
+          "logoLabel": "Batuco-tuco",
+          "logoTop": "BATUCO",
+          "logoBottom": "TUCO",
+          "taglineLine1": "Your expression matters,",
+          "taglineBefore": "and it is ",
+          "taglineBold": "knowledge",
+          "taglineAfter": ".",
+          "heading": "Music is knowledge.",
+          "pills": [
+            "Play and research transform teaching",
+            "Learning has endless possibilities",
+            "Learning should be fun too"
+          ],
+          "mockupAlt": "Two phones with Batuco-tuco open: Hanni's wardrobe and the home screen with Cybele."
         },
         "finalProject": {
           "title": "Final project",
+          "paragraphs": [
+            "The final project is the app's clickable prototype in Figma, with its design system, characters and assets, and it is currently back in the research stage to explore the theme further."
+          ],
+          "fontsNote": "The typefaces used are AM Futurismo, found on Adobe Fonts, and Nunito, found in Figma.",
           "images": []
+        },
+        "tools": {
+          "title": "Tools used",
+          "items": [
+            "Autodesk Sketchbook",
+            "Adobe Fonts",
+            "Figma"
+          ]
         }
       },
+      "footnote": "* No AI image generation tool was used for the visual work (sketches, vectors, illustrations…) in this project.",
       "thanks": "Thank you for making it this far!"
     },
     "pontinhasSoltas": {
@@ -315,6 +477,17 @@
     "clearFilters": "clear search and filters",
     "back": "back to projects",
     "next": "next: {title}",
-    "backToTop": "back to top"
+    "backToTop": "back to top",
+    "related": "You might also like...",
+    "zoomCursor": "zoom in +",
+    "projectCursor": "view project →",
+    "lightbox": {
+      "label": "Enlarged image",
+      "open": "Enlarge: {caption}",
+      "close": "Close",
+      "prev": "Previous image",
+      "next": "Next image",
+      "counter": "{caption} · {index} / {total}"
+    }
   }
 }

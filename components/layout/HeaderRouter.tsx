@@ -32,7 +32,11 @@ export function HeaderRouter({
   const segments = useSelectedLayoutSegments();
   const isHome = segments.length === 0;
   const isProjectsIndex = segments.length === 1 && segments[0] === 'projetos';
+  // Batuco-tuco aberto direto: o frame do Figma não tem header (só a barra de voltar,
+  // desenhada pelo próprio case). Com o modal aberto os segmentos continuam ['projetos'].
+  const isBatucoCase = segments.length === 2 && segments[0] === 'projetos' && segments[1] === 'batuco-tuco';
 
+  if (isBatucoCase) return null;
   if (isHome || isProjectsIndex) {
     return (
       <HomeHeader

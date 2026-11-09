@@ -853,7 +853,8 @@ console.log('ok: ' + a.size + ' keys');
   HDR_IDX_PT=$(header_of "$HTML_PT")
   HDR_IDX_EN=$(header_of "$HTML_EN")
   HDR_HOME_PT=$(header_of "$(page "/pt-BR")")
-  HDR_CASE_PT=$(header_of "$(page "/pt-BR/projetos/batuco-tuco")")
+  HDR_CASE_PT=$(header_of "$(page "/pt-BR/projetos/pontos-sem-no")")
+  HDR_BATUCO_PT=$(header_of "$(page "/pt-BR/projetos/batuco-tuco")")
   # Índice → HomeHeader ("sobre"/"about", não "Sobre mim"); aria-current só ali.
   if printf '%s' "$HDR_IDX_PT" | grep -q '>sobre<' && printf '%s' "$HDR_IDX_EN" | grep -q '>about<'; then
     log_pass "Index uses HomeHeader (sobre / about)"
@@ -880,11 +881,17 @@ console.log('ok: ' + a.size + ' keys');
   else
     log_pass "Home header projetos link has no aria-current"
   fi
-  # Case aberto direto → Header antigo ("Sobre mim"), como hoje.
+  # Case aberto direto → Header antigo ("Sobre mim"), como hoje (Pontos sem nó).
   if printf '%s' "$HDR_CASE_PT" | grep -q 'Sobre mim'; then
     log_pass "Case page opened directly keeps the old Header"
   else
     log_fail "Case page opened directly does not show the old Header (expected 'Sobre mim')"
+  fi
+  # Batuco-tuco aberto direto → sem header (o frame do Figma só tem a barra de voltar).
+  if [ -z "$HDR_BATUCO_PT" ]; then
+    log_pass "Batuco-tuco page opened directly has no site header (Figma)"
+  else
+    log_fail "Batuco-tuco page opened directly renders a <header> (the Figma frame has none)"
   fi
 
   log_sub "Test: the 3 project links per locale (/{locale}/projetos/<slug>)..."

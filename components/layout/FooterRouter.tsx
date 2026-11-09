@@ -19,8 +19,10 @@ export function FooterRouter({ dict }: { dict: Dictionary }) {
   const segments = useSelectedLayoutSegments();
   const isHome = segments.length === 0;
   const isProjectsIndex = segments.length === 1 && segments[0] === 'projetos';
+  // Batuco-tuco aberto direto: o mesmo footer padrão, com o voltar ao topo.
+  const isBatucoCase = segments.length === 2 && segments[0] === 'projetos' && segments[1] === 'batuco-tuco';
 
-  if (isHome) return <HomeFooter dict={dict} />;
+  if (isHome || isBatucoCase) return <HomeFooter dict={dict} />;
   if (isProjectsIndex) return <HomeFooter dict={dict} variant="projects" />;
   return <Footer dict={dict} />;
 }

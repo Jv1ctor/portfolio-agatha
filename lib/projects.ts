@@ -30,6 +30,18 @@ export type ProjectMeta = {
   featured?: boolean;
   /** Dados de layout da grade bento */
   grid: ProjectGrid;
+  /**
+   * Layout da página do case. 'wide' = coluna de 1352px do Figma novo, com o
+   * cabeçalho (título, tags, intro) desenhado pelo próprio corpo do case.
+   * Sem valor = coluna estreita padrão do CaseShell.
+   */
+  layout?: 'wide';
+  /**
+   * Abre como página completa a partir de /projetos (card e "próximo" do modal fazem
+   * navegação de página inteira), em vez do modal interceptado. Usado quando a página
+   * do case tem coisas que o modal não tem (Batuco-tuco: animações, barra e footer do Figma).
+   */
+  opensAsPage?: boolean;
 };
 
 // Chaves do dicionário por slug (texto translatável vive em dict.projects.*)
@@ -68,6 +80,8 @@ const projectMeta: ProjectMeta[] = [
     accent: 'orange',
     coverImage: '/images/projects/batuco-tuco/cover.png',
     grid: { column: 1, aspect: '612 / 344', objectPosition: 'left center', descLines: 2 },
+    layout: 'wide',
+    opensAsPage: true,
   },
   {
     slug: 'pontinhas-soltas',
@@ -119,6 +133,23 @@ export function getLocalizedProjects(dict: Dictionary): LocalizedProject[] {
 export function getNextSlug(slug: Slug): Slug {
   const index = projectSlugs.indexOf(slug);
   return projectSlugs[(index + 1) % projectSlugs.length];
+}
+
+/**
+ * Até `count` slugs diferentes de `slug`, sorteados (Fisher–Yates) — "Talvez
+ * você goste..." no fim dos cases. `random` é injetável para dar determinismo.
+ */
+export function getRandomOtherSlugs(
+  slug: Slug,
+  count: number,
+  random: () => number = Math.random
+): Slug[] {
+  const others = projectSlugs.filter((s) => s !== slug);
+  for (let i = others.length - 1; i > 0; i--) {
+    const j = Math.floor(random() * (i + 1));
+    [others[i], others[j]] = [others[j], others[i]];
+  }
+  return others.slice(0, count);
 }
 
 // Alias para compatibilidade

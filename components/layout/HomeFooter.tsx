@@ -19,7 +19,8 @@ import type { Dictionary } from "@/i18n/dictionaries";
  * IG/IN e os handles são dados (lib/site.ts), não tradução (AGENTS.md).
  * Ambas as variantes (home e projects) ganham o link de voltar ao topo (pílula azul no
  * estilo dos filtros de /projetos, com texto e a seta que balança), e a seta ↗ no hover dos links sociais. O prop `variant`
- * continua existindo para os callers (FooterRouter), mas não muda mais o visual.
+ * continua existindo para os callers (FooterRouter), mas não muda mais o visual —
+ * a página completa do Batuco-tuco usa esse mesmo footer padrão.
  * O Footer antigo continua sendo usado pelas outras páginas via FooterRouter.
  */
 export function HomeFooter({
@@ -36,12 +37,12 @@ export function HomeFooter({
       ↗
     </span>
   );
-  const socialClass =
-    "group/social text-base font-light underline decoration-from-font hover:opacity-80";
+  const socialClass = `group/social text-base font-light ${s.social}`;
+  const labelClass = "w-5 shrink-0 text-base font-normal";
 
   return (
     <footer
-      className="bg-footer relative mt-20 w-full overflow-visible text-[color:var(--color-cream)]"
+      className={`bg-footer relative mt-20 w-full overflow-visible text-[color:var(--color-cream)]`}
       style={{ height: "269px" }}
     >
       {/* "visite também" — transborda ACIMA do band (y=-45 no Figma) */}
@@ -59,10 +60,12 @@ export function HomeFooter({
 
       {/* Conteúdo: "Redes sociais" em y=109, px 28 da lateral */}
       <div className="relative w-full px-[28px] pt-[109px]">
-        <p className="text-[1.5rem] font-normal">{dict.footer.social}</p>
+        <p className="text-[1.5rem] font-normal">
+          {dict.footer.social}
+        </p>
         <ul className="mt-2 flex flex-col gap-2">
           <li className="flex items-center gap-4">
-            <span className="w-5 shrink-0 text-base font-normal">IG</span>
+            <span className={labelClass}>IG</span>
             <a
               href={site.social.instagram.url}
               target="_blank"
@@ -74,7 +77,7 @@ export function HomeFooter({
             </a>
           </li>
           <li className="flex items-center gap-4">
-            <span className="w-5 shrink-0 text-base font-normal">IN</span>
+            <span className={labelClass}>IN</span>
             <a
               href={site.social.linkedin.url}
               target="_blank"
