@@ -1,0 +1,299 @@
+/* ==========================================================================
+   CascavelCase — layout do frame 17:4049 (coluna de 1352px) + ANIMACOES §3
+   (pan dos renders, colagem, grade 3x3). Reveal, zoom, cursor e lightbox
+   ficam em ../case-study.module.css. Vãos horizontais em % da coluna.
+   ========================================================================== */
+
+/* ---------- textos e pills ---------- */
+.p {
+  margin: 0;
+  font-weight: 300;
+  font-size: 1rem;
+  /* Figma: todos os blocos de texto têm altura múltipla de 18px */
+  line-height: 1.125;
+  /* Figma: tracking de -2% (a 1ª linha do processo de criação termina em
+     "disponíveis na" e o Laboratório Vortex cabe em uma linha de 669px) */
+  letter-spacing: -0.02em;
+  color: var(--color-blue);
+  text-align: justify;
+  text-align-last: left;
+  hyphens: auto;
+}
+.p strong {
+  font-weight: 700;
+}
+.note {
+  /* Figma 17:4721: 24px abaixo da linha do Laboratório Vortex */
+  margin-top: 1.5rem;
+  font-style: italic;
+}
+
+/* ---------- títulos de seção (Clother Bold 32px; caixa de 38px no Figma) ---------- */
+.h {
+  margin: 0 0 1.5rem;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 1.1875;
+  letter-spacing: normal;
+  color: var(--color-blue);
+}
+/* "Processo de criação": parágrafo 54px abaixo do topo do título */
+.hProc {
+  margin-bottom: 1rem;
+}
+/* Projeto final / Citação / Execução: caixa de 18px, texto 42px abaixo */
+.hTight {
+  line-height: 1.125rem;
+}
+
+/* ---------- pills do Figma: 32px de altura, anel #baccEB + borda tracejada ---------- */
+.pls {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  /* 10px entre as pills (anel incluso): 4px de vão + 3px de anel de cada lado */
+  gap: 4px;
+}
+.pl {
+  display: inline-flex;
+  align-items: center;
+  height: 1.625rem;
+  margin: 3px;
+  padding: 0 0.34375rem;
+  border: 2px dashed #527fb0;
+  border-radius: 999px;
+  background: #eaeef4;
+  box-shadow: 0 0 0 3px #baccEB;
+  color: var(--color-blue);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* rótulos centralizados "Imagem a", "Imagem b", "Primeiras versões…" */
+.label {
+  /* Figma: caixa de 18px e imagem 30px abaixo do topo do rótulo */
+  margin: 0 0 0.75rem;
+  text-align: center;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.125rem;
+  letter-spacing: normal;
+  color: var(--color-blue);
+}
+
+/* ---------- duas colunas ---------- */
+.colsProto,
+.colsFinal,
+.colsCredits {
+  display: grid;
+  align-items: start;
+}
+.colsProto {
+  /* texto 557 | painéis 762, vão 33 */
+  grid-template-columns: minmax(0, 557fr) minmax(0, 762fr);
+  column-gap: 2.44%;
+}
+.paineis {
+  /* 17:4215 começa 18px abaixo do topo da faixa */
+  margin-top: 1.125rem;
+}
+.colsFinal {
+  /* texto 572 | ferramentas a partir de x=858 (684), vão 98 */
+  grid-template-columns: minmax(0, 572fr) minmax(0, 684fr);
+  column-gap: 7.25%;
+}
+.colsCredits {
+  /* 641 | 655, vão 56 (créditos começam em x=885 no frame) */
+  grid-template-columns: minmax(0, 641fr) minmax(0, 655fr);
+  column-gap: 4.14%;
+  /* renders terminam em 9714 e a faixa começa em 9742: 28px, não 32 */
+  margin-top: -0.25rem;
+}
+/* 17:4718 tem 669px e passa 14px da coluna: a linha do Laboratório cabe numa só */
+.exec {
+  width: 102.14%;
+}
+
+/* ---------- prancha "Imagem a" e faixa de identidade: zoom mais leve ---------- */
+.board:hover img {
+  transform: scale(1.015);
+  transition-duration: 1.4s;
+}
+.free:hover img {
+  transform: scale(1.02);
+}
+.identidade {
+  margin-top: 2.25rem;
+}
+
+/* ---------- colagem "Imagem b": 776 | 566 (377 + 213), vão 10 ---------- */
+.cl {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 776fr) minmax(0, 566fr);
+  grid-template-rows: minmax(0, 377fr) minmax(0, 213fr);
+  gap: 12px 0.75%;
+  aspect-ratio: 1352 / 603;
+}
+.cl {
+  position: relative;
+}
+.clMain {
+  grid-row: 1 / span 2;
+}
+/* setas: posição/largura em % da colagem (1352×603 a partir de x190 y3294) */
+.arrow {
+  position: absolute;
+  z-index: 1;
+  height: auto;
+  pointer-events: none;
+}
+.arrow1 {
+  left: 2.367%;
+  top: 98.507%;
+  width: 1.849%;
+}
+.arrow2 {
+  left: 62.06%;
+  top: 63.516%;
+  width: 1.627%;
+}
+.clMain,
+.clTop,
+.clBottom {
+  height: 100%;
+}
+.clMain img,
+.clTop img,
+.clBottom img {
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------- grade 3x3 das primeiras versões (448px cada, vãos 5 | 13) ---------- */
+.grid3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 13px 0.37%;
+}
+.tela43 {
+  aspect-ratio: 448 / 336;
+}
+.tela169 {
+  aspect-ratio: 448 / 252;
+}
+.tela43 img,
+.tela169 img {
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------- renders finais: pan horizontal ligado ao scroll ---------- */
+.renders {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.pan {
+  overflow: hidden;
+}
+.pan > button {
+  height: 100%;
+}
+.pan img {
+  height: 100%;
+  object-fit: cover;
+}
+@supports (animation-timeline: view()) {
+  .pan img {
+    transform: scale(1.06) translateX(-1.5%);
+    animation: pan linear both;
+    animation-timeline: view();
+    animation-range: cover 0% cover 100%;
+    /* sem hover-zoom: a mesma transform é usada pelo pan */
+    transition: none;
+  }
+}
+@keyframes pan {
+  from {
+    transform: scale(1.06) translateX(-1.5%);
+  }
+  to {
+    transform: scale(1.06) translateX(1.5%);
+  }
+}
+/* Fallback (CascavelPan): o JS escreve a transform; sem hover-zoom. */
+.panFallback img {
+  transform: scale(1.06) translateX(-1.5%);
+  transition: none;
+}
+
+/* ---------- mobile ---------- */
+@media (max-width: 767px) {
+  .colsProto,
+  .colsFinal,
+  .colsCredits {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 1.5rem;
+  }
+  .cl {
+    aspect-ratio: auto;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    gap: 8px;
+  }
+  .arrow {
+    display: none;
+  }
+  .clMain {
+    grid-row: auto;
+    aspect-ratio: 776 / 603;
+  }
+  .clTop {
+    aspect-ratio: 566 / 377;
+  }
+  .clBottom {
+    aspect-ratio: 566 / 213;
+  }
+  .grid3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .identidade {
+    margin-top: 1rem;
+  }
+  .renders {
+    gap: 1rem;
+  }
+  .label {
+    font-size: 1.25rem;
+  }
+  .h {
+    font-size: 1.625rem;
+  }
+  .exec {
+    width: auto;
+  }
+  .p {
+    text-align: left;
+  }
+}
+
+/* ---------- prefers-reduced-motion (ANIMACOES §0) ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .pan img,
+  .panFallback img {
+    animation: none;
+    transform: none;
+  }
+  .board:hover img,
+  .free:hover img {
+    transform: none;
+  }
+}

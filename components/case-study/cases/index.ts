@@ -5,12 +5,14 @@ import { PontosSemNoCase } from "./PontosSemNoCase";
 import { BatucoTucoCase } from "./BatucoTucoCase";
 import { PontinhasSoltasCase } from "./PontinhasSoltasCase";
 import { IdentidadeEventoCase } from "./IdentidadeEventoCase";
+import { CascavelCase, cascavelSlots } from "./CascavelCase";
 
 export {
   PontosSemNoCase,
   BatucoTucoCase,
   PontinhasSoltasCase,
   IdentidadeEventoCase,
+  CascavelCase,
 };
 
 /** Slug → corpo do case, para reutilizar fora da página completa (ex.: no modal). */
@@ -22,6 +24,7 @@ export const caseBodies: Record<
   "batuco-tuco": BatucoTucoCase,
   "pontinhas-soltas": PontinhasSoltasCase,
   "identidade-evento-15-anos": IdentidadeEventoCase,
+  cascavel: CascavelCase,
 };
 
 /** Partes do topo do case que ficam fora do corpo (props extras do `CaseShell`). */
@@ -43,4 +46,6 @@ export type CaseSlotsFn = (
   opts: { coverClassName?: string },
 ) => CaseSlots;
 
-export const caseSlots: Partial<Record<Slug, CaseSlotsFn>> = {};
+export const caseSlots: Partial<Record<Slug, CaseSlotsFn>> = {
+  cascavel: cascavelSlots,
+};
