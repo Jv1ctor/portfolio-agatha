@@ -64,9 +64,9 @@ type CajuSections = {
  * Nomes semânticos dos recortes do frame 17:5070 (mapa em
  * docs/superpowers/analysis/figma-caju-assets.md).
  *
- * Ordem do Figma: brainstorming + painel visual ficam no fim da seção
- * "Processo de criação" (acima do título "Prototipagem", y≈1316..1881);
- * dentro de "Prototipagem" vêm teste de cores, personagens, rafes e pintura.
+ * Ordem do Figma: brainstorming + painel visual ficam no fim da seção de
+ * processo (acima do título da próxima seção, y≈1316..1881); depois vêm
+ * teste de cores, personagens, rafes e pintura.
  */
 const PROCESS_FILES = ["brainstorming.jpg", "painel-visual.jpg"] as const;
 const PROCESS_CAPS = ["brainstorming", "visualPanel"] as const;
