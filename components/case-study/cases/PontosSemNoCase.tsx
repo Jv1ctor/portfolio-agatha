@@ -213,7 +213,7 @@ export function PontosSemNoCase({ project }: { project: LocalizedProject }) {
   return (
     <>
       {/* Construção da marca — faixa com os 3 quadros (17:1164) */}
-      <Reveal>
+      <Reveal className={s.firstBody}>
         <Img project={project} id="construcao" />
       </Reveal>
 
@@ -242,7 +242,7 @@ export function PontosSemNoCase({ project }: { project: LocalizedProject }) {
             <Paragraphs items={proto.paragraphs} />
           </div>
         </CaseSection>
-        <Img project={project} id="protoDiagrama" className={s.alignEnd} />
+        <Img project={project} id="protoDiagrama" className={`${s.alignEnd} ${s.diagramaImg}`} />
       </Reveal>
 
       {/* 4 thumbs com legenda (17:1405) */}
@@ -272,19 +272,39 @@ export function PontosSemNoCase({ project }: { project: LocalizedProject }) {
       <Reveal className={s.tight}>
         <Img project={project} id="bailarina" />
       </Reveal>
-      <Reveal className={`${s.row} ${s.rowGapJogo} ${s.tight}`}>
+      <Reveal className={`${s.row} ${s.rowGapJogo} ${s.rowJogo} ${s.tight}`}>
         <div className={s.thumb} style={{ flex: "513 1 0%" }}>
           <Img project={project} id="jogoDoTempo" />
         </div>
         <div className={s.thumb} style={{ flex: "823 1 0%" }}>
-          {/* grade xadrez das versões do logo — decorativa, fora do lightbox */}
+          {/* grade xadrez das versões do logo — decorativa, fora do lightbox.
+             No mobile (390) a imagem 4×2 fica ilegível: vira 2 figuras 2×2
+             (metades da imagem), uma embaixo da outra. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={`${base}/xadrez-logos.jpg`}
             alt={fin.images[4] ?? ""}
             loading="lazy"
             decoding="async"
-            className="block w-full"
+            className={`block w-full ${s.xadrezImg}`}
+          />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={`${base}/xadrez-logos-m1.jpg`}
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
+            className={`block w-full ${s.xadrezImg} ${s.xadrezM}`}
+          />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={`${base}/xadrez-logos-m2.jpg`}
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
+            className={`block w-full ${s.xadrezImg} ${s.xadrezM}`}
           />
         </div>
       </Reveal>
