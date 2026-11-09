@@ -340,7 +340,7 @@
       "subtitle": "Caju",
       "cardTitle": "Caju",
       "description": "Livro infantil ilustrado “Caju em: Semente não tem dente”, criado na disciplina de Produção Gráfica com as colegas Ana e Thays: uma história sobre enfrentar os medos com um grande sorriso.",
-      "intro": "Sob a proposta de criação de um livro infantil ilustrado na disciplina de Produção Gráfica, Caju nasceu como a expressão da conexão de um grupo de irmãs mais velhas (eu e minhas colegas de projeto). Sob a sinopse: “Cajú leva uma vida leve e alegre ao lado de sua mãe, mas, após um dia chuvoso, uma mudança inesperada desafia nossa heroína a ver seu mundo de uma nova perspectiva. Cajú vai nos mostrar como enfrentar nossos medos com um grande sorriso”.\n\nFoi o brainstorming mais divertido que já tive em um projeto, e me gerou uma conexão muito pessoal e genuína com a minha história e a das minhas colegas: nossas ideias se conversavam, e nos sentíamos pensando na mesma historinha antes mesmo de determinarmos como ela seria.",
+      "intro": "Sob a proposta de criação de um livro infantil ilustrado na disciplina de Produção Gráfica, Caju nasceu como a expressão da conexão de um grupo de irmãs mais velhas (eu e minhas colegas de projeto). Sob a sinopse: “Caju leva uma vida leve e alegre ao lado de sua mãe, mas, após um dia chuvoso, uma mudança inesperada desafia nossa heroína a ver seu mundo de uma nova perspectiva. Caju vai nos mostrar como enfrentar nossos medos com um grande sorriso”.\n\nFoi o brainstorming mais divertido que já teve em um projeto, e me gerou uma conexão muito pessoal e genuína com a minha história e a das minhas colegas: nossas ideias se conversavam, e nos sentíamos pensando na mesma historinha antes mesmo de determinarmos como ela seria.",
       "tags": [
         "Acadêmico",
         "Ilustração digital",
@@ -447,28 +447,28 @@
               "title": "Personagens",
               "items": [
                 {
-                  "name": "Cajü",
+                  "name": "Caju",
                   "desc": "Protagonista e irmã mais velha"
                 },
                 {
-                  "name": "Jucá (o monstro)",
+                  "name": "Juca (o monstro)",
                   "desc": "Irmão mais novo, que no início é visto como monstro"
                 },
                 {
                   "name": "Cajuína",
-                  "desc": "Mãe da Cajú e do Jucá, é representada como a Mãe Natureza"
+                  "desc": "Mãe da Caju e do Juca, é representada como a Mãe Natureza"
                 },
                 {
                   "name": "Dono Sapo",
-                  "desc": "Criatura mágica aliada da Cajú (pelúcia de sapo)"
+                  "desc": "Criatura mágica aliada da Caju (pelúcia de sapo)"
                 },
                 {
                   "name": "Manuel",
-                  "desc": "Criatura mágica aliada da Cajú (pelúcia de gato)"
+                  "desc": "Criatura mágica aliada da Caju (pelúcia de gato)"
                 },
                 {
                   "name": "Pedro",
-                  "desc": "Criatura mágica aliada da Cajú (pelúcia de pinguim)"
+                  "desc": "Criatura mágica aliada da Caju (pelúcia de pinguim)"
                 }
               ]
             }
@@ -583,29 +583,29 @@
         "bookStack": {
           "title": "Páginas do livro",
           "images": [
-            "Book page: Caju confused on her branch, her mother's presence divided.",
-            "Book page: Caju lying down, looking up.",
-            "Book page: the frightening shout turns into laughter.",
-            "Book page: the little monster was, in fact, a toothless baby.",
-            "Book page: cozy reading in the shack with string lights.",
-            "Book page: the two of them were the fruits of the smile."
+            "Página do livro: Caju deitada e confusa no galho, a presença da mãe dividida; embaixo, Caju espiando entre espelhos — “Aquele grito assustador se transformou em risadas!”",
+            "Página do livro: Caju espiando por trás do cobertor entre espelhos; embaixo, as duas crianças rindo dentro da cabana com pisca-piscas — “Aquele grito assustador se transformou em risadas!”",
+            "Página do livro: dentro da cabana com pisca-piscas, Caju lendo um livro rosa para o irmão — “Essa história engraçada foi passada para o tal do monstrinho, agora chamado de Juca.”",
+            "Página do livro: Caju deitada no travesseiro com medo do monstrinho laranja; embaixo, o bebê banguela sorrindo — “E não é que para a surpresa dela, aquele monstrinho era, na verdade, um bebê banguela?”",
+            "Página do livro: balão com o bebê banguela sorrindo e a mãe abraçando o bebê — “E não é que para a surpresa dela, aquele monstrinho era, na verdade, um bebê banguela? / Toda vez que Caju lembra...”",
+            "Página do livro: a mãe e os dois filhos abraçados chorando de alegria — “Toda vez que Caju lembra, ela percebe que aqueles dois eram os frutos do sorriso, e nada podia atrapalhar.”"
           ]
         },
         "readingSim": {
-          "title": "Reading simulation",
-          "hint": "Click the book or the arrows to flip through.",
+          "title": "Simulação de leitura",
+          "hint": "Clique no livro ou nas setas para folhear.",
           "counter": {
-            "cover": "Cover",
-            "pages": "Pages {from}–{to} of 30",
-            "backCover": "Back cover"
+            "cover": "Capa",
+            "pages": "Páginas {from}–{to} de 30",
+            "backCover": "Contracapa"
           },
-          "next": "Next page",
-          "prev": "Previous page",
-          "backToCover": "Back to the cover",
-          "pageAlt": "Page {n} of the book Caju in: Semen has no tooth",
-          "coverAlt": "Cover of the book Caju in: Semen has no tooth",
-          "backCoverAlt": "Back cover of the book Caju in: Semen has no tooth",
-          "aiNote": "* No AI image-generation agent was used for the visual creations (sketches, vectors, illustrations…) in this project."
+          "next": "Próxima página",
+          "prev": "Página anterior",
+          "backToCover": "Voltar à capa",
+          "pageAlt": "Página {n} do livro Caju em: Semente não tem dente",
+          "coverAlt": "Capa do livro Caju em: Semente não tem dente",
+          "backCoverAlt": "Contracapa do livro Caju em: Semente não tem dente",
+          "aiNote": "* Não foi utilizado nenhum agente IA de geração de imagens para as criações visuais (sketches, vetores, ilustrações…) neste projeto."
         },
         "readLock": {
           "g1": "Ei, já vai? Folheia o livro comigo! Role mais 2 vezes para sair.",

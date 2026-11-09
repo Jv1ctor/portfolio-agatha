@@ -380,9 +380,9 @@
     },
     "caju": {
       "title": "Caju",
-      "subtitle": "Caju in: Semen has no tooth",
+      "subtitle": "Caju in: Seed has no tooth",
       "cardTitle": "Caju",
-      "description": "Illustrated children's book “Caju in: Semen has no tooth”, created in the Graphic Production course. A story about facing fears with a big smile, made together with classmates Ana and Thays.",
+      "description": "Illustrated children's book “Caju in: Seed has no tooth”, created in the Graphic Production course. A story about facing fears with a big smile, made together with classmates Ana and Thays.",
       "intro": "Under the assignment to create an illustrated children's book in the Graphic Production course, Caju was born as the expression of the bond between a group of older sisters (me and my project teammates). The synopsis: “Caju lives a light and happy life by her mother's side, but after a rainy day, an unexpected change challenges our heroine to see her world from a new perspective. Cajú will show us how to face our fears with a big smile”. It was the most fun brainstorming I've ever had in a project, and it gave me a very personal and genuine connection with my story and my teammates': our ideas talked to each other, and we felt like we were thinking of the same little story even before we decided what it would be.",
       "tags": [
         "Academic",
@@ -466,36 +466,36 @@
           ],
           "lead": "The creation process was carried out together with my classmates Ana and Thays. We first chose the children's booklet niche and, to create the story, we were especially inspired by drawings that we asked the children in Ana's family to make spontaneously, letting their perspective guide what would be told. From that, we created the story together, coming up with title and message ideas, and structured the script into beginning, middle and end.",
           "caps": [
-            "Caju em: Semente não tem dente",
-            "Quadro do processo",
+            "Caju in: Seed has no tooth",
+            "Process board",
             "Brainstorming",
-            "Painel visual - Imagem a",
-            "Teste de cores e storyboard",
-            "Design de personagens - Imagem b",
-            "Rafes das páginas",
-            "Rafes das páginas",
-            "Pintura das páginas e diagramação",
-            "Pintura das páginas e diagramação",
-            "Pintura das páginas e diagramação",
-            "Pintura das páginas e diagramação",
-            "Mídia impressa",
-            "Mídia impressa",
-            "Mídia impressa",
-            "Página do livro",
-            "Página do livro",
-            "Página do livro",
-            "Página do livro",
-            "Página do livro",
-            "Página do livro"
+            "Mood board - Image a",
+            "Color tests and storyboard",
+            "Character design - Image b",
+            "Page roughs",
+            "Page roughs",
+            "Painting the pages and layout",
+            "Painting the pages and layout",
+            "Painting the pages and layout",
+            "Painting the pages and layout",
+            "Printed media",
+            "Printed media",
+            "Printed media",
+            "Book page",
+            "Book page",
+            "Book page",
+            "Book page",
+            "Book page",
+            "Book page"
           ],
           "captions": {
             "brainstorming": "Brainstorming",
-            "visualPanel": "Painel visual - Imagem a",
-            "colorTests": "Teste de cores e storyboard",
-            "characters": "Design de personagens - Imagem b",
-            "roughs": "Rafes das páginas",
-            "painting": "Pintura das páginas e diagramação",
-            "printed": "Mídia impressa"
+            "visualPanel": "Mood board - Image a",
+            "colorTests": "Color tests and storyboard",
+            "characters": "Character design - Image b",
+            "roughs": "Page roughs",
+            "painting": "Painting the pages and layout",
+            "printed": "Printed media"
           }
         },
         "prototyping": {
@@ -566,9 +566,9 @@
           "next": "Next page",
           "prev": "Previous page",
           "backToCover": "Back to the cover",
-          "pageAlt": "Page {n} of the book Caju in: Semen has no tooth",
-          "coverAlt": "Cover of the book Caju in: Semen has no tooth",
-          "backCoverAlt": "Back cover of the book Caju in: Semen has no tooth",
+          "pageAlt": "Page {n} of the book Caju in: Seed has no tooth",
+          "coverAlt": "Cover of the book Caju in: Seed has no tooth",
+          "backCoverAlt": "Back cover of the book Caju in: Seed has no tooth",
           "aiNote": "* No AI image-generation agent was used for the visual creations (sketches, vectors, illustrations…) in this project."
         },
         "readLock": {
@@ -580,7 +580,7 @@
         "finalProject": {
           "title": "Final project",
           "paragraphs": [
-            "The final project is the printed children's book “Caju in: Semen has no tooth”. On the last page, we reserved a space for the children's drawings, giving them back a place in the story they helped create."
+            "The final project is the printed children's book “Caju in: Seed has no tooth”. On the last page, we reserved a space for the children's drawings, giving them back a place in the story they helped create."
           ],
           "toolsTitle": "Tools used",
           "tools": [
@@ -596,28 +596,22 @@
             "Printed book and printed cards on the table.",
             "Photo of the open Caju book on the table."
           ],
-          "aiNote": "*No AI image-generation agent was used for the visual creations (sketches, vectors, illustrations, 3D models…) in this project."
+          "aiNote": "* No AI image-generation agent was used for the visual creations (sketches, vectors, illustrations, 3D models…) in this project."
         },
         "book": {
           "stackLabel": "Book pages",
           "title": "Reading simulation",
-          "cover": "Cover: “Caju’s seed has no teeth!” on a pink cloud, with Caju’s face peeking out",
+          "cover": "Cover: “Caju in: a seed has no tooth!” on a pink cloud, with Caju’s face peeking out from below",
           "backCover": "Back cover",
           "pages": [
-            "page text",
-            "page text",
-            "page text",
-            "page text",
-            "page text",
-            "page text",
-            "page text",
-            "page text",
-            "page text",
-            "page text",
-            "page text",
-            "page text",
-            "page text",
-            "page text"
+            "Caju felt herself swaying, confused in her lost branch; her mother's presence was now divided.",
+            "It was then that she decided it was time to find a way out.",
+            "Caju returns to the maze, determined to face the little monster!",
+            "Illustration: the maze, with red eyes peeking out.",
+            "And isn't it that, to her surprise, that little monster was, in fact, a toothless baby?",
+            "That frightening shout turned into laughter!",
+            "Whenever Caju remembers, she realizes those two were the fruits of the smile, and nothing could get in the way.",
+            "That funny story was passed on to the so-called little monster, now called Juca."
           ],
           "label": {
             "cover": "Cover",
@@ -626,7 +620,7 @@
           },
           "hint": {
             "cover": "Click the cover to open the book",
-            "middle": "Click the pages or use the arrows to browse",
+            "middle": "Click the pages or use the arrows to flip through",
             "end": "The end! Use the button to go back to the cover"
           },
           "nav": {
@@ -635,11 +629,11 @@
             "back": "Go back one page",
             "prev": "Previous page",
             "next": "Next page",
-            "restart": "Back to cover"
+            "restart": "Back to the cover"
           },
           "lock": [
-            "Hey, leaving already? Flip through the book with me! Scroll 2 more times to exit.",
-            "Almost there! One more scroll…",
+            "Hey, already leaving? Flip through the book with me! Scroll 2 more times to exit.",
+            "Are you sure? One more scroll and I'll let you go :(",
             "All right! See you next time :)"
           ]
         }
