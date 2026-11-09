@@ -383,45 +383,127 @@
       "subtitle": "Pontinhas soltas",
       "cardTitle": "Pontinhas soltas",
       "description": "Design and 3D modeling of characters around an identity of loose dots. (PLACEHOLDER)",
-      "intro": "The “Pontinhas soltas” are a representation of the extension of the “Pontos sem nó” brand project. Created as personas assigned to the concept words of the brand, their characterization seeks to convey comfort and be part of casual contexts.\n\nThe central goal of having an extension related to them is that (PLACEHOLDER)",
+      "intro": "This work is an extension of the “Pontos sem nó” visual identity manual and brings the “Pontinhas soltas”, the imaginary characters who support the brand, into 3D. More than a project in itself, it was a way to give the little dolls volume and to understand how they would behave off the page, while staying true to the original illustrations.",
       "tags": [
         "Personal",
-        "Character Design"
+        "3D modeling",
+        "Original work",
+        "Low complexity"
       ],
+      "heroAlt": "Jemmy, Lac, Haggy, Nina and Ali, the Pontinhas soltas in 3D, side by side on a dark blue background with colored lights.",
+      "gallery": {
+        "showcaseCaption": "Characters in 3D and 2D",
+        "showcaseAlt": "Pontinhas soltas card: on top, Jemmy, Nina, Haggy, Lac and Ali modeled in 3D; below, the same characters in the original illustrations, each with her name and icon.",
+        "flyingCaption": "Character illustrations",
+        "flyingAlt": "Character illustrations: five Pontinhas flying in a circle and two music boxes with ballerinas.",
+        "turnaroundsCaption": "Turnarounds",
+        "turnaroundsAlt": "Turnarounds of Ali, Nina and Jemmy: each one from the front, three-quarter and side, facing right (D) and left (E). Labels in Portuguese.",
+        "headsCaption": "Head and body studies",
+        "headsAlt": "Character studies: heads and full bodies of Haggy, Ali, Jemmy, Nina and Lac.",
+        "dancingCaption": "Pontinhas dancing",
+        "dancingAlt": "Sketches of the five Pontinhas dancing in a row.",
+        "cardsCaption": "Characters and their concepts",
+        "cardsAlt": "3D character cards with their concepts (text in Portuguese): Ali is serenity, Jemmy is lyricism, Lac is tenderness, Nina is a pilgrim and Haggy is escapism."
+      },
       "sections": {
         "creationProcess": {
           "title": "Creation process",
           "paragraphs": [
-            "Developed in the Graphical Interface Design course (Unifor), the challenge was to create a scalable Design System and cohesive usability flows. I prioritized basic requirements, such as the practice activities, to guarantee functionality before moving on to complex band interactions. In three weeks, I finished the entire interface, assets and animations, focusing on prototyping optimization. (PLACEHOLDER)"
+            "Each character stands for one of the brand's concepts: tenderness, lyricism, escapism, serenity and pilgrim, and that guided the choice of their shape, color, species and expression. Unlike the low-poly models I usually make for VR experiences, here the dolls were modeled with more subdivisions in Blender, aiming to stay very faithful to the original images. The softer, rounder edges bring that sense of softness and, at the same time, a somewhat plastic texture. They are not rag dolls, but the idea is that their figure comforts whoever sees them, as if they were made of fabric, like plush toys."
           ],
-          "images": [
-            "Visual identity system in six steps: brainstorming of concept words, semantic board analysis, sketch creation, graphic tests, print test and manual.",
-            "Captures of the 3D character modeling process in Blender.",
-            "More captures of the 3D character modeling process in Blender.",
-            "Character library: turnarounds (front, 3/4 and side) of Ali, Nina, Jemmy and other characters."
-          ]
+          "images": []
         },
         "prototyping": {
           "title": "Prototyping",
           "tabs": [
             "Character design",
             "Personas",
-            "Concept words",
-            "Blender"
+            "3D modeling",
+            "Model sheet"
           ],
           "thumbs": {
             "captions": []
           },
+          "paragraphs": [
+            "The textures were created in Figma and Illustrator from the identity's own palette (Image 2), keeping the contrasts and the gradient transitions between near-pastel colors that make the characters seem to glow or give off a soft light in the areas where the paint is lighter."
+          ],
           "images": [
-            "Final characters: Jemmy, Nina, Haggy, Lac and Ali, in 3D rendering.",
-            "Characters with their descriptions: Ali is serenity, Jemmy is lyricism, Lac is tenderness, Nina is the pilgrim and Haggy is escapism."
+            "Photo of the computer screen with Haggy modeled in Blender and the gradient textures beside her.",
+            "Blender capture: Nina's original illustration next to her 3D model.",
+            "Photo of the computer screen with Jemmy's model in Blender, still untextured.",
+            "Photo of the computer screen with Jemmy textured in Blender and the gradient texture palette.",
+            "Blender capture with the five Pontinhas modeled side by side.",
+            "Photo of the computer screen with Nina's illustration next to her 3D model in Blender."
           ]
         },
         "finalProject": {
           "title": "Final project",
+          "paragraphs": [
+            "The final project is made up of the 3D models of the Pontinhas soltas, with their textures, and the 3D printing tests."
+          ],
           "images": []
+        },
+        "tools": {
+          "title": "Tools used",
+          "items": [
+            "Blender (version 4.5)",
+            "Autodesk Sketchbook",
+            "Adobe Illustrator",
+            "Figma",
+            "Cura"
+          ]
+        },
+        "showcase": {
+          "label": "Pontinhas soltas in 3D and 2D",
+          "names": [
+            "Jemmy",
+            "Nina",
+            "Haggy",
+            "Lac",
+            "Ali"
+          ]
+        },
+        "characterCards": {
+          "label": "Characters and their concepts",
+          "list": [
+            {
+              "name": "Ali",
+              "lines": [
+                "The bear has a serene expression, with colors that recall nature.",
+                "Ali is serenity!"
+              ]
+            },
+            {
+              "name": "Jemmy",
+              "lines": [
+                "Octopus ink was used for decades for writing. Jemmy is lyricism!"
+              ]
+            },
+            {
+              "name": "Lac",
+              "lines": [
+                "The pink mouse with a sleepy expression stands for coziness.",
+                "Lac is tenderness!"
+              ]
+            },
+            {
+              "name": "Nina",
+              "lines": [
+                "A bird known for migrating in childhood.",
+                "Nina is a pilgrim!"
+              ]
+            },
+            {
+              "name": "Haggy",
+              "lines": [
+                "In many depictions, the rabbit symbolizes curiosity and dreamlike thinking.",
+                "Haggy is escapism!"
+              ]
+            }
+          ]
         }
       },
+      "aiNote": "* No AI image generation tool was used for the visual work (sketches, vectors, illustrations…) in this project.",
       "thanks": "Thank you for making it this far!"
     }
   },

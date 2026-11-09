@@ -91,6 +91,8 @@ const projectMeta: ProjectMeta[] = [
     accent: 'pink',
     coverImage: '/images/projects/pontinhas-soltas/cover.png',
     grid: { column: 1, aspect: '612 / 230', objectPosition: 'left center', descLines: 1 },
+    layout: 'wide',
+    opensAsPage: true,
   },
 ];
 

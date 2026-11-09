@@ -360,35 +360,127 @@
       "subtitle": "Pontinhas soltas",
       "cardTitle": "Pontinhas soltas",
       "description": "Design e modelagem 3D de personagens em torno de uma identidade de pontos soltos. (PLACEHOLDER)",
-      "intro": "As “Pontinhas soltas” são uma representação da extensão do projeto de marca “Pontos sem nó”. Elaboradas como personas atribuídas às palavras concito da marca, a caracterização delas busca transmitir conforto e fazer parte de contextos casuais.\n\nO objetivo central de ter uma extensão relativa à elas é que (PLACEHOLDER)",
-      "tags": ["Pessoal", "Design de Personagens"],
+      "intro": "Este trabalho é uma extensão do manual de identidade visual “Pontos sem nó” e trata da passagem das “Pontinhas soltas”, as personagens imaginárias que apoiam a marca, para o 3D. Mais do que um projeto em si, ele foi uma forma de dar volume às bonequinhas e entender como elas se comportariam fora do plano, mantendo-se fiéis às ilustrações originais.",
+      "tags": [
+        "Pessoal",
+        "Modelagem 3D",
+        "Projeto autoral",
+        "Baixa complexidade"
+      ],
+      "heroAlt": "Jemmy, Lac, Haggy, Nina e Ali, as Pontinhas soltas em 3D, lado a lado sobre um fundo azul-escuro com luzes coloridas.",
+      "gallery": {
+        "showcaseCaption": "Personagens em 3D e em 2D",
+        "showcaseAlt": "Card das Pontinhas soltas: em cima, Jemmy, Nina, Haggy, Lac e Ali modeladas em 3D; embaixo, as mesmas personagens nas ilustrações originais, com o nome e o ícone de cada uma.",
+        "flyingCaption": "Ilustrações das personagens",
+        "flyingAlt": "Ilustrações das personagens: cinco Pontinhas voando em roda e duas caixinhas de música com bailarinas.",
+        "turnaroundsCaption": "Turnarounds",
+        "turnaroundsAlt": "Turnarounds de Ali, Nina e Jemmy: cada uma de frente, de três quartos e de lado, virada para a direita (D) e para a esquerda (E).",
+        "headsCaption": "Estudos de cabeças e corpos",
+        "headsAlt": "Estudos das personagens: cabeças e corpos inteiros de Haggy, Ali, Jemmy, Nina e Lac.",
+        "dancingCaption": "Pontinhas dançando",
+        "dancingAlt": "Sketches das cinco Pontinhas dançando em fila.",
+        "cardsCaption": "Personagens e seus conceitos",
+        "cardsAlt": "Cards das personagens em 3D com seus conceitos: Ali é serenidade, Jemmy é lirismo, Lac é ternura, Nina é peregrina e Haggy é escapismo."
+      },
       "sections": {
         "creationProcess": {
           "title": "Processo de criação",
           "paragraphs": [
-            "Desenvolvido na disciplina de Design de Interfaces Gráficas (Unifor), o desafio foi criar um Design System escalável e fluxos de usabilidade coesos. Priorizei requisitos básicos, como as atividades práticas, para garantir a funcionalidade antes de avançar para interações complexas de banda. Em três semanas, finalizei toda a interface, ativos e animações, focando na otimização da prototipagem. (PLACEHOLDER)"
+            "As personagens representam cada uma conceitos da marca: ternura, lirismo, escapismo, serenidade e peregrino, e isso orientou a escolha de forma, cor, espécie e expressão delas. Diferente dos modelos lowpoly que costumo fazer para experiências em VR, aqui as bonequinhas foram modeladas em mais subdivisões no Blender, buscando ser bem fiéis às imagens originais. As bordas mais suaves e circulares trazem esse espaço de maciez e, ao mesmo tempo, uma textura um tanto plástica. Elas não são bonecas de pano, mas a ideia é que a figura delas conforte aquele que a ver, como se fossem de pano, pelúcias."
           ],
-          "images": [
-            "Sistema de identidade visual em seis etapas: brainstorming de palavras conceito, análise de painel semântico, criação de esboços, testes gráficos, teste de impressão e manual.",
-            "Capturas do processo de modelagem 3D dos personagens no Blender.",
-            "Mais capturas do processo de modelagem 3D dos personagens no Blender.",
-            "Biblioteca de personagens: turnarounds (frente, 3/4 e lado) de Ali, Nina, Jemmy e demais personagens."
-          ]
+          "images": []
         },
         "prototyping": {
           "title": "Prototipagem",
-          "tabs": ["Design de personagens", "Personas", "Palavras Conceito", "Blender"],
-          "thumbs": { "captions": [] },
+          "tabs": [
+            "Design de personagens",
+            "Personas",
+            "Modelagem 3D",
+            "Model sheet"
+          ],
+          "thumbs": {
+            "captions": []
+          },
+          "paragraphs": [
+            "As texturas foram criadas no Figma e no Illustrator a partir da paleta da própria identidade (Imagem 2), preservando os contrastes e as transições em degradê de cores próximas ao pastel que fazem as personagens parecerem brilhar ou ter alguma emissão de luz leve em determinadas regiões onde a tinta é mais clara."
+          ],
           "images": [
-            "Personagens finais: Jemmy, Nina, Haggy, Lac e Ali, em renderização 3D.",
-            "Personagens com suas descrições: Ali é serenidade, Jemmy é lirismo, Lac é ternura, Nina é peregrina e Haggy é escapismo."
+            "Foto da tela do computador com Haggy modelada no Blender e as texturas em degradê ao lado.",
+            "Captura do Blender: a ilustração original de Nina ao lado do modelo 3D dela.",
+            "Foto da tela do computador com o modelo de Jemmy no Blender, ainda sem textura.",
+            "Foto da tela do computador com Jemmy texturizada no Blender e a paleta de texturas em degradê.",
+            "Captura do Blender com as cinco Pontinhas modeladas lado a lado.",
+            "Foto da tela do computador com a ilustração de Nina ao lado do modelo 3D dela no Blender."
           ]
         },
         "finalProject": {
           "title": "Projeto final",
+          "paragraphs": [
+            "O projeto final é composto pelos modelos 3D das Pontinhas soltas, com suas texturas, e pelos testes de impressão 3D."
+          ],
           "images": []
+        },
+        "tools": {
+          "title": "Ferramentas utilizadas",
+          "items": [
+            "Blender (versão 4.5)",
+            "Autodesk Sketchbook",
+            "Adobe Illustrator",
+            "Figma",
+            "Cura"
+          ]
+        },
+        "showcase": {
+          "label": "Pontinhas soltas em 3D e em 2D",
+          "names": [
+            "Jemmy",
+            "Nina",
+            "Haggy",
+            "Lac",
+            "Ali"
+          ]
+        },
+        "characterCards": {
+          "label": "Personagens e seus conceitos",
+          "list": [
+            {
+              "name": "Ali",
+              "lines": [
+                "O urso possui expressão serena, com cores que lembram a natureza.",
+                "Ali é serenidade!"
+              ]
+            },
+            {
+              "name": "Jemmy",
+              "lines": [
+                "A tinta do polvo foi usada por décadas para escrita. Jemmy é lirismo!"
+              ]
+            },
+            {
+              "name": "Lac",
+              "lines": [
+                "O rato na cor rosa e expressão de sono representam aconchego.",
+                "Lac é ternura!"
+              ]
+            },
+            {
+              "name": "Nina",
+              "lines": [
+                "Ave conhecida pela sua migração na infância.",
+                "Nina é Peregrina!"
+              ]
+            },
+            {
+              "name": "Haggy",
+              "lines": [
+                "O coelho simboliza em muitas representações curiosidade, pensamento onírico.",
+                "Haggy é escapismo!"
+              ]
+            }
+          ]
         }
       },
+      "aiNote": "* Não foi utilizado nenhum agente IA de geração de imagens para as criações visuais (sketches, vetores, ilustrações…) neste projeto.",
       "thanks": "Obrigada por ter chegado até aqui!"
     }
   },
