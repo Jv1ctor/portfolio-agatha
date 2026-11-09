@@ -20,6 +20,11 @@ const smooth = (t: number) => {
  *
  * O evento de scroll é escutado em captura no documento para valer também
  * dentro do modal de projeto (a folha do modal é quem rola, não a janela).
+ *
+ * O progresso de cada linha é escrito como `--e` direto no elemento da linha
+ * (não depende de herança de `--e1/--e2` do pai), e o layout é refeito quando a
+ * largura da pilha muda sem `resize` da janela (folha do modal, barra de
+ * rolagem, fontes) via ResizeObserver.
  */
 export function CajuStack({ label, children }: { label: string; children: ReactNode }) {
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -38,9 +43,18 @@ export function CajuStack({ label, children }: { label: string; children: ReactN
     let raf = 0;
 
     const pinned = () => !reduced.matches && vh <= 1500;
+    // linhas 2 e 3 da pilha (filhos com --o no CSS); a linha 1 fica parada
+    const rows = (k: 1 | 2) =>
+      Array.from(stack.children).filter((c): c is HTMLElement => c.classList.contains(k === 1 ? s.sRow1 : s.sRow2));
+    const row1 = rows(1);
+    const row2 = rows(2);
     const paint = () => {
-      stack.style.setProperty('--e1', smooth((sp - 0.08) / 0.38).toFixed(4));
-      stack.style.setProperty('--e2', smooth((sp - 0.54) / 0.38).toFixed(4));
+      const e1 = smooth((sp - 0.08) / 0.38).toFixed(4);
+      const e2 = smooth((sp - 0.54) / 0.38).toFixed(4);
+      stack.style.setProperty('--e1', e1);
+      stack.style.setProperty('--e2', e2);
+      for (const el of row1) el.style.setProperty('--e', e1);
+      for (const el of row2) el.style.setProperty('--e', e2);
     };
     const loop = () => {
       let next = sp + (tp - sp) * 0.08;
@@ -78,11 +92,19 @@ export function CajuStack({ label, children }: { label: string; children: ReactN
     };
 
     layout();
+    let lastW = frame.offsetWidth;
+    const ro = new ResizeObserver(() => {
+      if (frame.offsetWidth === lastW) return;
+      lastW = frame.offsetWidth;
+      layout();
+    });
+    ro.observe(frame);
     document.addEventListener('scroll', onScroll, { passive: true, capture: true });
     window.addEventListener('resize', layout);
     reduced.addEventListener('change', layout);
     return () => {
       cancelAnimationFrame(raf);
+      ro.disconnect();
       document.removeEventListener('scroll', onScroll, { capture: true });
       window.removeEventListener('resize', layout);
       reduced.removeEventListener('change', layout);
