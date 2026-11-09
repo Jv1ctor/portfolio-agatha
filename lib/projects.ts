@@ -38,6 +38,7 @@ export const slugToKey = {
   'batuco-tuco': 'batucoTuco',
   'pontinhas-soltas': 'pontinhasSoltas',
   'identidade-evento-15-anos': 'identidadeEvento15Anos',
+  caju: 'caju',
 } as const;
 
 export type ProjectI18nKey = (typeof slugToKey)[Slug];
@@ -87,6 +88,15 @@ const projectMeta: ProjectMeta[] = [
     accent: 'pink',
     coverImage: '/images/projects/identidade-evento-15-anos/cover.webp',
     grid: { column: 2, aspect: '612 / 590', objectPosition: 'center', descLines: 3 },
+  },
+  {
+    slug: 'caju',
+    status: 'concluido',
+    categories: ['grafico'],
+    date: '12.04.2025',
+    accent: 'pink',
+    coverImage: '/images/projects/caju/livro-capa.jpg',
+    grid: { column: 2, aspect: '612 / 344', objectPosition: 'center 30%', descLines: 2 },
   },
 ];
 
