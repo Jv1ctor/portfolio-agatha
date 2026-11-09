@@ -89,8 +89,11 @@ const projectMeta: ProjectMeta[] = [
     categories: ['3d'],
     date: '08.12.2025',
     accent: 'pink',
-    coverImage: '/images/projects/pontinhas-soltas/cover.png',
-    grid: { column: 1, aspect: '612 / 230', objectPosition: 'left center', descLines: 1 },
+    // Capa = imagem principal do case (1352 × 459). Centralizada: nos cards largos
+    // (/projetos, /3d) aparecem as cinco Pontinhas; no 16:9 do "Talvez você goste…"
+    // o recorte fica nas três centrais (Lac, Haggy e Nina).
+    coverImage: '/images/projects/pontinhas-soltas/hero.webp',
+    grid: { column: 1, aspect: '612 / 230', objectPosition: 'center', descLines: 1 },
     layout: 'wide',
     opensAsPage: true,
   },
