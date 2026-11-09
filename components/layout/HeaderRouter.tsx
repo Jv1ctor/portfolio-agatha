@@ -37,8 +37,10 @@ export function HeaderRouter({
   // Figma não tem header (só a barra de voltar, desenhada pelo próprio case). Com o modal
   // aberto os segmentos continuam ['projetos'].
   const isFullPage = segments.length === 2 && segments[0] === 'projetos' && isFullPageCase(segments[1]);
+  // Estudos (Figma 17:2174): também sem header — a página desenha a própria barra.
+  const isStudies = segments.length === 1 && segments[0] === 'estudos';
 
-  if (isFullPage) return null;
+  if (isFullPage || isStudies) return null;
   if (isHome || isProjectsIndex) {
     return (
       <HomeHeader

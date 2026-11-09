@@ -54,36 +54,48 @@ export function DashedPill({ children }: { children: ReactNode }) {
   );
 }
 
+/** Balão rosa do Figma novo: fundo #ffe9f2, rabinho no canto inferior direito, sombra interna rosa. */
+const bubbleSkin =
+  "flex h-[98px] items-center justify-center rounded-[60px_60px_0_60px] bg-[#ffe9f2] pl-5 pr-6 text-center text-[0.875rem] font-normal leading-[1.1875] text-[color:var(--color-blue-darkest)] shadow-[inset_-3px_-4px_9.5px_1px_#f4aecc]";
+
 /**
- * Balão de agradecimento dos cases 'wide' (Figma node 17:2842: fundo #ffe9f2,
- * 160 × 98, ponta no canto inferior direito, sombra interna rosa) + avatar da
- * Ágatha. O avatar é PNG @2x exportado do Figma já girado (10.99°), na caixa
- * de 138.74 × 132.09 do Figma: o SVG tinha grão (feTurbulence), que o Chrome
- * desenha bem mais grosso que o Figma.
+ * Balão + avatar da Ágatha do Figma novo. O avatar é PNG @2x exportado do Figma
+ * já girado (10.99°), na caixa de 138.74 × 132.09 do Figma: o SVG tinha grão
+ * (feTurbulence), que o Chrome desenha bem mais grosso que o Figma.
+ *
+ * - `size="md"` (padrão): agradecimento dos cases 'wide' (node 17:2842, 160 × 98),
+ *   alinhado à direita, 28px abaixo do corpo.
+ * - `size="sm"`: balão do topo da página de Estudos (node 17:2282, 104 × 98,
+ *   padding 32/24/26/20). O texto ocupa 73px, mais que os 60 de miolo: fica
+ *   centrado e transborda igual para os dois lados, como no Figma. O wrapper fica
+ *   por conta de quem chama (`className`).
  */
-function ThanksBubble({
+export function ThanksBubble({
   text,
+  size = "md",
   className,
   bubbleClassName,
   faceClassName,
 }: {
   text: string;
+  size?: "md" | "sm";
   className?: string;
   /** Animações da página completa (balão que "estoura", bonequinha balançando). */
   bubbleClassName?: string;
   faceClassName?: string;
 }) {
+  const wrapper = size === "sm" ? "flex items-center gap-2" : "mt-7 flex items-center justify-end gap-2";
   return (
-    <div className={withMotion("mt-7 flex items-center justify-end gap-2", className)}>
-      <p
-        className={withMotion(
-          "flex h-[98px] w-[160px] items-center justify-center rounded-[60px_60px_0_60px] bg-[#ffe9f2] pl-5 pr-6 text-center text-[0.875rem] font-normal leading-[1.1875] text-[color:var(--color-blue-darkest)] shadow-[inset_-3px_-4px_9.5px_1px_#f4aecc]",
-          bubbleClassName,
-        )}
-        style={bodyFont}
-      >
-        {text}
-      </p>
+    <div className={withMotion(wrapper, className)}>
+      {size === "sm" ? (
+        <p className={withMotion(`${bubbleSkin} w-[104px] shrink-0 overflow-hidden`, bubbleClassName)} style={bodyFont}>
+          <span className="w-[73px] shrink-0">{text}</span>
+        </p>
+      ) : (
+        <p className={withMotion(`${bubbleSkin} w-[160px]`, bubbleClassName)} style={bodyFont}>
+          {text}
+        </p>
+      )}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/images/avatar-agatha.png"
