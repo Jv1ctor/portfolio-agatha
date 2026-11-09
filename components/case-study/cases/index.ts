@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import type { LocalizedProject, Slug } from "@/lib/projects";
+import type { CaseAsideLayout } from "@/components/case-study/CaseShell";
 import { PontosSemNoCase } from "./PontosSemNoCase";
 import { BatucoTucoCase } from "./BatucoTucoCase";
 import { PontinhasSoltasCase } from "./PontinhasSoltasCase";
@@ -22,3 +23,24 @@ export const caseBodies: Record<
   "pontinhas-soltas": PontinhasSoltasCase,
   "identidade-evento-15-anos": IdentidadeEventoCase,
 };
+
+/** Partes do topo do case que ficam fora do corpo (props extras do `CaseShell`). */
+export type CaseSlots = {
+  /** Substitui a capa padrão (ex.: capa clicável que abre o lightbox). */
+  cover?: ReactNode;
+  aside?: ReactNode;
+  asideLayout?: CaseAsideLayout;
+  headerExtra?: ReactNode;
+};
+
+/**
+ * Slug → slots do topo. A página completa e o modal chamam a mesma função, então
+ * o case fica igual nos dois. `coverClassName` é a animação de entrada da capa
+ * no modal (`heroIn`).
+ */
+export type CaseSlotsFn = (
+  project: LocalizedProject,
+  opts: { coverClassName?: string },
+) => CaseSlots;
+
+export const caseSlots: Partial<Record<Slug, CaseSlotsFn>> = {};

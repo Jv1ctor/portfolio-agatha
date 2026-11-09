@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import type { Dictionary } from "@/i18n/dictionaries";
 import type { LocalizedProject, ProjectStatus } from "@/lib/projects";
 
@@ -38,11 +38,21 @@ function withMotion(base: string, extra?: string) {
   return extra ? `${base} ${extra}` : base;
 }
 
+/**
+ * Proporção das duas colunas do topo quando há `aside`, em px do frame do Figma
+ * (coluna do cabeçalho | coluna do aside | vão entre elas). Ex.: Pontos sem nó
+ * 660 | 588 | 104; Caju 688 | 631 | 32.
+ */
+export type CaseAsideLayout = { main: number; aside: number; gap: number };
+
 export function CaseShell({
   project,
   dict,
   cover,
   motion,
+  aside,
+  asideLayout = { main: 660, aside: 588, gap: 104 },
+  headerExtra,
   children,
 }: {
   project: LocalizedProject;
@@ -50,24 +60,20 @@ export function CaseShell({
   cover?: ReactNode;
   /** Classes de animação de entrada (usadas pelo modal): capa, cabeçalho e corpo. */
   motion?: { cover: string; header: string; body: string };
+  /**
+   * Coluna à direita do cabeçalho (título, tags, intro), como nos frames em que
+   * o topo do case é dividido em dois. Sem `aside` o cabeçalho ocupa a largura toda.
+   */
+  aside?: ReactNode;
+  asideLayout?: CaseAsideLayout;
+  /** Conteúdo extra na coluna do cabeçalho, logo abaixo da intro. */
+  headerExtra?: ReactNode;
   children: ReactNode;
 }) {
   const intro = project.intro ?? project.description;
 
-  return (
-    <article className="container-case pt-16 pb-12">
-      {/* Coluna do Figma (`.container-case`): 66px entre o header e a capa,
-          32px entre os blocos. */}
-      {cover ??
-        (project.coverImage && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={project.coverImage}
-            alt={dict.projects.coverAlt.replace("{title}", project.title)}
-            className={withMotion("shadow-card block w-full rounded-[8px]", motion?.cover)}
-          />
-        ))}
-
+  const header = (
+    <>
       {/* Subtítulo (Clother Bold 26px) + status */}
       <div
         className={withMotion(
@@ -113,6 +119,44 @@ export function CaseShell({
             <p key={i}>{para}</p>
           ))}
         </div>
+      )}
+
+      {headerExtra && (
+        <div className={withMotion("mt-8", motion?.header)}>{headerExtra}</div>
+      )}
+    </>
+  );
+
+  return (
+    <article className="container-case pt-16 pb-12">
+      {/* Coluna do Figma (`.container-case`): 66px entre o header e a capa,
+          32px entre os blocos. */}
+      {cover ??
+        (project.coverImage && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={project.coverImage}
+            alt={dict.projects.coverAlt.replace("{title}", project.title)}
+            className={withMotion("shadow-card block w-full rounded-[8px]", motion?.cover)}
+          />
+        ))}
+
+      {aside ? (
+        // Duas colunas a partir de md; o vão é proporcional à coluna do Figma (1352px).
+        <div
+          className="grid grid-cols-1 gap-y-8 md:items-start md:gap-y-0 md:[grid-template-columns:var(--case-cols)] md:[column-gap:var(--case-gap)]"
+          style={
+            {
+              "--case-cols": `minmax(0, ${asideLayout.main}fr) minmax(0, ${asideLayout.aside}fr)`,
+              "--case-gap": `${((asideLayout.gap / 1352) * 100).toFixed(3)}%`,
+            } as CSSProperties
+          }
+        >
+          <div>{header}</div>
+          <div className={withMotion("md:mt-8", motion?.header)}>{aside}</div>
+        </div>
+      ) : (
+        header
       )}
 
       <div className={withMotion("mt-8 flex flex-col gap-8", motion?.body)}>
