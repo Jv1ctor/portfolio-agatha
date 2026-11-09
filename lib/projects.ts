@@ -38,6 +38,7 @@ export const slugToKey = {
   'batuco-tuco': 'batucoTuco',
   'pontinhas-soltas': 'pontinhasSoltas',
   'identidade-evento-15-anos': 'identidadeEvento15Anos',
+  cascavel: 'cascavel',
 } as const;
 
 export type ProjectI18nKey = (typeof slugToKey)[Slug];
@@ -87,6 +88,14 @@ const projectMeta: ProjectMeta[] = [
     accent: 'pink',
     coverImage: '/images/projects/identidade-evento-15-anos/cover.webp',
     grid: { column: 2, aspect: '612 / 590', objectPosition: 'center', descLines: 3 },
+  },
+  {
+    slug: 'cascavel',
+    status: 'concluido',
+    categories: ['interacao'],
+    accent: 'orange',
+    coverImage: '/images/projects/cascavel/hero.jpg',
+    grid: { column: 2, aspect: '612 / 344', objectPosition: 'center', descLines: 2 },
   },
 ];
 
