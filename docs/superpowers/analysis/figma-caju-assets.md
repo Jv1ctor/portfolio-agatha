@@ -16,10 +16,12 @@ dos nós de imagem, JPEG q84 progressivo, largura máx 2000px, em
 | `rafe-1.jpg`, `rafe-2.jpg` | 194, 2551, 669, 367 cada | 17:5431/5432 | Rafes das páginas |
 | `pintura-tablet.jpg`, `pintura-clip-studio.jpg` | 194/880, 2975, 666, 761 | 17:5438/5441.. | Pintura das páginas e diagramação |
 | `diagramacao-indesign.jpg` | 877, 2975, 666, 451 | 17:5442 | Diagramação no InDesign |
-| `livro-pag-1..8.jpg` | 189/886, 4371/4676/4981, 662, 662 | 17:5475..5481 | Pilha sticky: 6 páginas reais do livro |
+| `livro-pag-1..6.jpg` | 189/886, 4371/4676/4981, 662, 662 | 17:5475/5476/5477 (col 0), 17:5479/5480/5481 (col 1) | Pilha sticky: 6 páginas reais na ordem do Figma |
 | `livro-capa.jpg` | — | — | Capa do flipbook (face inicial) |
 | `impresso-1..3.jpg` | 188, 3922, 521/521/293, 391 | 17:5469..5471 | Projeto final — mídia impressa |
 | `quadro-processo.jpg` | 556, 5722, 630, 630 | 17:5487 | Quadro final (arte) |
+| `mascote.png` | 1431, 6485, 139, 132 | 17:5492 | Rosto da mascote da trava de leitura, PNG com fundo transparente (flood fill sobre o creme #F9F3EA) |
+| `paleta.png` | 1133, 1045, 175, 199 | 17:5263 | Swatches da paleta de cores (azuis e lilases) usados no card "Paleta de cores" |
 
 O flipbook usa 32 faces: capa + 30 páginas (pool cíclico das páginas reais +
 exemplos) + contracapa. Isso está documentado no código (`CajuCase.tsx`).
