@@ -133,7 +133,9 @@
 .stN {
   flex: none;
   font-family: var(--font-display);
-  font-weight: 800;
+  /* o kit Adobe só traz a AM Novecento 400; outro peso vira negrito sintético */
+  font-weight: 400;
+  font-synthesis: none;
   font-size: max(1.75rem, 6.2cqw);
   line-height: 0.9;
   color: var(--color-ink);
