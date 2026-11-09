@@ -48,7 +48,10 @@ export async function generateMetadata({
   };
 }
 
-const TYPEKIT_ID = process.env.NEXT_PUBLIC_TYPEKIT_ID;
+// Kit Adobe Fonts (AM Novecento 400 + Clother 300/400/700, com itálicos). O ID
+// é público (aparece no HTML), então fica como padrão no código; a env var
+// NEXT_PUBLIC_TYPEKIT_ID só serve para trocar de kit.
+const TYPEKIT_ID = process.env.NEXT_PUBLIC_TYPEKIT_ID || 'zey0cjx';
 
 // Nunito (OFL) — textos do app no case Batuco-tuco. Arquivo variável (400–800,
 // subset latin do Google Fonts) versionado no repo: o next/font/google baixa a
@@ -76,18 +79,11 @@ export default async function RootLayout({
   return (
     <html lang={lang} className={`h-full ${nunito.variable}`} suppressHydrationWarning>
       <head>
-        {/* Adobe Fonts (Typekit) — define NEXT_PUBLIC_TYPEKIT_ID em .env.local
-            com o ID do kit. Sem essa variável, o site cai no fallback
-            web-safe definido em globals.css. */}
-        {TYPEKIT_ID ? (
-          <>
-            <link rel="preconnect" href="https://use.typekit.net" />
-            <link
-              rel="stylesheet"
-              href={`https://use.typekit.net/${TYPEKIT_ID}.css`}
-            />
-          </>
-        ) : null}
+        {/* Adobe Fonts (Typekit): am-novecento e clother, consumidas por
+            --font-display / --font-body em globals.css. */}
+        <link rel="preconnect" href="https://use.typekit.net" crossOrigin="" />
+        <link rel="preconnect" href="https://p.typekit.net" crossOrigin="" />
+        <link rel="stylesheet" href={`https://use.typekit.net/${TYPEKIT_ID}.css`} />
       </head>
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <I18nProvider dict={dict} locale={lang}>
