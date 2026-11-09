@@ -27,6 +27,14 @@
   --color-pink: #e4a4c3;
   --color-pink-soft: #f1d2e2;
 
+  /* Paleta do case Batuco-tuco (Figma "MacBook Pro 16 - 10") */
+  --color-batuco-orange: #f6b164;  /* faixas e cards de assets          */
+  --color-batuco-brown: #6e4e2d;   /* "MARROIM B" — texto do app         */
+  --color-batuco-cream: #fdf9ed;   /* fundo das apresentações            */
+  --color-batuco-butter: #fff1c8;  /* pills e cards claros               */
+  --color-batuco-yellow: #fef99e;  /* logo e cabeçalhos do diagrama      */
+  --color-batuco-peach: #ffdc97;   /* pill de pontos                     */
+
   /* Rosa clarinho que sim — fundo da seção de estudos (Figma #F9CEDC) */
   --color-pink-light: #f9cedc;
 
@@ -62,9 +70,14 @@
 
   /* Type — Adobe Fonts (Typekit) — kit zey0cjx
      AM Novecento (display, títulos): weight 400
-     Clother (corpo, subtítulos): weight 400 regular, 700 bold, italic disponível */
+     Clother (corpo, subtítulos): weight 400 regular, 700 bold, italic disponível
+     AM Futurismo (case Batuco-tuco): weight 400 */
   --font-display: "am-novecento", "Arial Narrow", sans-serif;
   --font-body: "clother", "Helvetica Neue", Arial, sans-serif;
+  /* Case Batuco-tuco: Nunito via next/font (layout, --font-nunito-next) e
+     AM Futurismo regular (400), que vem do mesmo kit zey0cjx. */
+  --font-nunito: var(--font-nunito-next), "Nunito", "Helvetica Neue", Arial, sans-serif;
+  --font-futurismo: "am-futurismo", var(--font-display);
 
   /* Curvas de animação (spec §4) */
   --ease-out: cubic-bezier(.2,.8,.2,1);
@@ -87,9 +100,17 @@
   --color-pink: var(--color-pink);
   --color-pink-soft: var(--color-pink-soft);
   --color-pink-light: var(--color-pink-light);
+  --color-batuco-orange: var(--color-batuco-orange);
+  --color-batuco-brown: var(--color-batuco-brown);
+  --color-batuco-cream: var(--color-batuco-cream);
+  --color-batuco-butter: var(--color-batuco-butter);
+  --color-batuco-yellow: var(--color-batuco-yellow);
+  --color-batuco-peach: var(--color-batuco-peach);
 
   --font-display: var(--font-display);
   --font-body: var(--font-body);
+  --font-nunito: var(--font-nunito);
+  --font-futurismo: var(--font-futurismo);
 }
 
 * {
@@ -140,6 +161,16 @@ a {
 .container-case {
   width: min(1354px, calc(100% - 2 * max(1.5rem, 10.9vw)));
   margin-inline: auto;
+}
+
+/* Variante larga para cases com layout 'wide' (coluna de 1352px do Figma
+   "MacBook Pro 16"). Mesmo padding do container-narrow, para alinhar as
+   bordas no mobile; o max-width soma o padding de 2.5rem dos dois lados. */
+.container-wide {
+  width: 100%;
+  max-width: calc(1352px + 5rem);
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 5vw, 2.5rem);
 }
 
 /* Helpers de fundo/sombra — via classe (não inline) para reduzir

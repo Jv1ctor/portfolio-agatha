@@ -3,14 +3,18 @@ import type { LocalizedProject, Slug } from "@/lib/projects";
 import type { CaseAsideLayout } from "@/components/case-study/CaseShell";
 import { PontosSemNoCase } from "./PontosSemNoCase";
 import { BatucoTucoCase } from "./BatucoTucoCase";
+import { BatucoTucoHero } from "./BatucoTucoHero";
 import { PontinhasSoltasCase } from "./PontinhasSoltasCase";
+import { PontinhasSoltasHero } from "./PontinhasSoltasHero";
 import { IdentidadeEventoCase } from "./IdentidadeEventoCase";
 import { CajuCase, cajuSlots } from "./CajuCase";
 
 export {
   PontosSemNoCase,
   BatucoTucoCase,
+  BatucoTucoHero,
   PontinhasSoltasCase,
+  PontinhasSoltasHero,
   IdentidadeEventoCase,
   CajuCase,
 };
@@ -48,4 +52,15 @@ export type CaseSlotsFn = (
 
 export const caseSlots: Partial<Record<Slug, CaseSlotsFn>> = {
   caju: cajuSlots,
+};
+
+/**
+ * Slug → capa própria do case (no lugar da `<img>` do `coverImage`, que fica só
+ * no card). Página completa e modal usam a mesma, como em `caseBodies`.
+ */
+export const caseCovers: Partial<
+  Record<Slug, (props: { project: LocalizedProject }) => ReactNode>
+> = {
+  "batuco-tuco": BatucoTucoHero,
+  "pontinhas-soltas": PontinhasSoltasHero,
 };

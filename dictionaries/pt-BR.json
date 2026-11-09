@@ -161,34 +161,206 @@
       "subtitle": "Batuco-tuco App",
       "cardTitle": "Batuco-tuco",
       "description": "O Batuco-Tuco é uma aplicação mobile focada na gamificação da teoria musical e prática de instrumentos. Seu nome alude ao “batuque” e homenageia uma espécie brasileira e sua sonoridade, o tuco-tuco… (PLACEHOLDER)",
-      "intro": "O Batuco-Tuco é uma aplicação mobile focada na gamificação da teoria musical e prática de instrumentos. Seu nome alude ao “batuque” e homenageia uma espécie brasileira e sua sonoridade, o tuco-tuco, inspirando a temática lúdica e visual do projeto que transforma animais em instrumentistas habilidosos.\n\nO projeto foi desenvolvido como um estudo prático de interfaces gráficas e UX/UI. Para garantir uma evolução fluida com feedbacks visuais em tempo real, o processo envolveu a estruturação de mapas de conteúdo, construção de design system e aplicação de metodologias centradas no usuário.",
-      "tags": ["Acadêmico", "Design de Interfaces Gráficas"],
+      "intro": "A produção do Batuco-tuco muito se deu em função da oportunidade de integrar contextos lúdicos à experiência de aprendizado contínuo na área musical. Na disciplina de Design de Interfaces Gráficas, fomos desafiados a criar uma aplicação seguindo um processo de priorização de requisitos e gestão de projeto, buscando entender pontos de convergência e de divergência para trabalhar e entregar a aplicação seguindo o escopo estabelecido nessas etapas iniciais.\n\nO Batuco-Tuco é uma aplicação mobile focada na gamificação da teoria musical e prática de instrumentos. Seu nome alude ao \"batuque\" e homenageia uma espécie brasileira e sua sonoridade, o tuco-tuco, inspirando a temática lúdica e visual do projeto que transforma animais em instrumentistas habilidosos.\n\nO projeto foi desenvolvido como um estudo prático de interfaces gráficas e UX/UI. Para garantir uma evolução fluida com feedbacks visuais em tempo real, o processo envolveu a estruturação de mapas de conteúdo, construção de design system e aplicação de metodologias centradas no usuário.",
+      "tags": [
+        "Acadêmico",
+        "Design de Interfaces Gráficas",
+        "Projeto autoral",
+        "Média complexidade"
+      ],
+      "heroAlt": "Hanni, Yopi, Gunter, Cybele e Pepo tocando seus instrumentos juntos num palco iluminado.",
+      "lightbox": {
+        "processCaption": "Etapas do processo",
+        "processAlt": "Quadro das etapas do processo: 01 Perfil do usuário, 02 Requisitos, 03 Métodos, 04 Similares e 05 Prototipagem, com a cabeça da raposinha.",
+        "interfaceCaption": "Interface e assets",
+        "interfaceAlt": "Quadro Interface: telas do app em nove celulares, texto sobre os exercícios e o sistema de pontos e três personagens; quadro Assets com os itens da lojinha e seus preços em pontos.",
+        "charactersAlt": "Quadro dos personagens: Yopi, esquilinho baterista; Pepo, ursinho pianista; Hanni, raposinha violinista; Cybele, coelhinha no kalimba; Gunter, gatinho baixista.",
+        "finalAlt": "Apresentação final: logotipo Batuco-tuco, a frase “Sua expressão conta, e ela é saber.”, “Música é saber.” e dois celulares com o app."
+      },
       "sections": {
         "creationProcess": {
           "title": "Processo de criação",
           "paragraphs": [
-            "Desenvolvido na disciplina de Design de Interfaces Gráficas (Unifor), o desafio foi criar um Design System escalável e fluxos de usabilidade coesos. Priorizei requisitos básicos, como as atividades práticas, para garantir a funcionalidade antes de avançar para interações complexas de banda. Em três semanas, finalizei toda a interface, ativos e animações, focando na otimização da prototipagem."
+            "O desafio foi criar um design system escalável e fluxos de usabilidade coesos. Para isso, o processo foi dividido em cinco etapas, em que cada uma alimentava a seguinte: o perfil do usuário (persona, análise de entrevista e histórias do usuário) mostrou quem usaria o app e o que esperava dele; os requisitos traduziram essas expectativas em funcionalidades essenciais, desejáveis e de performance; os métodos (priorização de requisitos, matriz de atribuição de valor e confiança, mapa de conteúdo e fluxogramas) definiram o escopo e a estrutura do app; os similares (benchmarking, rabiscoframes e design system) orientaram as decisões visuais; e a prototipagem deu forma a tudo isso (etapa seguinte).",
+            "Priorizei requisitos básicos, como as atividades práticas, para garantir a funcionalidade antes de avançar para interações complexas de banda. Nas matrizes, percebemos que tocar em tempo real com outros usuários seria pouco viável, pois a sincronização dependeria da rede de cada um."
           ],
           "images": [
-            "Mapa do processo de Interfaces Gráficas: perfil do usuário, requisitos, métodos, similares e prototipagem.",
-            "Rabiscos e wireframes de baixa fidelidade das telas do app."
-          ]
+            "Painéis de planejamento: apresentação do projeto, persona, requisitos, histórias do usuário, fluxograma e matriz de priorização por nível de confiança."
+          ],
+          "planningCaption": "Painéis de planejamento",
+          "diagram": {
+            "label": "Etapas do processo de criação",
+            "steps": [
+              {
+                "label": "Perfil do usuário",
+                "items": [
+                  "Construção de Persona",
+                  "Análise de entrevista",
+                  "Histórias do usuário"
+                ]
+              },
+              {
+                "label": "Requisitos",
+                "items": [
+                  "Requisitos funcionais",
+                  "Requisitos essenciais",
+                  "Requisitos de performance",
+                  "Requisitos desejáveis"
+                ]
+              },
+              {
+                "label": "Métodos",
+                "items": [
+                  "Priorização de requisitos",
+                  "Matriz de atribuição de confiança",
+                  "Fluxograma",
+                  "Mapa de conteúdo"
+                ]
+              },
+              {
+                "label": "Similares",
+                "items": [
+                  "Benchmarking",
+                  "Rabiscoframe",
+                  "Design System"
+                ]
+              },
+              {
+                "label": "Prototipagem",
+                "items": [
+                  "Telas de baixa fidelidade",
+                  "Telas de alta fidelidade",
+                  "Protótipo no figma",
+                  "Ilustrações e assets"
+                ]
+              }
+            ]
+          }
         },
+        "sketches": [
+          {
+            "caption": "Esboços de personagens",
+            "alt": "Página de caderno com esboços a lápis dos personagens e seus instrumentos."
+          },
+          {
+            "caption": "Rabiscoframe de home e perfil",
+            "alt": "Rabiscoframe a lápis das telas de home e de perfil, com anotações."
+          },
+          {
+            "caption": "Rabiscoframe de home e atividades",
+            "alt": "Rabiscoframe a lápis das telas de home e de atividades."
+          },
+          {
+            "caption": "Rabiscoframe de entrada",
+            "alt": "Rabiscoframe a lápis das telas de entrada do app."
+          }
+        ],
         "prototyping": {
           "title": "Prototipagem",
-          "tabs": ["Histórias do usuário", "Mapa de conteúdo", "Matriz A.C.", "Design System"],
-          "thumbs": { "captions": [] },
+          "tabs": [
+            "Histórias do usuário",
+            "Mapa de conteúdo",
+            "Matriz A.C.",
+            "Design System"
+          ],
+          "thumbs": {
+            "captions": []
+          },
+          "paragraphs": [
+            "Das telas de baixa fidelidade ao protótipo de alta fidelidade no Figma, os fluxos principais da aplicação se estruturam na realização de exercícios teóricos e sistema de pontos. Os exercícios realizados pelo usuário resultam no ganho de moedas para a compra de novos itens para o personagem que o representa no jogo, como laço de fita, boné, clave de sol e joaninha.",
+            "Os personagens são o Yopi, esquilinho baterista; o Pepo, ursinho pianista; a Hanni, raposinha violinista; a Cybele, coelhinha no kalimba; e o Gunter, gatinho baixista. Eles tiveram muita inspiração de jogos da Nintendo e mobile cozy conhecidos, como Animal Crossing e Cats and Soup, em uma estética e abordagem mais “soft” e “cozy”. Em três semanas, finalizei toda a interface, os assets e as animações, focando na otimização da prototipagem."
+          ],
           "images": [
-            "Interface do app e biblioteca de assets: telas de exercícios, sistema de pontos e acessórios dos personagens.",
-            "Personagens do Batuco-tuco: Yopi, Pepo, Hanni, Cybele e Gunter, cada um com seu instrumento.",
-            "Apresentação final do Batuco-tuco: Música é saber, ludificação e pesquisa transformam o ensino."
+            "Tela inicial com a Hanni no palco, os dias da semana e as atividades diárias.",
+            "Tela de teoria musical com o progresso do usuário e os módulos de estudo.",
+            "Tela de exercício com uma pergunta sobre intervalos na partitura e as alternativas.",
+            "Guarda-roupas com a Hanni e os acessórios disponíveis.",
+            "Lojinha pedindo a confirmação da compra do laço de fita.",
+            "Perfil do usuário com interesses musicais e instrumentos.",
+            "Tela inicial com a Hanni e o Pepo tocando juntos.",
+            "Outra tela de exercício sobre intervalos.",
+            "Tela inicial com a Cybele no palco."
           ]
+        },
+        "interface": {
+          "title": "Interface",
+          "textBefore": "Os fluxos principais da aplicação se estruturam na realização de ",
+          "bold1": "exercícios teóricos",
+          "textMid": " e ",
+          "bold2": "sistema de pontos",
+          "textAfter": ". Os exercícios realizados pelo usuário resultam no ganho de moedas para a compra de novos itens para o personagem que o representa no jogo.",
+          "charactersAlt": "Hanni, Cybele e Pepo tocando violino, kalimba e teclado.",
+          "assetsTitle": "Assets",
+          "assets": [
+            "Laço de Fita",
+            "Presilha",
+            "Boné",
+            "Clave de sol",
+            "Flores",
+            "Joaninha"
+          ],
+          "pointsLabel": "{points} PTS",
+          "lockedLabel": "Bloqueado"
+        },
+        "characters": {
+          "label": "Personagens",
+          "list": [
+            {
+              "name": "Yopi",
+              "role": "Esquilinho baterista"
+            },
+            {
+              "name": "Pepo",
+              "role": "Ursinho pianista"
+            },
+            {
+              "name": "Hanni",
+              "role": "Raposinha violinista"
+            },
+            {
+              "name": "Cybele",
+              "role": "Coelhinha no kalimba"
+            },
+            {
+              "name": "Gunter",
+              "role": "Gatinho baixista"
+            }
+          ]
+        },
+        "brand": {
+          "logoLabel": "Batuco-tuco",
+          "logoTop": "BATUCO",
+          "logoBottom": "TUCO",
+          "taglineLine1": "Sua expressão conta,",
+          "taglineBefore": "e ela é ",
+          "taglineBold": "saber",
+          "taglineAfter": ".",
+          "heading": "Música é saber.",
+          "pills": [
+            "Ludificação e pesquisa transformam o ensino",
+            "O aprendizado tem infinitas possibilidades",
+            "Aprender também deve ser divertido"
+          ],
+          "mockupAlt": "Dois celulares com o Batuco-tuco aberto: o guarda-roupas da Hanni e a tela inicial com a Cybele."
         },
         "finalProject": {
           "title": "Projeto final",
+          "paragraphs": [
+            "O projeto final é o protótipo navegável do app no Figma, com seu design system, personagens e assets, e atualmente voltou à etapa de pesquisa e aprofundamento do tema."
+          ],
+          "fontsNote": "As fontes usadas são AM Futurismo, encontrada no Adobe Fonts e Nunito encontrada, no Figma.",
           "images": []
+        },
+        "tools": {
+          "title": "Ferramentas utilizadas",
+          "items": [
+            "Autodesk Sketchbook",
+            "Adobe Fonts",
+            "Figma"
+          ]
         }
       },
+      "footnote": "* Não foi utilizado nenhum agente IA de geração de imagens para as criações visuais (sketches, vetores, ilustrações…) neste projeto.",
       "thanks": "Obrigada por ter chegado até aqui!"
     },
     "pontinhasSoltas": {
@@ -196,35 +368,127 @@
       "subtitle": "Pontinhas soltas",
       "cardTitle": "Pontinhas soltas",
       "description": "Design e modelagem 3D de personagens em torno de uma identidade de pontos soltos. (PLACEHOLDER)",
-      "intro": "As “Pontinhas soltas” são uma representação da extensão do projeto de marca “Pontos sem nó”. Elaboradas como personas atribuídas às palavras concito da marca, a caracterização delas busca transmitir conforto e fazer parte de contextos casuais.\n\nO objetivo central de ter uma extensão relativa à elas é que (PLACEHOLDER)",
-      "tags": ["Pessoal", "Design de Personagens"],
+      "intro": "Este trabalho é uma extensão do manual de identidade visual “Pontos sem nó” e trata da passagem das “Pontinhas soltas”, as personagens imaginárias que apoiam a marca, para o 3D. Mais do que um projeto em si, ele foi uma forma de dar volume às bonequinhas e entender como elas se comportariam fora do plano, mantendo-se fiéis às ilustrações originais.",
+      "tags": [
+        "Pessoal",
+        "Modelagem 3D",
+        "Projeto autoral",
+        "Baixa complexidade"
+      ],
+      "heroAlt": "Jemmy, Lac, Haggy, Nina e Ali, as Pontinhas soltas em 3D, lado a lado sobre um fundo azul-escuro com luzes coloridas.",
+      "gallery": {
+        "showcaseCaption": "Personagens em 3D e em 2D",
+        "showcaseAlt": "Card das Pontinhas soltas: em cima, Jemmy, Nina, Haggy, Lac e Ali modeladas em 3D; embaixo, as mesmas personagens nas ilustrações originais, com o nome e o ícone de cada uma.",
+        "flyingCaption": "Ilustrações das personagens",
+        "flyingAlt": "Ilustrações das personagens: cinco Pontinhas voando em roda e duas caixinhas de música com bailarinas.",
+        "turnaroundsCaption": "Turnarounds",
+        "turnaroundsAlt": "Turnarounds de Ali, Nina e Jemmy: cada uma de frente, de três quartos e de lado, virada para a direita (D) e para a esquerda (E).",
+        "headsCaption": "Estudos de cabeças e corpos",
+        "headsAlt": "Estudos das personagens: cabeças e corpos inteiros de Haggy, Ali, Jemmy, Nina e Lac.",
+        "dancingCaption": "Pontinhas dançando",
+        "dancingAlt": "Sketches das cinco Pontinhas dançando em fila.",
+        "cardsCaption": "Personagens e seus conceitos",
+        "cardsAlt": "Cards das personagens em 3D com seus conceitos: Ali é serenidade, Jemmy é lirismo, Lac é ternura, Nina é peregrina e Haggy é escapismo."
+      },
       "sections": {
         "creationProcess": {
           "title": "Processo de criação",
           "paragraphs": [
-            "Desenvolvido na disciplina de Design de Interfaces Gráficas (Unifor), o desafio foi criar um Design System escalável e fluxos de usabilidade coesos. Priorizei requisitos básicos, como as atividades práticas, para garantir a funcionalidade antes de avançar para interações complexas de banda. Em três semanas, finalizei toda a interface, ativos e animações, focando na otimização da prototipagem. (PLACEHOLDER)"
+            "As personagens representam cada uma conceitos da marca: ternura, lirismo, escapismo, serenidade e peregrino, e isso orientou a escolha de forma, cor, espécie e expressão delas. Diferente dos modelos lowpoly que costumo fazer para experiências em VR, aqui as bonequinhas foram modeladas em mais subdivisões no Blender, buscando ser bem fiéis às imagens originais. As bordas mais suaves e circulares trazem esse espaço de maciez e, ao mesmo tempo, uma textura um tanto plástica. Elas não são bonecas de pano, mas a ideia é que a figura delas conforte aquele que a ver, como se fossem de pano, pelúcias."
           ],
-          "images": [
-            "Sistema de identidade visual em seis etapas: brainstorming de palavras conceito, análise de painel semântico, criação de esboços, testes gráficos, teste de impressão e manual.",
-            "Capturas do processo de modelagem 3D dos personagens no Blender.",
-            "Mais capturas do processo de modelagem 3D dos personagens no Blender.",
-            "Biblioteca de personagens: turnarounds (frente, 3/4 e lado) de Ali, Nina, Jemmy e demais personagens."
-          ]
+          "images": []
         },
         "prototyping": {
           "title": "Prototipagem",
-          "tabs": ["Design de personagens", "Personas", "Palavras Conceito", "Blender"],
-          "thumbs": { "captions": [] },
+          "tabs": [
+            "Design de personagens",
+            "Personas",
+            "Modelagem 3D",
+            "Model sheet"
+          ],
+          "thumbs": {
+            "captions": []
+          },
+          "paragraphs": [
+            "As texturas foram criadas no Figma e no Illustrator a partir da paleta da própria identidade (Imagem 2), preservando os contrastes e as transições em degradê de cores próximas ao pastel que fazem as personagens parecerem brilhar ou ter alguma emissão de luz leve em determinadas regiões onde a tinta é mais clara."
+          ],
           "images": [
-            "Personagens finais: Jemmy, Nina, Haggy, Lac e Ali, em renderização 3D.",
-            "Personagens com suas descrições: Ali é serenidade, Jemmy é lirismo, Lac é ternura, Nina é peregrina e Haggy é escapismo."
+            "Foto da tela do computador com Haggy modelada no Blender e as texturas em degradê ao lado.",
+            "Captura do Blender: a ilustração original de Nina ao lado do modelo 3D dela.",
+            "Foto da tela do computador com o modelo de Jemmy no Blender, ainda sem textura.",
+            "Foto da tela do computador com Jemmy texturizada no Blender e a paleta de texturas em degradê.",
+            "Captura do Blender com as cinco Pontinhas modeladas lado a lado.",
+            "Foto da tela do computador com a ilustração de Nina ao lado do modelo 3D dela no Blender."
           ]
         },
         "finalProject": {
           "title": "Projeto final",
+          "paragraphs": [
+            "O projeto final é composto pelos modelos 3D das Pontinhas soltas, com suas texturas, e pelos testes de impressão 3D."
+          ],
           "images": []
+        },
+        "tools": {
+          "title": "Ferramentas utilizadas",
+          "items": [
+            "Blender (versão 4.5)",
+            "Autodesk Sketchbook",
+            "Adobe Illustrator",
+            "Figma",
+            "Cura"
+          ]
+        },
+        "showcase": {
+          "label": "Pontinhas soltas em 3D e em 2D",
+          "names": [
+            "Jemmy",
+            "Nina",
+            "Haggy",
+            "Lac",
+            "Ali"
+          ]
+        },
+        "characterCards": {
+          "label": "Personagens e seus conceitos",
+          "list": [
+            {
+              "name": "Ali",
+              "lines": [
+                "O urso possui expressão serena, com cores que lembram a natureza.",
+                "Ali é serenidade!"
+              ]
+            },
+            {
+              "name": "Jemmy",
+              "lines": [
+                "A tinta do polvo foi usada por décadas para escrita. Jemmy é lirismo!"
+              ]
+            },
+            {
+              "name": "Lac",
+              "lines": [
+                "O rato na cor rosa e expressão de sono representam aconchego.",
+                "Lac é ternura!"
+              ]
+            },
+            {
+              "name": "Nina",
+              "lines": [
+                "Ave conhecida pela sua migração na infância.",
+                "Nina é Peregrina!"
+              ]
+            },
+            {
+              "name": "Haggy",
+              "lines": [
+                "O coelho simboliza em muitas representações curiosidade, pensamento onírico.",
+                "Haggy é escapismo!"
+              ]
+            }
+          ]
         }
       },
+      "aiNote": "* Não foi utilizado nenhum agente IA de geração de imagens para as criações visuais (sketches, vetores, ilustrações…) neste projeto.",
       "thanks": "Obrigada por ter chegado até aqui!"
     },
     "identidadeEvento15Anos": {
@@ -683,7 +947,8 @@
     "batucoTuco": "Batuco-tuco",
     "pontinhasSoltas": "Pontinhas soltas",
     "identidadeEvento15Anos": "Identidade de evento: 15 anos",
-    "caju": "Caju"
+    "caju": "Caju",
+    "studies": "Estudos"
   },
   "projectsPage": {
     "title": "Portfólio",
@@ -716,6 +981,129 @@
     "clearFilters": "limpar busca e filtros",
     "back": "voltar aos projetos",
     "next": "próximo: {title}",
-    "backToTop": "voltar ao topo"
+    "backToTop": "voltar ao topo",
+    "related": "Talvez você goste...",
+    "zoomCursor": "ampliar +",
+    "projectCursor": "ver projeto →",
+    "lightbox": {
+      "label": "Imagem ampliada",
+      "open": "Ampliar: {caption}",
+      "close": "Fechar",
+      "prev": "Imagem anterior",
+      "next": "Próxima imagem",
+      "counter": "{caption} · {index} / {total}"
+    }
+  },
+  "studies": {
+    "title": "Estudos",
+    "back": "voltar para sobre mim",
+    "bubble": "Olha que legal!",
+    "filtersLabel": "Filtrar estudos por área",
+    "items": {
+      "velhaInfancia": {
+        "caption": "Velha infância",
+        "alt": "Colagem “Velha infância”: desenhos infantis coloridos, uma mesa com vaso e frutas, canecas de cachorrinho, um estojo de aquarela, uma borboleta e flores."
+      },
+      "portals": {
+        "caption": "Portals",
+        "alt": "Colagem “Portals”: duas fadas com asas de mariposa entre flores laranja, uma figura de cabelo verde, uma mariposa rosa e olhos espalhados num fundo escuro."
+      },
+      "chillKill": {
+        "caption": "Chill Kill",
+        "alt": "Colagem “Chill Kill”: retratos em tons escuros de duas mulheres de cabelo preto, um lírio branco, bailarinas em miniatura e uma fruta-do-dragão."
+      },
+      "razoes28": {
+        "caption": "28 razões",
+        "alt": "Colagem “28 razões”: o título “28 Reasons”, a frase “We simply try to resist from being captivated by evil.”, silhuetas recortadas, uma bailarina e retratos de uma cantora."
+      },
+      "florescer": {
+        "caption": "Florescer",
+        "alt": "Colagem “Florescer”: ilustração em tons pastel com galhos floridos, uma moça loira, um cervo, laços, adesivos fofos e a frase “Surround yourself with people who see your value and remind you of it”."
+      },
+      "soQuiet": {
+        "caption": "So quiet",
+        "alt": "Colagem “So quiet”: fotos em preto e branco e em tons frios de uma cantora na neve, recortes de jornal, a ilustração de um animal e a capa de um disco."
+      },
+      "gatoAzul": {
+        "caption": "Estudos",
+        "alt": "Render 3D de uma luminária em forma de gato amarelo e azul, com a boca aberta num anel vermelho, sobre fundo azul e o texto “Ágatha e os Pontos sem Nó”."
+      },
+      "gatoAmarelo": {
+        "caption": "Estudos",
+        "alt": "A mesma luminária 3D em forma de gato sobre fundo mostarda, com o texto “Ágatha e os Pontos sem Nó”."
+      },
+      "calendario2023": {
+        "caption": "Estudos",
+        "alt": "Calendário de 2023 com o título “2023幸運な年”, ao lado da ilustração de uma menina de cabelo azul com um gatinho e adesivos."
+      },
+      "calendario2024": {
+        "caption": "Estudos",
+        "alt": "Calendário de 2024 com o título “2024幸運な年” e mirtilos, ao lado da ilustração de uma garota de cabelo branco com uniforme de marinheiro azul."
+      },
+      "calendario2025": {
+        "caption": "Estudos",
+        "alt": "Calendário de 2025 com uma legenda de atividades coloridas e a ilustração de uma garota de franja segurando metades de maçã verde, com o texto “Trainee time”."
+      },
+      "coelhos": {
+        "caption": "Estudos",
+        "alt": "Ilustração de coelhinhos brancos flutuando num campo rosa com florzinhas."
+      },
+      "telaDeBloqueio": {
+        "caption": "Tela de bloqueio",
+        "alt": "Tela de bloqueio ilustrada: peixinhos azul-turquesa nadando num céu noturno com estrelas e cometas rosados."
+      },
+      "quarto2andar": {
+        "caption": "Estudos",
+        "alt": "Ilustração de um quarto com parede listrada de verde, janela com cortinas rosa, escrivaninha com computador e cadeira amarela."
+      },
+      "quarto1andar": {
+        "caption": "Estudos",
+        "alt": "Ilustração de uma sala com papel de parede xadrez rosa, duas janelas amarelas, sofá azul-claro, planta, estante e abajur vermelho."
+      },
+      "tomate": {
+        "caption": "Tomate",
+        "alt": "Render 3D de um tomate vermelho sobre fundo amarelo."
+      },
+      "bolo": {
+        "caption": "Bolo",
+        "alt": "Render 3D de um bolo branco decorado com mirtilos e amoras sobre um prato."
+      },
+      "sketchGarota": {
+        "caption": "Estudos",
+        "alt": "Esboço a lápis azul de uma moça de cabelo ondulado com um coelhinho, um ponto de interrogação, uma caveirinha, uma fita e o texto “IU 스물셋”."
+      },
+      "sestudos": {
+        "caption": "Estudos",
+        "alt": "O mesmo desenho finalizado em cores: moça de cabelo castanho e blusa amarela, coelhinho, ponto de interrogação lilás e fita roxa sobre fundo amarelo-claro."
+      },
+      "retrato1": {
+        "caption": "Estudos",
+        "alt": "Estudo de expressão: foto de referência de uma mulher franzindo o rosto ao lado do desenho a lápis com linhas de construção."
+      },
+      "retrato2": {
+        "caption": "Estudos",
+        "alt": "Estudo de expressão: foto de referência de uma menina sorrindo com as mãos no peito ao lado do desenho a lápis."
+      },
+      "retrato3": {
+        "caption": "Estudos",
+        "alt": "Estudo de expressão: foto de referência de uma mulher rindo de olhos fechados ao lado do desenho a lápis."
+      },
+      "retrato4": {
+        "caption": "Estudos",
+        "alt": "Estudo de expressão: foto de uma criança de bochechas rosadas, dois esboços numerados do rosto e anotações sobre traços, distância entre os pontos da face e intensidade da expressão."
+      },
+      "twig": {
+        "caption": "Twig — estudo de proporções",
+        "alt": "Estudo de proporções do Twig, filhote de cervo-raposa, desenhado sobre uma grade com linhas de construção vermelhas."
+      },
+      "chikorita": {
+        "caption": "Estudos",
+        "alt": "Dois estudos coloridos da Chikorita, Pokémon verde-claro com uma folha na cabeça."
+      },
+      "sketchFinal": {
+        "caption": "Estudos",
+        "alt": "Esboço a lápis de uma garota de cabelo longo e ondulado, com lenço na cabeça e laços, segurando as mãos junto ao peito."
+      }
+    }
   }
 }
