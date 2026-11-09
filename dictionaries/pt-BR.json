@@ -114,6 +114,14 @@
     "comingSoon": "Em breve",
     "comingSoonTag": "Novo projeto a caminho",
     "coverAlt": "Capa do projeto {title}",
+    "lightbox": {
+      "zoom": "ampliar +",
+      "close": "Fechar",
+      "prev": "Imagem anterior",
+      "next": "Próxima imagem",
+      "position": "{i} / {n}",
+      "open": "Ampliar imagem: {cap}"
+    },
     "pontosSemNo": {
       "title": "Pontos sem nó",
       "subtitle": "IDV: Pontos sem nó",

@@ -126,6 +126,14 @@
     "comingSoon": "Coming soon",
     "comingSoonTag": "New project on the way",
     "coverAlt": "Cover for {title}",
+    "lightbox": {
+      "zoom": "zoom +",
+      "close": "Close",
+      "prev": "Previous image",
+      "next": "Next image",
+      "position": "{i} / {n}",
+      "open": "Zoom image: {cap}"
+    },
     "pontosSemNo": {
       "title": "Pontos sem nó",
       "subtitle": "Brand Identity: Pontos sem nó",
