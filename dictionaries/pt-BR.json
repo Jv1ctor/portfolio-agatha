@@ -161,6 +161,14 @@
         "Média complexidade"
       ],
       "heroAlt": "Hanni, Yopi, Gunter, Cybele e Pepo tocando seus instrumentos juntos num palco iluminado.",
+      "lightbox": {
+        "processCaption": "Etapas do processo",
+        "processAlt": "Quadro das etapas do processo: 01 Perfil do usuário, 02 Requisitos, 03 Métodos, 04 Similares e 05 Prototipagem, com a cabeça da raposinha.",
+        "interfaceCaption": "Interface e assets",
+        "interfaceAlt": "Quadro Interface: telas do app em nove celulares, texto sobre os exercícios e o sistema de pontos e três personagens; quadro Assets com os itens da lojinha e seus preços em pontos.",
+        "charactersAlt": "Quadro dos personagens: Yopi, esquilinho baterista; Pepo, ursinho pianista; Hanni, raposinha violinista; Cybele, coelhinha no kalimba; Gunter, gatinho baixista.",
+        "finalAlt": "Apresentação final: logotipo Batuco-tuco, a frase “Sua expressão conta, e ela é saber.”, “Música é saber.” e dois celulares com o app."
+      },
       "sections": {
         "creationProcess": {
           "title": "Processo de criação",
@@ -436,6 +444,17 @@
     "clearFilters": "limpar busca e filtros",
     "back": "voltar aos projetos",
     "next": "próximo: {title}",
-    "backToTop": "voltar ao topo"
+    "backToTop": "voltar ao topo",
+    "related": "Talvez você goste...",
+    "zoomCursor": "ampliar +",
+    "projectCursor": "ver projeto →",
+    "lightbox": {
+      "label": "Imagem ampliada",
+      "open": "Ampliar: {caption}",
+      "close": "Fechar",
+      "prev": "Imagem anterior",
+      "next": "Próxima imagem",
+      "counter": "{caption} · {index} / {total}"
+    }
   }
 }

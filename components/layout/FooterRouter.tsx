@@ -19,7 +19,10 @@ export function FooterRouter({ dict }: { dict: Dictionary }) {
   const segments = useSelectedLayoutSegments();
   const isHome = segments.length === 0;
   const isProjectsIndex = segments.length === 1 && segments[0] === 'projetos';
+  // Batuco-tuco aberto direto: footer "visite também" do frame do Figma (17:2446).
+  const isBatucoCase = segments.length === 2 && segments[0] === 'projetos' && segments[1] === 'batuco-tuco';
 
+  if (isBatucoCase) return <HomeFooter dict={dict} variant="case" />;
   if (isHome) return <HomeFooter dict={dict} />;
   if (isProjectsIndex) return <HomeFooter dict={dict} variant="projects" />;
   return <Footer dict={dict} />;

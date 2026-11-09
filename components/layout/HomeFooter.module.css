@@ -71,11 +71,40 @@
     transform: translateY(3px);
   }
 }
+/* Links sociais (guia do Batuco-tuco, em todos os footers): no hover o texto fica branco
+   e o sublinhado se afasta 3px (no Claude Design, 3px → 6px). O repouso continua na
+   posição da fonte (decoration-from-font, como no Figma): o deslocamento é somado a ela. */
+/* Sublinhado e cores aqui (e não em utilitários do Tailwind): o `a { color: inherit;
+   text-decoration: none }` de globals.css fica fora de layer e ganharia deles. Figma:
+   sublinhado na posição e na espessura da fonte. */
+.social {
+  text-decoration-line: underline;
+  text-decoration-thickness: from-font;
+  text-underline-position: from-font;
+  text-underline-offset: 0;
+  transition:
+    color 0.2s,
+    text-underline-offset 0.25s;
+}
+.social:hover {
+  color: #fff;
+  text-underline-offset: 3px;
+}
+/* Variante do case (Figma 17:2446): handles em branco. */
+.socialCase {
+  color: #fff;
+}
+.social:focus-visible {
+  outline: 2px solid var(--color-cream);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
 @media (prefers-reduced-motion: reduce) {
   .arrow {
     animation: none;
   }
-  .backTop {
+  .backTop,
+  .social {
     transition: none;
   }
 }

@@ -61,11 +61,25 @@ export function DashedPill({ children }: { children: ReactNode }) {
  * de 138.74 × 132.09 do Figma: o SVG tinha grão (feTurbulence), que o Chrome
  * desenha bem mais grosso que o Figma.
  */
-function ThanksBubble({ text, className }: { text: string; className?: string }) {
+function ThanksBubble({
+  text,
+  className,
+  bubbleClassName,
+  faceClassName,
+}: {
+  text: string;
+  className?: string;
+  /** Animações da página completa (balão que "estoura", bonequinha balançando). */
+  bubbleClassName?: string;
+  faceClassName?: string;
+}) {
   return (
     <div className={withMotion("mt-7 flex items-center justify-end gap-2", className)}>
       <p
-        className="flex h-[98px] w-[160px] items-center justify-center rounded-[60px_60px_0_60px] bg-[#ffe9f2] pl-5 pr-6 text-center text-[0.875rem] font-normal leading-[1.1875] text-[color:var(--color-blue-darkest)] shadow-[inset_-3px_-4px_9.5px_1px_#f4aecc]"
+        className={withMotion(
+          "flex h-[98px] w-[160px] items-center justify-center rounded-[60px_60px_0_60px] bg-[#ffe9f2] pl-5 pr-6 text-center text-[0.875rem] font-normal leading-[1.1875] text-[color:var(--color-blue-darkest)] shadow-[inset_-3px_-4px_9.5px_1px_#f4aecc]",
+          bubbleClassName,
+        )}
         style={bodyFont}
       >
         {text}
@@ -77,7 +91,7 @@ function ThanksBubble({ text, className }: { text: string; className?: string })
         aria-hidden
         width={139}
         height={132}
-        className="h-auto w-[138.74px] shrink-0"
+        className={withMotion("h-auto w-[138.74px] shrink-0", faceClassName)}
       />
     </div>
   );
@@ -93,6 +107,9 @@ export function CaseShell({
   dict,
   cover,
   motion,
+  top,
+  bottom,
+  thanksMotion,
   children,
 }: {
   project: LocalizedProject;
@@ -100,6 +117,15 @@ export function CaseShell({
   cover?: ReactNode;
   /** Classes de animação de entrada (usadas pelo modal): capa, cabeçalho e corpo. */
   motion?: { cover: string; header: string; body: string };
+  /**
+   * Só no layout 'wide': conteúdo acima da capa e depois do balão de
+   * agradecimento, dentro da coluna de 1352px. A página completa passa a barra
+   * de voltar e o "Talvez você goste..."; o modal não passa (tem controles próprios).
+   */
+  top?: ReactNode;
+  bottom?: ReactNode;
+  /** Só no layout 'wide' da página completa: animações do balão e da bonequinha. */
+  thanksMotion?: { bubble: string; face: string };
   children: ReactNode;
 }) {
   const intro = project.intro ?? project.description;
@@ -109,8 +135,10 @@ export function CaseShell({
   // aqui só entram a capa, o corpo e o balão de agradecimento.
   if (project.layout === "wide") {
     return (
-      <article className="container-wide py-12">
+      // Com a barra do topo (página completa, sem header): ela fica em y=40, como no Figma.
+      <article className={top ? "container-wide pb-12 pt-10" : "container-wide py-12"}>
         <div className="mx-auto max-w-[1352px]">
+          {top}
           {cover ? (
             <div className={motion?.cover}>{cover}</div>
           ) : (
@@ -129,7 +157,13 @@ export function CaseShell({
             {children}
           </div>
 
-          <ThanksBubble text={project.thanks} className={motion?.body} />
+          <ThanksBubble
+            text={project.thanks}
+            className={motion?.body}
+            bubbleClassName={thanksMotion?.bubble}
+            faceClassName={thanksMotion?.face}
+          />
+          {bottom}
         </div>
       </article>
     );

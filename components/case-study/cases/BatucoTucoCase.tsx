@@ -1,9 +1,27 @@
 import type { CSSProperties, ReactNode } from "react";
 import type { LocalizedProject } from "@/lib/projects";
 import { CaseSection, DashedPill, bodyFont, bodyFontBold } from "@/components/case-study/CaseShell";
+import { ZoomButton, ZoomFrame } from "@/components/case-study/batuco/Zoom";
 import s from "./batuco.module.css";
 
 const base = "/images/projects/batuco-tuco";
+export const batucoBase = base;
+
+/** Fotos dos esboços, na ordem de `sections.sketches` (dado, não texto). */
+export const sketchFiles = [
+  "esboco-personagens",
+  "rabisco-home-perfil",
+  "rabisco-home-atividades",
+  "rabisco-entrada",
+] as const;
+
+/** Índices no lightbox (mesma ordem de `getBatucoLightbox`, em batuco/lightbox.ts). */
+const LB_PROCESS = 1;
+const LB_PLANNING = 2;
+const LB_SKETCH = 3;
+const LB_INTERFACE = 7;
+const LB_CHARACTERS = 8;
+const LB_FINAL = 9;
 
 /** Texto corrido do Figma novo: Clother Regular 15px/18px, justificado a partir do md. */
 const textClass =
@@ -117,8 +135,20 @@ const cast: { src: string; art: Box; crop: Crop; contour: Box; text: readonly [n
   { src: "gunter", art: [927.24, 459.94, 424.279, 369.673], crop: ["100%", "204.04%", "0", "-53.45%"], contour: [749.8, 429.99, 582.943, 410.734], text: [822.31, 654.97] },
 ];
 
-/** Corpo do case (tudo entre `<CaseShell>` e `</CaseShell>`), reutilizado pela página e pelo modal. */
-export function BatucoTucoCase({ project }: { project: LocalizedProject }) {
+/**
+ * Corpo do case (tudo entre `<CaseShell>` e `</CaseShell>`), reutilizado pela página e pelo modal.
+ *
+ * `zoom` (só a página completa passa): aria-label de cada item do lightbox ("Ampliar: …").
+ * Com ele, imagens e blocos viram gatilhos com zoom no hover e os blocos ganham o reveal
+ * ao rolar. Sem ele (modal), o HTML é exatamente o de antes.
+ */
+export function BatucoTucoCase({
+  project,
+  zoom,
+}: {
+  project: LocalizedProject;
+  zoom?: readonly string[];
+}) {
   // As chaves abaixo só existem no Batuco-tuco; isso também estreita o tipo.
   if (!("footnote" in project)) return null;
 
@@ -126,6 +156,26 @@ export function BatucoTucoCase({ project }: { project: LocalizedProject }) {
     project.sections;
   const steps = cp.diagram.steps;
   const tucoLetters = Array.from(brand.logoBottom);
+
+  /** Bloco de HTML vivo → moldura com zoom + reveal (só com `zoom`). */
+  const frame = (index: number, node: ReactNode, board = false, className?: string) =>
+    zoom ? (
+      <ZoomFrame index={index} label={zoom[index]} board={board} className={[s.rv, className].filter(Boolean).join(" ")}>
+        {node}
+      </ZoomFrame>
+    ) : (
+      node
+    );
+  /** Imagem → botão com zoom (só com `zoom`). */
+  const image = (index: number, node: ReactNode) =>
+    zoom ? (
+      <ZoomButton index={index} label={zoom[index]}>
+        {node}
+      </ZoomButton>
+    ) : (
+      node
+    );
+  const reveal = zoom ? s.rv : "";
 
   return (
     <>
@@ -149,7 +199,7 @@ export function BatucoTucoCase({ project }: { project: LocalizedProject }) {
           <Paragraphs items={project.intro.split("\n\n")} />
         </div>
 
-        <ol className={s.diagram} aria-label={cp.diagram.label}>
+        {frame(LB_PROCESS, <ol className={s.diagram} aria-label={cp.diagram.label}>
           {diagramSlots.map((slot) =>
             slot === "head" ? (
               <li key="head" className={s.diagramHead} aria-hidden>
@@ -185,20 +235,23 @@ export function BatucoTucoCase({ project }: { project: LocalizedProject }) {
               </li>
             ),
           )}
-        </ol>
+        </ol>, false, "xl:self-start")}
       </section>
 
       {/* 2. Painéis de planejamento + Processo de criação (node 17:2639) */}
       <div className="grid items-start gap-8 lg:grid-cols-[665fr_660fr] lg:gap-[25px]">
-        <figure className="flex flex-col gap-2.5">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={`${base}/paineis-planejamento.png`}
-            alt={cp.images[0] ?? ""}
-            width={1745}
-            height={1031}
-            className="block aspect-[1745/1031] w-full"
-          />
+        <figure className={`flex flex-col gap-2.5 ${reveal}`}>
+          {image(
+            LB_PLANNING,
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={`${base}/paineis-planejamento.png`}
+              alt={cp.images[0] ?? ""}
+              width={1745}
+              height={1031}
+              className="block aspect-[1745/1031] w-full"
+            />,
+          )}
           <figcaption className={captionClass} style={bodyFont}>
             {cp.planningCaption}
           </figcaption>
@@ -210,17 +263,20 @@ export function BatucoTucoCase({ project }: { project: LocalizedProject }) {
 
       {/* 3. Esboços e rabiscoframes + Prototipagem (node 17:2648) */}
       <div className="flex flex-col gap-[33px]">
-        <ul className="grid grid-cols-1 gap-x-[7.4px] gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className={`grid grid-cols-1 gap-x-[7.4px] gap-y-6 sm:grid-cols-2 lg:grid-cols-4 ${reveal}`}>
           {sketches.map((sketch, i) => (
             <li key={sketch.caption}>
               <figure className="flex flex-col gap-[7.6px]">
                 {/* O Figma estica cada foto até a caixa de ~333 × 309 (sem recorte). */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={`${base}/${["esboco-personagens", "rabisco-home-perfil", "rabisco-home-atividades", "rabisco-entrada"][i]}.png`}
-                  alt={sketch.alt}
-                  className="block aspect-[333/309] w-full object-fill"
-                />
+                {image(
+                  LB_SKETCH + i,
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={`${base}/${sketchFiles[i]}.png`}
+                    alt={sketch.alt}
+                    className="block aspect-[333/309] w-full object-fill"
+                  />,
+                )}
                 <figcaption className={captionClass} style={bodyFont}>
                   {sketch.caption}
                 </figcaption>
@@ -260,7 +316,7 @@ export function BatucoTucoCase({ project }: { project: LocalizedProject }) {
 
       {/* 5. Apresentação: Interface/Assets, Personagens e Marca (node 17:2704) */}
       <div className="flex flex-col gap-7">
-        <section className={s.showcase} aria-labelledby="batuco-interface">
+        {frame(LB_INTERFACE, <section className={s.showcase} aria-labelledby="batuco-interface">
           <div className={s.showcaseIntro}>
             <h2 id="batuco-interface" className={`${s.showcaseTitle} ${s.futurismo}`}>
               {ui.title}
@@ -342,9 +398,9 @@ export function BatucoTucoCase({ project }: { project: LocalizedProject }) {
               })}
             </ul>
           </div>
-        </section>
+        </section>, true)}
 
-        <section className={s.castWrap} aria-label={characters.label}>
+        {frame(LB_CHARACTERS, <section className={s.castWrap} aria-label={characters.label}>
           <ul className={s.cast}>
             {cast.map((c, i) => {
               const member = characters.list[i];
@@ -372,9 +428,9 @@ export function BatucoTucoCase({ project }: { project: LocalizedProject }) {
               );
             })}
           </ul>
-        </section>
+        </section>, true)}
 
-        <section className={s.brand} aria-labelledby="batuco-brand">
+        {frame(LB_FINAL, <section className={s.brand} aria-labelledby="batuco-brand">
           <div className={s.brandBand}>
             <p className={`${s.logo} ${s.futurismo}`} role="img" aria-label={brand.logoLabel}>
               <span className={s.logoTop} aria-hidden>
@@ -421,7 +477,7 @@ export function BatucoTucoCase({ project }: { project: LocalizedProject }) {
               className={s.brandPhones}
             />
           </div>
-        </section>
+        </section>, true)}
 
         {/* Nota sobre IA (node 17:2841) */}
         <p className={`${textClass} ml-auto max-w-[445px] italic`}>{project.footnote}</p>

@@ -184,6 +184,14 @@
         "Medium complexity"
       ],
       "heroAlt": "Hanni, Yopi, Gunter, Cybele and Pepo playing their instruments together on a lit stage.",
+      "lightbox": {
+        "processCaption": "Process stages",
+        "processAlt": "Board of the process stages: 01 User profile, 02 Requirements, 03 Methods, 04 Similar apps and 05 Prototyping, with the little fox's head (Portuguese text).",
+        "interfaceCaption": "Interface and assets",
+        "interfaceAlt": "Interface board: app screens on nine phones, text about the exercises and the points system and three characters; Assets board with the shop items and their prices in points (Portuguese text).",
+        "charactersAlt": "Characters board: Yopi, drummer squirrel; Pepo, pianist bear; Hanni, violinist fox; Cybele, kalimba bunny; Gunter, bassist cat (Portuguese text).",
+        "finalAlt": "Final presentation: Batuco-tuco logo, the phrase “Your expression matters, and it is knowledge.”, “Music is knowledge.” and two phones with the app (Portuguese text)."
+      },
       "sections": {
         "creationProcess": {
           "title": "Creation process",
@@ -469,6 +477,17 @@
     "clearFilters": "clear search and filters",
     "back": "back to projects",
     "next": "next: {title}",
-    "backToTop": "back to top"
+    "backToTop": "back to top",
+    "related": "You might also like...",
+    "zoomCursor": "zoom in +",
+    "projectCursor": "view project →",
+    "lightbox": {
+      "label": "Enlarged image",
+      "open": "Enlarge: {caption}",
+      "close": "Close",
+      "prev": "Previous image",
+      "next": "Next image",
+      "counter": "{caption} · {index} / {total}"
+    }
   }
 }

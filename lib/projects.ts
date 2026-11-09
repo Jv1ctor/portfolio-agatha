@@ -128,5 +128,22 @@ export function getNextSlug(slug: Slug): Slug {
   return projectSlugs[(index + 1) % projectSlugs.length];
 }
 
+/**
+ * Até `count` slugs diferentes de `slug`, sorteados (Fisher–Yates) — "Talvez
+ * você goste..." no fim dos cases. `random` é injetável para dar determinismo.
+ */
+export function getRandomOtherSlugs(
+  slug: Slug,
+  count: number,
+  random: () => number = Math.random
+): Slug[] {
+  const others = projectSlugs.filter((s) => s !== slug);
+  for (let i = others.length - 1; i > 0; i--) {
+    const j = Math.floor(random() * (i + 1));
+    [others[i], others[j]] = [others[j], others[i]];
+  }
+  return others.slice(0, count);
+}
+
 // Alias para compatibilidade
 export const projectsByCategory = getLocalizedProjectsByCategory;
