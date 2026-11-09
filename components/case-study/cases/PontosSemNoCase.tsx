@@ -265,10 +265,10 @@ export function PontosSemNoCase({ project }: { project: LocalizedProject }) {
       <Reveal>
         <Img project={project} id="manual" />
       </Reveal>
-      <Reveal>
+      <Reveal className={s.tight}>
         <Img project={project} id="bailarina" />
       </Reveal>
-      <Reveal className={`${s.row} ${s.rowGapJogo}`}>
+      <Reveal className={`${s.row} ${s.rowGapJogo} ${s.tight}`}>
         <div className={s.thumb} style={{ flex: "513 1 0%" }}>
           <Img project={project} id="jogoDoTempo" />
         </div>
@@ -284,7 +284,7 @@ export function PontosSemNoCase({ project }: { project: LocalizedProject }) {
           />
         </div>
       </Reveal>
-      <Reveal>
+      <Reveal className={s.tight}>
         <Img project={project} id="postersFinais" />
       </Reveal>
 
