@@ -1,0 +1,842 @@
+/* ==========================================================================
+   CajuCase — layout do frame 17:5070 (coluna de 1354px) + ANIMACOES §4
+   (pilha sticky, flipbook e trava de leitura). Reveal, zoom, cursor e
+   lightbox ficam em ../case-study.module.css.
+   Vãos horizontais em % da coluna: 1354px no Figma = 100%.
+   ========================================================================== */
+
+/* ---------- textos ---------- */
+.p {
+  margin: 0;
+  font-weight: 300;
+  font-size: 1rem;
+  /* Figma: blocos de texto com altura múltipla de 18px */
+  line-height: 1.125;
+  color: var(--color-blue);
+  text-align: justify;
+  hyphens: auto;
+}
+.p strong {
+  font-weight: 700;
+}
+.paras {
+  display: flex;
+  flex-direction: column;
+  gap: 1.125rem;
+}
+.cap {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.125;
+  color: var(--color-blue);
+}
+.capCenter {
+  composes: cap;
+  text-align: center;
+  font-weight: 600;
+}
+.pls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.pl {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3em 0.7em;
+  border-radius: 999px;
+  background: var(--color-blue-pale);
+  color: var(--color-blue);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.2;
+  white-space: nowrap;
+  box-shadow: 2px 4px 8px 2px rgba(111, 150, 206, 0.16);
+}
+.note {
+  margin: 0 0 0 auto;
+  max-width: 28rem; /* duas linhas, como no Figma (17:5488, 445px) */
+  font-size: 0.875rem;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.3;
+  color: var(--color-blue);
+}
+
+/* ---------- fileiras de imagens (flex com pesos = larguras do Figma) ---------- */
+.row {
+  display: flex;
+  align-items: flex-start;
+}
+.gap4 {
+  gap: 0.3%; /* 4px */
+}
+.gap13 {
+  gap: 0.96%; /* 13px */
+}
+.gap16 {
+  gap: 1.2%; /* 16-17px */
+}
+.fig {
+  min-width: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+.stackCol {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6875rem; /* 10-13px entre as capturas da pintura */
+}
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* legenda centralizada 8px acima das imagens */
+}
+
+/* ---------- cards do Processo de criação (grid 3 col) ---------- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+.card {
+  border-radius: 12px;
+  background: var(--color-blue-pale);
+  padding: 1rem;
+  box-shadow: 2px 4px 8px 2px rgba(111, 150, 206, 0.16);
+}
+.cardTitle {
+  margin: 0 0 0.5rem;
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1.2;
+  color: var(--color-blue);
+}
+.cardImg {
+  margin-top: 0.5rem;
+  display: block;
+  width: 100%;
+  border-radius: 8px;
+}
+.plSoft {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25em 0.65em;
+  border-radius: 999px;
+  background: var(--color-blue-soft);
+  color: var(--color-blue);
+  font-size: 0.85rem;
+  font-weight: 400;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.protoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+.printedGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+.h3 {
+  margin: 0 0 0.5rem;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--color-blue);
+  font-family: var(--font-body);
+}
+.bookTitle {
+  margin: 0 0 1.25rem;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.625rem;
+  line-height: 1.2;
+  color: var(--color-blue);
+  font-family: var(--font-body);
+}
+.stackGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.stackGrid img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- duas colunas: projeto final 667 | ferramentas 641, vão 22 ---------- */
+.two {
+  display: grid;
+  align-items: start;
+  grid-template-columns: minmax(0, 667fr) minmax(0, 641fr);
+  column-gap: 1.62%;
+}
+
+@media (max-width: 767px) {
+  .cards,
+  .protoGrid,
+  .printedGrid,
+  .stackGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .row {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .row > * {
+    flex: 1 1 100% !important;
+  }
+  .two {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 32px;
+  }
+}
+
+/* ==========================================================================
+   §4.1 Pilha de páginas no scroll
+   ========================================================================== */
+.stkWrap {
+  position: relative;
+}
+.stkFrame {
+  top: 0;
+  display: flex;
+  align-items: center;
+}
+/* A pilha (Figma 17:5473): 1360×1273, 2 colunas de páginas 662×662 e linhas a
+   cada 305px. cqw = largura da pilha. */
+.stack {
+  container-type: inline-size;
+  position: relative;
+  flex: none;
+  width: 100%;
+  aspect-ratio: 1360 / 1273;
+  clip-path: inset(-60px -60px 0 -60px);
+  transform-origin: 50% 50%;
+}
+.stack .sCard {
+  position: absolute;
+  width: 48.68cqw;
+  aspect-ratio: 1 / 1;
+  border-radius: 1.5cqw;
+  box-shadow: 0 2px 6px rgba(90, 60, 30, 0.25);
+}
+.stack .sCard img {
+  height: 100%;
+  object-fit: cover;
+}
+.stack .sCard:hover img {
+  transform: scale(1.015);
+}
+.sCol0 {
+  left: 0;
+}
+.sCol1 {
+  left: 51.32cqw;
+}
+.sRow0 {
+  top: 0;
+  z-index: 1;
+}
+/* Linhas 2 e 3 sobem de trás da borda de baixo: deslocamento = 1273 − topo. */
+.sRow1 {
+  top: 22.43cqw;
+  z-index: 2;
+  --o: 71.18cqw;
+}
+.sRow2 {
+  top: 44.93cqw;
+  z-index: 3;
+  --o: 48.68cqw;
+}
+.sRow1 {
+  --e: var(--e1, 1);
+}
+.sRow2 {
+  --e: var(--e2, 1);
+}
+.stack .sRow1,
+.stack .sRow2 {
+  transform: translateY(calc(var(--o) * (1 - var(--e))));
+  will-change: transform;
+}
+
+/* ==========================================================================
+   §4.2 Flipbook "Simulação de leitura"
+   ========================================================================== */
+.fbFrame {
+  --flip: 900ms;
+  --page: cubic-bezier(0.645, 0.045, 0.355, 1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  padding-top: 1.25rem;
+  scroll-margin-top: 0;
+}
+.fbInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  width: 100%;
+}
+.fbArea {
+  position: relative;
+  isolation: isolate;
+  /* livro aberto = 2 páginas de 630px (Figma 17:5487) */
+  width: min(93%, 1260px);
+  max-width: 100%;
+}
+.fbGlow {
+  position: absolute;
+  top: -9%;
+  height: 118%;
+  z-index: -1;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    closest-side,
+    rgba(111, 150, 206, 0.3),
+    rgba(186, 204, 235, 0.18) 55%,
+    rgba(249, 243, 234, 0)
+  );
+  transition:
+    left var(--flip) var(--page),
+    width var(--flip) var(--page);
+}
+.pulse.fbGlow {
+  animation: fbGlow 3.4s ease-in-out infinite;
+}
+.fbBook {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  transform-style: preserve-3d;
+  perspective: 2400px;
+  transition: transform var(--flip) var(--page);
+}
+.fbStack {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background: #efe7db;
+  transform: translateZ(-1px);
+  transition:
+    opacity var(--flip) ease,
+    box-shadow var(--flip) ease;
+}
+.fbStackL {
+  left: 0;
+  border-radius: 4.3% 0 0 4.3% / 4.3% 0 0 4.3%;
+}
+.fbStackR {
+  left: 50%;
+  border-radius: 0 4.3% 4.3% 0 / 0 4.3% 4.3% 0;
+}
+.fbLeaf {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  transition: transform var(--flip) var(--page);
+  will-change: transform;
+}
+.fbFace {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+  transform: translateZ(0.01px);
+}
+.fbFace img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+}
+.fbFront {
+  border-radius: 0 4.4% 4.4% 0 / 0 4.4% 4.4% 0;
+}
+.fbBack {
+  transform: rotateY(180deg) translateZ(0.01px);
+  border-radius: 4.4% 0 0 4.4% / 4.4% 0 0 4.4%;
+}
+/* contracapa: o Figma não traz a arte; fica a cor do céu da capa */
+.fbPlain {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(160deg, #fde3cf, #fbbd8a);
+}
+.fbSpine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 10%;
+  pointer-events: none;
+}
+.fbFront .fbSpine {
+  left: 0;
+  background: linear-gradient(to right, rgba(70, 45, 30, 0.24), rgba(70, 45, 30, 0.07) 40%, rgba(70, 45, 30, 0));
+}
+.fbBack .fbSpine {
+  right: 0;
+  background: linear-gradient(to left, rgba(70, 45, 30, 0.24), rgba(70, 45, 30, 0.07) 40%, rgba(70, 45, 30, 0));
+}
+.fbShade {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+.fbFront .fbShade {
+  background: linear-gradient(to right, rgba(35, 30, 70, 0.08), rgba(35, 30, 70, 0.42));
+}
+.fbBack .fbShade {
+  background: linear-gradient(to left, rgba(35, 30, 70, 0.08), rgba(35, 30, 70, 0.42));
+}
+.flyFwd .fbFront .fbShade,
+.flyBack .fbBack .fbShade {
+  animation: fbDarken var(--flip) linear forwards;
+}
+.flyFwd .fbBack .fbShade,
+.flyBack .fbFront .fbShade {
+  animation: fbLighten var(--flip) linear forwards;
+}
+
+/* áreas de clique (metade esquerda volta, metade direita avança) + canto dobrando */
+.fbHits {
+  position: absolute;
+  inset: 0;
+  transition: transform var(--flip) var(--page);
+}
+.fbHit {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  container-type: inline-size;
+}
+.fbHit[hidden] {
+  display: none;
+}
+.fbHitPrev {
+  left: 0;
+}
+.fbHitNext {
+  left: 50%;
+}
+.fbHit:focus-visible {
+  outline: 3px solid #6f96ce;
+  outline-offset: 6px;
+  border-radius: 12px;
+}
+.fbCurl {
+  position: absolute;
+  bottom: 0;
+  width: 0;
+  aspect-ratio: 1 / 1;
+  pointer-events: none;
+  transition:
+    width 0.3s cubic-bezier(0.3, 0.7, 0.4, 1),
+    opacity 0.18s ease;
+}
+.fbHitNext .fbCurl {
+  right: 0;
+}
+.fbHitPrev .fbCurl {
+  left: 0;
+}
+.fbUnder,
+.fbFlapWrap,
+.fbFlap {
+  position: absolute;
+  inset: 0;
+}
+.fbHitNext .fbFlapWrap {
+  filter: drop-shadow(1px 2px 2.5px rgba(60, 40, 25, 0.3));
+}
+.fbHitPrev .fbFlapWrap {
+  filter: drop-shadow(-1px 2px 2.5px rgba(60, 40, 25, 0.3));
+}
+.fbHitNext .fbUnder {
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+  border-bottom-right-radius: 4.3cqw;
+  background: linear-gradient(135deg, #a99880 50%, #d6caba 57%, #ece4d8 74%, #f4eee5 100%);
+}
+.fbHitNext .fbFlap {
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+  border-top-left-radius: 4.3cqw;
+  background: linear-gradient(135deg, #fffdf8 0%, #faf4eb 22%, #ece2d4 40%, #d5c7b3 50%);
+}
+.fbHitPrev .fbUnder {
+  clip-path: polygon(0 0, 100% 100%, 0 100%);
+  border-bottom-left-radius: 4.3cqw;
+  background: linear-gradient(225deg, #a99880 50%, #d6caba 57%, #ece4d8 74%, #f4eee5 100%);
+}
+.fbHitPrev .fbFlap {
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+  border-top-right-radius: 4.3cqw;
+  background: linear-gradient(225deg, #fffdf8 0%, #faf4eb 22%, #ece2d4 40%, #d5c7b3 50%);
+}
+@media (hover: hover) {
+  .fbHit:hover .fbCurl {
+    width: 13cqw;
+  }
+}
+.fbHit:active .fbCurl {
+  width: 15cqw;
+}
+.fbHitNext.invite:not(:hover) .fbCurl {
+  animation: fbPeek 3.2s ease-in-out 1.2s infinite;
+}
+.fbHitPrev.invite:not(:hover) .fbCurl {
+  animation: fbPeek 3.2s ease-in-out 2.8s infinite;
+}
+.busy .fbHit .fbCurl {
+  opacity: 0;
+  width: 0;
+  animation: none;
+  transition:
+    opacity 0.16s ease,
+    width 0s linear 0.16s;
+}
+
+/* controles: setas + contador com barra */
+.fbCtrl {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  width: min(100%, max(320px, 35rem));
+}
+.fbNav {
+  flex: none;
+  width: max(38px, 3.25rem);
+  height: max(38px, 3.25rem);
+  border-radius: 50%;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-blue-pale);
+  color: var(--color-blue);
+  border: 0;
+  box-shadow: 0 0 0 max(2px, 3px) #bacceb;
+  transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.4);
+}
+.fbNav[hidden] {
+  display: none;
+}
+.fbNav svg {
+  width: 42%;
+  height: 42%;
+}
+.fbNav:not(:disabled):hover {
+  transform: translateY(-2px) scale(1.06);
+}
+.fbNav:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.fbNav:focus-visible {
+  outline: 3px solid #0e488b;
+  outline-offset: 4px;
+}
+.pulse.fbNav {
+  animation: fbRing 2.4s ease-out infinite;
+}
+.fbMeter {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.625rem;
+}
+.fbLabel {
+  margin: 0;
+  font-weight: 700;
+  font-size: max(13px, 1rem);
+  color: #6f96ce;
+}
+.fbTrack {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(111, 150, 206, 0.2);
+  overflow: hidden;
+}
+.fbFill {
+  height: 100%;
+  border-radius: 3px;
+  background: #6f96ce;
+  transition: width var(--flip) var(--page);
+}
+.fbHint {
+  composes: cap;
+  text-align: center;
+}
+
+/* ==========================================================================
+   §4.3 Trava de leitura: mascote + balão + tranco de resistência
+   ========================================================================== */
+.fbMascot {
+  position: absolute;
+  right: 4%;
+  bottom: 2.875rem;
+  z-index: 5;
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  pointer-events: none;
+  animation: fbMascotIn 0.55s cubic-bezier(0.2, 0.9, 0.3, 1.4) both;
+}
+.fbMascot[hidden] {
+  display: none;
+}
+.fbBubble {
+  box-sizing: border-box;
+  margin: 0 0 1.875rem;
+  max-width: max(200px, 16.25rem);
+  padding: 0.875rem 1.125rem;
+  background: #fde4ee;
+  border-radius: 30px 30px 6px 30px;
+  box-shadow: inset -5px -6px 0 #f7c6d9;
+  color: #08488f;
+  font-weight: 400;
+  font-size: max(12px, 0.9375rem);
+  line-height: 1.3;
+  text-align: center;
+  transform-origin: 100% 100%;
+}
+.bA {
+  animation: fbPopA 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.4) both;
+}
+.bB {
+  animation: fbPopB 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.4) both;
+}
+.fbFaceImg {
+  display: block;
+  width: max(72px, 6.75rem);
+  height: auto;
+  transform-origin: 50% 90%;
+  animation: wobble 1.8s ease-in-out infinite;
+}
+.nudgeDn1 {
+  animation: fbNudgeDn1 0.55s cubic-bezier(0.2, 0.9, 0.3, 1.3);
+}
+.nudgeDn2 {
+  animation: fbNudgeDn2 0.55s cubic-bezier(0.2, 0.9, 0.3, 1.3);
+}
+.nudgeUp1 {
+  animation: fbNudgeUp1 0.55s cubic-bezier(0.2, 0.9, 0.3, 1.3);
+}
+.nudgeUp2 {
+  animation: fbNudgeUp2 0.55s cubic-bezier(0.2, 0.9, 0.3, 1.3);
+}
+
+@keyframes fbGlow {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.97);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.03);
+  }
+}
+@keyframes fbRing {
+  0% {
+    box-shadow: 0 0 0 3px #bacceb, 0 0 0 0 rgba(111, 150, 206, 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 3px #bacceb, 0 0 0 16px rgba(111, 150, 206, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 3px #bacceb, 0 0 0 0 rgba(111, 150, 206, 0);
+  }
+}
+@keyframes fbDarken {
+  0% {
+    opacity: 0;
+  }
+  50%,
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fbLighten {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes fbPeek {
+  0%,
+  55%,
+  100% {
+    width: 0;
+  }
+  68%,
+  86% {
+    width: 12cqw;
+  }
+}
+@keyframes fbMascotIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fbPopA {
+  0% {
+    opacity: 0;
+    transform: scale(0.6) rotate(6deg);
+  }
+  70% {
+    transform: scale(1.05) rotate(-1deg);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fbPopB {
+  0% {
+    opacity: 0;
+    transform: scale(0.6) rotate(-6deg);
+  }
+  70% {
+    transform: scale(1.05) rotate(1deg);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes wobble {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  30% {
+    transform: rotate(-5deg);
+  }
+  60% {
+    transform: rotate(3deg);
+  }
+}
+/* duas cópias de cada tranco: alternar a classe reinicia a animação */
+@keyframes fbNudgeDn1 {
+  0%,
+  100% {
+    transform: none;
+  }
+  35% {
+    transform: translateY(-14px);
+  }
+  65% {
+    transform: translateY(5px);
+  }
+}
+@keyframes fbNudgeDn2 {
+  0%,
+  100% {
+    transform: none;
+  }
+  35% {
+    transform: translateY(-14px);
+  }
+  65% {
+    transform: translateY(5px);
+  }
+}
+@keyframes fbNudgeUp1 {
+  0%,
+  100% {
+    transform: none;
+  }
+  35% {
+    transform: translateY(14px);
+  }
+  65% {
+    transform: translateY(-5px);
+  }
+}
+@keyframes fbNudgeUp2 {
+  0%,
+  100% {
+    transform: none;
+  }
+  35% {
+    transform: translateY(14px);
+  }
+  65% {
+    transform: translateY(-5px);
+  }
+}
+
+/* movimento reduzido: pilha montada, livro vira sem animação, sem convites */
+@media (prefers-reduced-motion: reduce) {
+  .stack .sRow1,
+  .stack .sRow2 {
+    transform: none;
+  }
+  .fbBook,
+  .fbLeaf,
+  .fbHits,
+  .fbStack,
+  .fbFill,
+  .fbGlow,
+  .fbCurl,
+  .fbNav {
+    transition-duration: 1ms !important;
+  }
+  .fbShade,
+  .fbCurl,
+  .fbGlow,
+  .fbNav,
+  .fbInner,
+  .fbMascot,
+  .fbBubble,
+  .fbFaceImg {
+    animation: none !important;
+  }
+  .fbGlow {
+    opacity: 0.6;
+  }
+}
