@@ -103,10 +103,12 @@ function Img({
   project,
   id,
   className,
+  imgClassName,
 }: {
   project: LocalizedProject;
   id: ImageId;
   className?: string;
+  imgClassName?: string;
 }) {
   const cp = sectionsOf(project).creationProcess;
   return (
@@ -116,6 +118,7 @@ function Img({
       index={LB[id]}
       cap={cp.caps[id]}
       className={className}
+      imgClassName={imgClassName}
     />
   );
 }
@@ -181,6 +184,7 @@ export const pontosSemNoSlots: CaseSlotsFn = (project, { coverClassName }) => ({
       project={project}
       id="hero"
       className={`shadow-card rounded-[8px] ${coverClassName ?? ""}`}
+      imgClassName={s.heroImg}
     />
   ),
   aside: <Img project={project} id="posterCabe" />,

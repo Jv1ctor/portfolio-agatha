@@ -247,8 +247,20 @@
     flex-wrap: wrap;
     gap: 0.5rem;
   }
+  /* nunca espremer 2×2: célula mínima de 220px, senão uma por linha */
   .row > .thumb {
-    flex: 1 1 calc(50% - 0.25rem) !important;
+    flex: 1 1 13.75rem !important;
+  }
+  /* capa (17:1003): proporção do frame, preenchendo sem faixas */
+  .heroImg {
+    aspect-ratio: 1352 / 459;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  /* data do CaseShell: no fluxo, à esquerda, em vez de órfã à direita */
+  :global(div):has(> :global(div) > .stepsWrap) > :global(div:nth-child(2) > .ml-auto) {
+    margin-left: 0;
   }
   .steps {
     grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
