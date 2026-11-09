@@ -18,6 +18,7 @@ dos nós de imagem, JPEG q84 progressivo, largura máx 2000px, em
 | `diagramacao-indesign.jpg` | 877, 2975, 666, 451 | 17:5442 | Diagramação no InDesign |
 | `livro-pag-1..6.jpg` | 189/886, 4371/4676/4981, 662, 662 | 17:5475/5476/5477 (col 0), 17:5479/5480/5481 (col 1) | Pilha sticky: 6 páginas reais na ordem do Figma |
 | `livro-capa.jpg` | — | — | Capa do flipbook (face inicial) |
+| `contracapa.jpg` | 556, 5722, 630, 630 | 17:5487 | Contracapa do flipbook (última face), 1260×1260. O frame 17:5070 não traz a página 32 (contracapa impressa) — a única arte do livro na seção "Simulação de leitura" é o nó 17:5487; os nós "capa banner2" (17:5075/17:5147) ficam em y>7422, fora do export. Trocar pelo arquivo final quando a designer entregar a contracapa. |
 | `impresso-1..3.jpg` | 188, 3922, 521/521/293, 391 | 17:5469..5471 | Projeto final — mídia impressa |
 | `quadro-processo.jpg` | 556, 5722, 630, 630 | 17:5487 | Quadro final (arte) |
 | `mascote.png` | 1431, 6485, 139, 132 | 17:5492 | Rosto da mascote da trava de leitura, PNG com fundo transparente (flood fill sobre o creme #F9F3EA) |
