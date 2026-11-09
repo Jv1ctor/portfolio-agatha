@@ -42,6 +42,7 @@ export function ProjectModal({
   documentTitle,
   nextHref,
   nextTitle,
+  nextOpensAsPage = false,
   wide = false,
   children,
 }: {
@@ -51,6 +52,12 @@ export function ProjectModal({
   documentTitle: string;
   nextHref: string;
   nextTitle: string;
+  /**
+   * O próximo projeto abre como página completa (`opensAsPage`): "próximo" troca a
+   * entrada do histórico com carga completa, sem passar pelo modal. Continua valendo
+   * "um único voltar leva ao índice".
+   */
+  nextOpensAsPage?: boolean;
   /** Case com layout 'wide': voltar e próximo seguem a coluna de 1352px. */
   wide?: boolean;
   children: ReactNode;
@@ -200,6 +207,11 @@ export function ProjectModal({
             type="button"
             onClick={() => {
               if (closingRef.current) return;
+              if (nextOpensAsPage) {
+                closingRef.current = true;
+                window.location.replace(nextHref);
+                return;
+              }
               pendingHandoff = {
                 opener: openerRef.current,
                 toSlug: nextHref.slice(nextHref.lastIndexOf('/') + 1),

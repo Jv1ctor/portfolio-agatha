@@ -39,6 +39,7 @@ export async function InterceptedProject({
       documentTitle={`${dict.metadata[slugToKey[slug]]} · ${dict.site.name}`}
       nextHref={`/${lang}/projetos/${nextProject.slug}`}
       nextTitle={nextProject.title}
+      nextOpensAsPage={nextProject.opensAsPage === true}
       wide={project.layout === "wide"}
     >
       <CaseShell

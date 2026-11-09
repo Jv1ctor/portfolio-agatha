@@ -36,6 +36,12 @@ export type ProjectMeta = {
    * Sem valor = coluna estreita padrão do CaseShell.
    */
   layout?: 'wide';
+  /**
+   * Abre como página completa a partir de /projetos (card e "próximo" do modal fazem
+   * navegação de página inteira), em vez do modal interceptado. Usado quando a página
+   * do case tem coisas que o modal não tem (Batuco-tuco: animações, barra e footer do Figma).
+   */
+  opensAsPage?: boolean;
 };
 
 // Chaves do dicionário por slug (texto translatável vive em dict.projects.*)
@@ -75,6 +81,7 @@ const projectMeta: ProjectMeta[] = [
     coverImage: '/images/projects/batuco-tuco/cover.png',
     grid: { column: 1, aspect: '612 / 344', objectPosition: 'left center', descLines: 2 },
     layout: 'wide',
+    opensAsPage: true,
   },
   {
     slug: 'pontinhas-soltas',
