@@ -859,7 +859,8 @@ console.log('ok: ' + a.size + ' keys');
   HDR_IDX_PT=$(header_of "$HTML_PT")
   HDR_IDX_EN=$(header_of "$HTML_EN")
   HDR_HOME_PT=$(header_of "$(page "/pt-BR")")
-  HDR_CASE_PT=$(header_of "$(page "/pt-BR/projetos/pontos-sem-no")")
+  # Case que ainda abre com o header do site (não é `opensAsPage`): identidade-evento-15-anos.
+  HDR_CASE_PT=$(header_of "$(page "/pt-BR/projetos/identidade-evento-15-anos")")
   # Índice → HomeHeader ("sobre"/"about", não "Sobre mim"); aria-current só ali.
   if printf '%s' "$HDR_IDX_PT" | grep -q '>sobre<' && printf '%s' "$HDR_IDX_EN" | grep -q '>about<'; then
     log_pass "Index uses HomeHeader (sobre / about)"
@@ -895,7 +896,7 @@ console.log('ok: ' + a.size + ' keys');
   else
     log_fail "Case page opened directly does not show the CaseHeader (expected back aria-label and /pt-BR/projetos link, no 'Sobre mim')"
   fi
-  # Cases de página completa (opensAsPage: Batuco-tuco, Pontinhas soltas) abertos direto →
+  # Cases de página completa (opensAsPage: Pontos sem nó, Batuco-tuco, Pontinhas soltas, Caju) abertos direto →
   # sem header do site (o frame do Figma só tem a barra de voltar), mas com o seletor de
   # idioma na barra do próprio case (AGENTS.md: nenhuma página sem trocar de idioma).
   for slug in $FULL_PAGE_CASES; do
