@@ -1,7 +1,7 @@
 import type { CSSProperties, ReactNode } from "react";
 import type { LocalizedProject } from "@/lib/projects";
 import { CaseSection, DashedPill, bodyFont, bodyFontBold } from "@/components/case-study/CaseShell";
-import { ZoomButton, ZoomFrame } from "@/components/case-study/batuco/Zoom";
+import { type Box, Paragraphs, boxVars, textClass, wideTitle, zoomHelpers } from "./wide";
 import s from "./batuco.module.css";
 
 const base = "/images/projects/batuco-tuco";
@@ -23,33 +23,19 @@ const LB_INTERFACE = 7;
 const LB_CHARACTERS = 8;
 const LB_FINAL = 9;
 
-/** Texto corrido do Figma novo: Clother Regular 15px/18px, justificado a partir do md. */
-const textClass =
-  "font-normal text-[0.9375rem] leading-[18px] text-[color:var(--color-blue)] md:text-justify";
 /**
  * Legenda das imagens: Clother Bold 16px. Caixa de 19px no Figma ("normal" da
  * Clother lá = 1.1875; no Chrome "normal" daria 23px).
  */
 const captionClass = "font-bold text-[1rem] leading-[1.1875] text-[color:var(--color-blue)]";
 
-/** Títulos (Clother Bold 32px) com as caixas do Figma — ver .title* em batuco.module.css. */
-const title = {
-  base: s.title,
-  box30: `${s.title} ${s.titleBox30}`,
-  line18: `${s.title} ${s.titleLine18}`,
-};
+const title = wideTitle;
 
 /** Cards do diagrama com fonte menor no Figma: "etapa-item" (dado de layout, não texto). */
 const smallStepItems = new Set(["2-1"]);
 
-/** Caixa em px do Figma: x, y, largura, altura. */
-type Box = readonly [number, number, number, number];
 /** Recorte de sprite: largura, altura, left e top da <img> dentro da janela (CSS). */
 type Crop = readonly [string, string, string, string];
-
-function boxVars([x, y, w, h]: Box, extra?: Record<string, string | number>) {
-  return { "--x": x, "--y": y, "--w": w, "--h": h, ...extra } as CSSProperties;
-}
 
 function cropVars([iw, ih, il, it]: Crop) {
   return { "--iw": iw, "--ih": ih, "--il": il, "--it": it } as CSSProperties;
@@ -74,18 +60,6 @@ function Sprite({
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={src} alt={alt} aria-hidden={alt ? undefined : true} />
     </span>
-  );
-}
-
-function Paragraphs({ items, className }: { items: string[]; className?: string }) {
-  return (
-    <div className={`flex flex-col gap-[18px] ${className ?? ""}`}>
-      {items.map((p, i) => (
-        <p key={i} className={textClass}>
-          {p}
-        </p>
-      ))}
-    </div>
   );
 }
 
@@ -157,25 +131,7 @@ export function BatucoTucoCase({
   const steps = cp.diagram.steps;
   const tucoLetters = Array.from(brand.logoBottom);
 
-  /** Bloco de HTML vivo → moldura com zoom + reveal (só com `zoom`). */
-  const frame = (index: number, node: ReactNode, board = false, className?: string) =>
-    zoom ? (
-      <ZoomFrame index={index} label={zoom[index]} board={board} className={[s.rv, className].filter(Boolean).join(" ")}>
-        {node}
-      </ZoomFrame>
-    ) : (
-      node
-    );
-  /** Imagem → botão com zoom (só com `zoom`). */
-  const image = (index: number, node: ReactNode) =>
-    zoom ? (
-      <ZoomButton index={index} label={zoom[index]}>
-        {node}
-      </ZoomButton>
-    ) : (
-      node
-    );
-  const reveal = zoom ? s.rv : "";
+  const { frame, image, reveal } = zoomHelpers(zoom);
 
   return (
     <>

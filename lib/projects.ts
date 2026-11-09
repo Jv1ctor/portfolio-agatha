@@ -39,7 +39,8 @@ export type ProjectMeta = {
   /**
    * Abre como página completa a partir de /projetos (card e "próximo" do modal fazem
    * navegação de página inteira), em vez do modal interceptado. Usado quando a página
-   * do case tem coisas que o modal não tem (Batuco-tuco: animações, barra e footer do Figma).
+   * do case tem coisas que o modal não tem (Batuco-tuco e Pontinhas soltas: animações,
+   * lightbox, barra e footer do Figma). Também tira o header do site (`isFullPageCase`).
    */
   opensAsPage?: boolean;
 };

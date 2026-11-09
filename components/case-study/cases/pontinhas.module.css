@@ -169,6 +169,19 @@
   }
 }
 
+/* Abaixo do lg o bloco de cards não é gatilho do lightbox: empilhado ele teria
+   ~2800px de botão por cima de texto legível. Some o <button> (e com ele o cursor
+   "ampliar +") e o hover não escala o miolo. Classe dobrada para ganhar de
+   `.board:hover .zoomInner` (batuco.module.css). */
+@media (max-width: 63.99rem) {
+  .cardsZoom > button {
+    display: none;
+  }
+  .cardsZoom.cardsZoom:hover > :first-child {
+    transform: none;
+  }
+}
+
 @media (min-width: 64rem) {
   .cardsOuter {
     margin-left: calc(-8.952 / 1352 * 100%);

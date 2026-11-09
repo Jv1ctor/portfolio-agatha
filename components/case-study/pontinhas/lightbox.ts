@@ -1,25 +1,20 @@
 import type { Dictionary } from "@/i18n/dictionaries";
 import type { LocalizedProject } from "@/lib/projects";
 import type { LightboxItem } from "@/components/case-study/CaseLightbox";
-import { creamFiles, pontinhasBase as base } from "@/components/case-study/cases/PontinhasSoltasCase";
-
-/** Tamanho real das fotos originais de Prototipagem (reserva a proporção no lightbox). */
-const photoSizes = [
-  { width: 1600, height: 1200 },
-  { width: 1920, height: 1080 },
-  { width: 1600, height: 1200 },
-  { width: 1600, height: 1200 },
-  { width: 1600, height: 1200 },
-  { width: 1200, height: 1600 },
-] as const;
+import { LB, creamGroups, photos, pontinhasBase as base } from "@/components/case-study/cases/PontinhasSoltasCase";
 
 /**
  * Itens do lightbox da página completa do Pontinhas soltas e o aria-label de cada
- * gatilho ("Ampliar: …"), na ordem dos índices usados em PontinhasSoltasCase:
- * 0 banner, 1–6 fotos (originais, sem o recorte da página), 7 card azul, 8–11 grupos
- * da prancha creme e 12 cards dos personagens. Os dois blocos com texto vivo na página
- * (card azul e cards) usam o PNG @2x exportado do Figma, com o texto em português nos
- * dois idiomas — mesma decisão do Batuco-tuco; os alts de /en avisam isso.
+ * gatilho ("Ampliar: …"), na ordem de `LB` (PontinhasSoltasCase): banner, fotos
+ * (originais, sem o recorte da página), card azul, grupos da prancha creme e cards
+ * dos personagens. Os itens saem das mesmas listas de layout que a página usa.
+ *
+ * Os dois blocos com texto vivo na página (card azul e cards) usam o PNG @2x
+ * exportado do Figma, com o texto em português nos dois idiomas — mesma decisão do
+ * Batuco-tuco; os alts de /en avisam isso.
+ *
+ * As seis fotos dividem a legenda (o título da seção), então o aria-label do botão de
+ * cada uma usa o alt dela: sem isso o leitor de tela ouviria seis botões iguais.
  */
 export function getPontinhasLightbox(
   project: LocalizedProject,
@@ -37,23 +32,27 @@ export function getPontinhasLightbox(
 
   const items: LightboxItem[] = [
     { src: `${base}/hero@2x.webp`, alt: project.heroAlt, caption: project.subtitle, width: 2704, height: 919 },
-    ...prototyping.images.map((alt, i) => ({
-      src: `${base}/prototipagem/foto-${i + 1}.jpg`,
-      alt,
+    ...photos.map((photo, i) => ({
+      src: photo.original,
+      alt: prototyping.images[i] ?? prototyping.title,
       caption: prototyping.title,
-      ...photoSizes[i],
+      width: photo.width,
+      height: photo.height,
     })),
     { src: `${base}/lightbox/vitrine@2x.webp`, alt: g.showcaseAlt, caption: g.showcaseCaption, width: 2704, height: 1883 },
-    ...creamFiles.map((file, i) => ({
-      src: `${base}/prancha/${file.file}@2x.webp`,
-      alt: creamText[i][0],
-      caption: creamText[i][1],
-      width: file.width,
-      height: file.height,
+    ...creamGroups.map((group, i) => ({
+      src: `${base}/prancha/${group.file}@2x.webp`,
+      alt: creamText[i]?.[0] ?? "",
+      caption: creamText[i]?.[1] ?? "",
+      width: group.width,
+      height: group.height,
     })),
     { src: `${base}/lightbox/cards@2x.webp`, alt: g.cardsAlt, caption: g.cardsCaption, width: 2722, height: 3016 },
   ];
 
-  const labels = items.map((item) => dict.projectsPage.lightbox.open.replace("{caption}", item.caption));
+  const isPhoto = (i: number) => i >= LB.photos && i < LB.photos + photos.length;
+  const labels = items.map((item, i) =>
+    dict.projectsPage.lightbox.open.replace("{caption}", isPhoto(i) ? item.alt : item.caption),
+  );
   return { items, labels };
 }

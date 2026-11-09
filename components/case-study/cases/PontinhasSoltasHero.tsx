@@ -1,7 +1,6 @@
 import type { LocalizedProject } from "@/lib/projects";
+import { pontinhasBase as base } from "./PontinhasSoltasCase";
 import s from "./pontinhas.module.css";
-
-const base = "/images/projects/pontinhas-soltas";
 
 /**
  * Capa do case: as cinco Pontinhas em 3D sobre o fundo azul com luzes (Figma node

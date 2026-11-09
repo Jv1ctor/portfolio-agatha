@@ -1,50 +1,34 @@
-import type { CSSProperties, ReactNode } from "react";
+import type { CSSProperties } from "react";
 import type { LocalizedProject } from "@/lib/projects";
 import { CaseSection, DashedPill, bodyFontBold } from "@/components/case-study/CaseShell";
-import { ZoomButton, ZoomFrame } from "@/components/case-study/batuco/Zoom";
-import b from "./batuco.module.css";
+import { type Box, Paragraphs, boxVars, textClass, wideTitle as title, zoomHelpers } from "./wide";
 import s from "./pontinhas.module.css";
 
-const base = "/images/projects/pontinhas-soltas";
-export const pontinhasBase = base;
+export const pontinhasBase = "/images/projects/pontinhas-soltas";
+const base = pontinhasBase;
 
-/** Índices no lightbox (mesma ordem de `getPontinhasLightbox`, em pontinhas/lightbox.ts). */
-export const LB_PHOTOS = 1;
-const LB_SHOWCASE = 7;
-const LB_CREAM = 8;
-const LB_CARDS = 12;
+/* ---------- Dados de layout (não traduzíveis) ----------
+   Estas listas mandam na página e no lightbox; o dicionário só dá o texto de cada
+   item pelo índice. Assim uma tradução com itens a mais ou a menos não desalinha
+   o lightbox nem derruba a página. */
 
-/** Texto corrido do Figma: Clother Regular 15px/18px, justificado a partir do md. */
-const textClass =
-  "font-normal text-[0.9375rem] leading-[18px] text-[color:var(--color-blue)] md:text-justify";
-
-/** Títulos (Clother Bold 32px) com as caixas do Figma — ver .title* em batuco.module.css. */
-const title = {
-  base: b.title,
-  box30: `${b.title} ${b.titleBox30}`,
-  line18: `${b.title} ${b.titleLine18}`,
-};
-
-/** Caixa em px do Figma: x, y, largura, altura. */
-type Box = readonly [number, number, number, number];
-
-function boxVars([x, y, w, h]: Box, extra?: Record<string, string | number>) {
-  return { "--x": x, "--y": y, "--w": w, "--h": h, ...extra } as CSSProperties;
-}
-
-function Paragraphs({ items }: { items: string[] }) {
-  return (
-    <div className="flex flex-col gap-[18px]">
-      {items.map((p, i) => (
-        <p key={i} className={textClass}>
-          {p}
-        </p>
-      ))}
-    </div>
-  );
-}
-
-/* ---------- Dados de layout (não traduzíveis) ---------- */
+/**
+ * Fotos de Prototipagem (nodes 17:3044–17:3050), na ordem de `prototyping.images`.
+ * Na página entra o export do nó (o recorte do Figma, 446.9 × 251.13 em 2x); no
+ * lightbox, a foto original, no tamanho real.
+ */
+export const photos = [
+  { width: 1600, height: 1200 },
+  { width: 1920, height: 1080 },
+  { width: 1600, height: 1200 },
+  { width: 1600, height: 1200 },
+  { width: 1600, height: 1200 },
+  { width: 1200, height: 1600 },
+].map((size, i) => ({
+  crop: `${base}/prototipagem/recorte-${i + 1}@2x.jpg`,
+  original: `${base}/prototipagem/foto-${i + 1}.jpg`,
+  ...size,
+}));
 
 /** Nomes no card azul (nodes 17:3119/3163/3186/3210/3240), na ordem de `showcase.names`. */
 const showcaseNames: readonly (readonly [number, number])[] = [
@@ -56,13 +40,12 @@ const showcaseNames: readonly (readonly [number, number])[] = [
 ];
 
 /** Grupos da prancha creme (relativos ao frame 17:3247), na ordem do lightbox. */
-const creamGroups: { file: string; box: Box; width: number; height: number }[] = [
+export const creamGroups: { file: string; box: Box; width: number; height: number }[] = [
   { file: "voadores", box: [113.225, 83.432, 1123.74, 517.879], width: 2248, height: 1036 },
   { file: "turnarounds", box: [91.986, 675.458, 1168.025, 1177.864], width: 2337, height: 2356 },
   { file: "cabecas", box: [99.066, 1939.357, 1151.011, 565.297], width: 2303, height: 1131 },
   { file: "danca", box: [102.683, 2505.051, 1162.599, 534.841], width: 2326, height: 1070 },
 ];
-export const creamFiles = creamGroups;
 
 /**
  * Cards dos personagens (node 17:3989), na ordem de `characterCards.list`
@@ -85,6 +68,18 @@ const cards: {
 ];
 
 /**
+ * Índices no lightbox, derivados das listas acima (mesma ordem de
+ * `getPontinhasLightbox`, em pontinhas/lightbox.ts): 0 banner, fotos, card azul,
+ * grupos da prancha creme, cards dos personagens.
+ */
+export const LB = (() => {
+  const photosAt = 1;
+  const showcase = photosAt + photos.length;
+  const cream = showcase + 1;
+  return { photos: photosAt, showcase, cream, cards: cream + creamGroups.length };
+})();
+
+/**
  * Corpo do case (tudo entre `<CaseShell>` e `</CaseShell>`), reutilizado pela página e pelo modal.
  *
  * `zoom` (só a página completa passa): aria-label de cada item do lightbox ("Ampliar: …").
@@ -105,26 +100,7 @@ export function PontinhasSoltasCase({
     project.sections;
   const gallery = project.gallery;
   const creamAlts = [gallery.flyingAlt, gallery.turnaroundsAlt, gallery.headsAlt, gallery.dancingAlt];
-
-  /** Bloco de HTML vivo → moldura com zoom + reveal (só com `zoom`). */
-  const frame = (index: number, node: ReactNode) =>
-    zoom ? (
-      <ZoomFrame index={index} label={zoom[index]} board className={b.rv}>
-        {node}
-      </ZoomFrame>
-    ) : (
-      node
-    );
-  /** Imagem → botão com zoom (só com `zoom`). */
-  const image = (index: number, node: ReactNode) =>
-    zoom ? (
-      <ZoomButton index={index} label={zoom[index]}>
-        {node}
-      </ZoomButton>
-    ) : (
-      node
-    );
-  const reveal = zoom ? b.rv : "";
+  const { frame, image, reveal } = zoomHelpers(zoom);
 
   return (
     <>
@@ -164,17 +140,16 @@ export function PontinhasSoltasCase({
           <Paragraphs items={prototyping.paragraphs} />
         </CaseSection>
 
-        {/* Figma: 3 × 446.9 com 6px entre as fotos e 28px entre as fileiras. Cada
-            foto é o export do nó (recorte do Figma); o lightbox mostra o original. */}
+        {/* Figma: 3 × 446.9 com 6px entre as fotos e 28px entre as fileiras. */}
         <ul className={`grid grid-cols-1 gap-x-[6px] gap-y-[28px] sm:grid-cols-2 lg:grid-cols-3 ${reveal}`}>
-          {prototyping.images.map((alt, i) => (
-            <li key={alt}>
+          {photos.map((photo, i) => (
+            <li key={photo.crop}>
               {image(
-                LB_PHOTOS + i,
+                LB.photos + i,
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
-                  src={`${base}/prototipagem/recorte-${i + 1}@2x.jpg`}
-                  alt={alt}
+                  src={photo.crop}
+                  alt={prototyping.images[i] ?? ""}
                   width={894}
                   height={503}
                   loading="lazy"
@@ -210,7 +185,7 @@ export function PontinhasSoltasCase({
       <div className="flex flex-col gap-7">
         {/* Card azul: arte do Figma sem os nomes + nomes vivos (node 17:3082) */}
         {frame(
-          LB_SHOWCASE,
+          LB.showcase,
           <section className={s.showcase} aria-label={showcase.label}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -225,17 +200,18 @@ export function PontinhasSoltasCase({
             />
             {/* Os nomes já estão no alt da arte. */}
             <ul className={s.showcaseNames} aria-hidden>
-              {showcase.names.map((name, i) => (
+              {showcaseNames.map(([x, y], i) => (
                 <li
-                  key={name}
+                  key={i}
                   className={s.showcaseName}
-                  style={{ "--x": showcaseNames[i][0], "--y": showcaseNames[i][1] } as CSSProperties}
+                  style={{ "--x": x, "--y": y } as CSSProperties}
                 >
-                  {name}
+                  {showcase.names[i]}
                 </li>
               ))}
             </ul>
           </section>,
+          true,
         )}
 
         {/* Prancha creme: quatro grupos, cada um ampliável (node 17:3247) */}
@@ -247,7 +223,7 @@ export function PontinhasSoltasCase({
             return (
               <div key={g.file} className={s.place} style={boxVars(g.box)}>
                 {image(
-                  LB_CREAM + i,
+                  LB.cream + i,
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={`${base}/prancha/${g.file}.webp`}
@@ -265,10 +241,12 @@ export function PontinhasSoltasCase({
           })}
         </div>
 
-        {/* Cards dos personagens: arte sem o texto + nomes e frases vivos (node 17:3989) */}
+        {/* Cards dos personagens: arte sem o texto + nomes e frases vivos (node 17:3989).
+            Abaixo do lg os cards ficam empilhados e o bloco não abre o lightbox
+            (.cardsZoom): seriam ~2800px de botão sobre texto que dá para ler. */}
         <div className={s.cardsOuter}>
           {frame(
-            LB_CARDS,
+            LB.cards,
             <section className={s.cards} aria-label={characterCards.label}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -283,8 +261,9 @@ export function PontinhasSoltasCase({
                 className={`${s.fill} ${s.cardsArt}`}
               />
               <ul className={s.cardList}>
-                {characterCards.list.map((member, i) => {
-                  const c = cards[i];
+                {cards.map((c, i) => {
+                  const member = characterCards.list[i];
+                  if (!member) return null;
                   const [cx, cy, cw, ch] = c.crop;
                   return (
                     <li
@@ -325,6 +304,8 @@ export function PontinhasSoltasCase({
                 })}
               </ul>
             </section>,
+            true,
+            s.cardsZoom,
           )}
         </div>
 
