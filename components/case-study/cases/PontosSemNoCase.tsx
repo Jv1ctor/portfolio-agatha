@@ -1,4 +1,4 @@
-import type { LocalizedProject } from "@/lib/projects";
+import { isProject, type LocalizedProject } from "@/lib/projects";
 import { CaseSection } from "@/components/case-study/CaseShell";
 import { CaseImageButton } from "@/components/case-study/CaseImageButton";
 import { CursorAmpliar } from "@/components/case-study/CursorAmpliar";
@@ -194,6 +194,7 @@ export const pontosSemNoSlots: CaseSlotsFn = (project, { coverClassName }) => ({
 
 /** Corpo do case (tudo entre `<CaseShell>` e `</CaseShell>`), reutilizado pela página e pelo modal. */
 export function PontosSemNoCase({ project }: { project: LocalizedProject }) {
+  if (!isProject(project, "pontos-sem-no")) return null;
   const { creationProcess: cp, prototyping: proto, finalProject: fin } =
     sectionsOf(project);
 
