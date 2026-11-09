@@ -4,6 +4,7 @@ import { useSelectedLayoutSegments } from 'next/navigation';
 import { Header } from './Header';
 import { HomeHeader } from './HomeHeader';
 import type { Dictionary, Locale } from '@/i18n/dictionaries';
+import { isFullPageCase } from '@/lib/projects';
 
 /**
  * Alterna entre o Header antigo (sticky, 6 links + category tabs) e o
@@ -32,11 +33,12 @@ export function HeaderRouter({
   const segments = useSelectedLayoutSegments();
   const isHome = segments.length === 0;
   const isProjectsIndex = segments.length === 1 && segments[0] === 'projetos';
-  // Batuco-tuco aberto direto: o frame do Figma não tem header (só a barra de voltar,
-  // desenhada pelo próprio case). Com o modal aberto os segmentos continuam ['projetos'].
-  const isBatucoCase = segments.length === 2 && segments[0] === 'projetos' && segments[1] === 'batuco-tuco';
+  // Cases de página completa (Batuco-tuco, Pontinhas soltas) abertos direto: o frame do
+  // Figma não tem header (só a barra de voltar, desenhada pelo próprio case). Com o modal
+  // aberto os segmentos continuam ['projetos'].
+  const isFullPage = segments.length === 2 && segments[0] === 'projetos' && isFullPageCase(segments[1]);
 
-  if (isBatucoCase) return null;
+  if (isFullPage) return null;
   if (isHome || isProjectsIndex) {
     return (
       <HomeHeader

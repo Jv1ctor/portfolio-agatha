@@ -97,6 +97,15 @@ const projectMeta: ProjectMeta[] = [
 /** Slugs na ordem de `projectMeta` (ordem da grade e do "próximo" do modal). */
 export const projectSlugs: Slug[] = projectMeta.map((p) => p.slug as Slug);
 
+/**
+ * Cases que abrem como página completa (`opensAsPage`): o frame do Figma não tem o
+ * header do site (a barra de voltar é do próprio case) e usa o footer "visite também".
+ * HeaderRouter e FooterRouter consultam isto.
+ */
+export function isFullPageCase(slug: string): boolean {
+  return projectMeta.some((p) => p.slug === slug && p.opensAsPage === true);
+}
+
 export function getLocalizedProject(
   slug: string,
   dict: Dictionary
