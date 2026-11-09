@@ -377,6 +377,319 @@
         }
       },
       "thanks": "Thank you for making it this far!"
+    },
+    "caju": {
+      "title": "Caju",
+      "subtitle": "Caju in: Semen has no tooth",
+      "cardTitle": "Caju",
+      "description": "Illustrated children's book “Caju in: Semen has no tooth”, created in the Graphic Production course. A story about facing fears with a big smile, made together with classmates Ana and Thays.",
+      "intro": "Under the assignment to create an illustrated children's book in the Graphic Production course, Caju was born as the expression of the bond between a group of older sisters (me and my project teammates). The synopsis: “Caju lives a light and happy life by her mother's side, but after a rainy day, an unexpected change challenges our heroine to see her world from a new perspective. Cajú will show us how to face our fears with a big smile”. It was the most fun brainstorming I've ever had in a project, and it gave me a very personal and genuine connection with my story and my teammates': our ideas talked to each other, and we felt like we were thinking of the same little story even before we decided what it would be.",
+      "tags": [
+        "Academic",
+        "Digital illustration",
+        "Graphic design",
+        "Editorial design",
+        "High complexity"
+      ],
+      "sections": {
+        "creationProcess": {
+          "title": "Creation process",
+          "paragraphs": [
+            "In the story, Caju sees her brother Juca, whose name shares the same syllables as hers, as a scary little monster, and decides to face him with what always makes her laugh: tickles. The weather also follows her feelings, from the sunny day to the rain and thunder, until the sky clears when the baby finally laughs and Caju discovers he has no teeth.",
+            "Later, we looked for references on Behance and Pinterest and put together a mood board (Image a), which guided the character sketches made by me and Thays (Image b): Caju, Juca, the mother Cajuína, represented as Mother Nature (hence the environment's influence on the communication of feelings), and the plushies Dono Sapo, Manuel and Pedro, Caju's allies."
+          ],
+          "cards": {
+            "ideias": {
+              "title": "Ideas",
+              "text": "Title ideas (“Caju and Jucá”) and message/text ideas raised in the group brainstorming."
+            },
+            "fontes": {
+              "title": "Typefaces",
+              "text": "We tested Gambado, Hey Eloise, Pain de Mie, Ruddy, Sketchnotes, BadDog and P22 Stanyan; the chosen one was Bad Dog."
+            },
+            "infoTecnicas": {
+              "title": "Technical specs",
+              "lines": [
+                "Number of pages: 32 pages",
+                "Format: Children's zine booklet",
+                "Printing method: Offset",
+                "Paper: Couché paper",
+                "Typefaces: Bad Dog"
+              ]
+            },
+            "roteiro": {
+              "title": "Script",
+              "columns": [
+                "Beginning",
+                "Middle",
+                "End"
+              ],
+              "text": "The mother plays with Caju on a sunny day. Suddenly, Caju's mother feels a strong pain and is taken to the hospital — the sky darkens. Caju feels afraid and watches, anxious, the front door while a heavy rain falls. The mother returns to the sound of thunder, holding a baby in her arms. Caju tries to see the baby, but he starts crying. Annoyed, Caju takes refuge in her room — a magic shack — and remembers that tickles make her laugh. She decides to tickle the little monster and gets ready to face him. Even though she is scared, she enters the room determined, approaches the cage where the monster is and starts to climb, but he throws toys at her. Even so, Caju climbs until she manages to get inside the cage, takes a deep breath… and jumps on the monster. The baby starts laughing — and the sky clears. Caju realizes the little monster was not scary. He has no teeth! The mother enters the room, sees the two of them laughing and hugs them affectionately. Caju closes the book and hears her mother's voice: — Caju, Juca, let's go to school!"
+            },
+            "paleta": {
+              "title": "Color palette",
+              "alt": "Book color palette: navy #051237, blue #2C609F, royal #312F83, violet #8A6FCB, sky #49B3E7, ice #B4CBF7, lilac #EBDDFC, pink #E0B9D5 and cream #F9F3EC"
+            },
+            "personagens": {
+              "title": "Characters",
+              "items": [
+                {
+                  "name": "Cajü",
+                  "desc": "Protagonist and older sister"
+                },
+                {
+                  "name": "Jucá (the monster)",
+                  "desc": "Younger brother, at first seen as a monster"
+                },
+                {
+                  "name": "Cajuína",
+                  "desc": "Cajü and Jucá's mother, represented as Mother Nature"
+                },
+                {
+                  "name": "Dono Sapo",
+                  "desc": "Cajü's magical ally (frog plushie)"
+                },
+                {
+                  "name": "Manuel",
+                  "desc": "Cajü's magical ally (cat plushie)"
+                },
+                {
+                  "name": "Pedro",
+                  "desc": "Cajü's magical ally (penguin plushie)"
+                }
+              ]
+            }
+          },
+          "images": [
+            "Group brainstorming: table with notebooks, pencils and page sketches of the book.",
+            "Mood board (Image a): collage of references and illustrations that guided the book."
+          ],
+          "lead": "The creation process was carried out together with my classmates Ana and Thays. We first chose the children's booklet niche and, to create the story, we were especially inspired by drawings that we asked the children in Ana's family to make spontaneously, letting their perspective guide what would be told. From that, we created the story together, coming up with title and message ideas, and structured the script into beginning, middle and end.",
+          "caps": [
+            "Caju em: Semente não tem dente",
+            "Quadro do processo",
+            "Brainstorming",
+            "Painel visual - Imagem a",
+            "Teste de cores e storyboard",
+            "Design de personagens - Imagem b",
+            "Rafes das páginas",
+            "Rafes das páginas",
+            "Pintura das páginas e diagramação",
+            "Pintura das páginas e diagramação",
+            "Pintura das páginas e diagramação",
+            "Pintura das páginas e diagramação",
+            "Mídia impressa",
+            "Mídia impressa",
+            "Mídia impressa",
+            "Página do livro",
+            "Página do livro",
+            "Página do livro",
+            "Página do livro",
+            "Página do livro",
+            "Página do livro"
+          ],
+          "captions": {
+            "brainstorming": "Brainstorming",
+            "visualPanel": "Painel visual - Imagem a",
+            "colorTests": "Teste de cores e storyboard",
+            "characters": "Design de personagens - Imagem b",
+            "roughs": "Rafes das páginas",
+            "painting": "Pintura das páginas e diagramação",
+            "printed": "Mídia impressa"
+          }
+        },
+        "prototyping": {
+          "title": "Prototyping",
+          "tabs": [
+            "Moodboard panel",
+            "Piece planning",
+            "Roughs",
+            "Color tests",
+            "Digital rendering",
+            "Print tests"
+          ],
+          "thumbs": {
+            "captions": []
+          },
+          "paragraphs": [
+            "One of the most fun steps was testing the colors, with printed unfilled illustrations painted in colored pencil. Then I made thumbnails of all the pages following the girls' directions (Image 3), and Thays defined a color palette for the characters and made the illustrations for the pages and the cover, which we distributed among ourselves to paint. With the pages ready, I wrote the texts, we tested typefaces (Image 4) and laid it out in InDesign, printing the dummy first and finally the booklet itself."
+          ],
+          "blocks": [
+            {
+              "caption": "Brainstorming",
+              "imageAlt": "Brainstorming photo: work table with notebooks, pencils and sketches."
+            },
+            {
+              "caption": "Mood board - Image a",
+              "imageAlt": "Mood board with references and illustrations of the Caju book."
+            },
+            {
+              "caption": "Color tests and storyboard",
+              "imageAlt": "Six boards of colored-pencil tests and storyboard of the pages."
+            },
+            {
+              "caption": "Character design - Image b",
+              "imageAlt": "Character design boards: pencil sketches and the final Caju character."
+            },
+            {
+              "caption": "Page roughs",
+              "imageAlt": "Two pencil roughs of the book pages, with scenes and notes."
+            },
+            {
+              "caption": "Painting the pages and layout",
+              "imageAlt": "Digital painting of the pages and layout in Figma/InDesign."
+            }
+          ],
+          "images": [
+            "Prototype image."
+          ]
+        },
+        "bookStack": {
+          "title": "Book pages",
+          "images": [
+            "Book page: Caju confused on her branch, her mother's presence divided.",
+            "Book page: Caju lying down, looking up.",
+            "Book page: the frightening shout turns into laughter.",
+            "Book page: the little monster was, in fact, a toothless baby.",
+            "Book page: cozy reading in the shack with string lights.",
+            "Book page: the two of them were the fruits of the smile."
+          ]
+        },
+        "readingSim": {
+          "title": "Reading simulation",
+          "hint": "Click the book or the arrows to flip through.",
+          "counter": {
+            "cover": "Cover",
+            "pages": "Pages {from}–{to} of 30",
+            "backCover": "Back cover"
+          },
+          "next": "Next page",
+          "prev": "Previous page",
+          "backToCover": "Back to the cover",
+          "pageAlt": "Page {n} of the book Caju in: Semen has no tooth",
+          "coverAlt": "Cover of the book Caju in: Semen has no tooth",
+          "backCoverAlt": "Back cover of the book Caju in: Semen has no tooth",
+          "aiNote": "* No AI image-generation agent was used for the visual creations (sketches, vectors, illustrations…) in this project."
+        },
+        "readLock": {
+          "g1": "Hey, already leaving? Flip through the book with me! Scroll 2 more times to exit.",
+          "g2": "Are you sure? One more scroll and I'll let you go :(",
+          "g3": "All right! See you next time :)",
+          "mascotAlt": "Caju project mascot"
+        },
+        "finalProject": {
+          "title": "Final project",
+          "paragraphs": [
+            "The final project is the printed children's book “Caju in: Semen has no tooth”. On the last page, we reserved a space for the children's drawings, giving them back a place in the story they helped create."
+          ],
+          "toolsTitle": "Tools used",
+          "tools": [
+            "Adobe Illustrator",
+            "Clip Studio",
+            "InDesign",
+            "Adobe Fonts"
+          ],
+          "printedTitle": "Printed media",
+          "images": [
+            "Printed book open: page with Caju reading a pink book under string lights.",
+            "Printed book open: mother talking to Caju.",
+            "Printed book and printed cards on the table.",
+            "Photo of the open Caju book on the table."
+          ],
+          "aiNote": "*No AI image-generation agent was used for the visual creations (sketches, vectors, illustrations, 3D models…) in this project."
+        },
+        "book": {
+          "stackLabel": "Book pages",
+          "title": "Reading simulation",
+          "cover": "Cover: “Caju’s seed has no teeth!” on a pink cloud, with Caju’s face peeking out",
+          "backCover": "Back cover",
+          "pages": [
+            "page text",
+            "page text",
+            "page text",
+            "page text",
+            "page text",
+            "page text",
+            "page text",
+            "page text",
+            "page text",
+            "page text",
+            "page text",
+            "page text",
+            "page text",
+            "page text"
+          ],
+          "label": {
+            "cover": "Cover",
+            "back": "Back cover",
+            "pages": "Pages {a}–{b} of {n}"
+          },
+          "hint": {
+            "cover": "Click the cover to open the book",
+            "middle": "Click the pages or use the arrows to browse",
+            "end": "The end! Use the button to go back to the cover"
+          },
+          "nav": {
+            "open": "Open the book",
+            "turn": "Turn the page",
+            "back": "Go back one page",
+            "prev": "Previous page",
+            "next": "Next page",
+            "restart": "Back to cover"
+          },
+          "lock": [
+            "Hey, leaving already? Flip through the book with me! Scroll 2 more times to exit.",
+            "Almost there! One more scroll…",
+            "All right! See you next time :)"
+          ]
+        }
+      },
+      "thanks": "Thank you for making it this far!",
+      "book": {
+        "stackLabel": "Book pages",
+        "title": "Reading simulation",
+        "cover": "Cover: “Caju’s seed has no teeth!” on a pink cloud, with Caju’s face peeking out",
+        "backCover": "Back cover",
+        "pages": [
+          "page text",
+          "page text",
+          "page text",
+          "page text",
+          "page text",
+          "page text",
+          "page text",
+          "page text",
+          "page text",
+          "page text",
+          "page text",
+          "page text",
+          "page text",
+          "page text"
+        ],
+        "label": {
+          "cover": "Cover",
+          "back": "Back cover",
+          "pages": "Pages {a}–{b} of {n}"
+        },
+        "hint": {
+          "cover": "Click the cover to open the book",
+          "middle": "Click the pages or use the arrows to browse",
+          "end": "The end! Use the button to go back to the cover"
+        },
+        "nav": {
+          "open": "Open the book",
+          "turn": "Turn the page",
+          "back": "Go back one page",
+          "prev": "Previous page",
+          "next": "Next page",
+          "restart": "Back to cover"
+        },
+        "lock": [
+          "Hey, leaving already? Flip through the book with me! Scroll 2 more times to exit.",
+          "Almost there! One more scroll…",
+          "All right! See you next time :)"
+        ]
+      }
     }
   },
   "status": {
@@ -399,7 +712,8 @@
     "pontosSemNo": "Pontos sem nó",
     "batucoTuco": "Batuco-tuco",
     "pontinhasSoltas": "Pontinhas soltas",
-    "identidadeEvento15Anos": "Event identity: 15th birthday"
+    "identidadeEvento15Anos": "Event identity: 15th birthday",
+    "caju": "Caju"
   },
   "projectsPage": {
     "title": "Portfolio",

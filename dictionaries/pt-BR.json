@@ -334,6 +334,332 @@
         }
       },
       "thanks": "Obrigada por ter chegado até aqui!"
+    },
+    "caju": {
+      "title": "Caju",
+      "subtitle": "Caju",
+      "cardTitle": "Caju",
+      "description": "Livro infantil ilustrado “Caju em: Semente não tem dente”, criado na disciplina de Produção Gráfica com as colegas Ana e Thays: uma história sobre enfrentar os medos com um grande sorriso.",
+      "intro": "Sob a proposta de criação de um livro infantil ilustrado na disciplina de Produção Gráfica, Caju nasceu como a expressão da conexão de um grupo de irmãs mais velhas (eu e minhas colegas de projeto). Sob a sinopse: “Cajú leva uma vida leve e alegre ao lado de sua mãe, mas, após um dia chuvoso, uma mudança inesperada desafia nossa heroína a ver seu mundo de uma nova perspectiva. Cajú vai nos mostrar como enfrentar nossos medos com um grande sorriso”.\n\nFoi o brainstorming mais divertido que já tive em um projeto, e me gerou uma conexão muito pessoal e genuína com a minha história e a das minhas colegas: nossas ideias se conversavam, e nos sentíamos pensando na mesma historinha antes mesmo de determinarmos como ela seria.",
+      "tags": [
+        "Acadêmico",
+        "Ilustração digital",
+        "Design gráfico",
+        "Design editorial",
+        "Alta complexidade"
+      ],
+      "sections": {
+        "creationProcess": {
+          "title": "Processo de criação",
+          "lead": "O processo de criação foi feito em conjunto com minhas colegas Ana e Thays. Inicialmente escolhemos o nicho dos livretos infantis e, para criar a história, nos baseamos especialmente em ilustrações que pedimos que as crianças da família da Ana fizessem espontaneamente, deixando que o olhar delas guiasse o que seria contado. A partir disso, criamos a história juntas, levantando ideias de título e de mensagem, e estruturamos o roteiro em início, meio e fim.",
+          "paragraphs": [
+            "Na história, Caju vê o irmão Juca, que leva as mesmas sílabas do seu nome, como um monstrinho assustador e decide enfrentá-lo com aquilo que sempre a faz rir: cócegas. O tempo também acompanha os seus sentimentos, do dia ensolarado à chuva e aos trovões, até o céu se abrir quando o bebê finalmente ri e Caju descobre que ele nem tem dentes.",
+            "Mais tarde, buscamos referências no Behance e no Pinterest e montamos um painel visual (Imagem a), que orientou os esboços dos personagens feitos por mim e pela Thays (Imagem b): Caju, Juca, a mãe Cajuína, representada como a Mãe Natureza (por isso a influência do meio ambiente na comunicação dos sentimentos), e as pelúcias Dono Sapo, Manuel e Pedro, aliadas da Caju."
+          ],
+          "images": [
+            "Ilustração do livro: Caju, de cabelo azul e laço laranja, num labirinto de faixas rosa, amarelas e vinho, com o monstrinho cinza ao fundo",
+            "Quadro do processo: testes de fontes (Gambado, Hey Eloise, Pain de Mie, Ruddy, Sketchnote, Bad Dog e P22 Stanyan), ideias de título e de roteiro, informações técnicas (32 páginas, livreto infantil zine, impressão offset, papel couchê, fonte Bad Dog), roteiro em início, meio e fim, paleta de cores em azuis e lilases e os personagens Caju, Jucá, Cajuína, Dono Sapo, Manuel e Pedro",
+            "Brainstorming: mapa mental com post-its, esboço da Caju no caderno e a mesa de trabalho do grupo",
+            "Painel visual com referências de ilustrações infantis, personagens e livros ilustrados",
+            "Testes de cores com lápis de cor sobre a ilustração impressa e o storyboard das páginas",
+            "Estudos dos personagens a lápis, com fichas de nome e idade, e a Caju finalizada em cores",
+            "Rafe a lápis de uma página dupla: Caju lendo na cabana e o susto com o monstrinho",
+            "Rafe a lápis de uma página dupla: o salgueiro e o quarto com a nuvem de trovões",
+            "Pintura digital de uma página no tablet, no Clip Studio",
+            "Página em pintura no Clip Studio, com camadas e paleta de cores",
+            "Diagramação no InDesign: capa, créditos e páginas duplas",
+            "Duas versões da capa lado a lado no Clip Studio",
+            "Livro impresso aberto numa página dupla com Caju e o irmão na cabana",
+            "Livro impresso aberto com Caju e a mãe Cajuína",
+            "Páginas impressas espalhadas sobre a mesa",
+            "Caju sentia-se balançar confusa em seu galho perdida, a presença da sua mãe agora estava dividida.",
+            "Foi então que ela decidiu que era hora de encontrar uma saída.",
+            "Aquele grito assustador se transformou em risadas!",
+            "E não é que para a surpresa dela, aquele monstrinho era, na verdade, um bebê banguela?",
+            "Essa história engraçada foi passada para o tal do monstrinho, agora chamado de Juca.",
+            "Toda vez que Caju lembra, ela percebe que aqueles dois eram os frutos do sorriso, e nada podia atrapalhar."
+          ],
+          "caps": [
+            "Caju em: Semente não tem dente",
+            "Quadro do processo",
+            "Brainstorming",
+            "Painel visual - Imagem a",
+            "Teste de cores e storyboard",
+            "Design de personagens - Imagem b",
+            "Rafes das páginas",
+            "Rafes das páginas",
+            "Pintura das páginas e diagramação",
+            "Pintura das páginas e diagramação",
+            "Pintura das páginas e diagramação",
+            "Pintura das páginas e diagramação",
+            "Mídia impressa",
+            "Mídia impressa",
+            "Mídia impressa",
+            "Página do livro",
+            "Página do livro",
+            "Página do livro",
+            "Página do livro",
+            "Página do livro",
+            "Página do livro"
+          ],
+          "captions": {
+            "brainstorming": "Brainstorming",
+            "visualPanel": "Painel visual - Imagem a",
+            "colorTests": "Teste de cores e storyboard",
+            "characters": "Design de personagens - Imagem b",
+            "roughs": "Rafes das páginas",
+            "painting": "Pintura das páginas e diagramação",
+            "printed": "Mídia impressa"
+          },
+          "cards": {
+            "ideias": {
+              "title": "Ideias",
+              "text": "Ideias de título (“Caju e Jucá”) e de mensagem/texto levantadas no brainstorming em grupo."
+            },
+            "fontes": {
+              "title": "Fontes",
+              "text": "Testamos Gambado, Hey Eloise, Pain de Mie, Ruddy, Sketchnotes, BadDog e P22 Stanyan; a escolhida foi Bad Dog."
+            },
+            "infoTecnicas": {
+              "title": "Informações técnicas",
+              "lines": [
+                "Número de páginas: 32 páginas",
+                "Formato: Livreto infantil zine",
+                "Meio de impressão: Offset",
+                "Tipo de folha: Papel couchê",
+                "Fontes: Bad Dog"
+              ]
+            },
+            "roteiro": {
+              "title": "Roteiro",
+              "columns": [
+                "Início",
+                "Meio",
+                "Fim"
+              ],
+              "text": "A mãe brinca com Caju em um dia ensolarado. De repente, a mãe de Caju sente uma dor forte e é levada ao hospital — o tempo escurece. Caju sente medo e observa, apreensiva, a porta de casa enquanto uma forte chuva cai. A mãe retorna ao som de trovões, segurando um bebê nos braços. Caju tenta ver o bebê, mas ele começa a chorar. Irritada, Caju se refugia em seu quarto — uma cabana mágica — e se lembra de que cócegas a fazem rir. Ela decide fazer cócegas no monstrinho e se prepara para enfrentá-lo. Mesmo com medo, entra no quarto determinada, aproxima-se da jaula onde o monstrinho está e começa a escalar, mas ele joga brinquedos nela. Mesmo assim, Caju sobe até conseguir entrar na jaula, respira fundo… e salta sobre o monstro. O bebê começa a rir — e o céu se abre. Caju percebe que o monstrinho não era assustador. Ele não tem dentes! A mãe entra no quarto, vê os dois rindo e os abraça com carinho. Caju fecha o livro e escuta a voz da mãe: — Caju, Juca, vamos para a escola!"
+            },
+            "paleta": {
+              "title": "Paleta de cores",
+              "alt": "Paleta de cores do livro: navy #051237, azul #2C609F, royal #312F83, violeta #8A6FCB, céu #49B3E7, gelo #B4CBF7, lilás #EBDDFC, rosa #E0B9D5 e creme #F9F3EC"
+            },
+            "personagens": {
+              "title": "Personagens",
+              "items": [
+                {
+                  "name": "Cajü",
+                  "desc": "Protagonista e irmã mais velha"
+                },
+                {
+                  "name": "Jucá (o monstro)",
+                  "desc": "Irmão mais novo, que no início é visto como monstro"
+                },
+                {
+                  "name": "Cajuína",
+                  "desc": "Mãe da Cajú e do Jucá, é representada como a Mãe Natureza"
+                },
+                {
+                  "name": "Dono Sapo",
+                  "desc": "Criatura mágica aliada da Cajú (pelúcia de sapo)"
+                },
+                {
+                  "name": "Manuel",
+                  "desc": "Criatura mágica aliada da Cajú (pelúcia de gato)"
+                },
+                {
+                  "name": "Pedro",
+                  "desc": "Criatura mágica aliada da Cajú (pelúcia de pinguim)"
+                }
+              ]
+            }
+          }
+        },
+        "prototyping": {
+          "title": "Prototipagem",
+          "tabs": [
+            "Painel Moodboard",
+            "Planejamento de peças",
+            "Rafes",
+            "Testes de cores",
+            "Renderização digital",
+            "Testes de impressão"
+          ],
+          "paragraphs": [
+            "Uma das etapas mais divertidas foi testar as cores, com ilustrações impressas sem preenchimento e pintadas com lápis de cor. Depois, fiz as thumbnails de todas as páginas com as orientações das meninas (Imagem 3), e a Thays definiu uma paleta de cores para os personagens e fez as ilustrações das páginas e da capa, que distribuímos entre nós para pintar. Com as páginas prontas, escrevi os textos, testamos tipografias (Imagem 4) e diagramamos no Indesign, imprimindo primeiro o boneco e, por fim, o livrinho em si."
+          ],
+          "images": [
+            "Imagem de prototipagem."
+          ],
+          "thumbs": {
+            "captions": []
+          },
+          "blocks": [
+            {
+              "caption": "Brainstorming",
+              "imageAlt": "Foto do brainstorming: mesa de trabalho com cadernos, lápis e rascunhos."
+            },
+            {
+              "caption": "Painel visual - Imagem a",
+              "imageAlt": "Painel visual com referências e ilustrações do livro Caju."
+            },
+            {
+              "caption": "Teste de cores e storyboard",
+              "imageAlt": "Seis pranchas de teste de cores com lápis de cor e storyboard das páginas."
+            },
+            {
+              "caption": "Design de personagens - Imagem b",
+              "imageAlt": "Pranchas de design dos personagens: esboços a lápis e personagem final Caju."
+            },
+            {
+              "caption": "Rafes das páginas",
+              "imageAlt": "Duas rafes a lápis das páginas do livro, com cenas e anotações."
+            },
+            {
+              "caption": "Pintura das páginas e diagramação",
+              "imageAlt": "Pintura digital das páginas e diagramação no Figma/InDesign."
+            }
+          ]
+        },
+        "finalProject": {
+          "title": "Projeto final",
+          "paragraphs": [
+            "O projeto final é o livro infantil impresso “Caju em: Semente não tem dente”. Na última página, reservamos um espaço para os desenhos das crianças, devolvendo a elas um lugar na história que ajudaram a criar."
+          ],
+          "toolsTitle": "Ferramentas utilizadas",
+          "tools": [
+            "Adobe Illustrator",
+            "Clip Studio",
+            "Indesign",
+            "Adobe Fonts"
+          ],
+          "images": [
+            "Livro impresso aberto: página com a Caju lendo um livro rosa sob pisca-piscas.",
+            "Livro impresso aberto: a mãe conversa com a Caju.",
+            "Livro impresso e cartões impressos sobre a mesa.",
+            "Foto do livro Caju aberto em cima da mesa."
+          ],
+          "aiNote": "* Não foi utilizado nenhum agente IA de geração de imagens para as criações visuais (sketches, vetores, ilustrações…) neste projeto.",
+          "printedTitle": "Mídia impressa"
+        },
+        "book": {
+          "stackLabel": "Páginas do livro",
+          "title": "Simulação de leitura",
+          "cover": "Capa: “Caju em: semente não tem dente!” numa nuvem rosa, com o rosto da Caju espiando de baixo",
+          "backCover": "Contracapa",
+          "pages": [
+            "Caju sentia-se balançar confusa em seu galho perdida, a presença da sua mãe agora estava dividida.",
+            "Foi então que ela decidiu que era hora de encontrar uma saída.",
+            "Caju retorna para o labirinto, determinada a enfrentar o monstrinho!",
+            "Ilustração: o labirinto, com olhos vermelhos espiando.",
+            "E não é que para a surpresa dela, aquele monstrinho era, na verdade, um bebê banguela?",
+            "Aquele grito assustador se transformou em risadas!",
+            "Toda vez que Caju lembra, ela percebe que aqueles dois eram os frutos do sorriso, e nada podia atrapalhar.",
+            "Essa história engraçada foi passada para o tal do monstrinho, agora chamado de Juca."
+          ],
+          "label": {
+            "cover": "Capa",
+            "back": "Contracapa",
+            "pages": "Páginas {a}–{b} de {n}"
+          },
+          "hint": {
+            "cover": "Clique na capa para abrir o livro",
+            "middle": "Clique nas páginas ou use as setas para folhear",
+            "end": "Fim! Use o botão para voltar à capa"
+          },
+          "nav": {
+            "open": "Abrir o livro",
+            "turn": "Virar a página",
+            "back": "Voltar uma página",
+            "prev": "Página anterior",
+            "next": "Próxima página",
+            "restart": "Voltar para a capa"
+          },
+          "lock": [
+            "Ei, já vai? Folheia o livro comigo! Role mais 2 vezes para sair.",
+            "Tem certeza? Mais uma rolada e eu deixo você ir :(",
+            "Tudo bem! Até a próxima :)"
+          ]
+        },
+        "bookStack": {
+          "title": "Páginas do livro",
+          "images": [
+            "Book page: Caju confused on her branch, her mother's presence divided.",
+            "Book page: Caju lying down, looking up.",
+            "Book page: the frightening shout turns into laughter.",
+            "Book page: the little monster was, in fact, a toothless baby.",
+            "Book page: cozy reading in the shack with string lights.",
+            "Book page: the two of them were the fruits of the smile."
+          ]
+        },
+        "readingSim": {
+          "title": "Reading simulation",
+          "hint": "Click the book or the arrows to flip through.",
+          "counter": {
+            "cover": "Cover",
+            "pages": "Pages {from}–{to} of 30",
+            "backCover": "Back cover"
+          },
+          "next": "Next page",
+          "prev": "Previous page",
+          "backToCover": "Back to the cover",
+          "pageAlt": "Page {n} of the book Caju in: Semen has no tooth",
+          "coverAlt": "Cover of the book Caju in: Semen has no tooth",
+          "backCoverAlt": "Back cover of the book Caju in: Semen has no tooth",
+          "aiNote": "* No AI image-generation agent was used for the visual creations (sketches, vectors, illustrations…) in this project."
+        },
+        "readLock": {
+          "g1": "Ei, já vai? Folheia o livro comigo! Role mais 2 vezes para sair.",
+          "g2": "Tem certeza? Mais uma roladinha e eu te deixo ir :)",
+          "g3": "Tudo bem! Até a próxima :)",
+          "mascotAlt": "Mascote do projeto Caju"
+        }
+      },
+      "thanks": "Obrigada por ter chegado até aqui!",
+      "book": {
+        "stackLabel": "Páginas do livro",
+        "title": "Simulação de leitura",
+        "cover": "Capa: “Caju em: semente não tem dente!” numa nuvem rosa, com o rosto da Caju espiando",
+        "backCover": "Contracapa",
+        "pages": [
+          "Caju sentia-se balançar confusa em seu galho, perdida na presença da sua mãe agora tão distante.",
+          "A chuva caía forte lá fora e o trovão assustava. Onde estaría a mãe?",
+          "De repente, a porta se abriu e um rostinho novo chorava nos braços dela.",
+          "Caju diminuia oInfos — um monstrinho! — e se escondeu atrás da porta.",
+          "Mas as cócegas sempre haciam-na rir... e ela teve uma ideia.",
+          "Ela entrou no quarto determinada, mesmo com medo.",
+          "Aproximou-se da jaula onde o monstrinho estava.",
+          "Ele jogou brinquedos nela, mas Caju não desistiu.",
+          "Ela subiu, respirou fundo... e saltou sobre o monstro!",
+          "O bebê começou a rir — e o céu se abriu.",
+          "Caju percebeu que o monstrinho não era assustador.",
+          "Ele nem tinha dentes!",
+          "A mãe entrou, viu os dois rindo e os abraçou com carinho.",
+          "Caju fechou o livro e ouviu a voz da mãe: — Caju, Juca, vamos para a escola!"
+        ],
+        "label": {
+          "cover": "Capa",
+          "back": "Contracapa",
+          "pages": "Páginas {a}–{b} de {n}"
+        },
+        "hint": {
+          "cover": "Clique na capa para abrir o livro",
+          "middle": "Clique nas páginas ou use as setas para folhear",
+          "end": "Fim! Use o botão para voltar à capa"
+        },
+        "nav": {
+          "open": "Abrir o livro",
+          "turn": "Virar a página",
+          "back": "Voltar uma página",
+          "prev": "Página anterior",
+          "next": "Próxima página",
+          "restart": "Voltar para a capa"
+        },
+        "lock": [
+          "Ei, já vai? Folheia o livro comigo! Role mais 2 vezes para sair.",
+          "Quase lá! Mais uma roladinha…",
+          "Tudo bem! Até a próxima :)"
+        ]
+      }
     }
   },
   "status": {
@@ -356,7 +682,8 @@
     "pontosSemNo": "Pontos sem nó",
     "batucoTuco": "Batuco-tuco",
     "pontinhasSoltas": "Pontinhas soltas",
-    "identidadeEvento15Anos": "Identidade de evento: 15 anos"
+    "identidadeEvento15Anos": "Identidade de evento: 15 anos",
+    "caju": "Caju"
   },
   "projectsPage": {
     "title": "Portfólio",
