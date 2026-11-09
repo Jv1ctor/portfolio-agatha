@@ -1,221 +1,158 @@
 /* ==========================================================================
-   CajuCase — layout do frame 17:5070 (coluna de 1354px) + ANIMACOES §4
-   (pilha sticky, flipbook e trava de leitura). Reveal, zoom, cursor e
-   lightbox ficam em ../case-study.module.css.
-   Vãos horizontais em % da coluna: 1354px no Figma = 100%.
+   Case Caju — frame do Figma 17:5070 (coluna de 1352px) + livro do canvas do
+   Claude Design (ProjetoCaju): pilha de páginas no scroll e "Simulação de
+   leitura". Zoom, cursor, lightbox e reveal vêm de batuco.module.css (o
+   BatucoMotion procura as classes de lá).
+
+   Fileiras de imagens: flex com pesos = larguras do Figma (--grow) e os vãos do
+   Figma em px; abaixo de 48rem elas empilham. Texto em duas colunas só a partir
+   de 64rem, como no Batuco-tuco e no Pontinhas soltas.
    ========================================================================== */
 
-/* ---------- textos ---------- */
-.p {
-  margin: 0;
-  font-weight: 300;
-  font-size: 1rem;
-  /* Figma: blocos de texto com altura múltipla de 18px */
-  line-height: 1.125;
-  color: var(--color-blue);
-  text-align: justify;
-  hyphens: auto;
+/* ---------- imagens ---------- */
+/* Caixa do Figma (--ar = w / h) com o export 2x do nó dentro. */
+.pic {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: var(--ar);
+  object-fit: cover;
 }
-.p strong {
-  font-weight: 700;
+/* Hero (17:5177): 1354 × 461. */
+.hero {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1354 / 461;
+  object-fit: cover;
 }
-.paras {
-  display: flex;
-  flex-direction: column;
-  gap: 1.125rem;
-}
+
+/* ---------- legendas: Clother Bold 16px / 18px ---------- */
 .cap {
   margin: 0;
+  font-family: var(--font-body);
+  font-weight: 700;
   font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.125;
+  line-height: 18px;
   color: var(--color-blue);
 }
 .capCenter {
-  composes: cap;
   text-align: center;
-  font-weight: 600;
 }
-.pls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
-.pl {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.3em 0.7em;
-  border-radius: 999px;
-  background: var(--color-blue-pale);
-  color: var(--color-blue);
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.2;
-  white-space: nowrap;
-  box-shadow: 2px 4px 8px 2px rgba(111, 150, 206, 0.16);
-}
-.note {
-  margin: 0 0 0 auto;
-  max-width: 28rem; /* duas linhas, como no Figma (17:5488, 445px) */
-  font-size: 0.875rem;
-  font-weight: 300;
-  font-style: italic;
-  line-height: 1.3;
-  color: var(--color-blue);
+/* "Brainstorming" fica 4px abaixo das fotos (o painel, 8px). */
+.capBrain {
+  margin-top: -4px;
 }
 
-/* ---------- fileiras de imagens (flex com pesos = larguras do Figma) ---------- */
+/* ---------- cabeçalho | quadro (17:5181): 688 | 32 | 631, centralizados na vertical ---------- */
+.top {
+  display: grid;
+  gap: 2rem;
+}
+@media (min-width: 64rem) {
+  .top {
+    grid-template-columns: minmax(0, 688fr) minmax(0, 631fr);
+    column-gap: calc(32 / 1351 * 100%);
+    align-items: center;
+  }
+}
+
+/* ---------- fileiras ---------- */
 .row {
   display: flex;
-  align-items: flex-start;
+  flex-direction: column;
+  gap: 1rem;
 }
-.gap4 {
-  gap: 0.3%; /* 4px */
-}
-.gap13 {
-  gap: 0.96%; /* 13px */
-}
-.gap16 {
-  gap: 1.2%; /* 16-17px */
+.cell {
+  min-width: 0;
 }
 .fig {
   min-width: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.375rem;
-}
-.stackCol {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.6875rem; /* 10-13px entre as capturas da pintura */
+  gap: 8px;
 }
 .block {
+  margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem; /* legenda centralizada 8px acima das imagens */
+  gap: 8px;
 }
-
-/* ---------- cards do Processo de criação (grid 3 col) ---------- */
-.cards {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
+.col {
+  display: flex;
+  flex-direction: column;
 }
-.card {
-  border-radius: 12px;
-  background: var(--color-blue-pale);
-  padding: 1rem;
-  box-shadow: 2px 4px 8px 2px rgba(111, 150, 206, 0.16);
-}
-.cardTitle {
-  margin: 0 0 0.5rem;
-  font-weight: 700;
-  font-size: 1.05rem;
-  line-height: 1.2;
-  color: var(--color-blue);
-}
-.cardImg {
-  margin-top: 0.5rem;
-  display: block;
-  width: 100%;
-  border-radius: 8px;
-}
-.plSoft {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.25em 0.65em;
-  border-radius: 999px;
-  background: var(--color-blue-soft);
-  color: var(--color-blue);
-  font-size: 0.85rem;
-  font-weight: 400;
-  line-height: 1.2;
-  white-space: nowrap;
-}
-.protoGrid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.5rem;
-}
-.printedGrid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.5rem;
-}
-.h3 {
-  margin: 0 0 0.5rem;
-  font-weight: 700;
-  font-size: 1.25rem;
-  color: var(--color-blue);
-  font-family: var(--font-body);
-}
-.bookTitle {
-  margin: 0 0 1.25rem;
-  text-align: center;
-  font-weight: 700;
-  font-size: 1.625rem;
-  line-height: 1.2;
-  color: var(--color-blue);
-  font-family: var(--font-body);
-}
-.stackGrid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-}
-.stackGrid img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-/* Hero do case: Figma 17:5177 = 1354×461 (aspect-ratio 2,94:1) */
-.heroImg {
-  aspect-ratio: 1354 / 461;
-  object-fit: cover;
-}
-/* A pilha em leque (ANIMACOES §4.1) não vira grade no mobile: continua leque. */
-@media (max-width: 767px) {
-  .stack {
-    aspect-ratio: 1360 / 1273;
-  }
-}
-
-/* ---------- duas colunas: projeto final 667 | ferramentas 641, vão 22 ---------- */
-.two {
-  display: grid;
-  align-items: start;
-  grid-template-columns: minmax(0, 667fr) minmax(0, 641fr);
-  column-gap: 1.62%;
-}
-
-@media (max-width: 767px) {
-  .cards,
-  .protoGrid,
-  .printedGrid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  /* padding lateral no mobile para as imagens não tocarem as bordas */
-  .protoGrid,
-  .printedGrid {
-    padding-inline: 4px;
-  }
+@media (min-width: 48rem) {
   .row {
-    flex-wrap: wrap;
-    gap: 8px;
+    flex-direction: row;
+    align-items: flex-start;
   }
   .row > * {
-    flex: 1 1 100% !important;
+    flex: var(--grow) 1 0;
   }
+  .gapBrain {
+    gap: 3.516px;
+  }
+  .gap13 {
+    gap: 13px;
+  }
+  .gap16 {
+    gap: 16px;
+  }
+  .gap17 {
+    gap: 17px;
+  }
+}
+
+/* Brainstorming (17:5349): coluna de 316.8 (duas fotos, vão 3.516) | 4 | foto de 404.04 */
+.brainGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 316.8fr) minmax(0, 404.04fr);
+  gap: 4px;
+  align-items: start;
+}
+.brainCol {
+  display: flex;
+  flex-direction: column;
+  gap: 3.516px;
+}
+
+/* Pintura e diagramação (17:5436): vãos de 9.667 (esquerda) e 12.567 (direita). */
+.gapPaintL {
+  gap: 9.667px;
+}
+.gapPaintR {
+  gap: 12.567px;
+}
+
+/* Mídia impressa (17:5466): 8px + caixa vazia de 18px abaixo das fotos. */
+.printed {
+  padding-bottom: 26px;
+}
+
+/* ---------- Projeto final 667 | 22 | Ferramentas 641 (17:5443) ---------- */
+.two {
+  display: grid;
+  gap: 2rem;
+  align-items: start;
+}
+@media (min-width: 64rem) {
   .two {
-    grid-template-columns: minmax(0, 1fr);
-    row-gap: 32px;
+    grid-template-columns: minmax(0, 667fr) minmax(0, 641fr);
+    column-gap: 22px;
   }
+}
+
+/* Nota de IA (17:5488): 445px à direita; o balão vem 32px abaixo (o CaseShell
+   põe 28px, os 4px que faltam ficam aqui). */
+.note {
+  margin: 0 0 4px auto;
+  max-width: 445px;
 }
 
 /* ==========================================================================
-   §4.1 Pilha de páginas no scroll
+   Pilha de páginas no scroll (Claude Design; Figma 17:5473)
    ========================================================================== */
 .stkWrap {
   position: relative;
@@ -225,8 +162,8 @@
   display: flex;
   align-items: center;
 }
-/* A pilha (Figma 17:5473): 1360×1273, 2 colunas de páginas 662×662 e linhas a
-   cada 305px. cqw = largura da pilha. */
+/* 1360 × 1273: 2 colunas de páginas 662 × 662 (vão 35) e linhas a cada 305px.
+   cqw = largura da pilha. */
 .stack {
   container-type: inline-size;
   position: relative;
@@ -236,25 +173,34 @@
   clip-path: inset(-60px -60px 0 -60px);
   transform-origin: 50% 50%;
 }
+/* Página: cantos de 30px, sombra externa e sombra interna do Figma. */
 .stack .sCard {
   position: absolute;
   width: 48.68cqw;
   aspect-ratio: 1 / 1;
-  border-radius: 1.5cqw;
-  box-shadow: 0 2px 6px rgba(90, 60, 30, 0.25);
+  border-radius: 2.206cqw;
+  overflow: hidden;
+  box-shadow: 0 5px 10px 2px rgba(110, 78, 45, 0.74);
 }
 .stack .sCard img {
+  display: block;
+  width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.stack .sCard:hover img {
-  transform: scale(1.015);
+.stack .sCard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset -5px 7px 24.04px 0 rgba(110, 78, 45, 0.74);
+  pointer-events: none;
 }
 .sCol0 {
   left: 0;
 }
 .sCol1 {
-  left: 51.32cqw;
+  left: 51.29cqw;
 }
 .sRow0 {
   top: 0;
@@ -262,7 +208,7 @@
 }
 /* Linhas 2 e 3 sobem de trás da borda de baixo: deslocamento = 1273 − topo. */
 .sRow1 {
-  top: 22.43cqw;
+  top: 22.46cqw;
   z-index: 2;
   --o: 71.18cqw;
 }
@@ -277,11 +223,14 @@
 .sRow2 {
   --e: var(--e2, 1);
 }
+/* +1.5cqw: a sombra de cima da página (≈7px) também fica abaixo do recorte
+   enquanto a linha espera para subir (sem um fio de sombra na borda). */
 .stack .sRow1,
 .stack .sRow2 {
-  transform: translateY(calc(var(--o) * (1 - var(--e))));
+  transform: translateY(calc((var(--o) + 1.5cqw) * (1 - var(--e))));
   will-change: transform;
 }
+
 
 /* ==========================================================================
    §4.2 Flipbook "Simulação de leitura"
@@ -294,9 +243,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1.25rem;
-  padding-top: 1.25rem;
-  scroll-margin-top: 0;
 }
 .fbInner {
   display: flex;
@@ -309,8 +255,8 @@
 .fbArea {
   position: relative;
   isolation: isolate;
-  /* livro aberto = 2 páginas de 630px (Figma 17:5487) */
-  width: min(93%, 1260px);
+  /* largura final vem do CajuBook (Claude Design: min(86%, (tela − 250) × 2, 1180px)) */
+  width: 82%;
   max-width: 100%;
 }
 .fbGlow {
@@ -395,12 +341,6 @@
 .fbBack {
   transform: rotateY(180deg) translateZ(0.01px);
   border-radius: 4.4% 0 0 4.4% / 4.4% 0 0 4.4%;
-}
-/* contracapa: o Figma não traz a arte; fica a cor do céu da capa */
-.fbPlain {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(160deg, #fde3cf, #fbbd8a);
 }
 .fbSpine {
   position: absolute;
@@ -542,49 +482,31 @@
     width 0s linear 0.16s;
 }
 
-/* controles: setas + contador com barra */
+
+/* título "Simulação de leitura" (17:5485): Clother Bold 32px, linha de 18px; o
+   livro fica 28px abaixo (gap de 24 + 4). */
+.fbTitle {
+  margin: 0 0 4px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1.75rem;
+  line-height: 18px;
+  letter-spacing: 0;
+  text-align: center;
+  color: var(--color-blue);
+}
+@media (min-width: 48rem) {
+  .fbTitle {
+    font-size: 2rem;
+  }
+}
+
+/* controles: setas pontilhadas (as do lightbox) + contador com barra */
 .fbCtrl {
   display: flex;
   align-items: center;
   gap: 1.5rem;
   width: min(100%, max(320px, 35rem));
-}
-.fbNav {
-  flex: none;
-  width: max(38px, 3.25rem);
-  height: max(38px, 3.25rem);
-  border-radius: 50%;
-  padding: 0;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--color-blue-pale);
-  color: var(--color-blue);
-  border: 0;
-  box-shadow: 0 0 0 max(2px, 3px) #bacceb;
-  transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.4);
-}
-.fbNav[hidden] {
-  display: none;
-}
-.fbNav svg {
-  width: 42%;
-  height: 42%;
-}
-.fbNav:not(:disabled):hover {
-  transform: translateY(-2px) scale(1.06);
-}
-.fbNav:disabled {
-  opacity: 0.3;
-  cursor: default;
-}
-.fbNav:focus-visible {
-  outline: 3px solid #0e488b;
-  outline-offset: 4px;
-}
-.pulse.fbNav {
-  animation: fbRing 2.4s ease-out infinite;
 }
 .fbMeter {
   flex: 1;
@@ -596,9 +518,10 @@
 }
 .fbLabel {
   margin: 0;
+  font-family: var(--font-body);
   font-weight: 700;
-  font-size: max(13px, 1rem);
-  color: #6f96ce;
+  font-size: 1rem;
+  color: var(--color-blue);
 }
 .fbTrack {
   width: 100%;
@@ -610,70 +533,42 @@
 .fbFill {
   height: 100%;
   border-radius: 3px;
-  background: #6f96ce;
+  background: var(--color-blue);
   transition: width var(--flip) var(--page);
 }
 .fbHint {
-  composes: cap;
-  text-align: center;
-}
-
-/* ==========================================================================
-   §4.3 Trava de leitura: mascote + balão + tranco de resistência
-   ========================================================================== */
-.fbMascot {
-  position: absolute;
-  right: 4%;
-  bottom: 2.875rem;
-  z-index: 5;
-  display: flex;
-  align-items: flex-end;
-  gap: 0.5rem;
-  pointer-events: none;
-  animation: fbMascotIn 0.55s cubic-bezier(0.2, 0.9, 0.3, 1.4) both;
-}
-.fbMascot[hidden] {
-  display: none;
-}
-.fbBubble {
-  box-sizing: border-box;
-  margin: 0 0 1.875rem;
-  max-width: max(200px, 16.25rem);
-  padding: 0.875rem 1.125rem;
-  background: #fde4ee;
-  border-radius: 30px 30px 6px 30px;
-  box-shadow: inset -5px -6px 0 #f7c6d9;
-  color: #08488f;
+  margin: 0;
+  font-family: var(--font-body);
   font-weight: 400;
-  font-size: max(12px, 0.9375rem);
-  line-height: 1.3;
+  font-size: 0.9375rem;
+  line-height: 1.25;
   text-align: center;
-  transform-origin: 100% 100%;
+  color: var(--color-blue);
 }
-.bA {
-  animation: fbPopA 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.4) both;
+/* Seta de avançar pulsando até a primeira virada. */
+.fbNext.pulse {
+  animation: fbRing 2.4s ease-out infinite;
 }
-.bB {
-  animation: fbPopB 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.4) both;
+/* Reiniciar: o ícone ocupa o miolo inteiro (sem o recorte do glifo de texto). */
+.fbRestart > span {
+  padding: 0;
 }
-.fbFaceImg {
+.fbRestartIcon {
   display: block;
-  width: max(72px, 6.75rem);
-  height: auto;
-  transform-origin: 50% 90%;
-  animation: wobble 1.8s ease-in-out infinite;
 }
-.nudgeDn1 {
-  animation: fbNudgeDn1 0.55s cubic-bezier(0.2, 0.9, 0.3, 1.3);
-}
-.nudgeDn2 {
-  animation: fbNudgeDn2 0.55s cubic-bezier(0.2, 0.9, 0.3, 1.3);
-}
-.nudgeUp1 {
-  animation: fbNudgeUp1 0.55s cubic-bezier(0.2, 0.9, 0.3, 1.3);
-}
-.nudgeUp2 {
-  animation: fbNudgeUp2 0.55s cubic-bezier(0.2, 0.9, 0.3, 1.3);
+/* Hovers iguais aos das setas do lightbox. */
+@media (prefers-reduced-motion: no-preference) {
+  .fbPrev:not(:disabled):hover {
+    translate: -4px 0;
+    rotate: -10deg;
+  }
+  .fbNext:hover {
+    translate: 4px 0;
+    rotate: 10deg;
+  }
+  .fbRestart:hover {
+    rotate: -30deg;
+  }
 }
 
 @keyframes fbGlow {
@@ -689,13 +584,13 @@
 }
 @keyframes fbRing {
   0% {
-    box-shadow: 0 0 0 3px #bacceb, 0 0 0 0 rgba(111, 150, 206, 0.45);
+    box-shadow: 0 0 0 0 rgba(111, 150, 206, 0.45);
   }
   70% {
-    box-shadow: 0 0 0 3px #bacceb, 0 0 0 16px rgba(111, 150, 206, 0);
+    box-shadow: 0 0 0 16px rgba(111, 150, 206, 0);
   }
   100% {
-    box-shadow: 0 0 0 3px #bacceb, 0 0 0 0 rgba(111, 150, 206, 0);
+    box-shadow: 0 0 0 0 rgba(111, 150, 206, 0);
   }
 }
 @keyframes fbDarken {
@@ -727,103 +622,6 @@
     width: 12cqw;
   }
 }
-@keyframes fbMascotIn {
-  from {
-    opacity: 0;
-    transform: translateY(24px) scale(0.8);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-@keyframes fbPopA {
-  0% {
-    opacity: 0;
-    transform: scale(0.6) rotate(6deg);
-  }
-  70% {
-    transform: scale(1.05) rotate(-1deg);
-  }
-  100% {
-    opacity: 1;
-    transform: none;
-  }
-}
-@keyframes fbPopB {
-  0% {
-    opacity: 0;
-    transform: scale(0.6) rotate(-6deg);
-  }
-  70% {
-    transform: scale(1.05) rotate(1deg);
-  }
-  100% {
-    opacity: 1;
-    transform: none;
-  }
-}
-@keyframes wobble {
-  0%,
-  100% {
-    transform: rotate(0);
-  }
-  30% {
-    transform: rotate(-5deg);
-  }
-  60% {
-    transform: rotate(3deg);
-  }
-}
-/* duas cópias de cada tranco: alternar a classe reinicia a animação */
-@keyframes fbNudgeDn1 {
-  0%,
-  100% {
-    transform: none;
-  }
-  35% {
-    transform: translateY(-14px);
-  }
-  65% {
-    transform: translateY(5px);
-  }
-}
-@keyframes fbNudgeDn2 {
-  0%,
-  100% {
-    transform: none;
-  }
-  35% {
-    transform: translateY(-14px);
-  }
-  65% {
-    transform: translateY(5px);
-  }
-}
-@keyframes fbNudgeUp1 {
-  0%,
-  100% {
-    transform: none;
-  }
-  35% {
-    transform: translateY(14px);
-  }
-  65% {
-    transform: translateY(-5px);
-  }
-}
-@keyframes fbNudgeUp2 {
-  0%,
-  100% {
-    transform: none;
-  }
-  35% {
-    transform: translateY(14px);
-  }
-  65% {
-    transform: translateY(-5px);
-  }
-}
 
 /* movimento reduzido: pilha montada, livro vira sem animação, sem convites */
 @media (prefers-reduced-motion: reduce) {
@@ -837,18 +635,13 @@
   .fbStack,
   .fbFill,
   .fbGlow,
-  .fbCurl,
-  .fbNav {
+  .fbCurl {
     transition-duration: 1ms !important;
   }
   .fbShade,
   .fbCurl,
   .fbGlow,
-  .fbNav,
-  .fbInner,
-  .fbMascot,
-  .fbBubble,
-  .fbFaceImg {
+  .fbNext {
     animation: none !important;
   }
   .fbGlow {

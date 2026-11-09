@@ -63,6 +63,20 @@ export type ProjectSectionI18n = ProjectI18n['sections'];
 /** Projeto completo: metadados + textos do dicionário no locale carregado. */
 export type LocalizedProject = ProjectMeta & ProjectI18n;
 
+/** Projeto de um slug, com os textos do dicionário daquele projeto. */
+export type ProjectOf<S extends Slug> = ProjectMeta & Dictionary['projects'][(typeof slugToKey)[S]];
+
+/**
+ * Estreita um `LocalizedProject` para o projeto de um slug. Cada case tem chaves
+ * próprias no dicionário; checar o slug não depende de nenhuma chave ser única.
+ */
+export function isProject<S extends Slug>(
+  project: LocalizedProject,
+  slug: S
+): project is LocalizedProject & ProjectOf<S> {
+  return project.slug === slug;
+}
+
 // Metadados estáticos — nenhum texto aqui (tudo vem do dicionário)
 const projectMeta: ProjectMeta[] = [
   {
@@ -115,8 +129,11 @@ const projectMeta: ProjectMeta[] = [
     categories: ['grafico'],
     date: '12.04.2025',
     accent: 'pink',
-    coverImage: '/images/projects/caju/livro-capa.jpg',
-    grid: { column: 2, aspect: '612 / 344', objectPosition: 'center 30%', descLines: 2 },
+    // Capa = imagem principal do case (Figma 17:5177, 1354 × 461).
+    coverImage: '/images/projects/caju/hero.webp',
+    grid: { column: 2, aspect: '612 / 344', objectPosition: 'center', descLines: 2 },
+    layout: 'wide',
+    opensAsPage: true,
   },
 ];
 

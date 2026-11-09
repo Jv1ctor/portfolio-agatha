@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, type ReactNode } from 'react';
+import { useSnapIntoView } from '@/lib/hooks/use-snap-into-view';
 import s from '../caju.module.css';
 
 const smooth = (t: number) => {
@@ -25,11 +26,16 @@ const smooth = (t: number) => {
  * (não depende de herança de `--e1/--e2` do pai), e o layout é refeito quando a
  * largura da pilha muda sem `resize` da janela (folha do modal, barra de
  * rolagem, fontes) via ResizeObserver.
+ *
+ * Snap: chegando perto, a página encaixa a seção (topo do wrapper no topo da
+ * tela, ou o fim dele no fim da tela vindo de baixo), com a pilha centralizada
+ * no quadro sticky. Sem trava: a rolagem continua livre.
  */
 export function CajuStack({ label, children }: { label: string; children: ReactNode }) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<HTMLDivElement>(null);
   const stackRef = useRef<HTMLDivElement>(null);
+  useSnapIntoView(wrapRef);
 
   useEffect(() => {
     const wrap = wrapRef.current;

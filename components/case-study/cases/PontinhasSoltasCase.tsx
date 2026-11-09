@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import type { LocalizedProject } from "@/lib/projects";
+import { isProject, type LocalizedProject } from "@/lib/projects";
 import { CaseSection, DashedPill, bodyFontBold } from "@/components/case-study/CaseShell";
 import { type Box, Paragraphs, boxVars, textClass, wideTitle as title, zoomHelpers } from "./wide";
 import s from "./pontinhas.module.css";
@@ -93,8 +93,8 @@ export function PontinhasSoltasCase({
   project: LocalizedProject;
   zoom?: readonly string[];
 }) {
-  // As chaves abaixo só existem no Pontinhas soltas; isso também estreita o tipo.
-  if (!("aiNote" in project)) return null;
+  // Estreita o tipo para as chaves do Pontinhas soltas.
+  if (!isProject(project, "pontinhas-soltas")) return null;
 
   const { creationProcess: cp, prototyping, finalProject, tools, showcase, characterCards } =
     project.sections;

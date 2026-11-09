@@ -302,10 +302,3 @@ a {
     animation: none;
   }
 }
-
-/* Lightbox das páginas de case (components/case-study/Lightbox.tsx): trava o
-   scroll da página enquanto o modal de imagens está aberto. Fica aqui, e não no
-   CSS module, porque o nome da classe precisa ser literal. */
-body.lb-open {
-  overflow: hidden;
-}

@@ -1,327 +1,350 @@
-import type { LocalizedProject } from "@/lib/projects";
-import { CaseSection } from "@/components/case-study/CaseShell";
-import { CaseImageButton } from "@/components/case-study/CaseImageButton";
-import { Lightbox, type LightboxImage } from "@/components/case-study/Lightbox";
-import { CursorAmpliar } from "@/components/case-study/CursorAmpliar";
-import { Reveal } from "@/components/case-study/Reveal";
+import type { CSSProperties, ReactNode } from "react";
+import { isProject, type LocalizedProject, type ProjectOf } from "@/lib/projects";
+import { CaseSection, DashedPill, bodyFontBold } from "@/components/case-study/CaseShell";
+import { Paragraphs, textClass, wideTitle as title, zoomHelpers } from "./wide";
 import { CajuStack } from "./caju/CajuStack";
-import { CajuReadingSim } from "./CajuReadingSim";
-import type { CaseSlotsFn } from "./index";
+import { CajuBook } from "./caju/CajuBook";
 import s from "./caju.module.css";
 
-const base = "/images/projects/caju";
+export const cajuBase = "/images/projects/caju";
+const base = cajuBase;
 
-type CajuSections = {
-  creationProcess: {
-    title: string;
-    lead: string;
-    paragraphs: string[];
-    images: string[];
-    caps: string[];
-    captions: Record<string, string>;
-    cards: {
-      ideias: { title: string; text: string };
-      fontes: { title: string; text: string };
-      infoTecnicas: { title: string; lines: string[] };
-      roteiro: { title: string; columns: string[]; text: string };
-      paleta: { title: string; alt: string };
-      personagens: { title: string; items: { name: string; desc: string }[] };
-    };
+/** Case do Caju com os textos do dicionário (o tipo de `projects.caju`). */
+export type CajuProject = LocalizedProject & ProjectOf<"caju">;
+
+export function isCajuProject(project: LocalizedProject): project is CajuProject {
+  return isProject(project, "caju");
+}
+
+/* ---------- Dados de layout (não traduzíveis) ----------
+   Cada imagem é o export do nó do Figma (frame 17:5070) em 2x, com a caixa do
+   Figma (w × h em px) e a largura do arquivo 2x. O arquivo 1x é a metade.
+   Estas listas mandam na página e no lightbox; o dicionário só dá o texto de
+   cada item pelo índice. */
+
+export type CajuImage = { file: string; w: number; h: number; px2: number };
+
+const img = (file: string, w: number, h: number, px2: number): CajuImage => ({ file, w, h, px2 });
+
+export const cajuImages = {
+  /** Hero (17:5177): duas páginas do livro, 1354 × 461. */
+  hero: img("hero", 1354, 461, 2708),
+  /** Quadro de planejamento (17:5216), à direita do cabeçalho. */
+  board: img("quadro", 631, 568.46, 1262),
+  /** Brainstorming (17:5353, 17:5354 | 17:5355). */
+  brainstorm: [
+    img("brainstorm-1", 316.83, 212.04, 634),
+    img("brainstorm-2", 316.8, 322.8, 634),
+    img("brainstorm-3", 404.04, 538.72, 809),
+  ],
+  /** Painel visual - Imagem a (17:5358): colagem de referências. */
+  panel: img("painel-visual", 626.13, 538.72, 1253),
+  /** Teste de cores e storyboard (17:5404) | Design de personagens (17:5416). */
+  colorTests: img("teste-cores", 733.63, 349.89, 1468),
+  characters: img("design-personagens", 608.15, 349.79, 1217),
+  /** Rafes das páginas (17:5431, 17:5432). */
+  roughs: [img("rafe-1", 668.88, 366.84, 1338), img("rafe-2", 668.88, 366.63, 1338)],
+  /** Pintura das páginas e diagramação: coluna esquerda (17:5438, 17:5439) e direita (17:5441, 17:5442). */
+  painting: [
+    img("pintura-1", 665.54, 364.43, 1332),
+    img("pintura-2", 665.54, 386.67, 1332),
+    img("diagramacao-1", 665.54, 296.76, 1332),
+    img("diagramacao-2", 665.54, 451.4, 1332),
+  ],
+  /** Mídia impressa (17:5469..5471). */
+  printed: [
+    img("impresso-1", 520.78, 390.58, 1042),
+    img("impresso-2", 520.78, 390.58, 1042),
+    img("impresso-3", 292.94, 390.58, 586),
+  ],
+} as const;
+
+/** Índices no lightbox (mesma ordem de `getCajuLightbox`, em caju/lightbox.ts). */
+export const LB = (() => {
+  const brainstorm = 2;
+  const panel = brainstorm + cajuImages.brainstorm.length;
+  const colorTests = panel + 1;
+  const characters = colorTests + 1;
+  const roughs = characters + 1;
+  const painting = roughs + cajuImages.roughs.length;
+  const printed = painting + cajuImages.painting.length;
+  return { hero: 0, board: 1, brainstorm, panel, colorTests, characters, roughs, painting, printed };
+})();
+
+/** Páginas da pilha (17:5475/5476/5477 | 17:5479/5480/5481), em 2x do arquivo original. */
+const STACK_PAGES = 6;
+/** Faces do livro: capa, 30 páginas e contracapa (as do canvas do Claude Design). */
+const BOOK_FACES = 32;
+
+/** Caminhos 1x/2x de uma imagem (srcSet com a largura real de cada arquivo). */
+export function cajuSrc(image: CajuImage) {
+  const w1 = Math.round(image.px2 / 2);
+  return {
+    src: `${base}/${image.file}.webp`,
+    src2x: `${base}/${image.file}@2x.webp`,
+    srcSet: `${base}/${image.file}.webp ${w1}w, ${base}/${image.file}@2x.webp ${image.px2}w`,
   };
-  prototyping: {
-    title: string;
-    tabs: string[];
-    paragraphs: string[];
-    blocks: { caption: string; imageAlt: string }[];
-    images: string[];
-  };
-  bookStack: { title: string; label?: string; images: string[] };
-  readingSim: { title: string; aiNote: string };
-  readLock: Record<string, string>;
-  book: {
-    stackLabel: string;
-    title: string;
-    cover: string;
-    backCover: string;
-    pages: string[];
-    label: { cover: string; back: string; pages: string };
-    hint: { cover: string; middle: string; end: string };
-    nav: { open: string; turn: string; back: string; prev: string; next: string; restart: string };
-    lock: string[];
-  };
-  finalProject: {
-    title: string;
-    paragraphs: string[];
-    toolsTitle: string;
-    tools: string[];
-    printedTitle: string;
-    images: string[];
-    aiNote: string;
-  };
-};
+}
+
+/** Imagem de uma caixa do Figma: proporção do Figma e recorte `cover`. */
+function Pic({ image, alt, sizes, eager }: { image: CajuImage; alt: string; sizes: string; eager?: boolean }) {
+  const { src, srcSet } = cajuSrc(image);
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={src}
+      srcSet={srcSet}
+      sizes={sizes}
+      alt={alt}
+      width={Math.round(image.w)}
+      height={Math.round(image.h)}
+      loading={eager ? "eager" : "lazy"}
+      decoding="async"
+      className={s.pic}
+      style={{ "--ar": `${image.w} / ${image.h}` } as CSSProperties}
+    />
+  );
+}
+
+/** `sizes` para uma imagem que ocupa `w` px de 1352 na coluna do case. */
+const sizesFor = (w: number) =>
+  `(min-width: 1432px) ${Math.round(w)}px, (min-width: 48rem) ${((w / 1352) * 100).toFixed(1)}vw, 92vw`;
+
+/** Pesos de uma fileira flex = larguras do Figma. */
+const grow = (w: number) => ({ "--grow": w }) as CSSProperties;
+
+/** Capa do case (17:5177): duas páginas do livro, export 1x/2x do Figma. */
+export function CajuHero({ project }: { project: LocalizedProject }) {
+  const alt = isCajuProject(project) ? project.heroAlt : project.title;
+  const { src, srcSet } = cajuSrc(cajuImages.hero);
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={src}
+      srcSet={srcSet}
+      sizes="(min-width: 1432px) 1352px, (min-width: 800px) calc(100vw - 5rem), 90vw"
+      width={1354}
+      height={461}
+      alt={alt}
+      className={s.hero}
+    />
+  );
+}
 
 /**
- * Nomes semânticos dos recortes do frame 17:5070 (mapa em
- * docs/superpowers/analysis/figma-caju-assets.md).
+ * Corpo do case Caju (Figma 17:5070), reutilizado pela página e pelo modal.
  *
- * Ordem do Figma: brainstorming + painel visual ficam no fim da seção de
- * processo (acima do título da próxima seção, y≈1316..1881); depois vêm
- * teste de cores, personagens, rafes e pintura.
+ * `zoom` (só a página completa passa): aria-label de cada item do lightbox. Com
+ * ele as imagens viram gatilhos com zoom no hover e as fileiras ganham o reveal ao
+ * rolar, como no Batuco-tuco e no Pontinhas soltas. A pilha de páginas e o livro
+ * são do livro: não abrem o lightbox.
  */
-const PROCESS_FILES = ["brainstorming.jpg", "painel-visual.jpg"] as const;
-const PROCESS_CAPS = ["brainstorming", "visualPanel"] as const;
-const PROTO_FILES = [
-  "teste-cores-storyboard.jpg",
-  "design-personagens.jpg",
-  "rafe-1.jpg",
-  "rafe-2.jpg",
-  "pintura-tablet.jpg",
-  "pintura-clip-studio.jpg",
-] as const;
-const PROTO_CAPS = ["colorTests", "characters", "roughs", "roughs", "painting", "painting"] as const;
-const PRINTED_FILES = ["impresso-1.jpg", "impresso-2.jpg", "impresso-3.jpg", "livro-capa.jpg"];
-/** 6 páginas do livro na ordem do Figma 17:5473..5481 (col0: 5475/5476/5477, col1: 5479/5480/5481). */
-const STACK_FILES = [
-  "livro-pag-1.jpg",
-  "livro-pag-2.jpg",
-  "livro-pag-3.jpg",
-  "livro-pag-4.jpg",
-  "livro-pag-5.jpg",
-  "livro-pag-6.jpg",
-];
-const BOOK_FACE_POOL = [
-  ...STACK_FILES,
-  "livro-pag-7.jpg",
-  "livro-pag-8.jpg",
-  "capa-versoes.jpg",
-  "quadro-processo.jpg",
-  "diagramacao-indesign.jpg",
-].map((f) => `${base}/${f}`);
+export function CajuCase({ project, zoom }: { project: LocalizedProject; zoom?: readonly string[] }) {
+  if (!isCajuProject(project)) return null;
 
-/** Topo do case (Figma 17:5070): cabeçalho 688px | aside 631px, vão 32 — capa do livro no aside. */
-export const cajuSlots: CaseSlotsFn = (project, { coverClassName }) => ({
-  cover: (
-    <CaseImageButton
-      src={`${base}/hero.jpg`}
-      alt={(project.sections as unknown as CajuSections).creationProcess.images[0] ?? project.title}
-      index={0}
-      cap={(project.sections as unknown as CajuSections).creationProcess.caps?.[0] ?? project.title}
-      className={`rounded-[8px] ${coverClassName ?? ""}`}
-      imgClassName={s.heroImg}
-    />
-  ),
-  aside: (
-    <CaseImageButton
-      src={`${base}/capa-versoes.jpg`}
-      alt={(project.sections as unknown as CajuSections).bookStack?.label ?? "Capa do livro"}
-      index={1}
-      cap={(project.sections as unknown as CajuSections).bookStack?.label ?? "Capa do livro"}
-    />
-  ),
-  asideLayout: { main: 688, aside: 631, gap: 32 },
-});
+  const { creationProcess: cp, gallery: g, prototyping, finalProject, tools, stack, readingSim, book } =
+    project.sections;
+  const { image, reveal } = zoomHelpers(zoom);
+  const zoomed = (index: number, node: ReactNode) => image(index, node);
 
-/** Corpo do case Caju (Figma 17:5070 + ANIMACOES §4), reutilizado pela página e pelo modal. */
-export function CajuCase({ project }: { project: LocalizedProject }) {
-  const sections = project.sections as unknown as CajuSections;
-  const cp = sections.creationProcess;
-  const proto = sections.prototyping;
-  const fin = sections.finalProject;
-  const book = (sections as { book?: CajuSections["book"] }).book ?? sections.book;
-
-  const lbImages: LightboxImage[] = [
-    { src: `${base}/hero.jpg`, alt: cp.images[0] ?? project.title, cap: cp.caps?.[0] ?? project.title },
-    {
-      src: `${base}/capa-versoes.jpg`,
-      alt: sections.bookStack?.label ?? "Capa do livro",
-      cap: sections.bookStack?.label ?? "Capa do livro",
-    },
-    ...PROTO_FILES.map((f, i) => ({
-      src: `${base}/${f}`,
-      alt: proto.blocks[i]?.imageAlt ?? "",
-      cap: cp.captions[PROTO_CAPS[i]] ?? proto.blocks[i]?.caption ?? "",
-    })),
-    ...fin.images.map((alt, i) => ({
-      src: `${base}/${PRINTED_FILES[i]}`,
-      alt,
-      cap: fin.printedTitle,
-    })),
-  ];
-
-  const stackImgs = STACK_FILES.map((f, i) => ({
-    src: `${base}/${f}`,
-    alt: sections.bookStack.images[i] ?? "",
+  const faces = Array.from({ length: BOOK_FACES }, (_, i) => ({
+    src: `${base}/livro/face-${String(i).padStart(2, "0")}.webp`,
+    alt: book.faces[i] ?? "",
   }));
-
-  // flipbook: 32 faces = capa + 30 páginas + contracapa (ANIMACOES §4.2)
-  const faces = [
-    `${base}/livro-capa.jpg`,
-    ...Array.from({ length: 30 }, (_, i) => BOOK_FACE_POOL[i % BOOK_FACE_POOL.length]),
-    `${base}/contracapa.jpg`,
-  ];
 
   return (
     <>
-      {/* Processo de criação: lead + parágrafos + grid de cards + brainstorming/painel (Figma y1316..1881) */}
-      <Reveal>
-        <CaseSection title={cp.title}>
-          <div className={s.paras}>
-            <p className={s.p}>{cp.lead}</p>
-            {cp.paragraphs.map((p, i) => (
-              <p key={i} className={s.p}>
-                {p}
+      {/* 1. Cabeçalho | quadro de planejamento (17:5181): 688 | 32 | 631 */}
+      <div className={s.top}>
+        <div className="flex flex-col gap-8">
+          <section className="flex flex-col gap-6">
+            <h1
+              className={`text-[1.75rem] text-[color:var(--color-blue)] md:text-[2rem] ${title.box30}`}
+              style={bodyFontBold}
+            >
+              {project.subtitle}
+            </h1>
+            {/* No Figma as cinco tags cabem nos 685px; no Chrome a Clother sai uns px
+                mais larga por pill. Com a coluna cheia (≥ 1432px) a linha não quebra,
+                como as pills do Batuco-tuco e do Pontinhas soltas. */}
+            <ul className="flex flex-wrap gap-2 min-[1432px]:flex-nowrap">
+              {project.tags.map((tag) => (
+                <li key={tag}>
+                  <DashedPill>{tag}</DashedPill>
+                </li>
+              ))}
+            </ul>
+          </section>
+          <Paragraphs items={project.intro.split("\n\n")} />
+          <CaseSection title={cp.title} size="lg" titleClassName={title.box30}>
+            <div className="flex flex-col gap-[18px]">
+              <p className={textClass}>
+                {cp.leadBefore}
+                <strong className="font-bold">{cp.leadAna}</strong>
+                {cp.leadBetween}
+                <strong className="font-bold">{cp.leadThays}</strong>
+                {cp.leadAfter}
               </p>
-            ))}
-          </div>
-          <div className={`${s.cards} mt-8`}>
-            <Reveal className={s.card}>
-              <h3 className={s.cardTitle}>{cp.cards.ideias.title}</h3>
-              <p className={s.p}>{cp.cards.ideias.text}</p>
-            </Reveal>
-            <Reveal className={s.card}>
-              <h3 className={s.cardTitle}>{cp.cards.fontes.title}</h3>
-              <p className={s.p}>{cp.cards.fontes.text}</p>
-            </Reveal>
-            <Reveal className={s.card}>
-              <h3 className={s.cardTitle}>{cp.cards.infoTecnicas.title}</h3>
-              <ul className={s.p}>
-                {cp.cards.infoTecnicas.lines.map((l) => (
-                  <li key={l}>{l}</li>
-                ))}
-              </ul>
-            </Reveal>
-            <Reveal className={s.card}>
-              <h3 className={s.cardTitle}>{cp.cards.roteiro.title}</h3>
-              <div className={`${s.pls} mb-2`}>
-                {cp.cards.roteiro.columns.map((c) => (
-                  <span key={c} className={s.plSoft}>
-                    {c}
-                  </span>
-                ))}
-              </div>
-              <p className={s.p}>{cp.cards.roteiro.text}</p>
-            </Reveal>
-            <Reveal className={s.card}>
-              <h3 className={s.cardTitle}>{cp.cards.paleta.title}</h3>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={`${base}/paleta.png`} alt={cp.cards.paleta.alt} className={s.cardImg} />
-            </Reveal>
-            <Reveal className={s.card}>
-              <h3 className={s.cardTitle}>{cp.cards.personagens.title}</h3>
-              <ul className={`${s.p} flex flex-col gap-1.5`}>
-                {cp.cards.personagens.items.map((it) => (
-                  <li key={it.name}>
-                    <strong>{it.name}</strong> — {it.desc}
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
-          </div>
-          {/* Brainstorming + painel visual: fim da seção de processo, antes de "Prototipagem" (17:5356/5369) */}
-          <div className={`${s.protoGrid} mt-8`}>
-            {PROCESS_FILES.map((f, i) => (
-              <figure key={f} className={s.fig}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${base}/${f}`} alt={cp.images[2 + i] ?? ""} loading="lazy" decoding="async" />
-                <figcaption className={s.cap}>{cp.captions[PROCESS_CAPS[i]]}</figcaption>
-              </figure>
-            ))}
-          </div>
-        </CaseSection>
-      </Reveal>
-
-      {/* Prototipagem: pills + parágrafo + blocos de imagens clicáveis (lightbox) */}
-      <Reveal>
-        <CaseSection title={proto.title}>
-          <div className={s.pls}>
-            {proto.tabs.map((tab) => (
-              <span key={tab} className={s.pl}>
-                {tab}
-              </span>
-            ))}
-          </div>
-          <div className={`${s.paras} mt-6`}>
-            {proto.paragraphs.map((p, i) => (
-              <p key={i} className={s.p}>
-                {p}
-              </p>
-            ))}
-          </div>
-          <div className={`${s.protoGrid} mt-6`}>
-            {PROTO_FILES.map((f, i) => (
-              <figure key={f} className={s.fig}>
-                <CaseImageButton
-                  src={`${base}/${f}`}
-                  alt={proto.blocks[i]?.imageAlt ?? ""}
-                  index={2 + i}
-                  cap={cp.captions[PROTO_CAPS[i]] ?? proto.blocks[i]?.caption ?? ""}
-                />
-                <figcaption className={s.cap}>{cp.captions[PROTO_CAPS[i]] ?? proto.blocks[i]?.caption}</figcaption>
-              </figure>
-            ))}
-          </div>
-        </CaseSection>
-      </Reveal>
-
-      {/* Projeto final | Ferramentas + mídia impressa (Figma 17:5443 y3768, antes da pilha) */}
-      <Reveal className={s.two}>
-        <CaseSection title={fin.title}>
-          <div className={s.paras}>
-            {fin.paragraphs.map((p, i) => (
-              <p key={i} className={s.p}>
-                {p}
-              </p>
-            ))}
-          </div>
-        </CaseSection>
-        <div>
-          <h3 className={s.h3}>{fin.toolsTitle}</h3>
-          <div className={`${s.pls} mb-6`}>
-            {fin.tools.map((tool) => (
-              <span key={tool} className={s.plSoft}>
-                {tool}
-              </span>
-            ))}
-          </div>
-          <h3 className={s.h3}>{fin.printedTitle}</h3>
+              {cp.paragraphs.map((p, i) => (
+                <p key={i} className={textClass}>
+                  {p}
+                </p>
+              ))}
+            </div>
+          </CaseSection>
         </div>
-      </Reveal>
-      <Reveal className={s.printedGrid}>
-        {fin.images.map((alt, i) => (
-          <figure key={alt} className={s.fig}>
-            <CaseImageButton
-              src={`${base}/${PRINTED_FILES[i]}`}
-              alt={alt}
-              index={2 + PROTO_FILES.length + i}
-              cap={fin.printedTitle}
-            />
-          </figure>
-        ))}
-      </Reveal>
+        <div className={reveal}>
+          {zoomed(LB.board, <Pic image={cajuImages.board} alt={g.boardAlt} sizes={sizesFor(631)} />)}
+        </div>
+      </div>
 
-      {/* Pilha sticky de páginas do livro em leque (Figma 17:5473 + ANIMACOES §4.1) */}
-      <Reveal>
-        <CaseSection title={sections.bookStack.title}>
-          <CajuStack label={book.stackLabel}>
-            {stackImgs.map((im, i) => {
-              const col = i < 3 ? s.sCol0 : s.sCol1;
-              const row = i % 3 === 0 ? s.sRow0 : i % 3 === 1 ? s.sRow1 : s.sRow2;
-              return (
-                <div key={im.src} className={`${s.sCard} ${col} ${row}`}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={im.src} alt={im.alt} loading="lazy" decoding="async" />
+      {/* 2. Brainstorming (17:5349) | Painel visual - Imagem a (17:5357) */}
+      <div className={`${s.row} ${s.gapBrain} ${reveal}`}>
+        <figure className={s.fig} style={grow(724.84)}>
+          <div className={s.brainGrid}>
+            <div className={s.brainCol}>
+              {cajuImages.brainstorm.slice(0, 2).map((im, i) => (
+                <div key={im.file}>
+                  {zoomed(LB.brainstorm + i, <Pic image={im} alt={g.brainstormingAlts[i] ?? ""} sizes={sizesFor(im.w)} />)}
                 </div>
-              );
-            })}
-          </CajuStack>
+              ))}
+            </div>
+            <div>
+              {zoomed(
+                LB.brainstorm + 2,
+                <Pic image={cajuImages.brainstorm[2]} alt={g.brainstormingAlts[2] ?? ""} sizes={sizesFor(404)} />,
+              )}
+            </div>
+          </div>
+          <figcaption className={`${s.cap} ${s.capBrain}`}>{g.brainstorming}</figcaption>
+        </figure>
+        <figure className={s.fig} style={grow(626.13)}>
+          {zoomed(LB.panel, <Pic image={cajuImages.panel} alt={g.visualPanelAlt} sizes={sizesFor(626)} />)}
+          <figcaption className={s.cap}>{g.visualPanel}</figcaption>
+        </figure>
+      </div>
+
+      {/* 3. Prototipagem (17:5370) */}
+      <CaseSection title={prototyping.title} size="lg" titleClassName={title.base}>
+        <ul className="mb-6 flex flex-wrap gap-2.5">
+          {prototyping.tabs.map((tab) => (
+            <li key={tab}>
+              <DashedPill>{tab}</DashedPill>
+            </li>
+          ))}
+        </ul>
+        <Paragraphs items={prototyping.paragraphs} />
+      </CaseSection>
+
+      {/* 4. Teste de cores e storyboard | Design de personagens (17:5402): 733.63 | 16 | 608.15 */}
+      <div className={`${s.row} ${s.gap16} ${reveal}`}>
+        <figure className={s.fig} style={grow(733.63)}>
+          {zoomed(LB.colorTests, <Pic image={cajuImages.colorTests} alt={g.colorTestsAlt} sizes={sizesFor(734)} />)}
+          <figcaption className={s.cap}>{g.colorTests}</figcaption>
+        </figure>
+        <figure className={s.fig} style={grow(608.15)}>
+          {zoomed(LB.characters, <Pic image={cajuImages.characters} alt={g.charactersAlt} sizes={sizesFor(608)} />)}
+          <figcaption className={s.cap}>{g.characters}</figcaption>
+        </figure>
+      </div>
+
+      {/* 5. Rafes das páginas (17:5426): legenda centralizada + 2 × 668.88, vão 16.51 */}
+      <figure className={`${s.block} ${reveal}`}>
+        <figcaption className={`${s.cap} ${s.capCenter}`}>{g.roughs}</figcaption>
+        <div className={`${s.row} ${s.gap16}`}>
+          {cajuImages.roughs.map((im, i) => (
+            <div key={im.file} className={s.cell} style={grow(im.w)}>
+              {zoomed(LB.roughs + i, <Pic image={im} alt={g.roughsAlts[i] ?? ""} sizes={sizesFor(im.w)} />)}
+            </div>
+          ))}
+        </div>
+      </figure>
+
+      {/* 6. Pintura das páginas e diagramação (17:5433): duas colunas de 665.54, vão 17 */}
+      <figure className={`${s.block} ${reveal}`}>
+        <figcaption className={`${s.cap} ${s.capCenter}`}>{g.painting}</figcaption>
+        <div className={`${s.row} ${s.gap17}`}>
+          {[
+            [0, 1],
+            [2, 3],
+          ].map((col, c) => (
+            <div key={c} className={`${s.cell} ${s.col} ${c === 0 ? s.gapPaintL : s.gapPaintR}`} style={grow(665.54)}>
+              {col.map((i) => (
+                <div key={cajuImages.painting[i].file}>
+                  {zoomed(
+                    LB.painting + i,
+                    <Pic image={cajuImages.painting[i]} alt={g.paintingAlts[i] ?? ""} sizes={sizesFor(666)} />,
+                  )}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </figure>
+
+      {/* 7. Projeto final | Ferramentas utilizadas (17:5443): 667 | 22 | 641 */}
+      <div className={s.two}>
+        <CaseSection title={finalProject.title} size="lg" titleClassName={title.line18}>
+          <Paragraphs items={finalProject.paragraphs} />
         </CaseSection>
-      </Reveal>
+        <CaseSection title={tools.title} size="lg" titleClassName={title.base}>
+          <ul className="flex flex-wrap gap-2.5">
+            {tools.items.map((tool) => (
+              <li key={tool}>
+                <DashedPill>{tool}</DashedPill>
+              </li>
+            ))}
+          </ul>
+        </CaseSection>
+      </div>
 
-      {/* Simulação de leitura: flipbook + trava de leitura com mascote (ANIMACOES §4.2/§4.3) */}
-      <CajuReadingSim sections={sections} faces={faces} mascotSrc={`${base}/mascote.png`} />
+      {/* 8. Mídia impressa (17:5466): legenda + 520.78 | 520.78 | 292.94, vão 13 */}
+      <figure className={`${s.block} ${s.printed} ${reveal}`}>
+        <figcaption className={`${s.cap} ${s.capCenter}`}>{g.printed}</figcaption>
+        <div className={`${s.row} ${s.gap13}`}>
+          {cajuImages.printed.map((im, i) => (
+            <div key={im.file} className={s.cell} style={grow(im.w)}>
+              {zoomed(LB.printed + i, <Pic image={im} alt={g.printedAlts[i] ?? ""} sizes={sizesFor(im.w)} />)}
+            </div>
+          ))}
+        </div>
+      </figure>
 
-      <Lightbox images={lbImages} />
-      <CursorAmpliar />
+      {/* 9. Pilha de páginas em leque (17:5473): empilha com o scroll, sem lightbox */}
+      <CajuStack label={stack.label}>
+        {Array.from({ length: STACK_PAGES }, (_, i) => {
+          const col = i < 3 ? s.sCol0 : s.sCol1;
+          const row = i % 3 === 0 ? s.sRow0 : i % 3 === 1 ? s.sRow1 : s.sRow2;
+          return (
+            <div key={i} className={`${s.sCard} ${col} ${row}`}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`${base}/pilha/pagina-${i + 1}.webp`}
+                alt={stack.alts[i] ?? ""}
+                width={1103}
+                height={1103}
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          );
+        })}
+      </CajuStack>
+
+      {/* 10. Simulação de leitura: o livro do canvas do Claude Design */}
+      <CajuBook
+        faces={faces}
+        texts={{
+          title: readingSim.title,
+          label: book.label,
+          counter: book.counter,
+          hint: book.hint,
+          nav: book.nav,
+        }}
+      />
+
+      {/* 11. Nota sobre IA (17:5488), 32px acima do balão de agradecimento */}
+      <p className={`${textClass} ${s.note} italic`}>{project.aiNote}</p>
     </>
   );
 }
