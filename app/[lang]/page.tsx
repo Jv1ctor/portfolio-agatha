@@ -138,8 +138,8 @@ export default async function HomePage({
       {/* Personagem espiando por cima da galeria (será ajustado no Plan 4) */}
       <PeekingCharacter dict={dict} />
 
-      {/* Seção 3: Galeria de estudos (será reescrita no Plan 4) */}
-      <StudiesGallery dict={dict} />
+      {/* Seção 3: Galeria de estudos (o bloco Estudos leva a /estudos) */}
+      <StudiesGallery dict={dict} locale={lang} />
 
       {/* Seção 4: Contato — wrapper com elipses decorativas absolutas.
           (reescrita do ContactSection no Plan 5; por ela usar o padrão vw do
