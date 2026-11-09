@@ -63,18 +63,20 @@ const Chevron = ({ d }: { d: string }) => (
 export function CajuBook({
   cover,
   pages,
+  backCover,
   texts,
   mascotSrc,
 }: {
   cover: string;
   pages: string[];
+  backCover?: string;
   texts: BookTexts;
   mascotSrc: string;
 }) {
   const faces: Face[] = [
     { src: cover, alt: texts.cover },
     ...pages.map((src, i) => ({ src, alt: texts.pages[i] ?? '' })),
-    { alt: texts.backCover },
+    { src: backCover, alt: texts.backCover },
   ];
   const N = Math.floor(faces.length / 2); // folhas
   const nPages = pages.length;

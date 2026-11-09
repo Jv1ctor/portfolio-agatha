@@ -36,7 +36,8 @@ export function CajuReadingSim({
       <h2 className={s.bookTitle}>{sections.readingSim.title}</h2>
       <Book
         cover={faces[0]}
-        pages={faces.slice(1, 31)}
+        pages={faces.slice(1, -1)}
+        backCover={faces[faces.length - 1]}
         mascotSrc={mascotSrc}
         texts={{
           title: book.title,

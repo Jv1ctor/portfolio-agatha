@@ -157,7 +157,7 @@ export function CajuCase({ project }: { project: LocalizedProject }) {
   const faces = [
     `${base}/livro-capa.jpg`,
     ...Array.from({ length: 30 }, (_, i) => BOOK_FACE_POOL[i % BOOK_FACE_POOL.length]),
-    `${base}/capa-versoes.jpg`,
+    `${base}/contracapa.jpg`,
   ];
 
   return (
