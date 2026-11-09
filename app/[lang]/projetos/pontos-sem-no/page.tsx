@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { getDictionary, isLocale } from "@/i18n/dictionaries";
 import { getLocalizedProject } from "@/lib/projects";
 import { CaseShell } from "@/components/case-study/CaseShell";
-import { PontosSemNoCase } from "@/components/case-study/cases";
+import { PontosSemNoCase, caseSlots } from "@/components/case-study/cases";
 
 export async function generateMetadata({
   params,
@@ -35,9 +35,10 @@ export default async function PontosSemNoPage({
   const dict = await getDictionary(lang);
   const project = getLocalizedProject("pontos-sem-no", dict);
   if (!project) notFound();
+  const slots = caseSlots["pontos-sem-no"]?.(project, {}) ?? {};
 
   return (
-    <CaseShell project={project} dict={dict}>
+    <CaseShell project={project} dict={dict} {...slots}>
       <PontosSemNoCase project={project} />
     </CaseShell>
   );

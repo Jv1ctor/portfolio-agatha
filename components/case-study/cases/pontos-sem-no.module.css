@@ -1,0 +1,234 @@
+/* ==========================================================================
+   PontosSemNoCase — layout do frame 17:899 (coluna de 1352px) + ANIMACOES §2.
+   Reveal, zoom, cursor e lightbox ficam em ../case-study.module.css.
+   Vãos horizontais em % da coluna: 1352px no Figma = 100%.
+   ========================================================================== */
+
+/* ---------- duas colunas (proporções de cada faixa do frame) ---------- */
+.two {
+  display: grid;
+  align-items: start;
+}
+.colsApoio {
+  /* elementos de apoio 667 | processo de criação 660, vão 25 */
+  grid-template-columns: minmax(0, 667fr) minmax(0, 660fr);
+  column-gap: 1.85%;
+}
+.colsProto {
+  /* prototipagem 641 | evolução do mascote 659, vão 52 */
+  grid-template-columns: minmax(0, 641fr) minmax(0, 659fr);
+  column-gap: 3.85%;
+}
+.colsFinal {
+  /* projeto final 669 | ferramentas 641, vão 41 */
+  grid-template-columns: minmax(0, 669fr) minmax(0, 641fr);
+  column-gap: 3.03%;
+}
+.alignEnd {
+  align-self: end;
+}
+
+/* ---------- fileiras de imagens (flex com pesos = larguras do Figma) ---------- */
+.row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6%; /* 8px entre os thumbs */
+}
+.rowGapJogo {
+  gap: 1.33%; /* 18px entre o jogo do tempo e a grade de logos */
+}
+.thumb {
+  min-width: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.cap {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--color-blue);
+}
+
+/* ---------- textos e pills ---------- */
+.p {
+  margin: 0;
+  font-weight: 300;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--color-blue);
+  text-align: justify;
+  hyphens: auto;
+}
+.pls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.pl {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3em 0.7em;
+  border-radius: 999px;
+  background: var(--color-blue-pale);
+  color: var(--color-blue);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.2;
+  white-space: nowrap;
+  box-shadow: 2px 4px 8px 2px rgba(111, 150, 206, 0.16);
+}
+.note {
+  margin: -0.5rem 0 0 auto;
+  max-width: 28rem; /* duas linhas, como no Figma (17:2143, 447px) */
+  font-size: 0.875rem;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.35;
+  color: var(--color-blue);
+}
+
+/* ---------- etapas 01–06 (Figma 17:1063, coluna de 660px) ----------
+   O <ol> é o container: cqw mede a coluna do cabeçalho, então número, título e
+   chips mantêm a proporção do frame em qualquer largura. */
+.steps {
+  container-type: inline-size;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 3.6cqw;
+  row-gap: 5.8cqw;
+}
+.st {
+  min-width: 0;
+}
+/* cada etapa sobe no próprio ritmo ao entrar na tela */
+@supports (animation-timeline: view()) {
+  .st {
+    animation: stIn linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 40%;
+  }
+}
+@keyframes stIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.stHead {
+  display: flex;
+  align-items: center;
+  gap: 1.2cqw;
+}
+.stN {
+  flex: none;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: max(1.75rem, 6.2cqw);
+  line-height: 0.9;
+  color: var(--color-ink);
+  transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.6);
+}
+.st:hover .stN {
+  transform: translateY(-3px) rotate(-4deg);
+}
+.stLabel {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: max(0.8rem, 2cqw);
+  line-height: 1.15;
+  color: var(--color-ink);
+}
+.chips {
+  list-style: none;
+  margin: 1.6cqw 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8cqw 0.7cqw;
+}
+.chip {
+  padding: 0.3em 0.65em;
+  border-radius: 999px;
+  background: #e2e8f6;
+  color: var(--color-ink);
+  font-weight: 600;
+  /* Figma: ~7,5px na coluna de 660; piso de 9px para continuar legível */
+  font-size: max(0.5625rem, 1.15cqw);
+  line-height: 1.1;
+  white-space: nowrap;
+  transition:
+    transform 0.25s cubic-bezier(0.2, 0.9, 0.3, 1.4),
+    background-color 0.2s ease;
+}
+.chip:hover {
+  transform: translateY(-2px);
+  background: #d6e2f6;
+}
+
+/* ---------- mobile: tudo em uma coluna ---------- */
+@media (max-width: 767px) {
+  .two,
+  .colsApoio,
+  .colsProto,
+  .colsFinal {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 1.5rem;
+  }
+  .row {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .row > .thumb {
+    flex: 1 1 calc(50% - 0.25rem) !important;
+  }
+  .steps {
+    grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+    column-gap: 1rem;
+    row-gap: 1.5rem;
+  }
+  .stN {
+    font-size: 2rem;
+  }
+  .stLabel {
+    font-size: 0.85rem;
+  }
+  .chips {
+    margin-top: 0.5rem;
+    gap: 0.35rem;
+  }
+  .chip {
+    font-size: 0.7rem;
+    white-space: normal;
+  }
+  .p {
+    text-align: left;
+  }
+  .note {
+    margin-top: 0;
+  }
+}
+
+/* ---------- prefers-reduced-motion (ANIMACOES §0) ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .st {
+    animation: none;
+  }
+  .stN,
+  .chip {
+    transition: none;
+  }
+  .st:hover .stN,
+  .chip:hover {
+    transform: none;
+  }
+}

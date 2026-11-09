@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import type { LocalizedProject, Slug } from "@/lib/projects";
 import type { CaseAsideLayout } from "@/components/case-study/CaseShell";
-import { PontosSemNoCase } from "./PontosSemNoCase";
+import { PontosSemNoCase, pontosSemNoSlots } from "./PontosSemNoCase";
 import { BatucoTucoCase } from "./BatucoTucoCase";
 import { PontinhasSoltasCase } from "./PontinhasSoltasCase";
 import { IdentidadeEventoCase } from "./IdentidadeEventoCase";
@@ -43,4 +43,6 @@ export type CaseSlotsFn = (
   opts: { coverClassName?: string },
 ) => CaseSlots;
 
-export const caseSlots: Partial<Record<Slug, CaseSlotsFn>> = {};
+export const caseSlots: Partial<Record<Slug, CaseSlotsFn>> = {
+  "pontos-sem-no": pontosSemNoSlots,
+};
