@@ -66,20 +66,27 @@
 .pls {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.625rem; /* 10px entre as pills (17:1298, 17:1425) */
 }
-.pl {
+/* Pill vazada do frame (tags do topo, abas da prototipagem, ferramentas):
+   Figma = anel de 3px azul gelo + contorno de 2px #527fb0 + miolo #eaeef4,
+   32px de altura, texto azul querido, sem sombra (amostrado do page-3x). */
+.pl,
+:global(div):has(> :global(div) > .stepsWrap) > :global(div:nth-child(2) > span:not(.ml-auto)) {
   display: inline-flex;
   align-items: center;
-  padding: 0.3em 0.7em;
+  height: 2rem;
+  padding: 0 0.66em;
   border-radius: 999px;
-  background: var(--color-blue-pale);
+  background: #eaeef4;
+  box-shadow:
+    inset 0 0 0 3px var(--color-blue-soft),
+    inset 0 0 0 5px #527fb0;
   color: var(--color-blue);
   font-size: 1rem;
   font-weight: 400;
-  line-height: 1.2;
+  line-height: 1;
   white-space: nowrap;
-  box-shadow: 2px 4px 8px 2px rgba(111, 150, 206, 0.16);
 }
 .note {
   margin: -0.5rem 0 0 auto;
@@ -91,18 +98,30 @@
   color: var(--color-blue);
 }
 
+/* ---------- cabeçalho do CaseShell neste case (Figma 17:1042) ----------
+   O CaseShell é compartilhado e não é alterado: o escopo é a coluna do
+   cabeçalho que contém o painel das etapas (`div:has(> div > .stepsWrap)`), cujos
+   filhos são [título+status, tags+data, intro, headerExtra]. */
+:global(div):has(> :global(div) > .stepsWrap) > :global(div:nth-child(2)) {
+  gap: 0.5rem 1rem; /* 16px entre as tags (17:1045) */
+}
+
 /* ---------- etapas 01–06 (Figma 17:1063, coluna de 660px) ----------
-   O <ol> é o container: cqw mede a coluna do cabeçalho, então número, título e
-   chips mantêm a proporção do frame em qualquer largura. */
-.steps {
+   O wrapper é o container: cqw mede a coluna do cabeçalho (inclusive nos
+   vãos do próprio <ol>), então número, título e chips mantêm a proporção do
+   frame em qualquer largura. */
+.stepsWrap {
   container-type: inline-size;
+}
+.steps {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  column-gap: 3.6cqw;
-  row-gap: 5.8cqw;
+  /* colunas em x = 0 / 235,7 / 471,7 (Figma), sem vão: os chips da 2ª coluna
+     chegam a 222px; linhas a cada 155,6px */
+  grid-template-columns: minmax(0, 235.7fr) minmax(0, 236fr) minmax(0, 188.3fr);
+  row-gap: 5.66cqw;
 }
 .st {
   min-width: 0;
@@ -137,7 +156,7 @@
   font-weight: 400;
   font-synthesis: none;
   font-size: max(1.75rem, 6.2cqw);
-  line-height: 0.9;
+  line-height: 1; /* caixa de 41px na coluna de 660 */
   color: var(--color-ink);
   transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.6);
 }
@@ -153,21 +172,32 @@
 }
 .chips {
   list-style: none;
-  margin: 1.6cqw 0 0;
+  /* chips 22px abaixo do número; vãos de 9 e 7px (17:1068…17:1076) */
+  margin: 3.33cqw 0 0;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.8cqw 0.7cqw;
+  gap: 1.39cqw 1.08cqw;
+}
+/* largura dos grupos de chips no Figma (17:1078 = 212px, 17:1092 = 222px):
+   decide onde cada fileira quebra */
+.st:nth-child(3n + 1) .chips {
+  max-width: 32.2cqw;
+}
+.st:nth-child(3n + 2) .chips {
+  max-width: 33.7cqw;
 }
 .chip {
-  padding: 0.3em 0.65em;
+  /* Figma: chip de 22px (texto de 9px + 6,5 / 7,4px), miolo #e6eefa sem
+     contorno (amostrado do page-3x) */
+  padding: 0.985cqw 1.13cqw;
   border-radius: 999px;
-  background: #e2e8f6;
+  background: var(--color-blue-pale);
   color: var(--color-ink);
   font-weight: 600;
-  /* Figma: ~7,5px na coluna de 660; piso de 9px para continuar legível */
-  font-size: max(0.5625rem, 1.15cqw);
-  line-height: 1.1;
+  /* Figma: 9px na coluna de 660 */
+  font-size: max(0.5625rem, 1.364cqw);
+  line-height: 1;
   white-space: nowrap;
   transition:
     transform 0.25s cubic-bezier(0.2, 0.9, 0.3, 1.4),
@@ -198,6 +228,9 @@
     grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
     column-gap: 1rem;
     row-gap: 1.5rem;
+  }
+  .st .chips {
+    max-width: none;
   }
   .stN {
     font-size: 2rem;

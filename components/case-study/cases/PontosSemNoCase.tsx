@@ -123,25 +123,27 @@ function Img({
 /** Painel das 6 etapas (Figma 17:1063): grade 3×2, número + título, chips. */
 function Steps({ steps }: { steps: Step[] }) {
   return (
-    <ol className={s.steps}>
-      {steps.map((st) => (
-        <li key={st.n} className={s.st}>
-          <div className={s.stHead}>
-            <span className={s.stN} aria-hidden="true">
-              {st.n}
-            </span>
-            <span className={s.stLabel}>{st.title}</span>
-          </div>
-          <ul className={s.chips}>
-            {st.chips.map((chip) => (
-              <li key={chip} className={s.chip}>
-                {chip}
-              </li>
-            ))}
-          </ul>
-        </li>
-      ))}
-    </ol>
+    <div className={s.stepsWrap}>
+      <ol className={s.steps}>
+        {steps.map((st) => (
+          <li key={st.n} className={s.st}>
+            <div className={s.stHead}>
+              <span className={s.stN} aria-hidden="true">
+                {st.n}
+              </span>
+              <span className={s.stLabel}>{st.title}</span>
+            </div>
+            <ul className={s.chips}>
+              {st.chips.map((chip) => (
+                <li key={chip} className={s.chip}>
+                  {chip}
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ol>
+    </div>
   );
 }
 
