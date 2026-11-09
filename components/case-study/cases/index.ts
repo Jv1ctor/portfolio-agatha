@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import type { LocalizedProject, Slug } from "@/lib/projects";
 import type { CaseAsideLayout } from "@/components/case-study/CaseShell";
-import { PontosSemNoCase, pontosSemNoSlots } from "./PontosSemNoCase";
+import { PontosSemNoCase, PontosSemNoHero } from "./PontosSemNoCase";
 import { BatucoTucoCase } from "./BatucoTucoCase";
 import { BatucoTucoHero } from "./BatucoTucoHero";
 import { PontinhasSoltasCase } from "./PontinhasSoltasCase";
@@ -11,6 +11,7 @@ import { CajuCase, CajuHero } from "./CajuCase";
 
 export {
   PontosSemNoCase,
+  PontosSemNoHero,
   BatucoTucoCase,
   BatucoTucoHero,
   PontinhasSoltasCase,
@@ -51,9 +52,7 @@ export type CaseSlotsFn = (
   opts: { coverClassName?: string },
 ) => CaseSlots;
 
-export const caseSlots: Partial<Record<Slug, CaseSlotsFn>> = {
-  "pontos-sem-no": pontosSemNoSlots,
-};
+export const caseSlots: Partial<Record<Slug, CaseSlotsFn>> = {};
 
 /**
  * Slug → capa própria do case (no lugar da `<img>` do `coverImage`, que fica só
@@ -62,6 +61,7 @@ export const caseSlots: Partial<Record<Slug, CaseSlotsFn>> = {
 export const caseCovers: Partial<
   Record<Slug, (props: { project: LocalizedProject }) => ReactNode>
 > = {
+  "pontos-sem-no": PontosSemNoHero,
   "batuco-tuco": BatucoTucoHero,
   "pontinhas-soltas": PontinhasSoltasHero,
   caju: CajuHero,

@@ -88,6 +88,8 @@ const projectMeta: ProjectMeta[] = [
     coverImage: '/images/projects/pontos-sem-no/cover.webp',
     featured: true,
     grid: { column: 0, aspect: '459 / 590', objectPosition: 'left center', descLines: 4 },
+    layout: 'wide',
+    opensAsPage: true,
   },
   {
     slug: 'batuco-tuco',

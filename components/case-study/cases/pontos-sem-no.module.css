@@ -1,188 +1,109 @@
 /* ==========================================================================
-   PontosSemNoCase — layout do frame 17:899 (coluna de 1352px) + ANIMACOES §2.
-   Reveal, zoom, cursor e lightbox ficam em ../case-study.module.css.
-   Vãos horizontais em % da coluna: 1352px no Figma = 100%.
+   Case Pontos sem nó — frame do Figma 17:899 (coluna de 1352px), layout 'wide'.
+   Zoom, cursor, lightbox e reveal vêm de batuco.module.css (o BatucoMotion
+   procura as classes de lá).
+
+   Fileiras de imagens: flex com pesos = larguras do Figma (--grow) e os vãos do
+   Figma; abaixo de 48rem elas empilham. Texto em duas colunas a partir de 64rem,
+   como nos outros cases 'wide'. O topo (cabeçalho + painel | pôster) só divide
+   a partir de 80rem: abaixo disso o painel das etapas ficaria pequeno demais.
    ========================================================================== */
 
-/* ---------- duas colunas (proporções de cada faixa do frame) ---------- */
-.two {
-  display: grid;
-  align-items: start;
-}
-.colsApoio {
-  /* elementos de apoio 667 | processo de criação 660, vão 25 */
-  grid-template-columns: minmax(0, 667fr) minmax(0, 660fr);
-  column-gap: 1.85%;
-}
-.colsProto {
-  /* prototipagem 641 | evolução do mascote 659, vão 52 */
-  grid-template-columns: minmax(0, 641fr) minmax(0, 659fr);
-  column-gap: 3.85%;
-}
-.colsFinal {
-  /* projeto final 669 | ferramentas 641, vão 41 */
-  grid-template-columns: minmax(0, 669fr) minmax(0, 641fr);
-  column-gap: 3.03%;
-}
-/* texto 54px (Processo de criação, 17:1292) e 42px (Projeto final, 17:1422)
-   abaixo do topo do título de 26px; o CaseSection usa 20px */
-.colsApoio > section > :global(h2) {
-  margin-bottom: 1.75rem;
-}
-.colsFinal > section:first-child > :global(h2) {
-  margin-bottom: 1rem;
-}
-.alignEnd {
-  align-self: end;
-}
-/* spec bug 4: a foto da flor no vidro (protoDiagrama, fatia 3) no Figma é
-   achatada (659×190 no nó 17:1294); a imagem natural é 1800×464 (3.88:1).
-   No site renderizava mais alta que o nó → aspect-ratio fixo no botão e na
-   imagem para bater com o frame. */
-.diagramaImg {
-  aspect-ratio: 659 / 190;
-  overflow: hidden;
-}
-.diagramaImg img {
+/* ---------- imagens ---------- */
+/* Caixa do Figma (--ar = w / h) com o export 2x do nó dentro. */
+.pic {
+  display: block;
   width: 100%;
-  height: 100%;
-  aspect-ratio: 659 / 190;
+  height: auto;
+  aspect-ratio: var(--ar);
   object-fit: cover;
-  object-position: center 62%;
+}
+/* Hero (17:1003): caixa de 1352 × 459.2 (export 2704 × 919). */
+.hero {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1352 / 459.2;
+  object-fit: cover;
 }
 
-/* ---------- fileiras de imagens (flex com pesos = larguras do Figma) ---------- */
-.row {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.6%; /* 8px entre os thumbs */
-}
-.tight {
-  /* Figma 17:1442: 28px entre manual, bailarina, jogo do tempo e colagem
-     (o corpo do CaseShell usa 32px entre os blocos) */
-  margin-top: -0.25rem;
-}
-/* Offset vertical do corpo (spec bug 2): no Figma o 1º bloco do corpo
-   (construção 17:1164) começa em y=1428, 40px após o fim do painel de etapas
-   (17:1040+17:1063 termina em 646+742=1388). No site o corpo medido começa
-   98px abaixo do alvo (lb2 em 1526 vs 1428) por causa do vão herdado do
-   CaseShell (mt-8 do corpo + espaçamentos do header) → margem negativa
-   proporcional à coluna (98/1352 ≈ 7.25%) no 1º Reveal do corpo. */
-.firstBody {
-  margin-top: calc(-1 * clamp(3rem, 7.25vw, 6.125rem));
-}
-.rowGapJogo {
-  gap: 1.33%; /* 18px entre o jogo do tempo e a grade de logos */
-}
-.thumb {
-  min-width: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
+/* ---------- legendas: Clother Bold 16px, line-height normal (19px) ---------- */
 .cap {
   margin: 0;
+  font-family: var(--font-body);
+  font-weight: 700;
   font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.2;
+  line-height: 1.1875;
   color: var(--color-blue);
 }
 
-/* ---------- textos e pills ---------- */
-.p {
-  margin: 0;
-  font-weight: 300;
-  font-size: 1rem;
-  /* Figma: todos os blocos de texto têm altura múltipla de 18px */
-  line-height: 1.125;
-  color: var(--color-blue);
-  text-align: justify;
-  hyphens: auto;
+/* ---------- topo (17:1040): cabeçalho 660 | 104 | pôster 588 ---------- */
+.top {
+  display: grid;
+  gap: 2rem;
 }
-.pls {
+/* cabeçalho → painel das etapas: 41px (17:1041) */
+.headCol {
+  display: flex;
+  flex-direction: column;
+  gap: 41px;
+  min-width: 0;
+}
+.posterCol {
+  width: 100%;
+  max-width: 588px;
+  margin-inline: auto;
+}
+@media (min-width: 80rem) {
+  .top {
+    grid-template-columns: minmax(0, 660fr) minmax(0, 588fr);
+    column-gap: calc(104 / 1352 * 100%);
+    align-items: start;
+  }
+  .posterCol {
+    max-width: none;
+  }
+}
+
+/* tags: 16px entre as pills (17:1045); abas e ferramentas: 10px (17:1298, 17:1425) */
+.tags,
+.pills {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.625rem; /* 10px entre as pills (17:1298, 17:1425) */
-  /* pills 62px abaixo do topo do título (17:1298, 17:1425): título de 26px +
-     36px; a margem colapsa com o mb-5 (20px) do título do CaseSection */
-  margin-top: 2.25rem;
 }
-/* Pill vazada do frame (tags do topo, abas da prototipagem, ferramentas):
-   Figma = anel de 3px azul gelo + contorno de 2px #527fb0 + miolo #eaeef4,
-   32px de altura, texto azul querido, sem sombra (amostrado do page-3x). */
-.pl,
-:global(div):has(> :global(div) > .stepsWrap) > :global(div:nth-child(2) > span:not(.ml-auto)) {
-  display: inline-flex;
-  align-items: center;
-  height: 2rem;
-  padding: 0 0.66em;
-  border-radius: 999px;
-  background: #eaeef4;
-  box-shadow:
-    inset 0 0 0 3px var(--color-blue-soft),
-    inset 0 0 0 5px #527fb0;
-  color: var(--color-blue);
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1;
-  white-space: nowrap;
-}
-.note {
-  margin: -0.5rem 0 0 auto;
-  max-width: 28rem; /* duas linhas, como no Figma (17:2143, 447px) */
-  font-size: 0.875rem;
-  font-weight: 300;
-  font-style: italic;
-  line-height: 1.35;
-  color: var(--color-blue);
-}
-
-/* ---------- cabeçalho do CaseShell neste case (Figma 17:1042) ----------
-   O CaseShell é compartilhado e não é alterado: o escopo é a coluna do
-   cabeçalho que contém o painel das etapas (`div:has(> div > .stepsWrap)`), cujos
-   filhos são [título+status, tags+data, intro, headerExtra]. */
-:global(div):has(> :global(div) > .stepsWrap) > :global(div:nth-child(2)) {
-  /* tags 54px abaixo do topo do título, 16px entre elas (17:1045) */
-  margin-top: 1.8125rem;
+.tags {
   gap: 0.5rem 1rem;
 }
-/* Chips de categoria do topo vazados (Figma 17:1045: anel fino azul sobre
-   fundo transparente, texto azul — como os .pl deste módulo). Escopo só na
-   fileira de tags deste case; o Pill do CaseShell não é tocado. */
-:global(div):has(> :global(div) > .stepsWrap)
-  > :global(div:nth-child(2))
-  > :global(span:not(.ml-auto)) {
-  background: transparent;
-  box-shadow:
-    inset 0 0 0 3px var(--color-blue-soft),
-    inset 0 0 0 5px #527fb0;
+.pills {
+  gap: 0.5rem 0.625rem;
 }
-:global(div):has(> :global(div) > .stepsWrap) > :global(div:nth-child(3)) {
-  /* intro 17:1062: entrelinha de 18px e uma linha em branco entre parágrafos */
-  gap: 1.125rem;
-  line-height: 1.125;
+/* No Figma as 4 tags ocupam 692px (passam da coluna de 660) e as 5 abas cabem
+   nos 641px; no Chrome a Clother sai uns px mais larga por pill. Com a coluna
+   cheia (≥ 1432px) a linha não quebra, como nos outros cases 'wide'. */
+@media (min-width: 1432px) {
+  .tags,
+  .nowrap {
+    flex-wrap: nowrap;
+  }
 }
 
-/* ---------- etapas 01–06 (Figma 17:1063, coluna de 660px) ----------
-   O wrapper é o container: cqw mede a coluna do cabeçalho (inclusive nos
-   vãos do próprio <ol>), então número, título e chips mantêm a proporção do
-   frame em qualquer largura. */
+/* ---------- painel das etapas 01–06 (17:1063, coluna de 660px) ----------
+   O wrapper é o container: --u = 1px do Figma na coluna de 660, então numeral,
+   rótulo e chips mantêm a proporção do frame em qualquer largura. */
 .stepsWrap {
   container-type: inline-size;
-  /* 41px entre a intro e o painel (32 do headerExtra + 9; padding porque a
-     margem colapsaria com o mt-8 do wrapper) */
-  padding-top: 0.5625rem;
 }
 .steps {
+  --u: calc(100cqw / 660);
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  /* colunas em x = 0 / 235,7 / 471,7 (Figma), sem vão: os chips da 2ª coluna
-     chegam a 222px; linhas a cada 155,6px */
-  grid-template-columns: minmax(0, 235.7fr) minmax(0, 236fr) minmax(0, 188.3fr);
-  row-gap: 5.66cqw;
+  /* colunas em x = 0 / 235.73 / 471.73; segunda linha em y = 155.65 */
+  grid-template-columns:
+    calc(235.73 * var(--u)) calc(236 * var(--u))
+    calc(188.27 * var(--u));
+  grid-template-rows: calc(155.65 * var(--u)) auto;
 }
 .st {
   min-width: 0;
@@ -205,51 +126,61 @@
     transform: none;
   }
 }
+/* numeral + rótulo nas posições do Figma (--lx/--ly); os chips começam em --cy */
 .stHead {
-  display: flex;
-  align-items: center;
-  gap: 1.2cqw;
+  position: relative;
+  height: calc(var(--cy) * var(--u));
 }
-/* Figma 17:1063: não há numerais sobre a faixa de ícones — o "01…06" é
-   apenas o índice das etapas no painel (spec bug 3). */
+/* AM Novecento 41.874px, tracking 4.6062px, line-height 71.65% */
 .stN {
-  display: none;
-}
-.stLabel {
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: max(0.8rem, 2cqw);
-  line-height: 1.15;
+  display: block;
+  /* Com line-height 71.65% o Figma assenta o glifo 6.6px mais baixo que o Chrome
+     (tinta medida nos dois renders a 1728). */
+  position: relative;
+  top: calc(6.6 * var(--u));
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: calc(41.874 * var(--u));
+  line-height: 0.7165;
+  letter-spacing: calc(4.6062 * var(--u));
   color: var(--color-ink);
 }
+/* Clother Bold 14.669px / 0.989, na caixa do Figma (--lw) */
+.stLabel {
+  position: absolute;
+  left: calc(var(--lx) * var(--u));
+  top: calc(var(--ly) * var(--u));
+  width: calc(var(--lw) * var(--u));
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: calc(14.669 * var(--u));
+  line-height: 0.989;
+  color: var(--color-ink);
+}
+/* largura do grupo de chips no Figma (--cw) decide onde cada linha quebra;
+   +4px de folga porque a Clother sai um pouco mais larga no Chrome */
 .chips {
   list-style: none;
-  /* chips 22px abaixo do número; vãos de 9 e 7px (17:1068…17:1076) */
-  margin: 3.33cqw 0 0;
+  margin: 0;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 1.39cqw 1.08cqw;
+  gap: calc(9.17 * var(--u)) calc(7 * var(--u));
+  max-width: calc((var(--cw) + 4) * var(--u));
 }
-/* largura dos grupos de chips no Figma (17:1078 = 212px, 17:1092 = 222px):
-   decide onde cada fileira quebra */
-.st:nth-child(3n + 1) .chips {
-  max-width: 32.2cqw;
-}
-.st:nth-child(3n + 2) .chips {
-  max-width: 33.7cqw;
-}
+/* chip de 22px: Clother Bold 9.168px, miolo azul clarinho, sem contorno */
 .chip {
-  /* Figma: chip de 22px (texto de 9px + 6,5 / 7,4px), miolo #e6eefa sem
-     contorno (amostrado do page-3x) */
-  padding: 0.985cqw 1.13cqw;
+  display: inline-flex;
+  align-items: center;
+  height: calc(22.004 * var(--u));
+  padding: 0 calc(7.335 * var(--u));
   border-radius: 999px;
   background: var(--color-blue-pale);
   color: var(--color-ink);
-  font-weight: 600;
-  /* Figma: 9px na coluna de 660 */
-  font-size: max(0.5625rem, 1.364cqw);
-  line-height: 1;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: calc(9.168 * var(--u));
+  line-height: 0.989;
   white-space: nowrap;
   transition:
     transform 0.25s cubic-bezier(0.2, 0.9, 0.3, 1.4),
@@ -259,112 +190,183 @@
   transform: translateY(-2px);
   background: #d6e2f6;
 }
-
-/* ---------- mobile: tudo em uma coluna ---------- */
-@media (max-width: 767px) {
-  .two,
-  .colsApoio,
-  .colsProto,
-  .colsFinal {
-    grid-template-columns: minmax(0, 1fr);
-    row-gap: 1.5rem;
-  }
-  .row {
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-  /* nunca espremer 2×2: célula mínima de 220px, senão uma por linha */
-  .row > .thumb {
-    flex: 1 1 13.75rem !important;
-  }
-  /* spec bug 5b: no mobile a fileira jogo+xadrez vira uma coluna com larguras
-     iguais e nada estoura a margem (max-width 100% no wrapper) */
-  .rowJogo {
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  .rowJogo > .thumb {
-    width: 100%;
-    max-width: 100%;
-    flex: 1 1 auto !important;
-  }
-  .rowJogo img {
-    max-width: 100%;
-    height: auto;
-  }
-  /* spec bug 5a: a grade xadrez de logos (imagem única 4×2) no mobile vira
-     2 figuras 2×2 legíveis (metades esquerda/direita da imagem original) */
-  .xadrezImg {
-    aspect-ratio: 1100 / 783;
-  }
-  .xadrezM {
-    display: none;
-  }
-  @media (max-width: 767px) {
-    .xadrezImg:not(.xadrezM) {
-      display: none;
-    }
-    .xadrezM {
-      display: block;
-      aspect-ratio: 550 / 783;
-    }
-  }
-  /* offset do 1º bloco do corpo não se aplica no mobile (vão já é outro) */
-  .firstBody {
-    margin-top: 0;
-  }
-  /* capa (17:1003): proporção do frame, preenchendo sem faixas */
-  .heroImg {
-    aspect-ratio: 1352 / 459;
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
-  /* data do CaseShell: no fluxo, à esquerda, em vez de órfã à direita */
-  :global(div):has(> :global(div) > .stepsWrap) > :global(div:nth-child(2) > .ml-auto) {
-    margin-left: 0;
-  }
+/* coluna estreita (celular): as etapas fluem em grade com o tamanho do Figma */
+@container (max-width: 34rem) {
   .steps {
-    grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
-    column-gap: 1rem;
-    row-gap: 1.5rem;
+    --u: 1.15px;
+    grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr));
+    grid-template-rows: none;
+    gap: 1.75rem 1rem;
   }
-  .st .chips {
-    max-width: none;
-  }
-  .stN {
-    font-size: 2rem;
-  }
-  .stLabel {
-    font-size: 0.85rem;
+  .stHead {
+    height: calc(var(--cy) * var(--u));
   }
   .chips {
-    margin-top: 0.5rem;
-    gap: 0.35rem;
-  }
-  .chip {
-    font-size: 0.7rem;
-    white-space: normal;
-  }
-  .p {
-    text-align: left;
-  }
-  .note {
-    margin-top: 0;
+    max-width: none;
   }
 }
 
-/* ---------- prefers-reduced-motion (ANIMACOES §0) ---------- */
+/* ---------- fileiras ---------- */
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.cell {
+  min-width: 0;
+}
+.fig {
+  min-width: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+/* Elementos de apoio: legenda 10px abaixo da foto (17:1282) */
+.figSupport {
+  gap: 10px;
+}
+@media (min-width: 48rem) {
+  .row {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  .row > * {
+    flex: var(--grow) 1 0;
+  }
+  /* Construção (17:1164): 3.5px nas pontas e 40px entre os quadros */
+  .construction {
+    padding-inline: calc(3.5 / 1352 * 100%);
+    gap: calc(40 / 1345 * 100%);
+  }
+  .gap10 {
+    gap: 10px;
+  }
+  .thumbs {
+    gap: 7.826px;
+  }
+  .jogo {
+    gap: 18.24px;
+  }
+}
+/* thumbs de prototipagem no celular: 2 por linha */
+@media (max-width: 47.99rem) {
+  .row.thumbs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem 0.5rem;
+  }
+}
+
+/* ---------- duas colunas de texto ---------- */
+.two {
+  display: grid;
+  gap: 2rem;
+  align-items: start;
+}
+@media (min-width: 64rem) {
+  /* Elementos de apoio 667 | 25 | Processo de criação 660 (17:1280) */
+  .two {
+    grid-template-columns: minmax(0, 667fr) minmax(0, 660fr);
+    column-gap: 25px;
+  }
+  /* Projeto final 669 | 41 | Ferramentas 641 (17:1419) */
+  .final {
+    grid-template-columns: minmax(0, 669fr) minmax(0, 641fr);
+    column-gap: 41px;
+  }
+}
+
+/* ---------- Prototipagem (17:1294) + thumbs (17:1405), 33px entre eles ---------- */
+.proto {
+  display: flex;
+  flex-direction: column;
+  gap: 33px;
+}
+.protoRow {
+  display: grid;
+  gap: 2rem;
+  align-items: start;
+}
+.diagram {
+  min-width: 0;
+}
+@media (min-width: 64rem) {
+  /* Prototipagem 641 | 52 | Evolução do mascote 659 */
+  .protoRow {
+    grid-template-columns: minmax(0, 641fr) minmax(0, 659fr);
+    column-gap: 52px;
+  }
+  /* Os traços do diagrama passam 3.5px da coluna e 3px do frame, como no
+     Figma; a margem negativa devolve os 3px para o vão de 33px até os thumbs. */
+  .diagram > :is(button, img) {
+    width: calc(662.5 / 659 * 100%);
+    margin-bottom: calc(-3 / 659 * 100%);
+  }
+}
+
+/* ---------- artes (17:1443): manual, bailarina, jogo | xadrez, colagem ---------- */
+.arts {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+/* No Figma o bloco tem 1354.18px e começa 2px antes da coluna (x = 186). Só com
+   a coluna cheia, onde a margem lateral comporta os 2px. */
+@media (min-width: 1432px) {
+  .arts {
+    width: calc(100% + 2.18px);
+    margin-left: -2px;
+  }
+}
+/* grade xadrez: inteira no desktop; no celular, as duas metades 2 × 2 */
+.gridFull {
+  display: block;
+}
+.gridHalves {
+  display: none;
+}
+@media (max-width: 47.99rem) {
+  .gridFull {
+    display: none;
+  }
+  .gridHalves {
+    display: flex;
+    flex-direction: column;
+  }
+  .gridHalves img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* ---------- nota sobre IA (17:2143): 445px à direita, 28px abaixo da colagem
+   (o corpo do CaseShell põe 32px) ---------- */
+.note {
+  margin: -4px 0 0 auto;
+  max-width: 445px;
+}
+
+/* ---------- prefers-reduced-motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   .st {
     animation: none;
   }
-  .stN,
   .chip {
     transition: none;
   }
-  .st:hover .stN,
   .chip:hover {
     transform: none;
+  }
+}
+
+/* ---------- justificado do Figma ----------
+   Cada bloco de texto é um nó só no Figma, justificado em todas as linhas menos a
+   última do nó; a última linha de cada parágrafo intermediário também fica
+   justificada. Só com a coluna cheia, onde as quebras de linha são as do Figma. */
+@media (min-width: 1432px) {
+  .fill {
+    text-align-last: justify;
   }
 }
