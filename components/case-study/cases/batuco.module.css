@@ -908,6 +908,11 @@
   outline: 3px solid #0e488b;
   outline-offset: 4px;
 }
+/* Desabilitado (ex.: "página anterior" do livro do Caju na capa). */
+.lbBtn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
 .lbClose {
   position: absolute;
   top: 20px;
@@ -916,11 +921,11 @@
 /* Hovers no espírito do voltar: as setas deslizam e giram para o lado que apontam;
    o fechar gira. */
 @media (prefers-reduced-motion: no-preference) {
-  .lbPrev:hover {
+  .lbPrev:not(:disabled):hover {
     translate: -4px 0;
     rotate: -10deg;
   }
-  .lbNext:hover {
+  .lbNext:not(:disabled):hover {
     translate: 4px 0;
     rotate: 10deg;
   }

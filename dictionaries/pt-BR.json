@@ -482,6 +482,277 @@
       },
       "aiNote": "* Não foi utilizado nenhum agente IA de geração de imagens para as criações visuais (sketches, vetores, ilustrações…) neste projeto.",
       "thanks": "Obrigada por ter chegado até aqui!"
+    },
+    "identidadeEvento15Anos": {
+      "title": "Identidade de evento: 15 anos",
+      "subtitle": "Identidade de evento: 15 anos",
+      "cardTitle": "Identidade de evento: 15 anos",
+      "description": "Identidade visual ilustrada para o aniversário de 15 anos de um par de gêmeos, do save the date às aplicações no dia do evento.",
+      "intro": "A contratação do serviço demandou a criação de uma identidade visual para o evento de aniversário de 15 anos de um par de gêmeos. O serviço foi planejado em um cronograma de entregas para atualizar a cliente rapidamente dos processos e orientá-la de como é previsto o processo do meu trabalho.",
+      "tags": [
+        "Profissional",
+        "Design gráfico"
+      ],
+      "sections": {
+        "creationProcess": {
+          "title": "Processo de criação",
+          "paragraphs": [
+            "O processo foi dividido em formulação de escopo junto à cliente, criação de moodboard de referências visuais, definição de informações textuais, criação de esboços e prototipação. A partir das respostas do meu formulário geral para briefing em solicitação de serviços, foi estabelecido o escopo de produção, configurando as peças com as seguintes características: minimalista e elegante, delicado e orgânico, priorizando as cores rosa, amarelo e verde, tendo como elementos principais flores. Nível de detalhamento moderado e estilizado, sendo o tipo de uso para divulgação em mídia digital e impressa."
+          ],
+          "images": [
+            "Primeiro painel de referências: convites florais em aquarela, adesivos botânicos, flores amarelas e molduras delicadas.",
+            "Segundo painel de referências: pinturas de jardins e paisagens com flores em tons de verde, laranja e rosa."
+          ],
+          "captions": [
+            "Painel de referências - Versão 1",
+            "Painel de referências - Versão 2"
+          ]
+        },
+        "prototyping": {
+          "title": "Prototipagem",
+          "tabs": [
+            "Painel Moodboard",
+            "Planejamento de peças",
+            "Rafes",
+            "Testes de cores",
+            "Renderização digital",
+            "Testes de impressão"
+          ],
+          "paragraphs": [
+            "O processo inicial envolveu a criação do “Save the date”, o que também estruturaria o convite e demais peças adiante. Mas a contribuição de mais pessoas mudou um pouco a visão do projeto, adicionando novas referências e modificando a complexidade da ilustração. A ilustração principal guiou a composição para mais peças, como tags para lembrancinhas, menus, adesivos para caixas de bolo, até o adesivamento de um carrinho dos “minibolos” de lembrancinha contratado pela cliente. Ao testar as impressões e realizar as devidas revisões, o material foi aplicado à divulgação e às superfícies impressas. Todas as etapas passaram pela validação da cliente."
+          ],
+          "thumbs": {
+            "captions": [
+              "Teste de diagramação",
+              "Rascunho da ilustração",
+              "Ilustração crua",
+              "Primeira versão do Save The Date",
+              "Teste de cores"
+            ]
+          },
+          "images": [
+            "Teste de diagramação do save the date com moldura floral e os nomes dos aniversariantes.",
+            "Rascunho da ilustração floral do convite sobre fundo bege.",
+            "Ilustração crua da moldura floral, ainda sem textos.",
+            "Primeira versão do save the date, com moldura de flores e a data do evento.",
+            "Teste de cores do save the date com flores em tons mais quentes."
+          ],
+          "invitation": {
+            "label": "Desenvolvimento da identidade final para o convite",
+            "images": [
+              "Esboço a lápis do jardim com árvores e chafariz.",
+              "Ilustração digital do jardim com árvores, flores e chafariz.",
+              "Convite final com o monograma C e A em uma moldura de renda oval sobre a ilustração do jardim.",
+              "Variação do convite final com o monograma e as informações do evento."
+            ]
+          }
+        },
+        "finalProject": {
+          "title": "Projeto final",
+          "paragraphs": [
+            "O projeto entregue compunha o sistema de identidade do evento e suas aplicações."
+          ],
+          "toolsTitle": "Ferramentas utilizadas",
+          "tools": [
+            "Adobe Illustrator",
+            "Autodesk Sketchbook",
+            "Adobe Fonts",
+            "Figma",
+            "Adobe Photoshop"
+          ],
+          "images": [
+            "Banners do evento com o monograma C e A em moldura de renda sobre recortes da ilustração do jardim."
+          ],
+          "ledPanel": {
+            "label": "Arte para painel de Led",
+            "images": [
+              "Duas artes horizontais para o painel de LED com o monograma e “15 anos” sobre a ilustração do jardim."
+            ]
+          },
+          "menuTags": {
+            "label": "Arte para Menu, Tags e adesivos de caixa de bolo",
+            "images": [
+              "Frente e verso do menu, tags numeradas para sandálias e adesivos para caixas de bolo, todos com a ilustração do jardim."
+            ]
+          },
+          "event": {
+            "label": "Aplicações no evento",
+            "images": [
+              "Carrinho de minibolos adesivado com a ilustração do jardim e o monograma.",
+              "Outro ângulo do carrinho de minibolos adesivado.",
+              "Menu impresso sobre guardanapo verde em um prato decorado.",
+              "Caixas de bolo com os adesivos da identidade.",
+              "Sacolas kraft com as tags da identidade.",
+              "Caixa de lembrancinha com adesivo e tag aplicados."
+            ]
+          },
+          "aiNote": "* Não foi utilizado nenhum agente IA de geração de imagens para as criações visuais (sketches, vetores, ilustrações…) neste projeto."
+        }
+      },
+      "thanks": "Obrigada por ter chegado até aqui!"
+    },
+    "caju": {
+      "title": "Caju",
+      "subtitle": "Caju",
+      "cardTitle": "Caju",
+      "description": "Livro infantil ilustrado “Caju em: Semente não tem dente”, criado na disciplina de Produção Gráfica com as colegas Ana e Thays: uma história sobre enfrentar os medos com um grande sorriso.",
+      "intro": "Sob a proposta de criação de um livro infantil ilustrado na disciplina de Produção Gráfica, Caju nasceu como a expressão da conexão de um grupo de irmãs mais velhas (eu e minhas colegas de projeto). Sob a sinopse: “Cajú leva uma vida leve e alegre ao lado de sua mãe, mas, após um dia chuvoso, uma mudança inesperada desafia nossa heroína a ver seu mundo de uma nova perspectiva. Cajú vai nos mostrar como enfrentar nossos medos com um grande sorriso”.\n\nFoi o brainstorming mais divertido que já tive em um projeto, e me gerou uma conexão muito pessoal e genuína com a minha história e a das minhas colegas: nossas ideias se conversavam, e nos sentíamos pensando na mesma historinha antes mesmo de determinarmos como ela seria.",
+      "tags": [
+        "Acadêmico",
+        "Ilustração digital",
+        "Design gráfico",
+        "Design editorial",
+        "Alta complexidade"
+      ],
+      "heroAlt": "Ilustração do livro: Caju, de cabelo azul e vestido amarelo, num labirinto de faixas rosa e amarelas, com o monstrinho cinza ao fundo.",
+      "aiNote": "* Não foi utilizado nenhum agente IA de geração de imagens para as criações visuais (sketches, vetores, ilustrações…) neste projeto.",
+      "thanks": "Obrigada por ter chegado até aqui!",
+      "sections": {
+        "creationProcess": {
+          "title": "Processo de criação",
+          "leadBefore": "O processo de criação foi feito em conjunto com minhas colegas ",
+          "leadAna": "Ana",
+          "leadBetween": " e ",
+          "leadThays": "Thays",
+          "leadAfter": ". Inicialmente escolhemos o nicho dos livretos infantis e, para criar a história, nos baseamos especialmente em ilustrações que pedimos que as crianças da família da Ana fizessem espontaneamente, deixando que o olhar delas guiasse o que seria contado. A partir disso, criamos a história juntas, levantando ideias de título e de mensagem, e estruturamos o roteiro em início, meio e fim.",
+          "paragraphs": [
+            "Na história, Caju vê o irmão Juca, que leva as mesmas sílabas do seu nome, como um monstrinho assustador e decide enfrentá-lo com aquilo que sempre a faz rir: cócegas. O tempo também acompanha os seus sentimentos, do dia ensolarado à chuva e aos trovões, até o céu se abrir quando o bebê finalmente ri e Caju descobre que ele nem tem dentes.",
+            "Mais tarde, buscamos referências no Behance e no Pinterest e montamos um painel visual (Imagem a), que orientou os esboços dos personagens feitos por mim e pela Thays (Imagem b): Caju, Juca, a mãe Cajuína, representada como a Mãe Natureza (por isso a influência do meio ambiente na comunicação dos sentimentos), e as pelúcias Dono Sapo, Manuel e Pedro, aliadas da Caju."
+          ]
+        },
+        "gallery": {
+          "boardCaption": "Quadro de planejamento",
+          "boardAlt": "Quadro de planejamento do livro: testes de fontes (Gambado, Hey Eloise, Pain de Mie, Ruddy, Sketchnote, Bad Dog e P22 Stanyan), ideias de título, informações técnicas (32 páginas, livreto infantil zine, impressão offset, papel couchê, fonte Bad Dog), roteiro em início, meio e fim, paleta de cores em azuis e lilases e os personagens Cajú, Jucá, Cajuína, Dono Sapo, Manuel e Pedro.",
+          "brainstorming": "Brainstorming",
+          "brainstormingAlts": [
+            "Mapa mental do brainstorming com post-its coloridos colados numa folha.",
+            "Esboço a lápis da Caju num caderno espiral.",
+            "Mesa do grupo com cadernos, desenhos e lápis durante o brainstorming."
+          ],
+          "visualPanel": "Painel visual - Imagem a",
+          "visualPanelAlt": "Painel visual com referências de ilustrações e livros infantis ilustrados.",
+          "colorTests": "Teste de cores e storyboard",
+          "colorTestsAlt": "Testes de cores com lápis de cor sobre as ilustrações impressas e o storyboard das páginas.",
+          "characters": "Design de personagens - Imagem b",
+          "charactersAlt": "Esboços a lápis dos personagens e a Caju finalizada em cores.",
+          "roughs": "Rafes das páginas",
+          "roughsAlts": [
+            "Rafe a lápis de uma página dupla: Caju lendo na cabana e o susto com o monstrinho.",
+            "Rafe a lápis de uma página dupla: o salgueiro e o quarto com a nuvem de trovões e a jaula."
+          ],
+          "painting": "Pintura das páginas e diagramação",
+          "paintingAlts": [
+            "Página sendo pintada digitalmente no Clip Studio, num tablet.",
+            "Ilustração em andamento no Clip Studio, com camadas e paleta de cores.",
+            "Diagramação no InDesign: capa, ficha das autoras e páginas duplas.",
+            "Capa do livro sendo diagramada no InDesign."
+          ],
+          "printed": "Mídia impressa",
+          "printedAlts": [
+            "Livro impresso aberto numa página dupla com Caju lendo para o irmão na cabana.",
+            "Livro impresso aberto numa página dupla com Caju e a mãe Cajuína.",
+            "Páginas impressas espalhadas sobre a mesa."
+          ]
+        },
+        "prototyping": {
+          "title": "Prototipagem",
+          "tabs": [
+            "Painel Moodboard",
+            "Planejamento de peças",
+            "Rafes",
+            "Testes de cores",
+            "Renderização digital",
+            "Testes de impressão"
+          ],
+          "paragraphs": [
+            "Uma das etapas mais divertidas foi testar as cores, com ilustrações impressas sem preenchimento e pintadas com lápis de cor. Depois, fiz as thumbnails de todas as páginas com as orientações das meninas (Imagem 3), e a Thays definiu uma paleta de cores para os personagens e fez as ilustrações das páginas e da capa, que distribuímos entre nós para pintar. Com as páginas prontas, escrevi os textos, testamos tipografias (Imagem 4) e diagramamos no Indesign, imprimindo primeiro o boneco e, por fim, o livrinho em si."
+          ]
+        },
+        "finalProject": {
+          "title": "Projeto final",
+          "paragraphs": [
+            "O projeto final é o livro infantil impresso “Caju em: Semente não tem dente”. Na última página, reservamos um espaço para os desenhos das crianças, devolvendo a elas um lugar na história que ajudaram a criar."
+          ]
+        },
+        "tools": {
+          "title": "Ferramentas utilizadas",
+          "items": [
+            "Adobe Illustrator",
+            "Clip Studio",
+            "Indesign",
+            "Adobe Fonts"
+          ]
+        },
+        "stack": {
+          "label": "Páginas do livro",
+          "alts": [
+            "Página do livro: “Caju sentia-se balançar confusa em seu galho perdida, a presença da sua mãe agora estava dividida.”",
+            "Página do livro: “Aquele grito assustador se transformou em risadas!”",
+            "Página do livro: “Essa história engraçada foi passada para o tal do monstrinho, agora chamado de Juca.”",
+            "Página do livro: “Foi então que ela decidiu que era hora de encontrar uma saída.”",
+            "Página do livro: “E não é que para a surpresa dela, aquele monstrinho era, na verdade, um bebê banguela?”",
+            "Página do livro: “Toda vez que Caju lembra, ela percebe que aqueles dois eram os frutos do sorriso, e nada podia atrapalhar.”"
+          ]
+        },
+        "readingSim": {
+          "title": "Simulação de leitura"
+        },
+        "book": {
+          "label": "Livro “Caju em: semente não tem dente!”, para folhear",
+          "faces": [
+            "Capa do livro “Caju em: semente não tem dente!”",
+            "Dedicatória: Este livro é dedicado à todas as irmãs mais velhas e seus irmãozinhos banguelas.",
+            "Folha de rosto: Ágatha Ferreira, Ana Francisca e Thays Letícia.",
+            "Para Caju, sua mãe era a mais bela árvore. Quando estava com ela, todos os dias eram ensolarados e toda a floresta dançava a sua volta.",
+            "Mas uma hora, o barulho de um trovão atrapalhou a dança. E essa foi a primeira chuva que fechou o dia para as duas.",
+            "Ao ver sua mãe ir embora, Caju sente uma enorme confusão!",
+            "O táxi levou sua mãe para um lugar distante, onde os trovões não podiam alcançá-la.",
+            "Nunca havia ficado tão distante de sua mãe...",
+            "Então sentiu em seu coração o tremor de um trovão.",
+            "Esse novo ser só chegou para bagunçar.",
+            "A família estava inquieta, como se tudo fosse rachar.",
+            "Esse monstrinho não parava de gritar! Sua mãe não parava quieta...",
+            "A mãe segura o monstrinho, que grita: Uhêêêê!",
+            "A toca do monstro parecia um labirinto, cheio de brinquedos e sons estranhos.",
+            "Ilustração: o labirinto escuro, com olhos vermelhos espiando.",
+            "Caju sentia-se balançar confusa em seu galho perdida, a presença da sua mãe agora estava dividida.",
+            "Foi então que ela decidiu que era hora de encontrar uma saída.",
+            "Ela chamou todos os seus amigos de confiança para fazer uma reunião, Dono Sapo, Seu Pinguim e o Gato Manoel. Conversando os três chegaram em uma conclusão: o monstrinho iria rir com uma condição, cosquinha seria a solução.",
+            "Ilustração: Caju imagina o monstrinho e a família rindo juntos.",
+            "Caju retorna para o labirinto, determinada a enfrentar o monstrinho!",
+            "Ilustração: o labirinto, com olhos vermelhos espiando.",
+            "Caju respirou fundo e avançou em direção à gaiola do monstrinho.",
+            "Ilustração: a gaiola do monstrinho, sob uma nuvem de trovões.",
+            "Tomou coragem, esticou os braços para atacar e...",
+            "Ilustração: Caju estica os braços em direção ao monstrinho.",
+            "Aquele grito assustador se transformou em risadas!",
+            "E não é que para a surpresa dela, aquele monstrinho era, na verdade, um bebê banguela?",
+            "Essa história engraçada foi passada para o tal do monstrinho, agora chamado de Juca.",
+            "Toda vez que Caju lembra, ela percebe que aqueles dois eram os frutos do sorriso, e nada podia atrapalhar.",
+            "Desenhos infantis dos personagens.",
+            "Desenhos infantis dos personagens.",
+            "Contracapa: Caju leva uma vida leve e alegre ao lado de sua mãe, mas após um dia chuvoso uma mudança inesperada desafia nossa heroína a ver seu mundo de uma nova perspectiva. Caju vai nos mostrar como enfrentar nossos medos com um grande sorriso!"
+          ],
+          "counter": {
+            "cover": "Capa",
+            "back": "Contracapa",
+            "pages": "Páginas {a}–{b} de {n}"
+          },
+          "hint": {
+            "cover": "Clique na capa para abrir o livro",
+            "middle": "Clique nas páginas ou use as setas para folhear",
+            "end": "Fim! Use o botão para voltar à capa"
+          },
+          "nav": {
+            "open": "Abrir o livro",
+            "turn": "Virar a página",
+            "back": "Voltar uma página",
+            "prev": "Página anterior",
+            "next": "Próxima página",
+            "restart": "Voltar para a capa"
+          }
+        }
+      }
     }
   },
   "status": {
@@ -504,6 +775,8 @@
     "pontosSemNo": "Pontos sem nó",
     "batucoTuco": "Batuco-tuco",
     "pontinhasSoltas": "Pontinhas soltas",
+    "identidadeEvento15Anos": "Identidade de evento: 15 anos",
+    "caju": "Caju",
     "studies": "Estudos"
   },
   "projectsPage": {

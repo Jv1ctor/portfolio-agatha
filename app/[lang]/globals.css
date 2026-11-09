@@ -156,6 +156,13 @@ a {
   padding-inline: clamp(1.5rem, 5vw, 2.5rem);
 }
 
+/* Coluna dos cases (Figma: 1354px num frame de 1728 → 188px de margem, ≈10.9%).
+   Margem lateral proporcional, mínimo de 24px no celular. */
+.container-case {
+  width: min(1354px, calc(100% - 2 * max(1.5rem, 10.9vw)));
+  margin-inline: auto;
+}
+
 /* Variante larga para cases com layout 'wide' (coluna de 1352px do Figma
    "MacBook Pro 16"). Mesmo padding do container-narrow, para alinhar as
    bordas no mobile; o max-width soma o padding de 2.5rem dos dois lados. */

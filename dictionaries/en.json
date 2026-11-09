@@ -505,6 +505,277 @@
       },
       "aiNote": "* No AI image generation tool was used for the visual work (sketches, vectors, illustrations…) in this project.",
       "thanks": "Thank you for making it this far!"
+    },
+    "identidadeEvento15Anos": {
+      "title": "Event identity: 15th birthday",
+      "subtitle": "Event identity: 15th birthday",
+      "cardTitle": "Event identity: 15th birthday",
+      "description": "Illustrated visual identity for a pair of twins' 15th birthday, from the save the date to the applications on the day of the event.",
+      "intro": "The commission called for a visual identity for the 15th birthday party of a pair of twins. The service was planned around a delivery schedule, to keep the client quickly updated on the process and to show her how my work was expected to unfold.",
+      "tags": [
+        "Professional",
+        "Graphic design"
+      ],
+      "sections": {
+        "creationProcess": {
+          "title": "Creation process",
+          "paragraphs": [
+            "The process was split into defining the scope with the client, building a moodboard of visual references, defining the text content, sketching and prototyping. From the answers to my general briefing form for service requests, the production scope was set, giving the pieces the following characteristics: minimalist and elegant, delicate and organic, favoring pink, yellow and green, with flowers as the main elements. A moderate, stylized level of detail, intended for promotion in digital and print media."
+          ],
+          "images": [
+            "First reference board: watercolor floral invitations, botanical stickers, yellow flowers and delicate frames.",
+            "Second reference board: paintings of gardens and landscapes with flowers in shades of green, orange and pink."
+          ],
+          "captions": [
+            "Reference board - Version 1",
+            "Reference board - Version 2"
+          ]
+        },
+        "prototyping": {
+          "title": "Prototyping",
+          "tabs": [
+            "Moodboard",
+            "Planning the pieces",
+            "Roughs",
+            "Color tests",
+            "Digital rendering",
+            "Print tests"
+          ],
+          "paragraphs": [
+            "The process started with the “Save the date”, which would also give structure to the invitation and the pieces that followed. But input from more people shifted the project's vision a little, adding new references and changing the complexity of the illustration. The main illustration guided the composition of further pieces, such as party favor tags, menus, cake box stickers and even the wrap of a “mini cakes” favor cart hired by the client. After testing the prints and making the necessary revisions, the material was applied to the promotion and to the printed surfaces. Every step was approved by the client."
+          ],
+          "thumbs": {
+            "captions": [
+              "Layout test",
+              "Illustration draft",
+              "Raw illustration",
+              "First version of the Save The Date",
+              "Color test"
+            ]
+          },
+          "images": [
+            "Save the date layout test with a floral frame and the names of the birthday twins.",
+            "Draft of the invitation's floral illustration on a beige background.",
+            "Raw illustration of the floral frame, still without text.",
+            "First version of the save the date, with a flower frame and the event date.",
+            "Save the date color test with flowers in warmer tones."
+          ],
+          "invitation": {
+            "label": "Developing the final identity for the invitation",
+            "images": [
+              "Pencil sketch of the garden with trees and a fountain.",
+              "Digital illustration of the garden with trees, flowers and a fountain.",
+              "Final invitation with the C and A monogram in an oval lace frame over the garden illustration.",
+              "Variation of the final invitation with the monogram and the event details."
+            ]
+          }
+        },
+        "finalProject": {
+          "title": "Final project",
+          "paragraphs": [
+            "The delivered project made up the event's identity system and its applications."
+          ],
+          "toolsTitle": "Tools used",
+          "tools": [
+            "Adobe Illustrator",
+            "Autodesk Sketchbook",
+            "Adobe Fonts",
+            "Figma",
+            "Adobe Photoshop"
+          ],
+          "images": [
+            "Event banners with the C and A monogram in a lace frame over crops of the garden illustration."
+          ],
+          "ledPanel": {
+            "label": "Artwork for the LED panel",
+            "images": [
+              "Two horizontal artworks for the LED panel with the monogram and “15 anos” over the garden illustration."
+            ]
+          },
+          "menuTags": {
+            "label": "Artwork for the menu, tags and cake box stickers",
+            "images": [
+              "Front and back of the menu, numbered tags for sandals and cake box stickers, all featuring the garden illustration."
+            ]
+          },
+          "event": {
+            "label": "Applications at the event",
+            "images": [
+              "Mini cakes cart wrapped with the garden illustration and the monogram.",
+              "Another angle of the wrapped mini cakes cart.",
+              "Printed menu on a green napkin over a decorated plate.",
+              "Cake boxes with the identity stickers.",
+              "Kraft bags with the identity tags.",
+              "Party favor box with the sticker and tag applied."
+            ]
+          },
+          "aiNote": "* No AI image-generation agent was used for the visual creations (sketches, vectors, illustrations…) in this project."
+        }
+      },
+      "thanks": "Thank you for making it this far!"
+    },
+    "caju": {
+      "title": "Caju",
+      "subtitle": "Caju",
+      "cardTitle": "Caju",
+      "description": "Illustrated children's book “Caju in: Seed has no tooth”, created in the Graphic Production course with my classmates Ana and Thays: a story about facing your fears with a big smile.",
+      "intro": "Under the assignment to create an illustrated children's book in the Graphic Production course, Caju was born as the expression of the bond between a group of older sisters (me and my project teammates). The synopsis: “Cajú lives a light and happy life by her mother's side, but after a rainy day, an unexpected change challenges our heroine to see her world from a new perspective. Cajú will show us how to face our fears with a big smile”.\n\nIt was the most fun brainstorming I've ever had in a project, and it gave me a very personal and genuine connection with my story and my teammates': our ideas talked to each other, and we felt like we were thinking of the same little story even before we decided what it would be.",
+      "tags": [
+        "Academic",
+        "Digital illustration",
+        "Graphic design",
+        "Editorial design",
+        "High complexity"
+      ],
+      "heroAlt": "Book illustration: Caju, with blue hair and a yellow dress, in a maze of pink and yellow stripes, with the little grey monster in the background.",
+      "aiNote": "* No AI image-generation agent was used for the visual creations (sketches, vectors, illustrations…) in this project.",
+      "thanks": "Thank you for making it this far!",
+      "sections": {
+        "creationProcess": {
+          "title": "Creation process",
+          "leadBefore": "The creation process was carried out together with my classmates ",
+          "leadAna": "Ana",
+          "leadBetween": " and ",
+          "leadThays": "Thays",
+          "leadAfter": ". We first chose the niche of children's booklets and, to create the story, we drew mainly on illustrations that we asked the children in Ana's family to make spontaneously, letting their eyes guide what would be told. From there, we wrote the story together, coming up with ideas for the title and the message, and structured the script into a beginning, middle and end.",
+          "paragraphs": [
+            "In the story, Caju sees her brother Juca, whose name shares the same syllables as hers, as a scary little monster and decides to face him with the thing that always makes her laugh: tickles. The weather follows her feelings too, from the sunny day to the rain and thunder, until the sky clears when the baby finally laughs and Caju discovers he doesn't even have teeth.",
+            "Later, we looked for references on Behance and Pinterest and put together a mood board (Image a), which guided the character sketches made by me and Thays (Image b): Caju, Juca, their mother Cajuína, portrayed as Mother Nature (hence the influence of the environment in expressing feelings), and the plush toys Mr. Frog, Manuel and Pedro, Caju's allies."
+          ]
+        },
+        "gallery": {
+          "boardCaption": "Planning board",
+          "boardAlt": "The book's planning board, with text in Portuguese: typeface tests (Gambado, Hey Eloise, Pain de Mie, Ruddy, Sketchnote, Bad Dog and P22 Stanyan), title ideas, technical details (32 pages, children's zine booklet, offset printing, coated paper, Bad Dog typeface), the script in beginning, middle and end, a colour palette in blues and lilacs and the characters Cajú, Jucá, Cajuína, Mr. Frog, Manuel and Pedro.",
+          "brainstorming": "Brainstorming",
+          "brainstormingAlts": [
+            "Brainstorming mind map with colourful sticky notes on a sheet of paper.",
+            "Pencil sketch of Caju in a spiral notebook.",
+            "The group's table with notebooks, drawings and pencils during the brainstorming."
+          ],
+          "visualPanel": "Mood board - Image a",
+          "visualPanelAlt": "Mood board with references from illustrations and illustrated children's books.",
+          "colorTests": "Colour tests and storyboard",
+          "colorTestsAlt": "Coloured-pencil tests on the printed illustrations and the storyboard of the pages.",
+          "characters": "Character design - Image b",
+          "charactersAlt": "Pencil sketches of the characters and the finished Caju in colour.",
+          "roughs": "Page roughs",
+          "roughsAlts": [
+            "Pencil rough of a double page: Caju reading in the tent and the scare with the little monster.",
+            "Pencil rough of a double page: the willow tree and the bedroom with the thunder cloud and the cage."
+          ],
+          "painting": "Painting the pages and layout",
+          "paintingAlts": [
+            "A page being painted digitally in Clip Studio, on a tablet.",
+            "An illustration in progress in Clip Studio, with layers and the colour palette.",
+            "Layout in InDesign: the cover, the authors' credits and double pages.",
+            "The book cover being laid out in InDesign."
+          ],
+          "printed": "Printed media",
+          "printedAlts": [
+            "The printed book open on a double page with Caju reading to her brother in the tent.",
+            "The printed book open on a double page with Caju and her mother Cajuína.",
+            "Printed pages spread out on the table."
+          ]
+        },
+        "prototyping": {
+          "title": "Prototyping",
+          "tabs": [
+            "Mood board",
+            "Piece planning",
+            "Roughs",
+            "Colour tests",
+            "Digital rendering",
+            "Print tests"
+          ],
+          "paragraphs": [
+            "One of the most fun steps was testing the colours, with illustrations printed without fill and painted with coloured pencils. Then I made thumbnails of all the pages following the girls' directions (Image 3), and Thays defined a colour palette for the characters and made the illustrations for the pages and the cover, which we split among ourselves to paint. With the pages ready, I wrote the texts, we tested typefaces (Image 4) and laid it out in InDesign, printing the dummy first and, finally, the booklet itself."
+          ]
+        },
+        "finalProject": {
+          "title": "Final project",
+          "paragraphs": [
+            "The final project is the printed children's book “Caju in: Seed has no tooth”. On the last page, we left a space for the children's drawings, giving them back a place in the story they helped create."
+          ]
+        },
+        "tools": {
+          "title": "Tools used",
+          "items": [
+            "Adobe Illustrator",
+            "Clip Studio",
+            "InDesign",
+            "Adobe Fonts"
+          ]
+        },
+        "stack": {
+          "label": "Book pages",
+          "alts": [
+            "Book page (text in Portuguese): “Caju felt herself swaying, confused and lost on her branch; her mother’s presence was now divided.”",
+            "Book page (text in Portuguese): “That scary scream turned into laughter!”",
+            "Book page (text in Portuguese): “This funny story was passed on to the little monster, now called Juca.”",
+            "Book page (text in Portuguese): “That was when she decided it was time to find a way out.”",
+            "Book page (text in Portuguese): “And to her surprise, that little monster was actually a toothless baby!”",
+            "Book page (text in Portuguese): “Every time Caju remembers, she realizes that those two were the fruits of a smile, and nothing could get in the way.”"
+          ]
+        },
+        "readingSim": {
+          "title": "Reading simulation"
+        },
+        "book": {
+          "label": "The book “Caju in: a seed has no tooth!”, to flip through (text in Portuguese)",
+          "faces": [
+            "Cover of the book “Caju in: a seed has no tooth!”",
+            "Dedication: This book is dedicated to all older sisters and their toothless little siblings.",
+            "Title page: Ágatha Ferreira, Ana Francisca and Thays Letícia.",
+            "To Caju, her mother was the most beautiful tree. When she was with her, every day was sunny and the whole forest danced around her.",
+            "But one day, the sound of thunder interrupted the dance. And that was the first rain that clouded the day for the two of them.",
+            "Watching her mother leave, Caju feels enormously confused!",
+            "The taxi took her mother to a faraway place, where the thunder could not reach her.",
+            "She had never been so far from her mother...",
+            "Then she felt the rumble of thunder in her heart.",
+            "This new creature only came to make a mess.",
+            "The family was restless, as if everything were about to crack.",
+            "This little monster would not stop screaming! Her mother would not sit still...",
+            "Her mother holds the little monster, who screams: Uhêêêê!",
+            "The monster’s den looked like a maze, full of toys and strange sounds.",
+            "Illustration: the dark maze, with red eyes peeking out.",
+            "Caju felt herself swaying, confused and lost on her branch; her mother’s presence was now divided.",
+            "That was when she decided it was time to find a way out.",
+            "She called all her trusted friends to a meeting: Mr. Frog, Mr. Penguin and Manoel the Cat. Talking it over, the three reached a conclusion: the little monster would laugh on one condition, tickles would be the solution.",
+            "Illustration: Caju imagines the little monster and the family laughing together.",
+            "Caju goes back to the maze, determined to face the little monster!",
+            "Illustration: the maze, with red eyes peeking out.",
+            "Caju took a deep breath and moved toward the little monster’s cage.",
+            "Illustration: the little monster’s cage, under a cloud of thunder.",
+            "She gathered her courage, stretched out her arms to attack and...",
+            "Illustration: Caju stretches her arms toward the little monster.",
+            "That scary scream turned into laughter!",
+            "And to her surprise, that little monster was actually a toothless baby!",
+            "This funny story was passed on to the little monster, now called Juca.",
+            "Every time Caju remembers, she realizes that those two were the fruits of a smile, and nothing could get in the way.",
+            "Children’s drawings of the characters.",
+            "Children’s drawings of the characters.",
+            "Back cover: Caju lives a light and happy life by her mother’s side, but after a rainy day an unexpected change challenges our heroine to see her world from a new perspective. Caju will show us how to face our fears with a big smile!"
+          ],
+          "counter": {
+            "cover": "Cover",
+            "back": "Back cover",
+            "pages": "Pages {a}–{b} of {n}"
+          },
+          "hint": {
+            "cover": "Click the cover to open the book",
+            "middle": "Click the pages or use the arrows to flip through",
+            "end": "The end! Use the button to go back to the cover"
+          },
+          "nav": {
+            "open": "Open the book",
+            "turn": "Turn the page",
+            "back": "Go back one page",
+            "prev": "Previous page",
+            "next": "Next page",
+            "restart": "Back to the cover"
+          }
+        }
+      }
     }
   },
   "status": {
@@ -527,6 +798,8 @@
     "pontosSemNo": "Pontos sem nó",
     "batucoTuco": "Batuco-tuco",
     "pontinhasSoltas": "Pontinhas soltas",
+    "identidadeEvento15Anos": "Event identity: 15th birthday",
+    "caju": "Caju",
     "studies": "Studies"
   },
   "projectsPage": {

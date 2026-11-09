@@ -260,21 +260,9 @@
 }
 /* "Próximo" remonta a folha: só a primeira abertura faz o fundo aparecer aos poucos. */
 .sheetStatic { animation: none; }
-.sheetInner { padding-top: 24px; }
 .sheetFoot { padding-bottom: 64px; }
-/* Voltar e próximo seguem as bordas da coluna do case (786px, a mesma do CaseShell). */
-.sheetCol { max-width: 786px; margin-inline: auto; display: flex; }
-/* Cases com layout 'wide' (coluna de 1352px do CaseShell). */
-.sheetColWide { max-width: 1352px; }
-.backBtn {
-  display: inline-flex; align-items: center; gap: 8px; cursor: pointer; min-height: 44px;
-  font: 700 15px var(--font-body), sans-serif; word-spacing: var(--word-gap); color: var(--navy);
-  background: linear-gradient(180deg, var(--search-fill-a), var(--search-fill-b));
-  border: 2px dashed var(--blue-500); border-radius: 999px; padding: 8px 16px;
-  box-shadow: 0 0 0 2px #eaeef4, 0 0 0 4px var(--blue-200);
-  transition: transform .25s var(--ease-spring);
-}
-@media (hover: hover) { .backBtn:hover { transform: translateX(-4px); } }
+/* "Próximo" segue a borda direita da coluna do case (`.container-case`, a mesma do CaseShell). */
+.sheetCol { display: flex; }
 .nextLink {
   display: flex; align-items: center; gap: 8px; margin-left: auto; cursor: pointer;
   background: none; border: 0; padding: 4px 0;
@@ -282,7 +270,7 @@
 }
 .arrow { display: inline-block; transition: transform .35s var(--ease-spring); }
 @media (hover: hover) { .nextLink:hover .arrow { transform: translateX(6px); } }
-.backBtn:focus-visible, .nextLink:focus-visible {
+.nextLink:focus-visible {
   outline: 3px solid var(--navy-deep); outline-offset: 4px; border-radius: 16px;
 }
 

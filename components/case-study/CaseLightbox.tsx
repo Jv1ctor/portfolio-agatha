@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef } from 'react';
 import { useTranslations } from '@/lib/i18n/use-translation';
+import { DottedButton } from './DottedButton';
 import s from './cases/batuco.module.css';
 
 export type LightboxItem = {
@@ -106,17 +107,13 @@ export function CaseLightbox({
         if (event.target === event.currentTarget) onClose();
       }}
     >
-      <button
+      <DottedButton
         ref={closeRef}
-        type="button"
-        className={`${s.lbBtn} ${s.lbClose}`}
+        className={s.lbClose}
+        glyph="×"
         aria-label={t('projectsPage.lightbox.close')}
         onClick={onClose}
-      >
-        <span aria-hidden className={s.lbBtnInner}>
-          <span className={s.lbGlyph}>×</span>
-        </span>
-      </button>
+      />
       {/* `key`: imagem nova a cada troca → o "pop" roda de novo. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
@@ -128,29 +125,21 @@ export function CaseLightbox({
         className={s.lbImg}
       />
       <div className={s.lbBar}>
-        <button
-          type="button"
-          className={`${s.lbBtn} ${s.lbPrev}`}
+        <DottedButton
+          className={s.lbPrev}
+          glyph="<"
           aria-label={t('projectsPage.lightbox.prev')}
           onClick={() => go(-1)}
-        >
-          <span aria-hidden className={s.lbBtnInner}>
-            <span className={s.lbGlyph}>{"<"}</span>
-          </span>
-        </button>
+        />
         <span className={s.lbLabel} aria-live="polite">
           {counter}
         </span>
-        <button
-          type="button"
-          className={`${s.lbBtn} ${s.lbNext}`}
+        <DottedButton
+          className={s.lbNext}
+          glyph=">"
           aria-label={t('projectsPage.lightbox.next')}
           onClick={() => go(1)}
-        >
-          <span aria-hidden className={s.lbBtnInner}>
-            <span className={s.lbGlyph}>{">"}</span>
-          </span>
-        </button>
+        />
       </div>
     </div>
   );

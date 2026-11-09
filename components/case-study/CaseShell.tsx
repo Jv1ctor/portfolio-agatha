@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import type { Dictionary } from "@/i18n/dictionaries";
 import type { LocalizedProject, ProjectStatus } from "@/lib/projects";
 
@@ -114,11 +114,21 @@ function withMotion(base: string, extra?: string) {
   return extra ? `${base} ${extra}` : base;
 }
 
+/**
+ * Proporção das duas colunas do topo quando há `aside`, em px do frame do Figma
+ * (coluna do cabeçalho | coluna do aside | vão entre elas). Ex.: Pontos sem nó
+ * 660 | 588 | 104; Caju 688 | 631 | 32.
+ */
+export type CaseAsideLayout = { main: number; aside: number; gap: number };
+
 export function CaseShell({
   project,
   dict,
   cover,
   motion,
+  aside,
+  asideLayout = { main: 660, aside: 588, gap: 104 },
+  headerExtra,
   top,
   bottom,
   thanksMotion,
@@ -129,6 +139,15 @@ export function CaseShell({
   cover?: ReactNode;
   /** Classes de animação de entrada (usadas pelo modal): capa, cabeçalho e corpo. */
   motion?: { cover: string; header: string; body: string };
+  /**
+   * Coluna à direita do cabeçalho (título, tags, intro), como nos frames em que
+   * o topo do case é dividido em dois. Sem `aside` o cabeçalho ocupa a largura toda.
+   * Ignorado no layout 'wide' (o corpo desenha o próprio cabeçalho).
+   */
+  aside?: ReactNode;
+  asideLayout?: CaseAsideLayout;
+  /** Conteúdo extra na coluna do cabeçalho, logo abaixo da intro. */
+  headerExtra?: ReactNode;
   /**
    * Só no layout 'wide': conteúdo acima da capa e depois do balão de
    * agradecimento, dentro da coluna de 1352px. A página completa passa a barra
@@ -181,83 +200,107 @@ export function CaseShell({
     );
   }
 
-  return (
-    <article className="container-narrow py-12">
-      {/* Coluna de conteúdo = 786px (largura do conteúdo do case no desktop
-          do Figma — frame Responsividade/MacBook). Centralizada. */}
-      <div className="mx-auto max-w-[786px]">
-        {cover ??
-          (project.coverImage && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={project.coverImage}
-              alt={dict.projects.coverAlt.replace("{title}", project.title)}
-              className={withMotion("shadow-card block w-full rounded-[8px]", motion?.cover)}
-            />
-          ))}
-
-        {/* Subtítulo (Clother Bold 26px) + status */}
-        <div
-          className={withMotion(
-            "mt-8 flex items-center justify-between gap-3",
-            motion?.header,
-          )}
-        >
-          <h1
-            className="font-bold text-[1.625rem] leading-tight text-[color:var(--color-blue)]"
-            style={bodyFont}
-          >
-            {project.subtitle}
-          </h1>
-          <Pill variant="status">{dict.status[statusKey[project.status]]}</Pill>
-        </div>
-
-        {/* Tags (esquerda) + data (direita) */}
-        <div
-          className={withMotion(
-            "mt-3 flex flex-wrap items-center gap-2",
-            motion?.header,
-          )}
-        >
-          {project.tags.map((tag) => (
-            <Pill key={tag}>{tag}</Pill>
-          ))}
-          {project.date && (
-            <span className="ml-auto">
-              <Pill>{project.date}</Pill>
-            </span>
-          )}
-        </div>
-
-        {/* Intro — Clother Light 16px, parágrafos preservando as quebras do Figma */}
-        {intro && (
-          <div
-            className={withMotion(
-              "mt-6 flex flex-col gap-4 font-light text-[1rem] leading-relaxed text-[color:var(--color-blue)]",
-              motion?.header,
-            )}
-          >
-            {intro.split("\n\n").map((para, i) => (
-              <p key={i}>{para}</p>
-            ))}
-          </div>
+  const header = (
+    <>
+      {/* Subtítulo (Clother Bold 26px) + status */}
+      <div
+        className={withMotion(
+          "mt-8 flex items-center justify-between gap-3",
+          motion?.header,
         )}
-
-        <div className={withMotion("mt-12 flex flex-col gap-12", motion?.body)}>
-          {children}
-        </div>
-
-        {/* Figma: Clother Regular (400); o peso global é 300, fixo o 400. */}
-        <p
-          className={withMotion(
-            "mt-16 font-normal text-[2rem] leading-tight text-[color:var(--color-blue)]",
-            motion?.body,
-          )}
-          style={{ fontFamily: "var(--font-body)" }}
+      >
+        <h1
+          className="font-bold text-[1.625rem] leading-tight text-[color:var(--color-blue)]"
+          style={bodyFont}
         >
-          {project.thanks}
-        </p>
+          {project.subtitle}
+        </h1>
+        <Pill variant="status">{dict.status[statusKey[project.status]]}</Pill>
       </div>
+
+      {/* Tags (esquerda) + data (direita) */}
+      <div
+        className={withMotion(
+          "mt-3 flex flex-wrap items-center gap-2",
+          motion?.header,
+        )}
+      >
+        {project.tags.map((tag) => (
+          <Pill key={tag}>{tag}</Pill>
+        ))}
+        {project.date && (
+          <span className="ml-auto">
+            <Pill>{project.date}</Pill>
+          </span>
+        )}
+      </div>
+
+      {/* Intro — Clother Light 16px, parágrafos preservando as quebras do Figma */}
+      {intro && (
+        <div
+          className={withMotion(
+            "mt-6 flex flex-col gap-4 font-light text-[1rem] leading-relaxed text-[color:var(--color-blue)]",
+            motion?.header,
+          )}
+        >
+          {intro.split("\n\n").map((para, i) => (
+            <p key={i}>{para}</p>
+          ))}
+        </div>
+      )}
+
+      {headerExtra && (
+        <div className={withMotion("mt-8", motion?.header)}>{headerExtra}</div>
+      )}
+    </>
+  );
+
+  return (
+    <article className="container-case pt-16 pb-12">
+      {/* Coluna do Figma (`.container-case`): 66px entre o header e a capa,
+          32px entre os blocos. */}
+      {cover ??
+        (project.coverImage && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={project.coverImage}
+            alt={dict.projects.coverAlt.replace("{title}", project.title)}
+            className={withMotion("shadow-card block w-full rounded-[8px]", motion?.cover)}
+          />
+        ))}
+
+      {aside ? (
+        // Duas colunas a partir de md; o vão é proporcional à coluna do Figma (1352px).
+        <div
+          className="grid grid-cols-1 gap-y-8 md:items-start md:gap-y-0 md:[grid-template-columns:var(--case-cols)] md:[column-gap:var(--case-gap)]"
+          style={
+            {
+              "--case-cols": `minmax(0, ${asideLayout.main}fr) minmax(0, ${asideLayout.aside}fr)`,
+              "--case-gap": `${((asideLayout.gap / 1352) * 100).toFixed(3)}%`,
+            } as CSSProperties
+          }
+        >
+          <div>{header}</div>
+          <div className={withMotion("md:mt-8", motion?.header)}>{aside}</div>
+        </div>
+      ) : (
+        header
+      )}
+
+      <div className={withMotion("mt-8 flex flex-col gap-8", motion?.body)}>
+        {children}
+      </div>
+
+      {/* Figma: Clother Regular (400); o peso global é 300, fixo o 400. */}
+      <p
+        className={withMotion(
+          "mt-16 font-normal text-[2rem] leading-tight text-[color:var(--color-blue)]",
+          motion?.body,
+        )}
+        style={{ fontFamily: "var(--font-body)" }}
+      >
+        {project.thanks}
+      </p>
     </article>
   );
 }

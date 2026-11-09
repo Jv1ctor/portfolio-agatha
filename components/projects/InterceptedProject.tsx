@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { getDictionary, isLocale } from "@/i18n/dictionaries";
 import { getLocalizedProject, getNextSlug, slugToKey, type Slug } from "@/lib/projects";
 import { CaseShell } from "@/components/case-study/CaseShell";
-import { caseBodies, caseCovers } from "@/components/case-study/cases";
+import { caseBodies, caseCovers, caseSlots } from "@/components/case-study/cases";
 import { ProjectModal } from "./ProjectModal";
 import s from "./projects.module.css";
 
@@ -30,6 +30,7 @@ export async function InterceptedProject({
   const nextProject = getLocalizedProject(getNextSlug(slug), dict);
   if (!nextProject) notFound();
   const Body = caseBodies[slug];
+  const slots = caseSlots[slug]?.(project, { coverClassName: s.heroIn }) ?? {};
   const Cover = caseCovers[slug];
 
   return (
@@ -45,8 +46,9 @@ export async function InterceptedProject({
       <CaseShell
         project={project}
         dict={dict}
-        cover={Cover ? <Cover project={project} /> : undefined}
         motion={{ cover: s.heroIn, header: s.revealHeader, body: s.revealBody }}
+        {...slots}
+        cover={Cover ? <Cover project={project} /> : slots.cover}
       >
         <Body project={project} />
       </CaseShell>

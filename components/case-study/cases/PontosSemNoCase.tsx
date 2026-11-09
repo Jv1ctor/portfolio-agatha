@@ -1,10 +1,11 @@
-import type { LocalizedProject } from "@/lib/projects";
+import { isProject, type LocalizedProject } from "@/lib/projects";
 import { CaseSection, CaseImage } from "@/components/case-study/CaseShell";
 
 const base = "/images/projects/pontos-sem-no";
 
 /** Corpo do case (tudo entre `<CaseShell>` e `</CaseShell>`), reutilizado pela página e pelo modal. */
 export function PontosSemNoCase({ project }: { project: LocalizedProject }) {
+  if (!isProject(project, "pontos-sem-no")) return null;
   const protoTabs = project.sections.prototyping.tabs;
   const protoCaptions = project.sections.prototyping.thumbs.captions;
 

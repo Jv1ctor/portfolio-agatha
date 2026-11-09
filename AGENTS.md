@@ -111,6 +111,13 @@ Canonical example: `app/[lang]/contato/page.tsx`.
 5. Put the case body (everything inside `<CaseShell>`) in a component under
    `components/case-study/cases/` and register it in `caseBodies`
    (`components/case-study/cases/index.ts`); the full page and the modal share it.
+   If the case needs the top split in two columns (header | image, as in the
+   Figma frames of Pontos sem nó and Caju), a clickable cover, or extra content
+   under the intro, register a `caseSlots[slug]` function returning
+   `{ cover, aside, asideLayout, headerExtra }` — the page spreads it into
+   `<CaseShell>` and `InterceptedProject` does the same, so both stay identical.
+   Clickable images use `CaseImageButton` + one `<Lightbox images>` per case;
+   lightbox texts live in `dict.projects.lightbox`.
 6. Create `app/[lang]/projetos/@modal/(.)<slug>/page.tsx` rendering
    `<InterceptedProject params={params} slug="<slug>" />` (copy an existing one).
    It is one folder per slug, **not** a dynamic `(.)[slug]`: the dynamic form
