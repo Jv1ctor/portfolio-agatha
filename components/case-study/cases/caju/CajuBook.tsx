@@ -312,7 +312,6 @@ export function CajuBook({
 
   return (
     <div ref={frameRef} className={s.fbFrame} onKeyDown={onKeyDown}>
-      <p className={s.capCenter}>{texts.title}</p>
       <div className={`${s.fbInner} ${nudgeCls}`}>
         <div ref={areaRef} className={s.fbArea}>
           <div
