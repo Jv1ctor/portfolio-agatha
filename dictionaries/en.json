@@ -526,7 +526,8 @@
     "projetos": "Projects",
     "pontosSemNo": "Pontos sem nó",
     "batucoTuco": "Batuco-tuco",
-    "pontinhasSoltas": "Pontinhas soltas"
+    "pontinhasSoltas": "Pontinhas soltas",
+    "studies": "Studies"
   },
   "projectsPage": {
     "title": "Portfolio",
@@ -570,6 +571,118 @@
       "prev": "Previous image",
       "next": "Next image",
       "counter": "{caption} · {index} / {total}"
+    }
+  },
+  "studies": {
+    "title": "Studies",
+    "back": "back to about me",
+    "bubble": "Look how cool!",
+    "filtersLabel": "Filter studies by area",
+    "items": {
+      "velhaInfancia": {
+        "caption": "Velha infância",
+        "alt": "“Velha infância” collage: colorful children's drawings, a table with a vase and fruit, puppy mugs, a watercolor tin, a butterfly and flowers."
+      },
+      "portals": {
+        "caption": "Portals",
+        "alt": "“Portals” collage: two fairies with moth wings among orange flowers, a green-haired figure, a pink moth and eyes scattered over a dark background."
+      },
+      "chillKill": {
+        "caption": "Chill Kill",
+        "alt": "“Chill Kill” collage: dark-toned portraits of two black-haired women, a white lily, miniature ballerinas and a dragon fruit."
+      },
+      "razoes28": {
+        "caption": "28 Reasons",
+        "alt": "“28 Reasons” collage: the title “28 Reasons”, the quote “We simply try to resist from being captivated by evil.”, cut-out silhouettes, a ballerina and portraits of a singer."
+      },
+      "florescer": {
+        "caption": "Florescer",
+        "alt": "“Florescer” collage: a pastel illustration with blossoming branches, a blonde girl, a fawn, ribbons, cute stickers and the quote “Surround yourself with people who see your value and remind you of it”."
+      },
+      "soQuiet": {
+        "caption": "So quiet",
+        "alt": "“So quiet” collage: black-and-white and cool-toned photos of a singer in the snow, newspaper clippings, an animal illustration and an album cover."
+      },
+      "gatoAzul": {
+        "caption": "Studies",
+        "alt": "3D render of a yellow and blue cat-shaped lamp with its mouth open in a red ring, on a blue background with the text “Ágatha e os Pontos sem Nó”."
+      },
+      "gatoAmarelo": {
+        "caption": "Studies",
+        "alt": "The same 3D cat-shaped lamp on a mustard background, with the text “Ágatha e os Pontos sem Nó”."
+      },
+      "calendario2023": {
+        "caption": "Studies",
+        "alt": "2023 calendar titled “2023幸運な年”, next to an illustration of a blue-haired girl with a kitten and stickers."
+      },
+      "calendario2024": {
+        "caption": "Studies",
+        "alt": "2024 calendar titled “2024幸運な年” with blueberries, next to an illustration of a white-haired girl in a blue sailor uniform."
+      },
+      "calendario2025": {
+        "caption": "Studies",
+        "alt": "2025 calendar with a colorful activity legend and an illustration of a girl with bangs holding green apple halves, with the text “Trainee time”."
+      },
+      "coelhos": {
+        "caption": "Studies",
+        "alt": "Illustration of little white bunnies floating over a pink field with tiny flowers."
+      },
+      "telaDeBloqueio": {
+        "caption": "Lock screen",
+        "alt": "Illustrated lock screen: turquoise little fish swimming in a night sky with stars and pink comets."
+      },
+      "quarto2andar": {
+        "caption": "Studies",
+        "alt": "Illustration of a bedroom with a green-striped wall, a window with pink curtains, a desk with a computer and a yellow chair."
+      },
+      "quarto1andar": {
+        "caption": "Studies",
+        "alt": "Illustration of a living room with pink plaid wallpaper, two yellow windows, a light blue sofa, a plant, a bookshelf and a red lamp."
+      },
+      "tomate": {
+        "caption": "Tomato",
+        "alt": "3D render of a red tomato on a yellow background."
+      },
+      "bolo": {
+        "caption": "Cake",
+        "alt": "3D render of a white cake decorated with blueberries and blackberries on a plate."
+      },
+      "sketchGarota": {
+        "caption": "Studies",
+        "alt": "Blue pencil sketch of a wavy-haired girl with a bunny, a question mark, a little skull, a ribbon and the text “IU 스물셋”."
+      },
+      "sestudos": {
+        "caption": "Studies",
+        "alt": "The same drawing finished in color: a brown-haired girl in a yellow top, a bunny, a lilac question mark and a purple ribbon on a light yellow background."
+      },
+      "retrato1": {
+        "caption": "Studies",
+        "alt": "Expression study: a reference photo of a woman frowning next to the pencil drawing with construction lines."
+      },
+      "retrato2": {
+        "caption": "Studies",
+        "alt": "Expression study: a reference photo of a smiling girl with her hands on her chest next to the pencil drawing."
+      },
+      "retrato3": {
+        "caption": "Studies",
+        "alt": "Expression study: a reference photo of a woman laughing with her eyes closed next to the pencil drawing."
+      },
+      "retrato4": {
+        "caption": "Studies",
+        "alt": "Expression study: a photo of a rosy-cheeked child, two numbered sketches of the face and notes on features, the distance between facial points and the intensity of the expression."
+      },
+      "twig": {
+        "caption": "Twig — proportion study",
+        "alt": "Proportion study of Twig, a little deer-fox, drawn over a grid with red construction lines."
+      },
+      "chikorita": {
+        "caption": "Studies",
+        "alt": "Two colored studies of Chikorita, a light green Pokémon with a leaf on its head."
+      },
+      "sketchFinal": {
+        "caption": "Studies",
+        "alt": "Pencil sketch of a girl with long wavy hair, a headscarf and bows, holding her hands close to her chest."
+      }
     }
   }
 }

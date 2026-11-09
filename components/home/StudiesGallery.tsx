@@ -1,4 +1,5 @@
-import type { Dictionary } from "@/i18n/dictionaries";
+import Link from "next/link";
+import type { Dictionary, Locale } from "@/i18n/dictionaries";
 import s from "./StudiesGallery.module.css";
 
 type TileKey = "studies" | "career" | "gallery";
@@ -61,20 +62,19 @@ function tileProps(tile: TileKey, title: string, text: string) {
  * Sidebar (Frame 9, x=1152, y=2234, 576×1117):
  *   - doodles-azul.svg (tem gradiente próprio #485699→#5C76B4→#6F95CE)
  */
-export function StudiesGallery({ dict }: { dict: Dictionary }) {
+export function StudiesGallery({ dict, locale }: { dict: Dictionary; locale: Locale }) {
   const home = dict.home;
   return (
     <section className="grid grid-cols-1 md:grid-cols-[2fr_1fr]">
       {/* Coluna esquerda (2/3): duas células empilhadas */}
       <div className="flex flex-col">
-        {/* Célula ROSA — DUAS CAMADAS OBRIGATÓRIAS */}
-        <div
-          {...tileProps(
-            "studies",
-            home.tiles.studies.title,
-            home.tiles.studies.text,
-          )}
-          className={`${s.tile} relative h-[300px] overflow-hidden bg-[color:var(--color-pink-light)] md:h-[558px]`}
+        {/* Célula ROSA — DUAS CAMADAS OBRIGATÓRIAS. O bloco inteiro é link para a
+            página de Estudos (Figma 17:626 → 17:2174); mesmo hover de véu + texto. */}
+        <Link
+          href={`/${locale}/estudos`}
+          data-tile="studies"
+          aria-label={`${home.tiles.studies.title}: ${home.tiles.studies.text}`}
+          className={`${s.tile} relative block h-[300px] overflow-hidden bg-[color:var(--color-pink-light)] md:h-[558px]`}
         >
           <div className={s.tileImg}>
             {/* Camada 1 (fundo): coelhos — scaled para mostrar mais da imagem */}
@@ -114,7 +114,7 @@ export function StudiesGallery({ dict }: { dict: Dictionary }) {
             title={home.tiles.studies.title}
             text={home.tiles.studies.text}
           />
-        </div>
+        </Link>
 
         {/* Célula AZUL — baleia */}
         <div

@@ -503,7 +503,8 @@
     "projetos": "Projetos",
     "pontosSemNo": "Pontos sem nó",
     "batucoTuco": "Batuco-tuco",
-    "pontinhasSoltas": "Pontinhas soltas"
+    "pontinhasSoltas": "Pontinhas soltas",
+    "studies": "Estudos"
   },
   "projectsPage": {
     "title": "Portfólio",
@@ -547,6 +548,118 @@
       "prev": "Imagem anterior",
       "next": "Próxima imagem",
       "counter": "{caption} · {index} / {total}"
+    }
+  },
+  "studies": {
+    "title": "Estudos",
+    "back": "voltar para sobre mim",
+    "bubble": "Olha que legal!",
+    "filtersLabel": "Filtrar estudos por área",
+    "items": {
+      "velhaInfancia": {
+        "caption": "Velha infância",
+        "alt": "Colagem “Velha infância”: desenhos infantis coloridos, uma mesa com vaso e frutas, canecas de cachorrinho, um estojo de aquarela, uma borboleta e flores."
+      },
+      "portals": {
+        "caption": "Portals",
+        "alt": "Colagem “Portals”: duas fadas com asas de mariposa entre flores laranja, uma figura de cabelo verde, uma mariposa rosa e olhos espalhados num fundo escuro."
+      },
+      "chillKill": {
+        "caption": "Chill Kill",
+        "alt": "Colagem “Chill Kill”: retratos em tons escuros de duas mulheres de cabelo preto, um lírio branco, bailarinas em miniatura e uma fruta-do-dragão."
+      },
+      "razoes28": {
+        "caption": "28 razões",
+        "alt": "Colagem “28 razões”: o título “28 Reasons”, a frase “We simply try to resist from being captivated by evil.”, silhuetas recortadas, uma bailarina e retratos de uma cantora."
+      },
+      "florescer": {
+        "caption": "Florescer",
+        "alt": "Colagem “Florescer”: ilustração em tons pastel com galhos floridos, uma moça loira, um cervo, laços, adesivos fofos e a frase “Surround yourself with people who see your value and remind you of it”."
+      },
+      "soQuiet": {
+        "caption": "So quiet",
+        "alt": "Colagem “So quiet”: fotos em preto e branco e em tons frios de uma cantora na neve, recortes de jornal, a ilustração de um animal e a capa de um disco."
+      },
+      "gatoAzul": {
+        "caption": "Estudos",
+        "alt": "Render 3D de uma luminária em forma de gato amarelo e azul, com a boca aberta num anel vermelho, sobre fundo azul e o texto “Ágatha e os Pontos sem Nó”."
+      },
+      "gatoAmarelo": {
+        "caption": "Estudos",
+        "alt": "A mesma luminária 3D em forma de gato sobre fundo mostarda, com o texto “Ágatha e os Pontos sem Nó”."
+      },
+      "calendario2023": {
+        "caption": "Estudos",
+        "alt": "Calendário de 2023 com o título “2023幸運な年”, ao lado da ilustração de uma menina de cabelo azul com um gatinho e adesivos."
+      },
+      "calendario2024": {
+        "caption": "Estudos",
+        "alt": "Calendário de 2024 com o título “2024幸運な年” e mirtilos, ao lado da ilustração de uma garota de cabelo branco com uniforme de marinheiro azul."
+      },
+      "calendario2025": {
+        "caption": "Estudos",
+        "alt": "Calendário de 2025 com uma legenda de atividades coloridas e a ilustração de uma garota de franja segurando metades de maçã verde, com o texto “Trainee time”."
+      },
+      "coelhos": {
+        "caption": "Estudos",
+        "alt": "Ilustração de coelhinhos brancos flutuando num campo rosa com florzinhas."
+      },
+      "telaDeBloqueio": {
+        "caption": "Tela de bloqueio",
+        "alt": "Tela de bloqueio ilustrada: peixinhos azul-turquesa nadando num céu noturno com estrelas e cometas rosados."
+      },
+      "quarto2andar": {
+        "caption": "Estudos",
+        "alt": "Ilustração de um quarto com parede listrada de verde, janela com cortinas rosa, escrivaninha com computador e cadeira amarela."
+      },
+      "quarto1andar": {
+        "caption": "Estudos",
+        "alt": "Ilustração de uma sala com papel de parede xadrez rosa, duas janelas amarelas, sofá azul-claro, planta, estante e abajur vermelho."
+      },
+      "tomate": {
+        "caption": "Tomate",
+        "alt": "Render 3D de um tomate vermelho sobre fundo amarelo."
+      },
+      "bolo": {
+        "caption": "Bolo",
+        "alt": "Render 3D de um bolo branco decorado com mirtilos e amoras sobre um prato."
+      },
+      "sketchGarota": {
+        "caption": "Estudos",
+        "alt": "Esboço a lápis azul de uma moça de cabelo ondulado com um coelhinho, um ponto de interrogação, uma caveirinha, uma fita e o texto “IU 스물셋”."
+      },
+      "sestudos": {
+        "caption": "Estudos",
+        "alt": "O mesmo desenho finalizado em cores: moça de cabelo castanho e blusa amarela, coelhinho, ponto de interrogação lilás e fita roxa sobre fundo amarelo-claro."
+      },
+      "retrato1": {
+        "caption": "Estudos",
+        "alt": "Estudo de expressão: foto de referência de uma mulher franzindo o rosto ao lado do desenho a lápis com linhas de construção."
+      },
+      "retrato2": {
+        "caption": "Estudos",
+        "alt": "Estudo de expressão: foto de referência de uma menina sorrindo com as mãos no peito ao lado do desenho a lápis."
+      },
+      "retrato3": {
+        "caption": "Estudos",
+        "alt": "Estudo de expressão: foto de referência de uma mulher rindo de olhos fechados ao lado do desenho a lápis."
+      },
+      "retrato4": {
+        "caption": "Estudos",
+        "alt": "Estudo de expressão: foto de uma criança de bochechas rosadas, dois esboços numerados do rosto e anotações sobre traços, distância entre os pontos da face e intensidade da expressão."
+      },
+      "twig": {
+        "caption": "Twig — estudo de proporções",
+        "alt": "Estudo de proporções do Twig, filhote de cervo-raposa, desenhado sobre uma grade com linhas de construção vermelhas."
+      },
+      "chikorita": {
+        "caption": "Estudos",
+        "alt": "Dois estudos coloridos da Chikorita, Pokémon verde-claro com uma folha na cabeça."
+      },
+      "sketchFinal": {
+        "caption": "Estudos",
+        "alt": "Esboço a lápis de uma garota de cabelo longo e ondulado, com lenço na cabeça e laços, segurando as mãos junto ao peito."
+      }
     }
   }
 }

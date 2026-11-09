@@ -23,8 +23,10 @@ export function FooterRouter({ dict }: { dict: Dictionary }) {
   // Cases de página completa (Batuco-tuco, Pontinhas soltas) abertos direto: o mesmo
   // footer padrão, com o voltar ao topo.
   const isFullPage = segments.length === 2 && segments[0] === 'projetos' && isFullPageCase(segments[1]);
+  // Estudos: o mesmo footer do Figma ("visite também", node 17:2252).
+  const isStudies = segments.length === 1 && segments[0] === 'estudos';
 
-  if (isHome || isFullPage) return <HomeFooter dict={dict} />;
+  if (isHome || isFullPage || isStudies) return <HomeFooter dict={dict} />;
   if (isProjectsIndex) return <HomeFooter dict={dict} variant="projects" />;
   return <Footer dict={dict} />;
 }

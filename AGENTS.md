@@ -85,9 +85,10 @@ Every route lives in `app/[lang]/<route>/page.tsx` and follows the pattern:
    Pages that keep the site header get it for free (`Header` and `HomeHeader`
    both render it). A page that hides the site header in `HeaderRouter` (today:
    every case flagged `opensAsPage` in `lib/projects.ts` — Batuco-tuco and
-   Pontinhas soltas, via `isFullPageCase()`) must render the switcher in its own top bar —
-   pattern: `components/case-study/CaseTopBar.tsx` (centered in a
-   `grid-cols-[1fr_auto_1fr]`). Do not ship a page without a way to switch
+   Pontinhas soltas, via `isFullPageCase()` — and `/estudos`) must render the
+   switcher in its own top bar — pattern: `components/case-study/CaseTopBar.tsx`
+   (centered in a `grid-cols-[1fr_auto_1fr]`; `variant="about"` is the Estudos
+   bar, which links back to the home). Do not ship a page without a way to switch
    language.
 
 Canonical example: `app/[lang]/contato/page.tsx`.
