@@ -26,7 +26,7 @@ export async function generateMetadata({
     // hreflang exige URL absoluta (Google valida full-qualified); o SITE_URL é
     // a origem pública do site (definido no deploy). O x-default aponta para o
     // locale padrão — padrão de mercado para sets hreflang.
-    metadataBase: new URL(process.env.SITE_URL ?? 'http://localhost:3000'),
+    metadataBase: new URL(process.env.SITE_URL || 'http://localhost:3000'),
     title: {
       default: dict.site.name,
       template: `%s · ${dict.site.name}`,
