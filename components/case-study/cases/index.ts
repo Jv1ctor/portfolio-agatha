@@ -6,7 +6,7 @@ import { BatucoTucoCase } from "./BatucoTucoCase";
 import { BatucoTucoHero } from "./BatucoTucoHero";
 import { PontinhasSoltasCase } from "./PontinhasSoltasCase";
 import { PontinhasSoltasHero } from "./PontinhasSoltasHero";
-import { IdentidadeEventoCase } from "./IdentidadeEventoCase";
+import { IdentidadeEventoCase, IdentidadeEventoHero } from "./IdentidadeEventoCase";
 import { CajuCase, CajuHero } from "./CajuCase";
 import { CascavelCase, CascavelHero } from "./CascavelCase";
 
@@ -18,6 +18,7 @@ export {
   PontinhasSoltasCase,
   PontinhasSoltasHero,
   IdentidadeEventoCase,
+  IdentidadeEventoHero,
   CajuCase,
   CajuHero,
   CascavelCase,
@@ -68,6 +69,7 @@ export const caseCovers: Partial<
   "pontos-sem-no": PontosSemNoHero,
   "batuco-tuco": BatucoTucoHero,
   "pontinhas-soltas": PontinhasSoltasHero,
+  "identidade-evento-15-anos": IdentidadeEventoHero,
   caju: CajuHero,
   cascavel: CascavelHero,
 };

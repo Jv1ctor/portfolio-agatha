@@ -1,4 +1,4 @@
-import type { LocalizedProject } from "@/lib/projects";
+import { isProject, type LocalizedProject } from "@/lib/projects";
 import s from "./batuco.module.css";
 
 const base = "/images/projects/batuco-tuco";
@@ -13,7 +13,7 @@ const base = "/images/projects/batuco-tuco";
  * inteiro, então uma imagem responsiva (srcSet 1x/2x) mantém o comportamento.
  */
 export function BatucoTucoHero({ project }: { project: LocalizedProject }) {
-  const label = "heroAlt" in project ? project.heroAlt : project.title;
+  const label = isProject(project, "batuco-tuco") ? project.heroAlt : project.title;
 
   return (
     // eslint-disable-next-line @next/next/no-img-element

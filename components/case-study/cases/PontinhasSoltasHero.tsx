@@ -1,4 +1,4 @@
-import type { LocalizedProject } from "@/lib/projects";
+import { isProject, type LocalizedProject } from "@/lib/projects";
 import { pontinhasBase as base } from "./PontinhasSoltasCase";
 import s from "./pontinhas.module.css";
 
@@ -8,7 +8,7 @@ import s from "./pontinhas.module.css";
  * tratamento da capa do Batuco-tuco (BatucoTucoHero).
  */
 export function PontinhasSoltasHero({ project }: { project: LocalizedProject }) {
-  const label = "heroAlt" in project ? project.heroAlt : project.title;
+  const label = isProject(project, "pontinhas-soltas") ? project.heroAlt : project.title;
 
   return (
     // eslint-disable-next-line @next/next/no-img-element

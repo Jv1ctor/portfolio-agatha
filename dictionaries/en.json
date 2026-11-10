@@ -638,8 +638,13 @@
       "intro": "The commission called for a visual identity for the 15th birthday party of a pair of twins. The service was planned around a delivery schedule, to keep the client quickly updated on the process and to show her how my work was expected to unfold.",
       "tags": [
         "Professional",
-        "Graphic design"
+        "Digital illustration",
+        "Visual identity",
+        "Graphic design",
+        "Print media",
+        "Medium complexity"
       ],
+      "heroAlt": "Digital illustration of a garden with trees, flowers and a fountain, the main artwork of the event identity.",
       "sections": {
         "creationProcess": {
           "title": "Creation process",
@@ -666,7 +671,8 @@
             "Print tests"
           ],
           "paragraphs": [
-            "The process started with the “Save the date”, which would also give structure to the invitation and the pieces that followed. But input from more people shifted the project's vision a little, adding new references and changing the complexity of the illustration. The main illustration guided the composition of further pieces, such as party favor tags, menus, cake box stickers and even the wrap of a “mini cakes” favor cart hired by the client. After testing the prints and making the necessary revisions, the material was applied to the promotion and to the printed surfaces. Every step was approved by the client."
+            "The process started with the “Save the date”, which would also give structure to the invitation and the pieces that followed. But input from more people shifted the project's vision a little, adding new references and changing the complexity of the illustration. The main illustration guided the composition of further pieces, such as party favor tags, menus, cake box stickers and even the wrap of a “mini cakes” favor cart hired by the client. After testing the prints and making the necessary revisions, the material was applied to the promotion and to the printed surfaces.",
+            "Every step was approved by the client."
           ],
           "thumbs": {
             "captions": [
@@ -708,18 +714,27 @@
             "Adobe Photoshop"
           ],
           "images": [
-            "Event banners with the C and A monogram in a lace frame over crops of the garden illustration."
+            "Horizontal banner with the C and A monogram and “15 anos” in an oval lace frame over the garden's treetops.",
+            "Horizontal banner with the C and A monogram in an oval lace frame, between the fountain and a tree trunk.",
+            "Artwork with the C and A monogram and “15 anos” in an oval lace frame over the garden with fountains, with ornaments in the corners."
           ],
           "ledPanel": {
             "label": "Artwork for the LED panel",
             "images": [
-              "Two horizontal artworks for the LED panel with the monogram and “15 anos” over the garden illustration."
+              "LED panel artwork in soft tones: the monogram and “15 anos” in an oval frame over the garden, with ornaments in the corners.",
+              "A more saturated version of the LED panel artwork, with the monogram and “15 anos” over the garden."
             ]
           },
           "menuTags": {
             "label": "Artwork for the menu, tags and cake box stickers",
             "images": [
-              "Front and back of the menu, numbered tags for sandals and cake box stickers, all featuring the garden illustration."
+              "Front of the menu with starters, main course and drinks in an oval lace frame over the garden illustration.",
+              "Back of the menu on a cream background with the C and A monogram, “15 anos” and ornaments in the corners.",
+              "Sandal tag numbered 39/40 with the phrase “Dance, sorria e viva a noite!” (Dance, smile and live the night!) over the garden illustration.",
+              "Sandal tag numbered 35/36 over the garden illustration.",
+              "Sandal tag numbered 37/38 over the garden illustration.",
+              "Cake slice box sticker with the monogram and “15 anos” in a lace frame over the garden with a fountain.",
+              "Party favor tag with the monogram, “15 anos” and the phrase “Dois sonhos, uma celebração e muita gratidão!” (Two dreams, one celebration and lots of gratitude!) over the garden."
             ]
           },
           "event": {
