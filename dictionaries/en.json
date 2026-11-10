@@ -900,6 +900,120 @@
           }
         }
       }
+    },
+    "cascavel": {
+      "title": "City of Cascavel",
+      "subtitle": "City of Cascavel",
+      "cardTitle": "Cascavel",
+      "description": "A VR project that playfully explores the legend of the serpent-like creature living beneath the soil of Cascavel, CE.",
+      "heroAlt": "Blurred low-poly 3D square in Cascavel with trees, a pond and a bandstand, and the yellow serpent seal on the left",
+      "intro": "“Cascavel” is a VR (virtual reality) project that playfully and light-heartedly explores the legend of a huge creature living beneath the soil of the city of Cascavel, CE. With the appearance of a serpent, the creature grows every time its name is spoken in the city, until its den erupts and it has a catastrophic encounter with the city's population.\nThe brief called for an experience only a few minutes long, part of the opening exhibition “Edson e Yolanda” at the new Cultural Complex of the University of Fortaleza. The idea was for the experience to evoke memories of the city's characteristics and for the story to have fun and unusual endings, while keeping the interaction accessible and immersive for family audiences.\n\nFrom this proposal, I was responsible for scripting the experience and its flow map, sketching, modeling and refining the stylized low-poly 3D map, creating custom assets and adapting previously selected models, animating some characters, creating textures, composing scenarios and modeling the Cascavel itself in two versions.",
+      "tags": [
+        "Professional",
+        "3D environment design",
+        "3D modeling",
+        "High complexity"
+      ],
+      "sections": {
+        "creationProcess": {
+          "title": "Creation process",
+          "leadBefore": "The creation and development process was carried out together with my coworkers ",
+          "nameAmanda": "Amanda",
+          "sep1": ", ",
+          "nameRaquel": "Raquel",
+          "sep2": " and ",
+          "nameFelipe": "Felipe",
+          "leadAfter": ". At first, we read cordel literature about the city available at the University of Fortaleza library, looked for references of tourist spots and landmark spaces in the city, and from that I wrote a script and listed the elements that would compose the environment. After setting dates for the production stages of each element, I began creating the models, and the following stages were refining the map, making small animations and testing the experience with potential users."
+        },
+        "prototyping": {
+          "title": "Prototyping",
+          "tabs": [
+            "Character design",
+            "Personas",
+            "3D modeling",
+            "Model sheet"
+          ],
+          "paragraphs": [
+            "The initial map structure was built from an assembly of free-license models. My role was to compose the scenario, adding the previously planned elements so that its buildings and spaces felt more alive, always making sure there were fewer polygons and that the scenario optimization was efficient. Besides that model, specific elements were created or adapted by me throughout the production (Image a) for the city's context, such as the grotto, the downtown chapel, the cajuzinho market, the bandstand, the bodega, small street markets and little playgrounds. The choice of colors and shaders was also intentional, as they tell about the everyday life and the extravagant simplicity of living in Cascavel.",
+            "I also created designs tied to spaces often recognized as “from the Ceará countryside” and textures for specific moments (Image b), such as the painting of the Cascavel made by the children that the player sees at the little school."
+          ]
+        },
+        "gallery": {
+          "flowAlt": "Flow map of the VR experience, from start to end: the “Waiting for the game to start” screen, instructions, the opening narration, the questions about the city's name (Cascavel or São Bento) with the time to answer, and the good and bad endings up to the “Thanks for playing” screen. The text in the artwork is in Portuguese.",
+          "panelsAlt": "Reference boards with photos of Cascavel (street market elements, local flora, local architecture and local fauna) and the map review with the triangle count and lists of what to reduce in polygons, fix in textures and add",
+          "imageA": "Image a",
+          "imageAAlt": "Dark board with the 3D assets created or adapted: streetlamps, swings, a little house, the bandstand, the grotto with a pond, benches, tables, bunting, trees, city buildings, the versions of the church and chairs",
+          "imageB": "Image b",
+          "schoolAlt": "3D scene of the street market with the dialogue cards hanging on the clothesline, colorful tables and fruit crates",
+          "paintingAlt": "Colorful painting of the Cascavel, the project's serpent, coiled in a spiral",
+          "blenderAlt": "Modeling of the Cascavel in Blender, with the head parts and the body in the viewport",
+          "cardsAlt": "In-game dialogue cards, with text in Portuguese: “Good afternoon, merchant. What a nice smell of fresh fruit...” (01), “They say people have been swapping the names around here...” (03), “Tell me, merchant: is this village's church…” (04), “São Bento… or do they still use the old name, Cascavel?” (05), “I…”, “The end.”, “That's what I hoped to hear. I'll take it all!” (07) and “The end.”",
+          "fruitAlt": "Texture of a green fruit, modeled for the street market",
+          "houseAlt": "Blue two-story 3D house with a balcony and a climbing plant, on a city street",
+          "signsAlt": "In-game signs, with text in Portuguese: Quel Pipoquinhas popcorn (small R$4.50, medium R$6, large R$8), Supermercado Cajuzinho and the Cascavel Annual Street Fair (choirs, bands and dance; Cascavel City Hall)",
+          "firstVersions": "First versions and renders",
+          "firstVersionsAlts": [
+            "Map of the city without textures, shown on the monitor",
+            "The Cascavel being animated in Blender, shown on the monitor",
+            "Aerial view of the untextured map, shown on the monitor",
+            "The Cascavel winding over the city at dusk",
+            "Lit street with houses at night",
+            "Square with trees, a playground and the blue building",
+            "View of the city with the Cascavel in the background",
+            "City at night with the lit church and the Cascavel in the sky",
+            "Interior with red chairs and the Cascavel by the window"
+          ],
+          "rendersAlts": [
+            "Final render: blue twin-towered church and square with tables and market stalls",
+            "Final render: the city at dusk, with the church in the background and the blue house",
+            "Final render: bandstand, trees, bench and streetlamps in the square",
+            "Final render: street with the Cajuzinho supermarket, houses and lit streetlamps",
+            "Final render: Cascavel Annual Street Fair square with bandstand, pond and stalls",
+            "Final render: aerial view of the village with the Cascavel crossing the city"
+          ]
+        },
+        "finalProject": {
+          "title": "Final project",
+          "paragraphs": [
+            "All of these activities resulted in a highly optimized map for use in VR headsets and in the immersive experience of “personally” meeting the murmurs of the legend of Cascavel."
+          ]
+        },
+        "tools": {
+          "title": "Tools used",
+          "items": [
+            "Blender (version 4.5)",
+            "Autodesk Sketchbook",
+            "Adobe Fonts",
+            "Figma",
+            "Rokoko rigging"
+          ]
+        },
+        "credits": {
+          "title": "Reference credits",
+          "fonts": "The fonts used are, respectively, Xilosa, Clother and Asterisco, the first two found on Adobe Fonts and the last one on DaFont.",
+          "models": [
+            "Reference credit for models and textures: Models available on Sketchfab: Cat (“Cat rigged”, by",
+            "), Church (“Church”, by",
+            ") and Tents (“Market props”, by",
+            "), under CC Attribution license; Humans (“Lowpoly NPC pack”, by",
+            "), under CC Attribution-NonCommercial-ShareAlike license; Birds (“Birds”), Museum (“Low poly business buildings pack”) and Smaller hotels (“Low poly accommodations buildings”), under Free Standard license. Textures: Cascavel scales (3D Jungle) and Cascavel eye (Tichila / Adobe Stock, file nº 1633641127)."
+          ],
+          "authors": [
+            " Vr-cvantorium",
+            " henriqueart_lfv",
+            " Wouter Yntema",
+            " Hänsen"
+          ],
+          "authorLink": "{name} on Sketchfab (opens in a new tab)"
+        },
+        "execution": {
+          "title": "Execution promoted by",
+          "lead": "Laboratório Vortex",
+          "body": ", linked to the Vice-Presidency of Research and maintained by the University of Fortaleza."
+        }
+      },
+      "aiNote": "*No AI image-generation agent was used for the visual creations (sketches, vectors, illustrations, textures, 3D models…) in this project, except for the texture of the Cascavel's eye, taken from a stock image bank (Adobe Stock) and AI-generated by its author.",
+      "thanks": "Thank you for scrolling all the way here!"
     }
   },
   "status": {
@@ -924,7 +1038,8 @@
     "pontinhasSoltas": "Pontinhas soltas",
     "identidadeEvento15Anos": "Event identity: 15th birthday",
     "caju": "Caju",
-    "studies": "Studies"
+    "studies": "Studies",
+    "cascavel": "City of Cascavel"
   },
   "projectsPage": {
     "title": "Portfolio",

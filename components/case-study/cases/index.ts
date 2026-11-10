@@ -8,6 +8,7 @@ import { PontinhasSoltasCase } from "./PontinhasSoltasCase";
 import { PontinhasSoltasHero } from "./PontinhasSoltasHero";
 import { IdentidadeEventoCase } from "./IdentidadeEventoCase";
 import { CajuCase, CajuHero } from "./CajuCase";
+import { CascavelCase, CascavelHero } from "./CascavelCase";
 
 export {
   PontosSemNoCase,
@@ -19,6 +20,8 @@ export {
   IdentidadeEventoCase,
   CajuCase,
   CajuHero,
+  CascavelCase,
+  CascavelHero,
 };
 
 /** Slug → corpo do case, para reutilizar fora da página completa (ex.: no modal). */
@@ -31,6 +34,7 @@ export const caseBodies: Record<
   "pontinhas-soltas": PontinhasSoltasCase,
   "identidade-evento-15-anos": IdentidadeEventoCase,
   caju: CajuCase,
+  cascavel: CascavelCase,
 };
 
 /** Partes do topo do case que ficam fora do corpo (props extras do `CaseShell`). */
@@ -65,4 +69,5 @@ export const caseCovers: Partial<
   "batuco-tuco": BatucoTucoHero,
   "pontinhas-soltas": PontinhasSoltasHero,
   caju: CajuHero,
+  cascavel: CascavelHero,
 };

@@ -21,7 +21,8 @@ export function getBatucoLightbox(
   project: LocalizedProject,
   dict: Dictionary,
 ): { items: LightboxItem[]; labels: string[] } | null {
-  if (!("lightbox" in project)) return null;
+  // `footnote` só existe no Batuco-tuco (o Cascavel também tem `lightbox`).
+  if (!("footnote" in project)) return null;
   const { creationProcess: cp, sketches, characters, brand } = project.sections;
   const lb = project.lightbox;
 

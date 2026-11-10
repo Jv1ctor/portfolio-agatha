@@ -52,6 +52,7 @@ export const slugToKey = {
   'pontinhas-soltas': 'pontinhasSoltas',
   'identidade-evento-15-anos': 'identidadeEvento15Anos',
   caju: 'caju',
+  cascavel: 'cascavel',
 } as const;
 
 export type ProjectI18nKey = (typeof slugToKey)[Slug];
@@ -133,6 +134,17 @@ const projectMeta: ProjectMeta[] = [
     accent: 'pink',
     // Capa = imagem principal do case (Figma 17:5177, 1354 × 461).
     coverImage: '/images/projects/caju/hero.webp',
+    grid: { column: 2, aspect: '612 / 344', objectPosition: 'center', descLines: 2 },
+    layout: 'wide',
+    opensAsPage: true,
+  },
+  {
+    slug: 'cascavel',
+    status: 'concluido',
+    categories: ['interacao'],
+    accent: 'orange',
+    // Capa = imagem principal do case (Figma 17:4156, 1354 × 436).
+    coverImage: '/images/projects/cascavel/hero.webp',
     grid: { column: 2, aspect: '612 / 344', objectPosition: 'center', descLines: 2 },
     layout: 'wide',
     opensAsPage: true,
