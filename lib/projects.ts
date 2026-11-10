@@ -30,6 +30,19 @@ export type ProjectMeta = {
   featured?: boolean;
   /** Dados de layout da grade bento */
   grid: ProjectGrid;
+  /**
+   * Layout da página do case. 'wide' = coluna de 1352px do Figma novo, com o
+   * cabeçalho (título, tags, intro) desenhado pelo próprio corpo do case.
+   * Sem valor = coluna estreita padrão do CaseShell.
+   */
+  layout?: 'wide';
+  /**
+   * Abre como página completa a partir de /projetos (card e "próximo" do modal fazem
+   * navegação de página inteira), em vez do modal interceptado. Usado quando a página
+   * do case tem coisas que o modal não tem (Batuco-tuco e Pontinhas soltas: animações,
+   * lightbox, barra e footer do Figma). Também tira o header do site (`isFullPageCase`).
+   */
+  opensAsPage?: boolean;
 };
 
 // Chaves do dicionário por slug (texto translatável vive em dict.projects.*)
@@ -38,6 +51,7 @@ export const slugToKey = {
   'batuco-tuco': 'batucoTuco',
   'pontinhas-soltas': 'pontinhasSoltas',
   'identidade-evento-15-anos': 'identidadeEvento15Anos',
+  caju: 'caju',
   cascavel: 'cascavel',
 } as const;
 
@@ -50,6 +64,20 @@ export type ProjectSectionI18n = ProjectI18n['sections'];
 /** Projeto completo: metadados + textos do dicionário no locale carregado. */
 export type LocalizedProject = ProjectMeta & ProjectI18n;
 
+/** Projeto de um slug, com os textos do dicionário daquele projeto. */
+export type ProjectOf<S extends Slug> = ProjectMeta & Dictionary['projects'][(typeof slugToKey)[S]];
+
+/**
+ * Estreita um `LocalizedProject` para o projeto de um slug. Cada case tem chaves
+ * próprias no dicionário; checar o slug não depende de nenhuma chave ser única.
+ */
+export function isProject<S extends Slug>(
+  project: LocalizedProject,
+  slug: S
+): project is LocalizedProject & ProjectOf<S> {
+  return project.slug === slug;
+}
+
 // Metadados estáticos — nenhum texto aqui (tudo vem do dicionário)
 const projectMeta: ProjectMeta[] = [
   {
@@ -61,6 +89,8 @@ const projectMeta: ProjectMeta[] = [
     coverImage: '/images/projects/pontos-sem-no/cover.webp',
     featured: true,
     grid: { column: 0, aspect: '459 / 590', objectPosition: 'left center', descLines: 4 },
+    layout: 'wide',
+    opensAsPage: true,
   },
   {
     slug: 'batuco-tuco',
@@ -70,6 +100,8 @@ const projectMeta: ProjectMeta[] = [
     accent: 'orange',
     coverImage: '/images/projects/batuco-tuco/cover.png',
     grid: { column: 1, aspect: '612 / 344', objectPosition: 'left center', descLines: 2 },
+    layout: 'wide',
+    opensAsPage: true,
   },
   {
     slug: 'pontinhas-soltas',
@@ -77,8 +109,13 @@ const projectMeta: ProjectMeta[] = [
     categories: ['3d'],
     date: '08.12.2025',
     accent: 'pink',
-    coverImage: '/images/projects/pontinhas-soltas/cover.png',
-    grid: { column: 1, aspect: '612 / 230', objectPosition: 'left center', descLines: 1 },
+    // Capa = imagem principal do case (1352 × 459). Centralizada: nos cards largos
+    // (/projetos, /3d) aparecem as cinco Pontinhas; no 16:9 do "Talvez você goste…"
+    // o recorte fica nas três centrais (Lac, Haggy e Nina).
+    coverImage: '/images/projects/pontinhas-soltas/hero.webp',
+    grid: { column: 1, aspect: '612 / 230', objectPosition: 'center', descLines: 1 },
+    layout: 'wide',
+    opensAsPage: true,
   },
   {
     slug: 'identidade-evento-15-anos',
@@ -88,6 +125,18 @@ const projectMeta: ProjectMeta[] = [
     accent: 'pink',
     coverImage: '/images/projects/identidade-evento-15-anos/cover.webp',
     grid: { column: 2, aspect: '612 / 590', objectPosition: 'center', descLines: 3 },
+  },
+  {
+    slug: 'caju',
+    status: 'concluido',
+    categories: ['grafico'],
+    date: '12.04.2025',
+    accent: 'pink',
+    // Capa = imagem principal do case (Figma 17:5177, 1354 × 461).
+    coverImage: '/images/projects/caju/hero.webp',
+    grid: { column: 2, aspect: '612 / 344', objectPosition: 'center', descLines: 2 },
+    layout: 'wide',
+    opensAsPage: true,
   },
   {
     slug: 'cascavel',
@@ -101,6 +150,15 @@ const projectMeta: ProjectMeta[] = [
 
 /** Slugs na ordem de `projectMeta` (ordem da grade e do "próximo" do modal). */
 export const projectSlugs: Slug[] = projectMeta.map((p) => p.slug as Slug);
+
+/**
+ * Cases que abrem como página completa (`opensAsPage`): o frame do Figma não tem o
+ * header do site (a barra de voltar é do próprio case) e usa o footer "visite também".
+ * HeaderRouter e FooterRouter consultam isto.
+ */
+export function isFullPageCase(slug: string): boolean {
+  return projectMeta.some((p) => p.slug === slug && p.opensAsPage === true);
+}
 
 export function getLocalizedProject(
   slug: string,
@@ -138,6 +196,23 @@ export function getLocalizedProjects(dict: Dictionary): LocalizedProject[] {
 export function getNextSlug(slug: Slug): Slug {
   const index = projectSlugs.indexOf(slug);
   return projectSlugs[(index + 1) % projectSlugs.length];
+}
+
+/**
+ * Até `count` slugs diferentes de `slug`, sorteados (Fisher–Yates) — "Talvez
+ * você goste..." no fim dos cases. `random` é injetável para dar determinismo.
+ */
+export function getRandomOtherSlugs(
+  slug: Slug,
+  count: number,
+  random: () => number = Math.random
+): Slug[] {
+  const others = projectSlugs.filter((s) => s !== slug);
+  for (let i = others.length - 1; i > 0; i--) {
+    const j = Math.floor(random() * (i + 1));
+    [others[i], others[j]] = [others[j], others[i]];
+  }
+  return others.slice(0, count);
 }
 
 // Alias para compatibilidade

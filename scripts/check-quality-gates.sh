@@ -655,6 +655,12 @@ console.log('Parity OK: ' + ptKeys.length + ' keys');
 gate_7() {
   log_gate "7" "Projects page (/[lang]/projetos + case modal)"
 
+  # Cases de página completa = slugs com `opensAsPage: true` em lib/projects.ts.
+  FULL_PAGE_CASES=$(awk "/slug: '/ { match(\$0, /slug: '[^']+'/); s = substr(\$0, RSTART + 7, RLENGTH - 8) } /opensAsPage: true/ && s { print s; s = \"\" }" lib/projects.ts)
+  if [ -z "$FULL_PAGE_CASES" ]; then
+    log_fail "No opensAsPage project found in lib/projects.ts (expected batuco-tuco, pontinhas-soltas)"
+  fi
+
   # ----------------------------------------------------------
   # Static checks (no server needed)
   # ----------------------------------------------------------
@@ -853,7 +859,8 @@ console.log('ok: ' + a.size + ' keys');
   HDR_IDX_PT=$(header_of "$HTML_PT")
   HDR_IDX_EN=$(header_of "$HTML_EN")
   HDR_HOME_PT=$(header_of "$(page "/pt-BR")")
-  HDR_CASE_PT=$(header_of "$(page "/pt-BR/projetos/batuco-tuco")")
+  # Case que ainda abre com o header do site (não é `opensAsPage`): identidade-evento-15-anos.
+  HDR_CASE_PT=$(header_of "$(page "/pt-BR/projetos/identidade-evento-15-anos")")
   # Índice → HomeHeader ("sobre"/"about", não "Sobre mim"); aria-current só ali.
   if printf '%s' "$HDR_IDX_PT" | grep -q '>sobre<' && printf '%s' "$HDR_IDX_EN" | grep -q '>about<'; then
     log_pass "Index uses HomeHeader (sobre / about)"
@@ -889,6 +896,22 @@ console.log('ok: ' + a.size + ' keys');
   else
     log_fail "Case page opened directly does not show the CaseHeader (expected back aria-label and /pt-BR/projetos link, no 'Sobre mim')"
   fi
+  # Cases de página completa (opensAsPage: Pontos sem nó, Batuco-tuco, Pontinhas soltas, Caju) abertos direto →
+  # sem header do site (o frame do Figma só tem a barra de voltar), mas com o seletor de
+  # idioma na barra do próprio case (AGENTS.md: nenhuma página sem trocar de idioma).
+  for slug in $FULL_PAGE_CASES; do
+    FULL_HTML=$(page "/pt-BR/projetos/$slug")
+    if [ -z "$(header_of "$FULL_HTML")" ]; then
+      log_pass "$slug page opened directly has no site header (Figma)"
+    else
+      log_fail "$slug page opened directly renders a <header> (the Figma frame has none)"
+    fi
+    if printf '%s' "$FULL_HTML" | grep -q 'aria-label="Switch to English"\|aria-label="Mudar para English"\|aria-pressed='; then
+      log_pass "$slug page renders the language switcher"
+    else
+      log_fail "$slug page has no language switcher (hidden header must be replaced by CaseTopBar)"
+    fi
+  done
 
   log_sub "Test: the 3 project links per locale (/{locale}/projetos/<slug>)..."
   for locale in pt-BR en; do
@@ -915,14 +938,16 @@ console.log('ok: ' + a.size + ' keys');
   fi
 
   log_sub "Test: case opened directly is the full page (200, no dialog)..."
-  for locale in pt-BR en; do
-    STATUS=$(http_code "$BASE/$locale/projetos/batuco-tuco")
-    CASE_HTML=$(page "/$locale/projetos/batuco-tuco")
-    if [ "$STATUS" = "200" ] && ! printf '%s' "$CASE_HTML" | grep -q 'role="dialog"'; then
-      log_pass "/$locale/projetos/batuco-tuco → 200, no role=\"dialog\""
-    else
-      log_fail "/$locale/projetos/batuco-tuco → HTTP $STATUS or contains role=\"dialog\""
-    fi
+  for slug in $FULL_PAGE_CASES; do
+    for locale in pt-BR en; do
+      STATUS=$(http_code "$BASE/$locale/projetos/$slug")
+      CASE_HTML=$(page "/$locale/projetos/$slug")
+      if [ "$STATUS" = "200" ] && ! printf '%s' "$CASE_HTML" | grep -q 'role="dialog"'; then
+        log_pass "/$locale/projetos/$slug → 200, no role=\"dialog\""
+      else
+        log_fail "/$locale/projetos/$slug → HTTP $STATUS or contains role=\"dialog\""
+      fi
+    done
   done
 
   log_sub "Test: unknown project returns 404..."

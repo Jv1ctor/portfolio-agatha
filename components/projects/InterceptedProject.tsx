@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { getDictionary, isLocale } from "@/i18n/dictionaries";
 import { getLocalizedProject, getNextSlug, slugToKey, type Slug } from "@/lib/projects";
 import { CaseShell } from "@/components/case-study/CaseShell";
-import { caseBodies, caseSlots } from "@/components/case-study/cases";
+import { caseBodies, caseCovers, caseSlots } from "@/components/case-study/cases";
 import { ProjectModal } from "./ProjectModal";
 import s from "./projects.module.css";
 
@@ -31,6 +31,7 @@ export async function InterceptedProject({
   if (!nextProject) notFound();
   const Body = caseBodies[slug];
   const slots = caseSlots[slug]?.(project, { coverClassName: s.heroIn }) ?? {};
+  const Cover = caseCovers[slug];
 
   return (
     <ProjectModal
@@ -39,12 +40,15 @@ export async function InterceptedProject({
       documentTitle={`${dict.metadata[slugToKey[slug]]} · ${dict.site.name}`}
       nextHref={`/${lang}/projetos/${nextProject.slug}`}
       nextTitle={nextProject.title}
+      nextOpensAsPage={nextProject.opensAsPage === true}
+      wide={project.layout === "wide"}
     >
       <CaseShell
         project={project}
         dict={dict}
         motion={{ cover: s.heroIn, header: s.revealHeader, body: s.revealBody }}
         {...slots}
+        cover={Cover ? <Cover project={project} /> : slots.cover}
       >
         <Body project={project} />
       </CaseShell>

@@ -18,10 +18,13 @@ import { NavBerry, activeNavStyle, navLinkClass } from '@/components/layout/nav-
 export function CaseHeader({
   onBack,
   backRef,
+  wide = false,
 }: {
   onBack?: () => void;
   /** Recebe o foco ao abrir o modal. */
   backRef?: Ref<HTMLButtonElement>;
+  /** Case com layout 'wide' (no modal): alinha à coluna de 1352px (`.container-wide`). */
+  wide?: boolean;
 }) {
   const { t, locale } = useTranslations();
   const href = `/${locale}/projetos`;
@@ -47,7 +50,7 @@ export function CaseHeader({
   const projectsClass = `${navLinkClass} relative cursor-pointer bg-transparent p-0`;
 
   return (
-    <header className="container-case flex items-center justify-between pt-10">
+    <header className={`${wide ? 'container-wide' : 'container-case'} flex items-center justify-between pt-10`}>
       {onBack ? (
         <>
           <button
