@@ -3,7 +3,14 @@ import { notFound } from "next/navigation";
 import { getDictionary, isLocale } from "@/i18n/dictionaries";
 import { getLocalizedProject } from "@/lib/projects";
 import { CaseShell } from "@/components/case-study/CaseShell";
-import { CascavelCase, caseSlots } from "@/components/case-study/cases";
+import { CaseTopBar } from "@/components/case-study/CaseTopBar";
+import { RelatedProjects } from "@/components/case-study/RelatedProjects";
+import { CascavelCase, CascavelHero } from "@/components/case-study/cases";
+import { BatucoMotion } from "@/components/case-study/batuco/BatucoMotion";
+import { ZoomButton } from "@/components/case-study/batuco/Zoom";
+import { getCascavelLightbox } from "@/components/case-study/cascavel/lightbox";
+import s from "@/components/case-study/cases/batuco.module.css";
+import c from "@/components/case-study/cases/cascavel.module.css";
 
 export async function generateMetadata({
   params,
@@ -25,6 +32,12 @@ export async function generateMetadata({
   };
 }
 
+/**
+ * Página completa do case (Figma 17:4049). As animações e interações das imagens
+ * são as mesmas dos outros cases 'wide' (entrada do banner, zoom, cursor,
+ * lightbox, reveal, balão e bonequinha). O modal sobre /projetos usa o mesmo
+ * corpo sem o lightbox.
+ */
 export default async function CascavelPage({
   params,
 }: {
@@ -35,11 +48,25 @@ export default async function CascavelPage({
   const dict = await getDictionary(lang);
   const project = getLocalizedProject("cascavel", dict);
   if (!project) notFound();
-  const slots = caseSlots.cascavel?.(project, {}) ?? {};
+  const lightbox = getCascavelLightbox(project, dict);
+  if (!lightbox) notFound();
 
   return (
-    <CaseShell project={project} dict={dict} {...slots}>
-      <CascavelCase project={project} />
-    </CaseShell>
+    <BatucoMotion items={lightbox.items}>
+      <CaseShell
+        project={project}
+        dict={dict}
+        cover={
+          <ZoomButton index={0} label={lightbox.labels[0]} className={`${s.heroIn} ${c.heroWide}`}>
+            <CascavelHero project={project} />
+          </ZoomButton>
+        }
+        top={<CaseTopBar locale={lang} dict={dict} />}
+        bottom={<RelatedProjects slug="cascavel" locale={lang} dict={dict} />}
+        thanksMotion={{ bubble: s.bubble, face: s.face }}
+      >
+        <CascavelCase project={project} zoom={lightbox.labels} />
+      </CaseShell>
+    </BatucoMotion>
   );
 }

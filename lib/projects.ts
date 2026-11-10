@@ -143,8 +143,11 @@ const projectMeta: ProjectMeta[] = [
     status: 'concluido',
     categories: ['interacao'],
     accent: 'orange',
-    coverImage: '/images/projects/cascavel/hero.jpg',
+    // Capa = imagem principal do case (Figma 17:4156, 1354 × 436).
+    coverImage: '/images/projects/cascavel/hero.webp',
     grid: { column: 2, aspect: '612 / 344', objectPosition: 'center', descLines: 2 },
+    layout: 'wide',
+    opensAsPage: true,
   },
 ];
 

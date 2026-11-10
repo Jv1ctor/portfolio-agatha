@@ -894,7 +894,8 @@
       "subtitle": "Cidade de Cascavel",
       "cardTitle": "Cascavel",
       "description": "Projeto em VR que explora de forma lúdica a lenda da criatura-serpente que vive sob o solo da cidade de Cascavel, CE.",
-      "intro": "“Cascavel” trata-se de um projeto em VR (Realidade virtual) que explora de forma lúdica e descontraída a lenda de uma enorme criatura que reside no interior do solo da cidade Cascavel, CE. Com a aparência de uma serpente, a criatura cresce sempre que seu nome é dito na cidade até que sua toca entre em eclosão e ela tenha um encontro catastrófico com a população da cidade. O Briefing recebido contou com a criação de uma experiência de poucos minutos que fizesse parte da exposição inaugural “Edson e Yolanda” do novo Complexo Cultural da Universidade de Fortaleza. A ideia é que a experiência remetesse à lembrança de características da cidade e que a história contada tivesse desfechos divertidos e inusitados, mas que mantivessem a interação acessível e imersiva ao público familiar.\n\nDesta proposta, fiquei responsável por roteirizar a experiência e seu mapa de fluxo, esboçar, modelar e refinar o mapa estilizado em 3D lowpoly, criar assets personalizados e adaptar modelos previamente selecionados, fazer pequenas animações em alguns personagens, criar texturas, compor cenários e modelar a própria Cascavel em duas versões.",
+      "heroAlt": "Praça de Cascavel em 3D low poly, desfocada, com árvores, lago e coreto, e o selo amarelo da serpente à esquerda",
+      "intro": "“Cascavel” trata-se de um projeto em VR (Realidade virtual) que explora de forma lúdica e descontraída a lenda de uma enorme criatura que reside no interior do solo da cidade Cascavel, CE. Com a aparência de uma serpente, a criatura cresce sempre que seu nome é dito na cidade até que sua toca entre em eclosão e ela tenha um encontro catastrófico com a população da cidade.\nO Briefing recebido contou com a criação de uma experiência de poucos minutos que fizesse parte da exposição inaugural “Edson e Yolanda” do novo Complexo Cultural da Universidade de Fortaleza. A ideia é que a experiência remetesse à lembrança de características da cidade e que a história contada tivesse desfechos divertidos e inusitados, mas que mantivessem a interação acessível e imersiva ao público familiar.\n\nDesta proposta, fiquei responsável por roteirizar a experiência e seu mapa de fluxo, esboçar, modelar e refinar o mapa estilizado em 3D lowpoly, criar assets personalizados e adaptar modelos previamente selecionados, fazer pequenas animações em alguns personagens, criar texturas, compor cenários e modelar a própria Cascavel em duas versões.",
       "tags": [
         "Profissional",
         "Design de cenários 3D",
@@ -904,12 +905,13 @@
       "sections": {
         "creationProcess": {
           "title": "Processo de criação",
-          "paragraphs": [
-            "O processo de criação e desenvolvimento do projeto foi feito em conjunto com meus colegas de trabalho: Amanda, Raquel e Felipe. Inicialmente, fizemos uma leitura de cordéis sobre a cidade disponíveis na biblioteca da Universidade de Fortaleza, buscamos referências de pontos turísticos e espaços de destaque da cidade e, a partir disso, escrevi um roteiro e listei os elementos de composição do ambiente. Após estabelecermos datas para as etapas de produção de cada elemento, dei início à criação dos modelos, e as etapas seguintes foram refinar o mapa, fazer pequenas animações e testar a experiência com possíveis usuários."
-          ],
-          "images": [
-            "Mapa de fluxo da experiência em VR, com as cenas, tempos e escolhas do jogador (Início → Fim)"
-          ]
+          "leadBefore": "O processo de criação e desenvolvimento do projeto foi feito em conjunto com meus colegas de trabalho: ",
+          "nameAmanda": "Amanda",
+          "sep1": ", ",
+          "nameRaquel": "Raquel",
+          "sep2": " e ",
+          "nameFelipe": "Felipe",
+          "leadAfter": ". Inicialmente, fizemos uma leitura de cordéis sobre a cidade disponíveis na biblioteca da Universidade de Fortaleza, buscamos referências de pontos turísticos e espaços de destaque da cidade e, a partir disso, escrevi um roteiro e listei os elementos de composição do ambiente. Após estabelecermos datas para as etapas de produção de cada elemento, dei início à criação dos modelos, e as etapas seguintes foram refinar o mapa, fazer pequenas animações e testar a experiência com possíveis usuários."
         },
         "prototyping": {
           "title": "Prototipagem",
@@ -919,169 +921,86 @@
             "Modelagem 3D",
             "Model sheet"
           ],
-          "thumbs": {
-            "captions": []
-          },
           "paragraphs": [
             "A estrutura inicial do mapa foi construída com base em uma montagem com modelos de licença gratuita. Meu papel foi compor o cenário, adicionando os elementos previamente planejados para que seus edifícios e espaços tivessem mais vida, sempre cuidando para que houvesse menos polígonos e para que a otimização do cenário fosse eficiente. Fora esse modelo, foram criados ou adaptados por mim ao longo da produção elementos específicos (Imagem a) para o contexto da cidade, como a gruta, a igrejinha do centro, o mercado cajuzinho, o coreto, a bodega, feirinhas e pequenos parquinhos. A escolha de cores e shaders também foi proposital, pois eles contam sobre o cotidiano e a simplicidade extravagante de habitar Cascavel.",
             "Também criei designs atrelados aos espaços frequentemente reconhecidos como “de interior do Ceará” e texturas para momentos específicos (Imagem b), como a pintura da Cascavel feita pelas crianças que o jogador vê na escolinha."
-          ],
-          "images": [
-            "Painéis de referência com fotos de Cascavel (feira, fauna, arquitetura) e telas de estudo do cenário com a contagem de triângulos"
           ]
         },
-        "captionA": "Imagem a",
-        "imagesA": [
-          "Quadro escuro com os assets 3D criados ou adaptados: casas, igrejas, árvores, coreto, gruta, balanços e mobiliário"
-        ],
-        "captionB": "Imagem b",
-        "imagesB": [
-          "Cena 3D da escolinha com os cartões de diálogo pendurados no varal, mesas coloridas e caixotes de frutas",
-          "Pintura colorida da Cascavel, a serpente mascote do projeto",
-          "Modelagem da Cascavel no Blender, em wireframe sobre a grade da viewport"
-        ],
-        "firstVersions": {
-          "title": "Primeiras versões e renderizações",
-          "images": [
+        "gallery": {
+          "flowAlt": "Mapa de fluxo da experiência em VR, do início ao fim: tela de “Aguardando início do jogo”, orientações, narração inicial, as perguntas sobre o nome da cidade (Cascavel ou São Bento) com o tempo para responder, e os finais bom e ruim até a tela de “Obrigada por jogar”. O texto da arte está em português.",
+          "panelsAlt": "Painéis de referência com fotos de Cascavel (elementos da feira, flora local, arquitetura local e fauna local) e a avaliação do mapa com a contagem de triângulos e as listas do que diminuir polígonos, corrigir texturas e adicionar",
+          "imageA": "Imagem a",
+          "imageAAlt": "Quadro escuro com os assets 3D criados ou adaptados: postes, balanços, casinha, coreto, gruta com lago, bancos, mesas, varais de bandeirinhas, árvores, prédios da cidade, as versões da igreja e cadeiras",
+          "imageB": "Imagem b",
+          "schoolAlt": "Cena 3D da feirinha com os cartões de diálogo pendurados no varal, mesas coloridas e caixotes de frutas",
+          "paintingAlt": "Pintura colorida da Cascavel, a serpente do projeto, enrolada em espiral",
+          "blenderAlt": "Modelagem da Cascavel no Blender, com as partes da cabeça e o corpo na viewport",
+          "cardsAlt": "Cartões de diálogo do jogo: “Boa tarde, mercador. Que cheirinho bom de fruta fresca...” (01), “Dizem que andam trocando os nomes por aqui...” (03), “Me diga você, mercador: a igreja desta vila é de...” (04), “São Bento… ou ainda levam o nome antigo, Cascavel?” (05), “Eu…”, “Fim.”, “Era o que eu esperava ouvir. Vou levar tudo!” (07) e “Fim.”",
+          "fruitAlt": "Textura de uma fruta verde, modelada para a feirinha",
+          "houseAlt": "Casarão azul de dois andares em 3D, com sacada e trepadeira, numa rua da cidade",
+          "signsAlt": "Letreiros do jogo: Quel Pipoquinhas (pequena R$4,50, média R$6, grande R$8), Supermercado Cajuzinho e Feirinha anual de Cascavel (corais, bandas e dança; Prefeitura de Cascavel)",
+          "firstVersions": "Primeiras versões e renderizações",
+          "firstVersionsAlts": [
             "Mapa da cidade sem textura, exibido no monitor",
-            "Cascavel sendo animada no Blender",
-            "Vista aérea do mapa sem textura",
-            "Cascavel saindo da terra sobre a cidade",
+            "Cascavel sendo animada no Blender, exibida no monitor",
+            "Vista aérea do mapa sem textura, exibida no monitor",
+            "A Cascavel serpenteando sobre a cidade ao entardecer",
             "Rua iluminada com casas à noite",
-            "Praça com árvores e prédio azul",
+            "Praça com árvores, parquinho e prédio azul",
             "Vista da cidade com a Cascavel ao fundo",
-            "Cidade à noite com a igreja iluminada",
+            "Cidade à noite com a igreja iluminada e a Cascavel no céu",
             "Interior com cadeiras vermelhas e a Cascavel pela janela"
+          ],
+          "rendersAlts": [
+            "Render final: igreja de torres azuis e praça com mesas e barracas de feira",
+            "Render final: a cidade ao entardecer, com a igreja ao fundo e o casarão azul",
+            "Render final: coreto, árvores, banco e postes da praça",
+            "Render final: rua com o Supermercado Cajuzinho, casas e postes acesos",
+            "Render final: praça da Feirinha anual de Cascavel com coreto, lago e barracas",
+            "Render final: vista aérea da vila com a Cascavel atravessando a cidade"
           ]
         },
         "finalProject": {
           "title": "Projeto final",
           "paragraphs": [
             "O montante dessas atividades resultou em um mapa altamente otimizado para uso nos óculos de VR e na experiência imersiva de conhecer “pessoalmente” murmúrios da lenda de Cascavel."
-          ],
-          "toolsTitle": "Ferramentas utilizadas",
-          "tools": [
+          ]
+        },
+        "tools": {
+          "title": "Ferramentas utilizadas",
+          "items": [
             "Blender (versão 4.5)",
             "Autodesk Sketchbook",
             "Adobe Fonts",
             "Figma",
             "Rokoko rigging"
-          ],
-          "creditsTitle": "Citação de referencial",
-          "creditsParagraphs": [
-            "As fontes usadas são, respectivamente, Xilosa, Clother e Asterisco, sendo as duas primeiras encontradas no Adobe Fonts e a última no DaFont.",
-            "Citação de referencial para modelos e texturas: Modelos disponíveis no Sketchfab: Gato (“Cat rigged”, de Vr-cvantorium), Igreja (“Church”, de henriqueart_lfv) e Tendas (“Market props”, de Wouter Yntema), sob licença CC Attribution; Humanos (“Lowpoly NPC pack”, de Hänsen), sob licença CC Attribution-NonCommercial-ShareAlike; Passarinhos (“Birds”), Museu (“Low poly business buildings pack”) e Hotéis menores (“Low poly accommodations buildings”), sob licença Free Standard. Texturas: escamas da Cascavel (3D Jungle) e olho da Cascavel (Tichila / Adobe Stock, arquivo nº 1633641127)."
-          ],
-          "executionTitle": "Execução promovida por",
-          "executionLead": "Laboratório Vortex",
-          "executionBody": ", ligado pela Vice Reitoria de Pesquisa, mantido pela Universidade de Fortaleza.",
-          "executionNote": "*Não foi utilizado nenhum agente IA de geração de imagens para as criações visuais (sketches, vetores, ilustrações, texturas, modelos 3D…) neste projeto, a não ser pela textura do olho da Cascavel, retirada de um banco de imagens (Adobe Stock) e gerada com IA por seu autor.",
-          "images": [
-            "Render final: igreja de torres azuis e praça com mesas e barracas de feira",
-            "Render final: vista noturna da cidade com a igreja ao fundo",
-            "Render final: coreto, lagoa e árvores à noite",
-            "Render final: rua com parquinho infantil, Supermercado Cajuzinho e postes acesos",
-            "Render final: praça da Feirinha Anual de Cascavel com coreto, lagoa e barracas",
-            "Render final: vista aérea noturna da vila com a Cascavel sobrevoando"
           ]
+        },
+        "credits": {
+          "title": "Citação de referencial",
+          "fonts": "As fontes usadas são, respectivamente, Xilosa, Clother e Asterisco, sendo as duas primeiras encontradas no Adobe Fonts e a última no DaFont.",
+          "models": [
+            "Citação de referencial para modelos e texturas: Modelos disponíveis no Sketchfab: Gato (“Cat rigged”, de",
+            "), Igreja (“Church”, de",
+            ") e Tendas (“Market props”, de",
+            "), sob licença CC Attribution; Humanos (“Lowpoly NPC pack”, de",
+            "), sob licença CC Attribution-NonCommercial-ShareAlike; Passarinhos (“Birds”), Museu (“Low poly business buildings pack”) e Hotéis menores (“Low poly accommodations buildings”), sob licença Free Standard. Texturas: escamas da Cascavel (3D Jungle) e olho da Cascavel (Tichila / Adobe Stock, arquivo nº 1633641127)."
+          ],
+          "authors": [
+            " Vr-cvantorium",
+            " henriqueart_lfv",
+            " Wouter Yntema",
+            " Hänsen"
+          ],
+          "authorLink": "{name} no Sketchfab (abre em nova aba)"
+        },
+        "execution": {
+          "title": "Execução promovida por",
+          "lead": "Laboratório Vortex",
+          "body": ", ligado pela Vice Reitoria de Pesquisa, mantido pela Universidade de Fortaleza."
         }
       },
-      "lightbox": {
-        "items": [
-          {
-            "cap": "Cidade de Cascavel",
-            "alt": "Cena low poly da praça de Cascavel com coreto, lago e árvores, com o símbolo da serpente em amarelo"
-          },
-          {
-            "cap": "Processo de criação",
-            "alt": "Mapa de fluxo da experiência em VR, com as cenas, tempos e escolhas do jogador (Início → Fim)"
-          },
-          {
-            "cap": "Prototipagem",
-            "alt": "Painéis de referência com fotos de Cascavel (feira, fauna, arquitetura) e telas de estudo do cenário com a contagem de triângulos"
-          },
-          {
-            "cap": "Imagem a",
-            "alt": "Quadro escuro com os assets 3D criados ou adaptados: casas, igrejas, árvores, coreto, gruta, balanços e mobiliário"
-          },
-          {
-            "cap": "Imagem b",
-            "alt": "Cena 3D da escolinha com os cartões de diálogo pendurados no varal, mesas coloridas e caixotes de frutas"
-          },
-          {
-            "cap": "Imagem b",
-            "alt": "Pintura colorida da Cascavel, a serpente mascote do projeto"
-          },
-          {
-            "cap": "Imagem b",
-            "alt": "Modelagem da Cascavel no Blender, em wireframe sobre a grade da viewport"
-          },
-          {
-            "cap": "Texturas e identidade",
-            "alt": "Letreiros Quel Pipoquinhas, Supermercado Cajuzinho e Feirinha Anual de Cascavel, com o casarão azul em 3D ao lado"
-          },
-          {
-            "cap": "Primeiras versões e renderizações",
-            "alt": "Mapa da cidade sem textura, exibido no monitor"
-          },
-          {
-            "cap": "Primeiras versões e renderizações",
-            "alt": "Cascavel sendo animada no Blender"
-          },
-          {
-            "cap": "Primeiras versões e renderizações",
-            "alt": "Vista aérea do mapa sem textura"
-          },
-          {
-            "cap": "Primeiras versões e renderizações",
-            "alt": "Cascavel saindo da terra sobre a cidade"
-          },
-          {
-            "cap": "Primeiras versões e renderizações",
-            "alt": "Rua iluminada com casas à noite"
-          },
-          {
-            "cap": "Primeiras versões e renderizações",
-            "alt": "Praça com árvores e prédio azul"
-          },
-          {
-            "cap": "Primeiras versões e renderizações",
-            "alt": "Vista da cidade com a Cascavel ao fundo"
-          },
-          {
-            "cap": "Primeiras versões e renderizações",
-            "alt": "Cidade à noite com a igreja iluminada"
-          },
-          {
-            "cap": "Primeiras versões e renderizações",
-            "alt": "Interior com cadeiras vermelhas e a Cascavel pela janela"
-          },
-          {
-            "cap": "Projeto final",
-            "alt": "Render final: igreja de torres azuis e praça com mesas e barracas de feira"
-          },
-          {
-            "cap": "Projeto final",
-            "alt": "Render final: vista noturna da cidade com a igreja ao fundo"
-          },
-          {
-            "cap": "Projeto final",
-            "alt": "Render final: coreto, lagoa e árvores à noite"
-          },
-          {
-            "cap": "Projeto final",
-            "alt": "Render final: rua com parquinho infantil, Supermercado Cajuzinho e postes acesos"
-          },
-          {
-            "cap": "Projeto final",
-            "alt": "Render final: praça da Feirinha Anual de Cascavel com coreto, lagoa e barracas"
-          },
-          {
-            "cap": "Projeto final",
-            "alt": "Render final: vista aérea noturna da vila com a Cascavel sobrevoando"
-          }
-        ]
-      },
+      "aiNote": "*Não foi utilizado nenhum agente IA de geração de imagens para as criações visuais (sketches, vetores, ilustrações, texturas, modelos 3D…) neste projeto, a não ser pela textura do olho da Cascavel, retirada de um banco de imagens (Adobe Stock) e gerada com IA por seu autor.",
       "thanks": "Obrigada por ter chegado até aqui!"
     }
   },

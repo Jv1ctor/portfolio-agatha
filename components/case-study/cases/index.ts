@@ -8,7 +8,7 @@ import { PontinhasSoltasCase } from "./PontinhasSoltasCase";
 import { PontinhasSoltasHero } from "./PontinhasSoltasHero";
 import { IdentidadeEventoCase } from "./IdentidadeEventoCase";
 import { CajuCase, CajuHero } from "./CajuCase";
-import { CascavelCase, cascavelSlots } from "./CascavelCase";
+import { CascavelCase, CascavelHero } from "./CascavelCase";
 
 export {
   PontosSemNoCase,
@@ -21,6 +21,7 @@ export {
   CajuCase,
   CajuHero,
   CascavelCase,
+  CascavelHero,
 };
 
 /** Slug → corpo do case, para reutilizar fora da página completa (ex.: no modal). */
@@ -55,9 +56,7 @@ export type CaseSlotsFn = (
   opts: { coverClassName?: string },
 ) => CaseSlots;
 
-export const caseSlots: Partial<Record<Slug, CaseSlotsFn>> = {
-  cascavel: cascavelSlots,
-};
+export const caseSlots: Partial<Record<Slug, CaseSlotsFn>> = {};
 
 /**
  * Slug → capa própria do case (no lugar da `<img>` do `coverImage`, que fica só
@@ -70,4 +69,5 @@ export const caseCovers: Partial<
   "batuco-tuco": BatucoTucoHero,
   "pontinhas-soltas": PontinhasSoltasHero,
   caju: CajuHero,
+  cascavel: CascavelHero,
 };
