@@ -114,38 +114,173 @@
     "comingSoon": "Em breve",
     "comingSoonTag": "Novo projeto a caminho",
     "coverAlt": "Capa do projeto {title}",
+    "lightbox": {
+      "zoom": "ampliar +",
+      "close": "Fechar",
+      "prev": "Imagem anterior",
+      "next": "Próxima imagem",
+      "position": "{i} / {n}",
+      "open": "Ampliar imagem: {cap}"
+    },
     "pontosSemNo": {
       "title": "Pontos sem nó",
       "subtitle": "IDV: Pontos sem nó",
       "cardTitle": "Pontos sem nó",
       "description": "A marca “Pontos sem nó” procura nos transportar para as entrelinhas de nossas questões mais profundas não resolvidas que sempre voltam à nossa mente de alguma forma, convertendo memórias em sentimentos reconhecíveis… (PLACEHOLDER)",
-      "intro": "A marca “Pontos sem nó” procura nos transportar para as entrelinhas de nossas questões mais profundas não resolvidas que sempre voltam à nossa mente de alguma forma, convertendo memórias em sentimentos reconhecíveis. A Pontos sem nó busca fazer parte do momento de identificação, transmitindo o processo de aceitação sobre esses sentimentos em forma de música.\n\nSendo representada em traços de ternura, serenidade com um toque lírico que nos faz assumir o papel de um peregrino em outras dimensões através do escapismo.",
-      "tags": ["Acadêmico", "Design de Identidade Visual"],
+      "intro": "O trabalho compilado neste trecho se trata de um estudo sobre o processo de design de marca realizado ao longo da disciplina de Sistema de Identidade Visual do meu curso de graduação em Design. Neste estudo, foi proposto que os alunos utilizassem pesquisa em design, métodos de coleta, análise e seleção de dados, e aplicação técnica de testes e configurações da peça produzida na plataforma Illustrator (Adobe Cloud) para construir o próprio manual de identidade visual. A marca que criei foi a ideia de um estúdio próprio de animações musicais de nome “Pontos sem nó”.\n\nA marca “Pontos sem nó” procura nos transportar para as entrelinhas de nossas questões mais profundas não resolvidas, que sempre voltam à nossa mente de alguma forma, convertendo memórias em sentimentos reconhecíveis. A Pontos sem nó busca fazer parte do momento de identificação, transmitindo o processo de aceitação sobre esses sentimentos em forma de música.\n\nSendo representada em traços de ternura, serenidade com um toque lírico que nos faz assumir o papel de um peregrino em outras dimensões por meio do escapismo.",
+      "tags": [
+        "Acadêmico",
+        "Design de Identidade Visual",
+        "Projeto autoral",
+        "Alta complexidade"
+      ],
+      "heroAlt": "Banner do projeto: flores vistas atrás de um vidro com gotas, com a mascote coelho branco no centro.",
       "sections": {
         "creationProcess": {
           "title": "Processo de criação",
           "paragraphs": [
-            "O início do processo foi marcado pela pesquisa guiada, montando um painel semântico que pudesse orientar decisões conceituais do projeto. Após a pesquisa, foram realizadas seleções de elementos, tipografias, cores, dentre outras representações que serviram de apoio para enriquecer o repertório conceitual da marca e facilitar a sua aplicação."
+            "Dentro do processo de design utilizado, o início foi marcado pela pesquisa guiada, montando um painel semântico que pudesse orientar decisões conceituais do projeto, isso norteou os conceitos de ternura, lirismo, escapismo, serenidade e peregrino que mais tarde são reconhecidos em símbolos, tipografias, cores, dentre outras representações que serviram de apoio para enriquecer o repertório conceitual da marca mas também selecionar mais tarde os esboços e testes mais consistentes às características atribuídas à marca (Realizado nas etapas de 01 a 04).",
+            "Realizado esse processo, fizemos testes de impressão para garantir a qualidade de leitura da tipografia e simular o comportamento das cores (que, portanto, desde o princípio foram selecionadas em CMYK) em mídias ou produtos impressos."
           ],
-          "images": [
-            "Sistema de identidade visual em seis etapas: brainstorming de palavras conceito, análise de painel semântico, criação de esboços, testes gráficos, teste de impressão e manual de utilização da IDV."
+          "stepsLeadBefore": "Dividi o planejamento seguido em ",
+          "stepsLeadBold": "6 etapas",
+          "stepsLeadAfter": ", as quais estão representadas no painel abaixo.",
+          "stepsLabel": "Etapas do planejamento",
+          "steps": [
+            {
+              "n": "01",
+              "title": "Brainsotrming de palavras conceito",
+              "chips": [
+                "Ternura",
+                "Escapismo",
+                "Peregrino",
+                "Serenidade",
+                "Lirismo"
+              ]
+            },
+            {
+              "n": "02",
+              "title": "Análise de painel semântico",
+              "chips": [
+                "Tipografias",
+                "Cores",
+                "Formas",
+                "Texturas",
+                "Símbolos",
+                "Padrões",
+                "Efeitos"
+              ]
+            },
+            {
+              "n": "03",
+              "title": "Criação de esboços",
+              "chips": [
+                "Esboços de símbolos",
+                "Grid",
+                "Área de proteção",
+                "Redução"
+              ]
+            },
+            {
+              "n": "04",
+              "title": "Testes gráficos",
+              "chips": [
+                "Escolha de paleta de cores",
+                "Escolha de padrões",
+                "Elementos de apoio",
+                "Diagramação do manual",
+                "Versões da marca"
+              ]
+            },
+            {
+              "n": "05",
+              "title": "Teste de impressão",
+              "chips": [
+                "Impressão do boneco do manual",
+                "Teste de tipografias impressas",
+                "Teste de cores impressas"
+              ]
+            },
+            {
+              "n": "06",
+              "title": "Manual de utilização da IDV",
+              "chips": [
+                "Impressão do manual de identidade visual"
+              ]
+            }
           ]
+        },
+        "gallery": {
+          "posterCabe": "Pôster CABE",
+          "posterCabeAlt": "Pôster CABE: pessoas suspensas por guarda-chuvas sobre fundo azul, com o coelho da marca em traço branco.",
+          "construction": "Construção da marca",
+          "constructionAlts": [
+            "Construção do símbolo: o coelho da marca desenhado sobre círculos-guia.",
+            "Logotipo “Pontos sem nó” em vários tamanhos sobre uma grade quadriculada, do menor ao maior.",
+            "Cartão azul com as cabeças dos personagens, ao lado do coelho da marca."
+          ],
+          "support": "Elemento de apoio",
+          "supportPlural": "Elementos de apoio",
+          "supportAlts": [
+            "Esboço a lápis de elemento de apoio: personagem saltitante com flor.",
+            "Painel de esboços a lápis com vários personagens (elementos de apoio)."
+          ],
+          "mascotEvolution": "Evolução do mascote",
+          "mascotEvolutionAlt": "Evolução do mascote em quatro etapas numeradas: rosto de bicho e tartaruga, concha com alga, água-viva com bolhas e o peixe final.",
+          "prototypes": [
+            "Criação de painéis",
+            "Esboços da logo",
+            "Testes em vetores",
+            "Aplicações"
+          ],
+          "prototypeAlts": [
+            "Criação de painéis: moodboard de referências e painel de aspectos importantes com anotações.",
+            "Esboços da logo a lápis: coelhinho com espiral e letreiro rabiscado.",
+            "Testes em vetores: pranchas escuras com fileiras de personagens, expressões e ícones.",
+            "Aplicações: mockups com os personagens, pelúcias e painéis de apresentação."
+          ],
+          "manual": "Manual de identidade visual",
+          "manualAlt": "Manual de identidade visual completo: cores institucionais, tipografia, elementos de apoio, personagens e versões da marca.",
+          "ballerina": "Pôster da bailarina",
+          "ballerinaAlt": "Pôster com a mascote coelha de bailarina sobre um palco com holofote e flores gigantes.",
+          "jogoDoTempo": "Pôster Jogo do tempo",
+          "jogoDoTempoAlt": "Pôster Jogo do tempo: tabuleiro de jogo da velha com os personagens e o poema.",
+          "logoGrid": "Versões do logo",
+          "logoGridAlt": "Grade xadrez com as variações do logotipo “Pontos sem nó” em fundos alternados de azul e creme.",
+          "finalPosters": "Pôsteres finais",
+          "finalPostersAlt": "Colagem final: pôster ‘Hoje não sou mais só’, pôster CABE e as fotografias da campanha (flores com bolhas, pessoas nos guarda-chuvas, garota lançando pétalas)."
         },
         "prototyping": {
           "title": "Prototipagem",
-          "tabs": ["Brainstorming", "Painel integrado", "Braindumping"],
-          "thumbs": {
-            "captions": ["Criação de painéis", "Esboços da logo", "Elementos de apoio"]
-          },
-          "images": []
+          "tabs": [
+            "Brainstorming",
+            "Braindumping",
+            "Painel integrado",
+            "Diagramação",
+            "Impressão"
+          ],
+          "paragraphs": [
+            "Os elementos criados para a marca trouxeram muito da sensação de conforto e imaginação, com elementos de apoio sendo personagens imaginárias chamadas de “Pontinhas soltas” e contrastes de cores e transições em degradê que trazem um certo frescor e parecem brilhar, mesmo sendo mais próximas de cores pastéis que de cores brilhantes."
+          ]
         },
         "finalProject": {
           "title": "Projeto final",
-          "images": [
-            "Projeto final: manual da marca, biblioteca de personagens, variações do logo e aplicações."
+          "paragraphs": [
+            "O projeto final é composto por um manual de uso de identidade visual completo, o que inclui todas as suas versões, exemplos de aplicações, definições de identidade da marca e orientações sobre seu posicionamento e abordagem, junto a pôsteres conceito e demais modelos visuais.",
+            "A fonte usada é a AM Novecento encontrada no Adobe Fonts."
+          ]
+        },
+        "tools": {
+          "title": "Ferramentas utilizadas",
+          "items": [
+            "Autodesk Sketchbook",
+            "Adobe Fonts",
+            "Adobe Illustrator",
+            "Figma"
           ]
         }
       },
+      "aiNote": "* Não foi utilizado nenhum agente IA de geração de imagens para as criações visuais (sketches, vetores, ilustrações…) neste projeto.",
       "thanks": "Obrigada por ter chegado até aqui!"
     },
     "batucoTuco": {

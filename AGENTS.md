@@ -84,8 +84,9 @@ Every route lives in `app/[lang]/<route>/page.tsx` and follows the pattern:
    `components/layout/LanguageSwitcher.tsx`, props `currentLocale` + `dict`).
    Pages that keep the site header get it for free (`Header` and `HomeHeader`
    both render it). A page that hides the site header in `HeaderRouter` (today:
-   every case flagged `opensAsPage` in `lib/projects.ts` — Batuco-tuco and
-   Pontinhas soltas, via `isFullPageCase()` — and `/estudos`) must render the
+   every case flagged `opensAsPage` in `lib/projects.ts` — Pontos sem nó,
+   Batuco-tuco, Pontinhas soltas and Caju, via `isFullPageCase()` — and
+   `/estudos`) must render the
    switcher in its own top bar — pattern: `components/case-study/CaseTopBar.tsx`
    (centered in a `grid-cols-[1fr_auto_1fr]`; `variant="about"` is the Estudos
    bar, which links back to the home). Do not ship a page without a way to switch
@@ -111,13 +112,13 @@ Canonical example: `app/[lang]/contato/page.tsx`.
 5. Put the case body (everything inside `<CaseShell>`) in a component under
    `components/case-study/cases/` and register it in `caseBodies`
    (`components/case-study/cases/index.ts`); the full page and the modal share it.
-   If the case needs the top split in two columns (header | image, as in the
-   Figma frames of Pontos sem nó and Caju), a clickable cover, or extra content
-   under the intro, register a `caseSlots[slug]` function returning
-   `{ cover, aside, asideLayout, headerExtra }` — the page spreads it into
-   `<CaseShell>` and `InterceptedProject` does the same, so both stay identical.
-   Clickable images use `CaseImageButton` + one `<Lightbox images>` per case;
-   lightbox texts live in `dict.projects.lightbox`.
+   A case with its own hero registers it in `caseCovers` (page and modal use
+   the same). For the narrow layout, a case that needs the top split in two
+   columns or extra content under the intro can register a `caseSlots[slug]`
+   function returning `{ cover, aside, asideLayout, headerExtra }` — the page
+   spreads it into `<CaseShell>` and `InterceptedProject` does the same (no case
+   uses it today). Clickable images and the lightbox belong to full-page cases
+   (step 8).
 6. Create `app/[lang]/projetos/@modal/(.)<slug>/page.tsx` rendering
    `<InterceptedProject params={params} slug="<slug>" />` (copy an existing one).
    It is one folder per slug, **not** a dynamic `(.)[slug]`: the dynamic form
@@ -128,13 +129,16 @@ Canonical example: `app/[lang]/contato/page.tsx`.
    `/[lang]/projetos/` to a case page is intercepted and opens as a modal. A link
    that must open the full page (e.g. a future "related projects" link on a case
    page) has to do a full-page navigation, as `LanguageSwitcher` does.
-8. Optional — **full-page case** (the new Figma layout, e.g. Batuco-tuco and
-   Pontinhas soltas): set `layout: 'wide'` and `opensAsPage: true` in
+8. Optional — **full-page case** (the new Figma layout: Pontos sem nó,
+   Batuco-tuco, Pontinhas soltas, Caju): set `layout: 'wide'` and `opensAsPage: true` in
    `projectMeta`. The `/projetos` card then does a full-page navigation, and
    `HeaderRouter`/`FooterRouter` drop the site header and use `HomeFooter`
    (`isFullPageCase()`). The page passes `top={<CaseTopBar/>}`,
    `bottom={<RelatedProjects/>}` and wraps everything in `BatucoMotion` for the
-   zoom/lightbox; pattern: `app/[lang]/projetos/pontinhas-soltas/page.tsx`.
+   zoom/lightbox; pattern: `app/[lang]/projetos/caju/page.tsx`. The case body
+   takes a `zoom` prop (aria-labels) and wraps images with `zoomHelpers`
+   (`cases/wide.tsx`); a `<case>/lightbox.ts` builds the items and labels from
+   the same layout lists the body uses (e.g. `getCajuLightbox`).
 
 ## Adding a new locale (someday)
 
