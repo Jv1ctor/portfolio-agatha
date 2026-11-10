@@ -85,7 +85,8 @@ Every route lives in `app/[lang]/<route>/page.tsx` and follows the pattern:
    Pages that keep the site header get it for free (`Header` and `HomeHeader`
    both render it). A page that hides the site header in `HeaderRouter` (today:
    every case flagged `opensAsPage` in `lib/projects.ts` — Pontos sem nó,
-   Batuco-tuco, Pontinhas soltas, Caju and Cascavel, via `isFullPageCase()` — and
+   Batuco-tuco, Pontinhas soltas, Identidade de evento: 15 anos, Caju and
+   Cascavel, i.e. all of them, via `isFullPageCase()` — and
    `/estudos`) must render the
    switcher in its own top bar — pattern: `components/case-study/CaseTopBar.tsx`
    (centered in a `grid-cols-[1fr_auto_1fr]`; `variant="about"` is the Estudos
@@ -100,7 +101,11 @@ Canonical example: `app/[lang]/contato/page.tsx`.
    camelCase dictionary key — and the **non-translatable** metadata to
    `projectMeta` (slug, status, categories, date, accent, coverImage, `grid`
    — column/aspect/objectPosition/descLines for the bento card — and
-   `featured` for the highlighted card; no text there).
+   `featured` for the highlighted card; no text there). Bento balance: the
+   narrow column is 459 wide and the wide ones 612 (flex 3:4, same scale), so
+   the second number of each `aspect` is the card height in design px — keep
+   every column's sum equal (today 890 + one gap each) and no card under 300,
+   so the hover text fits (see the comment above `projectMeta`).
 2. Add the full entry to `dict.projects.<key>` in both dictionaries (title,
    subtitle, cardTitle, description, intro, tags, sections with image alts —
    `creationProcess.images[]`, `prototyping.images[]`, `finalProject.images[]`
@@ -130,7 +135,8 @@ Canonical example: `app/[lang]/contato/page.tsx`.
    that must open the full page (e.g. a future "related projects" link on a case
    page) has to do a full-page navigation, as `LanguageSwitcher` does.
 8. Optional — **full-page case** (the new Figma layout: Pontos sem nó,
-   Batuco-tuco, Pontinhas soltas, Caju, Cascavel): set `layout: 'wide'` and `opensAsPage: true` in
+   Batuco-tuco, Pontinhas soltas, Identidade de evento: 15 anos, Caju,
+   Cascavel): set `layout: 'wide'` and `opensAsPage: true` in
    `projectMeta`. The `/projetos` card then does a full-page navigation, and
    `HeaderRouter`/`FooterRouter` drop the site header and use `HomeFooter`
    (`isFullPageCase()`). The page passes `top={<CaseTopBar/>}`,

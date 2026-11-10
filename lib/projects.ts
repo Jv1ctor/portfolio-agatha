@@ -79,6 +79,14 @@ export function isProject<S extends Slug>(
 }
 
 // Metadados estáticos — nenhum texto aqui (tudo vem do dicionário)
+//
+// Grade bento de /projetos: coluna 0 estreita (459) e colunas 1 e 2 largas (612),
+// flex 3 : 4 — a escala das duas é a mesma, então o 2º número do `aspect` é a
+// altura do card em px de design. Cada coluna soma 890 + 1 vão (590 + 300 ou
+// 445 + 445) e as três terminam na mesma altura em qualquer largura acima de 900px.
+// Piso: a 1180px (escala 0,6845) o texto do hover precisa de ~186px num card
+// estreito e ~150px num largo, então nenhum card fica abaixo de 300 de design.
+// Dentro de cada coluna os cards seguem a ordem desta lista.
 const projectMeta: ProjectMeta[] = [
   {
     slug: 'pontos-sem-no',
@@ -99,21 +107,7 @@ const projectMeta: ProjectMeta[] = [
     date: '04.12.2025',
     accent: 'orange',
     coverImage: '/images/projects/batuco-tuco/cover.png',
-    grid: { column: 1, aspect: '612 / 344', objectPosition: 'left center', descLines: 2 },
-    layout: 'wide',
-    opensAsPage: true,
-  },
-  {
-    slug: 'pontinhas-soltas',
-    status: 'concluido',
-    categories: ['3d'],
-    date: '08.12.2025',
-    accent: 'pink',
-    // Capa = imagem principal do case (1352 × 459). Centralizada: nos cards largos
-    // (/projetos, /3d) aparecem as cinco Pontinhas; no 16:9 do "Talvez você goste…"
-    // o recorte fica nas três centrais (Lac, Haggy e Nina).
-    coverImage: '/images/projects/pontinhas-soltas/hero.webp',
-    grid: { column: 1, aspect: '612 / 230', objectPosition: 'center', descLines: 1 },
+    grid: { column: 2, aspect: '612 / 445', objectPosition: 'left center', descLines: 2 },
     layout: 'wide',
     opensAsPage: true,
   },
@@ -123,8 +117,25 @@ const projectMeta: ProjectMeta[] = [
     categories: ['grafico'],
     date: '28.10.2026',
     accent: 'pink',
-    coverImage: '/images/projects/identidade-evento-15-anos/cover.webp',
-    grid: { column: 2, aspect: '612 / 590', objectPosition: 'center', descLines: 3 },
+    // Capa = imagem principal do case (Figma 17:4857, 1354 × 674).
+    coverImage: '/images/projects/identidade-evento-15-anos/hero.webp',
+    grid: { column: 1, aspect: '612 / 590', objectPosition: 'center', descLines: 3 },
+    layout: 'wide',
+    opensAsPage: true,
+  },
+  {
+    slug: 'pontinhas-soltas',
+    status: 'concluido',
+    categories: ['3d'],
+    date: '08.12.2025',
+    accent: 'pink',
+    // Capa = imagem principal do case (1352 × 459). Centralizada: no card da grade
+    // (612 / 300) e no 16:9 do "Talvez você goste…" o recorte fica nas três centrais
+    // (Lac, Haggy e Nina); nos cards largos de /3d aparecem as cinco.
+    coverImage: '/images/projects/pontinhas-soltas/hero.webp',
+    grid: { column: 1, aspect: '612 / 300', objectPosition: 'center', descLines: 1 },
+    layout: 'wide',
+    opensAsPage: true,
   },
   {
     slug: 'caju',
@@ -132,9 +143,10 @@ const projectMeta: ProjectMeta[] = [
     categories: ['grafico'],
     date: '12.04.2025',
     accent: 'pink',
-    // Capa = imagem principal do case (Figma 17:5177, 1354 × 461).
+    // Capa = imagem principal do case (Figma 17:5177, 1354 × 461). No card estreito
+    // (459 / 300) a janela é ~52% da largura: 20% deixa a Caju e o monstrinho à vista.
     coverImage: '/images/projects/caju/hero.webp',
-    grid: { column: 2, aspect: '612 / 344', objectPosition: 'center', descLines: 2 },
+    grid: { column: 0, aspect: '459 / 300', objectPosition: '20% center', descLines: 1 },
     layout: 'wide',
     opensAsPage: true,
   },
@@ -145,7 +157,7 @@ const projectMeta: ProjectMeta[] = [
     accent: 'orange',
     // Capa = imagem principal do case (Figma 17:4156, 1354 × 436).
     coverImage: '/images/projects/cascavel/hero.webp',
-    grid: { column: 2, aspect: '612 / 344', objectPosition: 'center', descLines: 2 },
+    grid: { column: 2, aspect: '612 / 445', objectPosition: 'center', descLines: 2 },
     layout: 'wide',
     opensAsPage: true,
   },

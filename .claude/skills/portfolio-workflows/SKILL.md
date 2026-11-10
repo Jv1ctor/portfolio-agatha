@@ -15,7 +15,9 @@ interception trap and the verification checklist stay in `AGENTS.md`.
    camelCase dictionary key — and the **non-translatable** metadata to
    `projectMeta` (slug, status, categories, date, accent, coverImage, `grid`
    — column/aspect/objectPosition/descLines for the bento card — and
-   `featured` for the highlighted card; no text there).
+   `featured` for the highlighted card; no text there). Keep the bento
+   balanced: the second number of each `aspect` is the card height in design
+   px, and every column must sum the same (see the comment above `projectMeta`).
 2. Add the full entry to `dict.projects.<key>` in both dictionaries (title,
    subtitle, cardTitle, description, intro, tags, sections with image alts —
    `creationProcess.images[]`, `prototyping.images[]`, `finalProject.images[]`

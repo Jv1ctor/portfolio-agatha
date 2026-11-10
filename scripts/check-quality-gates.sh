@@ -859,8 +859,18 @@ console.log('ok: ' + a.size + ' keys');
   HDR_IDX_PT=$(header_of "$HTML_PT")
   HDR_IDX_EN=$(header_of "$HTML_EN")
   HDR_HOME_PT=$(header_of "$(page "/pt-BR")")
-  # Case que ainda abre com o header do site (não é `opensAsPage`): identidade-evento-15-anos.
-  HDR_CASE_PT=$(header_of "$(page "/pt-BR/projetos/identidade-evento-15-anos")")
+  # Primeiro case que ainda abre com o header do site (não é `opensAsPage`), se houver.
+  # Desde o 15 anos (2026-11-09) todos os cases são página completa; o teste do
+  # CaseHeader volta a valer sozinho quando um case novo não tiver `opensAsPage`.
+  NARROW_CASE=""
+  for slug in $PROJECT_SLUGS; do
+    if ! printf '%s\n' "$FULL_PAGE_CASES" | grep -qx -- "$slug"; then
+      NARROW_CASE="$slug"
+      break
+    fi
+  done
+  HDR_CASE_PT=""
+  [ -n "$NARROW_CASE" ] && HDR_CASE_PT=$(header_of "$(page "/pt-BR/projetos/$NARROW_CASE")")
   # Índice → HomeHeader ("sobre"/"about", não "Sobre mim"); aria-current só ali.
   if printf '%s' "$HDR_IDX_PT" | grep -q '>sobre<' && printf '%s' "$HDR_IDX_EN" | grep -q '>about<'; then
     log_pass "Index uses HomeHeader (sobre / about)"
@@ -889,14 +899,16 @@ console.log('ok: ' + a.size + ' keys');
   fi
   # Case aberto direto → CaseHeader do Figma: voltar (aria-label traduzido) e "projetos",
   # ambos para o índice; nada do Header antigo ("Sobre mim").
-  if printf '%s' "$HDR_CASE_PT" | grep -q 'aria-label="voltar aos projetos"' \
+  if [ -z "$NARROW_CASE" ]; then
+    log_pass "No case opens with the site header (every slug in slugToKey is opensAsPage)"
+  elif printf '%s' "$HDR_CASE_PT" | grep -q 'aria-label="voltar aos projetos"' \
     && printf '%s' "$HDR_CASE_PT" | grep -q 'href="/pt-BR/projetos"' \
     && ! printf '%s' "$HDR_CASE_PT" | grep -q 'Sobre mim'; then
-    log_pass "Case page opened directly uses the CaseHeader (back + projetos)"
+    log_pass "$NARROW_CASE page opened directly uses the CaseHeader (back + projetos)"
   else
-    log_fail "Case page opened directly does not show the CaseHeader (expected back aria-label and /pt-BR/projetos link, no 'Sobre mim')"
+    log_fail "$NARROW_CASE page opened directly does not show the CaseHeader (expected back aria-label and /pt-BR/projetos link, no 'Sobre mim')"
   fi
-  # Cases de página completa (opensAsPage: Pontos sem nó, Batuco-tuco, Pontinhas soltas, Caju) abertos direto →
+  # Cases de página completa (opensAsPage: todos os de slugToKey hoje) abertos direto →
   # sem header do site (o frame do Figma só tem a barra de voltar), mas com o seletor de
   # idioma na barra do próprio case (AGENTS.md: nenhuma página sem trocar de idioma).
   for slug in $FULL_PAGE_CASES; do
@@ -913,11 +925,11 @@ console.log('ok: ' + a.size + ' keys');
     fi
   done
 
-  log_sub "Test: the 3 project links per locale (/{locale}/projetos/<slug>)..."
+  log_sub "Test: one link per project per locale (/{locale}/projetos/<slug>)..."
   for locale in pt-BR en; do
     HTML_VAR=$([ "$locale" = "pt-BR" ] && printf '%s' "$HTML_PT" || printf '%s' "$HTML_EN")
     other=$([ "$locale" = "pt-BR" ] && echo "en" || echo "pt-BR")
-    for slug in pontos-sem-no batuco-tuco pontinhas-soltas; do
+    for slug in $PROJECT_SLUGS; do
       if printf '%s' "$HTML_VAR" | grep -q "href=\"/$locale/projetos/$slug\""; then
         log_pass "/$locale/projetos links to /$locale/projetos/$slug"
       else

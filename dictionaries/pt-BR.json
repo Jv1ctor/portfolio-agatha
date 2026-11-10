@@ -626,8 +626,13 @@
       "intro": "A contratação do serviço demandou a criação de uma identidade visual para o evento de aniversário de 15 anos de um par de gêmeos. O serviço foi planejado em um cronograma de entregas para atualizar a cliente rapidamente dos processos e orientá-la de como é previsto o processo do meu trabalho.",
       "tags": [
         "Profissional",
-        "Design gráfico"
+        "Ilustração digital",
+        "Identidade visual",
+        "Design gráfico",
+        "Mídia impressa",
+        "Média complexidade"
       ],
+      "heroAlt": "Ilustração digital de um jardim com árvores, flores e um chafariz, arte principal da identidade do evento.",
       "sections": {
         "creationProcess": {
           "title": "Processo de criação",
@@ -654,7 +659,8 @@
             "Testes de impressão"
           ],
           "paragraphs": [
-            "O processo inicial envolveu a criação do “Save the date”, o que também estruturaria o convite e demais peças adiante. Mas a contribuição de mais pessoas mudou um pouco a visão do projeto, adicionando novas referências e modificando a complexidade da ilustração. A ilustração principal guiou a composição para mais peças, como tags para lembrancinhas, menus, adesivos para caixas de bolo, até o adesivamento de um carrinho dos “minibolos” de lembrancinha contratado pela cliente. Ao testar as impressões e realizar as devidas revisões, o material foi aplicado à divulgação e às superfícies impressas. Todas as etapas passaram pela validação da cliente."
+            "O processo inicial envolveu a criação do “Save the date”, o que também estruturaria o convite e demais peças adiante. Mas a contribuição de mais pessoas mudou um pouco a visão do projeto, adicionando novas referências e modificando a complexidade da ilustração. A ilustração principal guiou a composição para mais peças, como tags para lembrancinhas, menus, adesivos para caixas de bolo, até o adesivamento de um carrinho dos “minibolos” de lembrancinha contratado pela cliente. Ao testar as impressões e realizar as devidas revisões, o material foi aplicado à divulgação e às superfícies impressas.",
+            "Todas as etapas passaram pela validação da cliente."
           ],
           "thumbs": {
             "captions": [
@@ -696,18 +702,27 @@
             "Adobe Photoshop"
           ],
           "images": [
-            "Banners do evento com o monograma C e A em moldura de renda sobre recortes da ilustração do jardim."
+            "Banner horizontal com o monograma C e A e “15 anos” em moldura oval de renda sobre a copa das árvores do jardim.",
+            "Banner horizontal com o monograma C e A em moldura oval de renda, entre o chafariz e o tronco de uma árvore.",
+            "Arte com o monograma C e A e “15 anos” em moldura oval de renda sobre o jardim com chafarizes, com ornamentos nos cantos."
           ],
           "ledPanel": {
             "label": "Arte para painel de Led",
             "images": [
-              "Duas artes horizontais para o painel de LED com o monograma e “15 anos” sobre a ilustração do jardim."
+              "Arte para o painel de LED em tons suaves: monograma e “15 anos” em moldura oval sobre o jardim, com ornamentos nos cantos.",
+              "Versão mais saturada da arte para o painel de LED, com o monograma e “15 anos” sobre o jardim."
             ]
           },
           "menuTags": {
             "label": "Arte para Menu, Tags e adesivos de caixa de bolo",
             "images": [
-              "Frente e verso do menu, tags numeradas para sandálias e adesivos para caixas de bolo, todos com a ilustração do jardim."
+              "Frente do menu com entradas, prato principal e bebidas em uma moldura oval de renda sobre a ilustração do jardim.",
+              "Verso do menu em fundo creme com o monograma C e A, “15 anos” e ornamentos nos cantos.",
+              "Tag de sandálias numerada 39/40 com a frase “Dance, sorria e viva a noite!” sobre a ilustração do jardim.",
+              "Tag de sandálias numerada 35/36 sobre a ilustração do jardim.",
+              "Tag de sandálias numerada 37/38 sobre a ilustração do jardim.",
+              "Adesivo para caixa de fatia de bolo com o monograma e “15 anos” em moldura de renda sobre o jardim com chafariz.",
+              "Tag de lembrancinha com o monograma, “15 anos” e a frase “Dois sonhos, uma celebração e muita gratidão!” sobre o jardim."
             ]
           },
           "event": {
