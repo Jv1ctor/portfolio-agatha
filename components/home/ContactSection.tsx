@@ -79,8 +79,9 @@ export function ContactSection({ dict }: { dict: Dictionary }) {
         </h2>
 
         {/* Subtítulo: Clother Light 26px (17:175), caixa 31; o form (17:176)
-            começa 26px depois */}
-        <p className="mb-[26px] text-[1.625rem] font-light leading-[1.2] text-[color:var(--color-blue)]">
+            começa 26px depois no Figma; 28 aqui compensa a caixa de linha do
+            navegador (31.2 vs 31) e assenta o form em 369.8 como no Figma */}
+        <p className="mb-[28px] text-[1.625rem] font-light leading-[1.2] text-[color:var(--color-blue)]">
           {home.contactSubtitle}
         </p>
 
