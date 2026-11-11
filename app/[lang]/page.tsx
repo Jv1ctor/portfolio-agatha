@@ -146,16 +146,19 @@ export default async function HomePage({
           Plan 2, o container-narrow foi substituído pelo próprio padding da
           section). pt-[87px] assenta a ilustração em y=3437 (wrapper em 3350,
           Figma) e o título em 3522 via mt-86 no h2 (ContactSection).
-          pb 0: o form (funcional, ~456px) é mais alto que o stub do Figma
-          (~129px, frame 750:1259) — o rodapé da home desce proporcional
-          (ver doc do HomeFooter). */}
+          pb-[152px]: Figma 17:56 — o bloco de contato (17:133) termina em
+          4112.6 (o elemento mais baixo dele) e a banda do footer começa em
+          4345: 232px de vazio. Aqui o elemento mais baixo da section é o form
+          (a coluna de texto é mais longa que a do Figma), e o vão conta a partir
+          dele: 152 + mt-20 do footer (80) = 232. O ajuste fica aqui, e não no
+          mt do footer, porque o HomeFooter é compartilhado com Estudos e cases. */}
       {/* z-0 — mesma razão do wrapper de cima: stacking context para a elipse
           rosa em -z-10 pintar acima do background de html/body.
           overflow-x: clip — a ellipse-2 (left 65.4% + 455px fixos) estoura a
           viewport abaixo de ~1315px; clip (NÃO hidden) mata o scroll
           horizontal sem afetar o bleed vertical. */}
       <div
-        className="relative z-0 py-12 md:pb-0 md:pt-[87px]"
+        className="relative z-0 py-12 md:pb-[152px] md:pt-[87px]"
         style={{ overflowX: 'clip' }}
       >
         {/* Elipse cyan-pink — Figma node 758:110: 455×455 at x=1131, y=3486 */}

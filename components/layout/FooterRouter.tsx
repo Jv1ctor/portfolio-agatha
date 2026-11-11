@@ -26,7 +26,9 @@ export function FooterRouter({ dict }: { dict: Dictionary }) {
   // Estudos: o mesmo footer do Figma ("visite também", node 17:2252).
   const isStudies = segments.length === 1 && segments[0] === 'estudos';
 
-  if (isHome || isFullPage || isStudies) return <HomeFooter dict={dict} />;
+  // Home: "visite também" à direita (Figma 17:69); Estudos e cases: à esquerda.
+  if (isHome) return <HomeFooter dict={dict} visitAlign="right" />;
+  if (isFullPage || isStudies) return <HomeFooter dict={dict} />;
   if (isProjectsIndex) return <HomeFooter dict={dict} variant="projects" />;
   return <Footer dict={dict} />;
 }
