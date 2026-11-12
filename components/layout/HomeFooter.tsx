@@ -12,8 +12,9 @@ import type { Dictionary } from "@/i18n/dictionaries";
  *   do footer (por isso overflow-visible, e não o clip padrão); caixa de 132px
  *   (lineHeight 1.383 — mesmo padrão do título Filosofia). Figma novo
  *   (EGDJU9UG5XmLO6zV8Howwo): na home (17:69) ele fica à DIREITA (tinta em
- *   x=923..1726, encostada na borda) → `visitAlign="right"`; em Estudos
- *   (17:2253) fica à esquerda, x=1 (padrão).
+ *   x=923..1726, encostada na borda) → `visitAlign="right"`, e as telas de
+ *   projetos (índice e cases) seguem a home; em Estudos (17:2253) fica à
+ *   esquerda, x=1 (padrão).
  * - Label de redes sociais (dict.footer.social): Clother Regular 24px cream,
  *   x=28, y=109
  * - Social rows: IG (16px Regular) + handle (16px Light, underline); gap
