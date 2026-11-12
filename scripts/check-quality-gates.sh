@@ -1011,7 +1011,7 @@ for (const [name, d] of [['pt-BR', pt], ['en', en]]) {
   }
 }
 if (!pt.home.intro.startsWith('Prazer, sou a Ágatha!')) fail('pt-BR home.intro must start with \"Prazer, sou a Ágatha!\"');
-if (!en.home.intro.startsWith('Nice to meet you')) fail('en home.intro must start with \"Nice to meet you\"');
+if (!en.home.intro.startsWith('Hi, I')) fail('en home.intro must start with \"Hi, I\"');
 console.log('ok: ' + n + ' checks');
 "; then
     log_pass "home.* new keys present in both dictionaries; Body1Bold/Body1End removed; intro starts right"
@@ -1106,7 +1106,7 @@ console.log('ok: ' + n + ' checks');
   done
 
   log_sub "Test: /en has the new intro, 3 tile titles, id=\"top\" and the back-to-top link (visible text)..."
-  for pair in ">Nice to meet you, I" ">Studies<" ">My design career<" ">My gallery<" ">back to top" 'id="top"'; do
+  for pair in ">Hi, I" ">Studies<" ">My design career<" ">My gallery<" ">back to top" 'id="top"'; do
     if printf '%s' "$HTML_EN" | grep -qF -- "$pair"; then
       log_pass "  /en contains: $pair"
     else

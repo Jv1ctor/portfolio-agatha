@@ -54,7 +54,10 @@ export default async function HomePage({
             fontSize: "clamp(120px, 19.57vw, 338px)",
             left: "47.4%", // 819/1728
             top: "145px", // 499 - 354 (hero height)
-            lineHeight: 1,
+            // 1.383 = box do Figma (467/338.2, line-height natural da fonte,
+            // igual aos h2). Com 1 o glifo subia ~65px e ficava alinhado ao
+            // topo do "Olá a todos,"; no Figma ele fica centrado no título.
+            lineHeight: 1.383,
           }}
           aria-hidden="true"
         >

@@ -15,9 +15,10 @@
     "switchLocale": "Switch to {name}"
   },
   "home": {
-    "greeting": "Hello everyone,",
+    "greeting": "Hello all,",
     "greetingAlt": "Illustration of Ágatha waving",
-    "intro": "Nice to meet you, I'm Ágatha! The designer from your neighborhood, your multinational company and your cute indie game. I work with research (UX and UI), illustration and 3D Design.",
+    "intro": "Hi, I'm Ágatha! The designer from your neighborhood, your multinational company and your cute indie game.",
+    "introWork": "I work in research (UX and UI), illustration and 3D Design.",
     "philosophy": "Philosophy",
     "philosophyAlt": "Illustration of Ágatha thinking",
     "philosophyLead": "For me, design is research, illustration and perspective.",

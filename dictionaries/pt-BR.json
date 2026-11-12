@@ -17,7 +17,8 @@
   "home": {
     "greeting": "Olá a todos,",
     "greetingAlt": "Ilustração da Ágatha acenando",
-    "intro": "Prazer, sou a Ágatha! A designer do seu bairro, da sua empresa multinacional e do seu jogo indie fofinho. Trabalho com pesquisa (UX e UI), ilustração e Design 3D.",
+    "intro": "Prazer, sou a Ágatha! A designer do seu bairro, da sua empresa multinacional e do seu jogo indie fofinho.",
+    "introWork": "Trabalho com pesquisa (UX e UI), ilustração e Design 3D.",
     "philosophy": "Filosofia",
     "philosophyAlt": "Ilustração da Ágatha pensando",
     "philosophyLead": "Para mim o design é pesquisa, ilustração e perspectiva.",
