@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import { at } from "./layout";
+import { OlharFace } from "./OlharFace";
 import s from "./career.module.css";
 
 /**
@@ -7,6 +8,7 @@ import s from "./career.module.css";
  * quadro do "olhar" já assado; o GIF do olhar (201:242 / 201:284, 658², x+103, y-81)
  * roda por cima, recortado pela metade da faixa (o frame do Figma tem overflow-clip).
  * Todos os quadros do GIF cobrem o 1º (conferido), então o assado nunca aparece.
+ * Com mouse, no lugar do GIF entra o rosto com os olhos seguindo o cursor (OlharFace).
  *
  * - "journey": faixa azul 201:162 (y 1167, 1728 × 496; olhar na metade direita) +
  *   janelas do trem 201:77/201:122 (y 1663, 1728 × 497).
@@ -31,8 +33,8 @@ export function CareerBand({ variant }: { variant: "journey" | "rose" }) {
         style={at(0, 0, 1728)}
       />
       <div className={s.olharClip} style={{ ...at(journey ? 864 : 0, 0, 864), "--ih": 497 } as CSSProperties}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/carreira/olhar.webp" alt="" width={658} height={658} loading="lazy" decoding="async" className={s.olhar} />
+        {/* GIF no toque; com mouse, os olhos seguem o cursor (OlharFace) */}
+        <OlharFace />
       </div>
       {journey && (
         // eslint-disable-next-line @next/next/no-img-element

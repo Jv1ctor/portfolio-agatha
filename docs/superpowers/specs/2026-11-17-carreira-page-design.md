@@ -112,6 +112,36 @@ também".
    1:1 do Figma de 0.8 a 2.8/255. A exceção é o footer compartilhado (6.0), pela diferença de
    tipografia registrada em "Fora de escopo".
 
+## Emenda 2 — olhos que seguem o cursor (2026-11-17)
+
+**Pedido:** os olhos das bonecas do "olhar" (faixas azul e rosa) seguem o cursor do mouse.
+
+**Decisões com o André:**
+- Com mouse, os olhos seguem o cursor e o loop do GIF sai. No toque, fica o GIF original.
+- A íris se move só na horizontal, como no GIF.
+- Sem cursor, volta à pose do Figma.
+
+**Como foi feito:**
+- **O que o GIF mostra:**
+  - Os quadros pares são 5 poses distintas: 0, 2, 4, 6, 8 (10/12/14 repetem 6/4/2).
+  - Os quadros ímpares são intermediários borrados.
+  - A íris é uma faixa que muda de largura e inclinação conforme vai para os lados, então
+    não é rígida.
+- **Assets** (`public/images/carreira/`, extraídos do GIF sem editar o Figma):
+  - `olhar-rosto.webp`: rosto sem íris.
+  - `olhar-iris-<olho>.webp`: tira com as 5 íris de cada olho.
+  - `olhar-olho-<olho>.png`: máscara da abertura de cada olho.
+  - Cada quadro-chave recomposto difere do GIF em MAE ≈ 0.1/255.
+- **`OlharFace`** (client):
+  - Para a posição p entre dois quadros-chave, desloca os dois até p e mistura (crossfade
+    aditivo, `plus-lighter`), como os intermediários do próprio GIF.
+  - O cursor à esquerda ou à direita do rosto (±45% da largura da janela) cobre o curso
+    medido no GIF.
+  - Em repouso exato, a camada some e fica o 1º quadro já assado no recorte da faixa (MAE
+    da região dos olhos contra o Figma: 2.06, igual ao de antes).
+- **Movimento reduzido:** nada se mexe e fica o 1º quadro.
+- **Removido:** `olhar-static.webp`, que não era usado (o 1º quadro já está na faixa).
+
 ## Minhas escolhas (para revisão)
 
 - **Abaixo de 1024px:** uma coluna. As faixas continuam proporcionais, porque são arte. Os

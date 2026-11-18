@@ -1183,7 +1183,12 @@ console.log('ok');
       [ -f "public/images/carreira/$f" ] || { log_fail "  public/images/carreira/$f missing"; missing=1; }
     done
   done
+  # olhos que seguem o cursor (OlharFace monta os nomes por olho)
+  for f in olhar-rosto.webp olhar-iris-esq.webp olhar-iris-dir.webp olhar-olho-esq.png olhar-olho-dir.png; do
+    [ -f "public/images/carreira/$f" ] || { log_fail "  public/images/carreira/$f missing"; missing=1; }
+  done
   [ $missing -eq 0 ] && log_pass "All career assets exist"
+  grep -q "useFinePointer" components/career/OlharFace.tsx && log_pass "  OlharFace follows the cursor only with a fine pointer (GIF on touch)" || log_fail "  OlharFace without useFinePointer"
 
   log_sub "No hardcoded copy in components/career (text comes from dict.career)..."
   # Comentários (linhas que começam com *, // ou {/*) citam o texto do Figma e não contam.
