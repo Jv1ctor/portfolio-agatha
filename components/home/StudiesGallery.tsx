@@ -48,14 +48,14 @@ function TileOverlay({
  *   1. Fundo: estudos-coelhos.png (h=161.56%, top=-8.61%, left=-1.36%, w=117.38%)
  *   2. Topo (VISÍVEL): estudos-cover.png (1727×558 at x=-95, object-cover)
  *
- * Célula Carreira (x=0, y=2793, 1152×558) → LinkedIn do footer:
+ * Célula Carreira (x=0, y=2793, 1152×558) → página Minha carreira (/carreira):
  *   - carreira-foto.jpg = export 2x do node 17:258 do arquivo
  *     EGDJU9UG5XmLO6zV8Howwo, já recortado na proporção da célula.
  *
  * Sidebar Galeria (Frame 9, x=1152, y=2234, 576×1117) → Instagram do footer:
  *   - doodles-azul.svg (tem gradiente próprio #485699→#5C76B4→#6F95CE)
  *
- * Carreira e Galeria abrem as redes em nova aba, com as mesmas URLs do footer
+ * Galeria abre o Instagram em nova aba, com a mesma URL do footer
  * (`site.social` em lib/site.ts).
  */
 export function StudiesGallery({ dict, locale }: { dict: Dictionary; locale: Locale }) {
@@ -112,13 +112,11 @@ export function StudiesGallery({ dict, locale }: { dict: Dictionary; locale: Loc
           />
         </Link>
 
-        {/* Célula CARREIRA — foto (Figma 17:258); o bloco leva ao LinkedIn.
-            object-position à esquerda: no mobile a célula corta as laterais e a
-            pessoa (≈17–39% da largura) continua no quadro. */}
-        <a
-          href={site.social.linkedin.url}
-          target="_blank"
-          rel="noreferrer"
+        {/* Célula CARREIRA — foto (Figma 17:258); o bloco leva à página Minha
+            carreira (Figma 201:53). object-position à esquerda: no mobile a célula
+            corta as laterais e a pessoa (≈17–39% da largura) continua no quadro. */}
+        <Link
+          href={`/${locale}/carreira`}
           data-tile="career"
           aria-label={`${home.tiles.career.title}: ${home.tiles.career.text}`}
           className={`${s.tile} relative block h-[300px] overflow-hidden bg-[color:var(--color-blue)] md:h-[558px]`}
@@ -138,7 +136,7 @@ export function StudiesGallery({ dict, locale }: { dict: Dictionary; locale: Loc
             title={home.tiles.career.title}
             text={home.tiles.career.text}
           />
-        </a>
+        </Link>
       </div>
 
       {/* Coluna direita (1/3): sidebar com doodles; o bloco leva ao Instagram */}

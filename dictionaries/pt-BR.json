@@ -1042,7 +1042,8 @@
     "identidadeEvento15Anos": "Identidade de evento: 15 anos",
     "caju": "Caju",
     "studies": "Estudos",
-    "cascavel": "Cidade de Cascavel"
+    "cascavel": "Cidade de Cascavel",
+    "career": "Minha carreira"
   },
   "projectsPage": {
     "title": "Portfólio",
@@ -1198,6 +1199,74 @@
         "caption": "Estudos",
         "alt": "Esboço a lápis de uma garota de cabelo longo e ondulado, com lenço na cabeça e laços, segurando as mãos junto ao peito."
       }
+    }
+  },
+  "career": {
+    "back": "voltar para sobre mim",
+    "hero": {
+      "title": "como vim parar aqui?",
+      "col1": {
+        "p1": "Entrei no ",
+        "b1": "Design",
+        "p2": " sabendo que teria afinidade com a parte ",
+        "b2": "gráfica",
+        "p3": ", mas quem encantou meus olhos foi o ",
+        "b3": "UX",
+        "p4": "."
+      },
+      "col2": {
+        "p1": "Virei ",
+        "b1": "monitora de UX",
+        "p2": " e depois estagiária no ",
+        "b2": "Vortex",
+        "p3": ", onde projetos de saúde, direito e cultura me encontraram"
+      },
+      "col3": {
+        "p1": "Lá, a ",
+        "b1": "modelagem 3D",
+        "p2": " me levou de volta ao ",
+        "b2": "desenho",
+        "p3": " e ao amor pelas histórias que eu sempre quis contar"
+      },
+      "dollAlt": "Ilustração da Ágatha girando devagar, de corpo inteiro",
+      "thoughtAlt": "Balão de pensamento com uma maçã"
+    },
+    "nextStop": "Próxima parada",
+    "artHistory": {
+      "title": "uma breve história da arte...",
+      "items": {
+        "01": "Estudo desenho por conta própria há mais de 9 anos, primeiro no tradicional, com o que encontrava na internet. Sempre fui cativada por histórias, da Ágatha criança até a adulta de hoje.",
+        "02": "No laboratório, fui modeladora 3D em dois grandes projetos e, por fora, fiz cursos e testei ferramentas na minha própria estação de trabalho, criando personagens e cenários.",
+        "03": "Histórias me deixam segurar um pedaço de mundo nas mãos e transformá-lo em algo que ainda não existe.",
+        "04": "Adoro animações com temas profundos, que dão a eles a devida profundidade e alcançam experiências diversas.",
+        "05": "Depois do 3D, quis voltar ao desenho. Investi em um tablet, comecei pequenos estudos no digital e hoje sigo aprimorando os dois, levando também a pesquisa em design para essa produção."
+      }
+    },
+    "life": {
+      "title": "vidinha",
+      "text": "Entre prazos, laboratório e sala de aula, fui juntando experiências que me ensinaram a ajudar os outros e, mais que tudo, a pedir ajuda. Saí de cada uma com um repertório maior.",
+      "sceneAlt": "Ilustração da Ágatha girando a manivela de uma caixinha, de onde sai um cachecol listrado com as experiências que ela juntou",
+      "experiencesLabel": "Experiências",
+      "experiences": {
+        "monitoria": "Monitoria",
+        "extensao": "Extensão",
+        "estagio": "Estágio",
+        "oficinas": "Oficinas",
+        "publicacoes": "Publicações acadêmicas"
+      }
+    },
+    "drawing": {
+      "title": "hora do desenho",
+      "text": "Minha mesinha lembra uma brinquedoteca. Cada dia escolho um brinquedo, e é brincando que eu aprendo.",
+      "boardAlt": "Lousa mágica rosa com desenhinhos de tartaruga, polvo, peixe, alga, bolhas e baiacu",
+      "toolsAlt": "Blocos com os ícones das ferramentas que uso: Blender, After Effects, InDesign, Figma, Clip Studio Paint, Animate, Photoshop e Illustrator"
+    },
+    "gallery": {
+      "title": "life gallery",
+      "text1": "Sou cheia de cacareco e disso não abro mão. Gosto de ter e fazer miniaturas, de pintar mini aquarelas e, principalmente, de imprimir um modelo que fiz ou que queria muito ter.",
+      "text2": "Leio fantasia e ficção científica e gosto de doces mais doces que o normal.",
+      "text3": "Na playlist tem dream pop, rock psicodélico, metal sinfônico...",
+      "collageAlt": "Colagem de fotos da Ágatha: mini aquarelas de vitórias-régias, peixes, moinho e céu rosa; uma pintura do Pálido Ponto Azul; a Ágatha fotografando com uma câmera; a mesa de trabalho com monitor e tablet; uma mariposa; desenhos em nanquim e uma joaninha ilustrada"
     }
   }
 }

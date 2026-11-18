@@ -1054,7 +1054,8 @@
     "identidadeEvento15Anos": "Event identity: 15th birthday",
     "caju": "Caju",
     "studies": "Studies",
-    "cascavel": "City of Cascavel"
+    "cascavel": "City of Cascavel",
+    "career": "My career"
   },
   "projectsPage": {
     "title": "Portfolio",
@@ -1210,6 +1211,74 @@
         "caption": "Studies",
         "alt": "Pencil sketch of a girl with long wavy hair, a headscarf and bows, holding her hands close to her chest."
       }
+    }
+  },
+  "career": {
+    "back": "back to about me",
+    "hero": {
+      "title": "how did I\nget here?",
+      "col1": {
+        "p1": "I went into ",
+        "b1": "Design",
+        "p2": " knowing I would get along with the ",
+        "b2": "graphic",
+        "p3": " side, but what caught my eye was ",
+        "b3": "UX",
+        "p4": "."
+      },
+      "col2": {
+        "p1": "I became a ",
+        "b1": "UX teaching assistant",
+        "p2": " and then an intern at ",
+        "b2": "Vortex",
+        "p3": ", where health, law and culture projects found me"
+      },
+      "col3": {
+        "p1": "There, ",
+        "b1": "3D modeling",
+        "p2": " led me back to ",
+        "b2": "drawing",
+        "p3": " and to my love for the stories I always wanted to tell"
+      },
+      "dollAlt": "Illustration of Ágatha slowly turning around, full body",
+      "thoughtAlt": "Thought bubble with an apple"
+    },
+    "nextStop": "Next stop",
+    "artHistory": {
+      "title": "a brief history of art...",
+      "items": {
+        "01": "I have been teaching myself to draw for over 9 years, first traditionally, with whatever I found online. I have always been captivated by stories, from Ágatha the child to the adult I am today.",
+        "02": "At the lab, I was a 3D modeler on two big projects and, on the side, I took courses and tried out tools on my own workstation, creating characters and settings.",
+        "03": "Stories let me hold a piece of the world in my hands and turn it into something that does not exist yet.",
+        "04": "I love animations with deep themes, which give them the depth they deserve and reach diverse experiences.",
+        "05": "After 3D, I wanted to go back to drawing. I invested in a tablet, started small digital studies and today I keep improving both, bringing design research into this work too."
+      }
+    },
+    "life": {
+      "title": "my life",
+      "text": "Between deadlines, the lab and the classroom, I kept gathering experiences that taught me to help others and, above all, to ask for help. I left each one with a bigger repertoire.",
+      "sceneAlt": "Illustration of Ágatha turning the crank of a little box, out of which comes a striped scarf with the experiences she has gathered",
+      "experiencesLabel": "Experiences",
+      "experiences": {
+        "monitoria": "Teaching assistant",
+        "extensao": "Outreach",
+        "estagio": "Internship",
+        "oficinas": "Workshops",
+        "publicacoes": "Academic papers"
+      }
+    },
+    "drawing": {
+      "title": "drawing time",
+      "text": "My little desk looks like a playroom. Every day I pick a toy, and I learn by playing.",
+      "boardAlt": "Pink magic drawing board with doodles of a turtle, an octopus, a fish, seaweed, bubbles and a pufferfish",
+      "toolsAlt": "Blocks with the icons of the tools I use: Blender, After Effects, InDesign, Figma, Clip Studio Paint, Animate, Photoshop and Illustrator"
+    },
+    "gallery": {
+      "title": "life gallery",
+      "text1": "I am full of knick-knacks and I would not have it any other way. I like owning and making miniatures, painting tiny watercolors and, above all, printing a model I made or really wanted to have.",
+      "text2": "I read fantasy and science fiction and I like sweets sweeter than usual.",
+      "text3": "The playlist has dream pop, psychedelic rock, symphonic metal...",
+      "collageAlt": "Photo collage of Ágatha: tiny watercolors of water lilies, fish, a windmill and a pink sky; a painting of the Pale Blue Dot; Ágatha taking pictures with a camera; her desk with a monitor and a tablet; a moth; ink drawings and an illustrated ladybug"
     }
   }
 }
