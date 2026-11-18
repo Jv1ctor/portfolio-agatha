@@ -1,0 +1,438 @@
+'use client';
+
+import { useEffect, useRef, type CSSProperties, type Dispatch, type KeyboardEvent, type PointerEvent } from 'react';
+import {
+  BOARD_W,
+  CORD_ANCHOR,
+  CORD_CANVAS,
+  CORD_REST,
+  INK,
+  KNOB,
+  PEN,
+  PEN_HELD_ROT,
+  PEN_REST,
+  boardToInk,
+  clamp,
+  inkToBoard,
+  insideInk,
+  knobToInkX,
+  penFoot,
+  type Pt,
+} from './geometry';
+import { glyph } from './glyphs';
+import { CordPainter, Ink } from './ink';
+import { canErase, type BoardEvent, type BoardState } from './machine';
+import { easeOut, loop, tween } from './tween';
+import b from './board.module.css';
+
+/**
+ * A lousa mágica (Figma 201:413) viva. Camadas, de baixo para cima (todas recompõem o
+ * render do Figma em repouso — MAE 0.19/255, ver o spec, Emenda 3):
+ *  1. base.webp — corpo, trilho, faixa bege e suporte vazios; a tela branca;
+ *  2. a tinta (canvas) — começa com os rabiscos do Figma (tinta.webp) e recebe os traços;
+ *  3. o grão rosa da tela (grao.webp), por cima da tinta, como no Figma;
+ *  4. o cordão (recorte em repouso; canvas quando a caneta sai) e a bolinha (#F9F3EA);
+ *  5. a caneta (SVG do Figma), que gira em torno da ponta.
+ *
+ * O HTML do servidor é o Figma; o canvas só assume depois de pintar os rabiscos.
+ */
+
+const IMG = '/images/carreira/lousa';
+const SPEED = 650; // px de design por segundo, desenhando
+const HOP = 1.06; // a caneta "levanta" entre traços
+
+type Pose = { x: number; y: number; rot: number; lift: number };
+
+const pos = (x: number, y: number, w: number, h: number) => ({ '--x': x, '--y': y, '--w': w, '--h': h }) as CSSProperties;
+const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+export function MagicBoard({
+  state,
+  dispatch,
+  alt,
+  eraserLabel,
+  onLocked,
+  className = '',
+  style,
+}: {
+  state: BoardState;
+  dispatch: Dispatch<BoardEvent>;
+  alt: string;
+  eraserLabel: string;
+  onLocked: () => void;
+  className?: string;
+  style?: CSSProperties;
+}) {
+  const stageRef = useRef<HTMLDivElement>(null);
+  const inkWrapRef = useRef<HTMLDivElement>(null);
+  const inkCanvasRef = useRef<HTMLCanvasElement>(null);
+  const cordCanvasRef = useRef<HTMLCanvasElement>(null);
+  const penRef = useRef<HTMLDivElement>(null);
+  const knobRef = useRef<HTMLDivElement>(null);
+
+  const engine = useRef<Promise<{ ink: Ink; cord: CordPainter } | null> | null>(null);
+  const live = useRef<{ ink: Ink; cord: CordPainter } | null>(null);
+  const pose = useRef<Pose>({ ...PEN_REST });
+  const knobX = useRef<number>(KNOB.min);
+  const scale = useRef(1);
+  const drag = useRef<{ kind: 'pen' | 'knob'; id: number; offset: number; drawing: boolean } | null>(null);
+
+  // ---------- aplicar pose/posição no DOM (fora do React: 60 fps) ----------
+  const applyPen = () => {
+    const pen = penRef.current, stage = stageRef.current;
+    if (!pen || !stage) return;
+    const p = pose.current, k = scale.current;
+    const atRest = p.x === PEN_REST.x && p.y === PEN_REST.y && p.rot === PEN_REST.rot && p.lift === 1;
+    pen.style.transform = atRest
+      ? ''
+      : `translate(${(p.x - PEN_REST.x) * k}px, ${(p.y - PEN_REST.y) * k}px) rotate(${p.rot}deg) scale(${p.lift})`;
+    if (atRest) {
+      delete stage.dataset.out;
+      live.current?.cord.clear();
+    } else {
+      stage.dataset.out = '';
+      live.current?.cord.draw(CORD_ANCHOR, penFoot(p));
+    }
+  };
+
+  const applyKnob = () => {
+    const knob = knobRef.current;
+    if (!knob) return;
+    const x = knobX.current;
+    knob.style.transform = x === KNOB.min ? '' : `translateX(${(x - KNOB.min) * scale.current}px)`;
+    knob.setAttribute('aria-valuenow', String(Math.round(((x - KNOB.min) / (KNOB.max - KNOB.min)) * 100)));
+  };
+
+  // ---------- montagem: imagens, canvas, resize ----------
+  useEffect(() => {
+    const stage = stageRef.current!, inkCanvas = inkCanvasRef.current!, cordCanvas = cordCanvasRef.current!;
+    let cancelled = false;
+    const load = (src: string) =>
+      new Promise<HTMLImageElement>((resolve, reject) => {
+        const img = new Image();
+        img.decoding = 'async';
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = src;
+      });
+    const measure = () => {
+      scale.current = stage.clientWidth / BOARD_W;
+      live.current?.ink.resize(INK.w * scale.current);
+      live.current?.cord.resize(CORD_CANVAS.w * scale.current);
+      applyPen();
+      applyKnob();
+    };
+    engine.current = Promise.all([load(`${IMG}/pincel.png`), load(`${IMG}/tinta.webp`)])
+      .then(([brush, tinta]) => {
+        if (cancelled) return null;
+        live.current = { ink: new Ink(inkCanvas, brush), cord: new CordPainter(cordCanvas, brush, CORD_CANVAS) };
+        measure();
+        live.current.ink.image(tinta);
+        inkWrapRef.current!.dataset.ready = '';
+        return live.current;
+      })
+      .catch(() => null);
+    const ro = new ResizeObserver(measure);
+    ro.observe(stage);
+    measure();
+    return () => {
+      cancelled = true;
+      ro.disconnect();
+    };
+  }, []);
+
+  // ---------- movimentos ----------
+  const moveKnob = (to: number, ms: number, signal: AbortSignal, ink: Ink) => {
+    const from = knobX.current;
+    return tween(
+      ms,
+      (e) => {
+        const x = from + (to - from) * e;
+        ink.erase(knobToInkX(knobX.current), knobToInkX(x));
+        knobX.current = x;
+        applyKnob();
+      },
+      signal,
+    );
+  };
+
+  const movePen = (to: Pose, ms: number, signal: AbortSignal) => {
+    const from = { ...pose.current };
+    return tween(
+      ms,
+      (e) => {
+        pose.current = {
+          x: from.x + (to.x - from.x) * e,
+          y: from.y + (to.y - from.y) * e,
+          rot: from.rot + (to.rot - from.rot) * e,
+          lift: from.lift + (to.lift - from.lift) * e,
+        };
+        applyPen();
+      },
+      signal,
+    );
+  };
+
+  /** A caneta percorre o traço na velocidade de desenho, soltando tinta. */
+  const trace = (stroke: Pt[], signal: AbortSignal, ink: Ink) => {
+    const cum = [0];
+    for (let i = 1; i < stroke.length; i++)
+      cum.push(cum[i - 1] + Math.hypot(stroke[i].x - stroke[i - 1].x, stroke[i].y - stroke[i - 1].y));
+    let d = 0, i = 0;
+    ink.beginStroke(stroke[0]);
+    return loop((dt) => {
+      d += SPEED * dt;
+      while (i < stroke.length - 1 && cum[i + 1] <= d) ink.extend(stroke[++i]);
+      const tip = inkToBoard(stroke[i]);
+      pose.current = { x: tip.x, y: tip.y, rot: PEN_HELD_ROT + 3 * Math.sin(d / 45), lift: 1 };
+      applyPen();
+      return i < stroke.length - 1;
+    }, signal);
+  };
+
+  const { phase, tool } = state;
+
+  // apagar sozinha: a bolinha vai até o fim do trilho e volta para a posição do Figma
+  useEffect(() => {
+    if (phase !== 'erasing') return;
+    const ac = new AbortController();
+    (async () => {
+      const e = await engine.current;
+      if (!e || ac.signal.aborted) return;
+      if (reducedMotion()) {
+        e.ink.clear();
+        knobX.current = KNOB.min;
+        applyKnob();
+      } else {
+        if (!e.ink.isEmpty) {
+          const span = KNOB.max - KNOB.min;
+          const ok = await moveKnob(KNOB.max, 300 + (500 * (KNOB.max - knobX.current)) / span, ac.signal, e.ink);
+          if (!ok || !(await moveKnob(KNOB.min, 650, ac.signal, e.ink))) return;
+        } else if (knobX.current !== KNOB.min && !(await moveKnob(KNOB.min, 400, ac.signal, e.ink))) return;
+        e.ink.clear();
+      }
+      if (!ac.signal.aborted) dispatch({ type: 'erased' });
+    })();
+    return () => ac.abort();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phase]);
+
+  // desenhar: a caneta sai do suporte, percorre os traços e levanta entre eles
+  useEffect(() => {
+    if (phase !== 'drawing' || !tool) return;
+    const ac = new AbortController();
+    (async () => {
+      const e = await engine.current;
+      if (!e || ac.signal.aborted) return;
+      const strokes = glyph(tool);
+      if (reducedMotion()) {
+        for (const s of strokes) {
+          e.ink.beginStroke(s[0]);
+          for (const pt of s.slice(1)) e.ink.extend(pt);
+          e.ink.endStroke();
+        }
+      } else {
+        for (let n = 0; n < strokes.length; n++) {
+          const start = inkToBoard(strokes[n][0]);
+          const hop = Math.hypot(start.x - pose.current.x, start.y - pose.current.y);
+          const ok = await movePen(
+            { x: start.x, y: start.y, rot: PEN_HELD_ROT, lift: n === 0 ? 1 : HOP },
+            n === 0 ? 700 : Math.min(320, 90 + hop * 0.6),
+            ac.signal,
+          );
+          if (!ok || !(await trace(strokes[n], ac.signal, e.ink))) return;
+          e.ink.endStroke();
+        }
+      }
+      if (!ac.signal.aborted) dispatch({ type: 'drawn' });
+    })();
+    return () => {
+      ac.abort();
+      live.current?.ink.endStroke();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phase, tool]);
+
+  // voltar ao suporte
+  useEffect(() => {
+    if (phase !== 'returning') return;
+    const ac = new AbortController();
+    (async () => {
+      if (reducedMotion()) {
+        pose.current = { ...PEN_REST };
+        applyPen();
+      } else if (!(await movePen({ ...PEN_REST }, 650, ac.signal))) return;
+      pose.current = { ...PEN_REST }; // exato, para o estado de repouso bater com o Figma
+      applyPen();
+      if (!ac.signal.aborted) dispatch({ type: 'home' });
+    })();
+    return () => ac.abort();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phase]);
+
+  // ---------- interação ----------
+  const toBoard = (e: { clientX: number; clientY: number }): Pt => {
+    const r = stageRef.current!.getBoundingClientRect();
+    return { x: ((e.clientX - r.left) * BOARD_W) / r.width, y: ((e.clientY - r.top) * BOARD_W) / r.width };
+  };
+
+  const onPenDown = (e: PointerEvent<HTMLDivElement>) => {
+    if (phase !== 'idle') return;
+    if (!state.unlocked) return onLocked();
+    if (!live.current) return;
+    e.preventDefault();
+    e.currentTarget.setPointerCapture(e.pointerId);
+    drag.current = { kind: 'pen', id: e.pointerId, offset: 0, drawing: false };
+    dispatch({ type: 'grab' });
+    // a ponta vai para o ponteiro: quem segura a caneta desenha com a ponta
+    const p = toBoard(e);
+    pose.current = { x: p.x, y: p.y, rot: PEN_HELD_ROT, lift: 1 };
+    applyPen();
+  };
+
+  const onPenMove = (e: PointerEvent<HTMLDivElement>) => {
+    const d = drag.current, ink = live.current?.ink;
+    if (!d || d.kind !== 'pen' || d.id !== e.pointerId || !ink) return;
+    const events = e.nativeEvent.getCoalescedEvents?.() ?? [];
+    for (const ev of events.length ? events : [e.nativeEvent]) {
+      const p = toBoard(ev);
+      pose.current = { x: p.x, y: p.y, rot: PEN_HELD_ROT, lift: 1 };
+      const q = boardToInk(p);
+      if (insideInk(q)) {
+        if (d.drawing) ink.extend(q);
+        else {
+          ink.beginStroke(q);
+          d.drawing = true;
+        }
+      } else if (d.drawing) {
+        ink.endStroke();
+        d.drawing = false;
+      }
+    }
+    applyPen();
+  };
+
+  const onPenUp = (e: PointerEvent<HTMLDivElement>) => {
+    const d = drag.current;
+    if (!d || d.kind !== 'pen' || d.id !== e.pointerId) return;
+    live.current?.ink.endStroke();
+    drag.current = null;
+    dispatch({ type: 'release' });
+  };
+
+  const onKnobDown = (e: PointerEvent<HTMLDivElement>) => {
+    if (!canErase(state)) return phase === 'idle' ? onLocked() : undefined;
+    if (!live.current) return;
+    e.preventDefault();
+    e.currentTarget.setPointerCapture(e.pointerId);
+    drag.current = { kind: 'knob', id: e.pointerId, offset: toBoard(e).x - knobX.current, drawing: false };
+  };
+
+  const knobTo = (x: number) => {
+    const ink = live.current?.ink;
+    if (!ink) return;
+    const to = clamp(x, KNOB.min, KNOB.max);
+    ink.erase(knobToInkX(knobX.current), knobToInkX(to));
+    knobX.current = to;
+    applyKnob();
+  };
+
+  const onKnobMove = (e: PointerEvent<HTMLDivElement>) => {
+    const d = drag.current;
+    if (!d || d.kind !== 'knob' || d.id !== e.pointerId) return;
+    knobTo(toBoard(e).x - d.offset);
+  };
+
+  const onKnobUp = (e: PointerEvent<HTMLDivElement>) => {
+    if (drag.current?.kind === 'knob' && drag.current.id === e.pointerId) drag.current = null;
+  };
+
+  const onKnobKey = (e: KeyboardEvent<HTMLDivElement>) => {
+    const step = { ArrowRight: 40, ArrowUp: 40, ArrowLeft: -40, ArrowDown: -40, PageUp: 160, PageDown: -160 }[e.key];
+    const jump = e.key === 'Home' ? KNOB.min : e.key === 'End' ? KNOB.max : null;
+    if (step === undefined && jump === null) return;
+    e.preventDefault();
+    if (!canErase(state)) return phase === 'idle' ? onLocked() : undefined;
+    // anda em passos curtos para a régua não pular colunas
+    const target = jump ?? knobX.current + step!;
+    const ac = new AbortController();
+    const from = knobX.current;
+    void tween(180, (k) => knobTo(from + (target - from) * k), ac.signal, easeOut);
+  };
+
+  const locked = !state.unlocked;
+
+  return (
+    <div className={`${className} ${b.board}`} style={style}>
+      <div
+        ref={stageRef}
+        className={b.stage}
+        data-locked={locked || undefined}
+        data-holding={phase === 'holding' || undefined}
+        data-busy={(phase !== 'idle' && phase !== 'holding') || undefined}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={`${IMG}/base.webp`} alt="" width={1151} height={709} loading="lazy" decoding="async" style={pos(0, 0, 1151, 709)} />
+
+        <div ref={inkWrapRef} className={b.inkWrap} style={pos(INK.x, INK.y, INK.w, INK.h)}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className={b.inkFallback} src={`${IMG}/tinta.webp`} alt="" width={891.5} height={532} loading="lazy" decoding="async" />
+          <canvas ref={inkCanvasRef} role="img" aria-label={alt} />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className={b.grain} src={`${IMG}/grao.webp`} alt="" width={891.5} height={532} loading="lazy" decoding="async" />
+        </div>
+
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          className={b.cordRest}
+          src={`${IMG}/cordao.webp`}
+          alt=""
+          width={CORD_REST.w}
+          height={CORD_REST.h}
+          loading="lazy"
+          decoding="async"
+          style={pos(CORD_REST.x, CORD_REST.y, CORD_REST.w, CORD_REST.h)}
+        />
+
+        <div
+          ref={knobRef}
+          className={b.knob}
+          style={pos(KNOB.x, KNOB.y, KNOB.w, KNOB.h)}
+          role="slider"
+          tabIndex={0}
+          aria-label={eraserLabel}
+          aria-orientation="horizontal"
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={0}
+          aria-disabled={!canErase(state) || undefined}
+          onPointerDown={onKnobDown}
+          onPointerMove={onKnobMove}
+          onPointerUp={onKnobUp}
+          onPointerCancel={onKnobUp}
+          onKeyDown={onKnobKey}
+        />
+
+        <canvas ref={cordCanvasRef} className={b.cordCanvas} style={pos(CORD_CANVAS.x, CORD_CANVAS.y, CORD_CANVAS.w, CORD_CANVAS.h)} aria-hidden />
+
+        <div
+          ref={penRef}
+          className={b.pen}
+          style={pos(PEN.x, PEN.y, PEN.w, PEN.h)}
+          aria-hidden
+          onPointerDown={onPenDown}
+          onPointerMove={onPenMove}
+          onPointerUp={onPenUp}
+          onPointerCancel={onPenUp}
+        >
+          {/* caneta (201:465), SVG do Figma */}
+          <svg viewBox="0 0 50.2395 395" fill="none">
+            <path d="M23.174 18.4229C23.4203 16.0894 26.817 16.0894 27.0633 18.4229L31.3109 58.6634H18.9264L23.174 18.4229Z" fill="#FFFFFB" />
+            <path d="M0.0259531 67.7889H50.2157V371.535C50.2157 384.494 39.7099 395 26.7504 395H23.4913C10.5317 395 0.0259531 384.494 0.0259531 371.535V67.7889Z" fill="#FADAE7" />
+            <path d="M20.3263 25.5346C22.1315 21.3187 28.1081 21.3187 29.9133 25.5346L50.2395 73.0034H5.19245e-05L20.3263 25.5346Z" fill="#FADAE7" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+}

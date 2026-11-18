@@ -1259,7 +1259,13 @@
       "title": "hora do desenho",
       "text": "Minha mesinha lembra uma brinquedoteca. Cada dia escolho um brinquedo, e é brincando que eu aprendo.",
       "boardAlt": "Lousa mágica rosa com desenhinhos de tartaruga, polvo, peixe, alga, bolhas e baiacu",
-      "toolsAlt": "Blocos com os ícones das ferramentas que uso: Blender, After Effects, InDesign, Figma, Clip Studio Paint, Animate, Photoshop e Illustrator"
+      "drawnAlt": "Lousa mágica rosa com o ícone do {name} desenhado",
+      "blocksLabel": "Blocos das ferramentas que uso. Vire um bloco e escolha a ferramenta para a caneta desenhar na lousa.",
+      "flip": "Virar o bloco {n}",
+      "draw": "Desenhar o ícone do {name} na lousa",
+      "drawing": "Desenhando o ícone do {name}…",
+      "eraser": "Bolinha da lousa: arraste para apagar",
+      "locked": "Escolha uma ferramenta nos blocos primeiro"
     },
     "gallery": {
       "title": "life gallery",

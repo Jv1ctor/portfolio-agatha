@@ -1,10 +1,12 @@
 import type { Dictionary } from "@/i18n/dictionaries";
 import { at } from "./layout";
+import { DrawingPlayground } from "./board/DrawingPlayground";
 import s from "./career.module.css";
 
 /**
  * "hora do desenho" (201:360): tartaruga (201:324, atrás do título — PNG com alfa),
  * lousa mágica (201:413), parágrafo (201:531) e os cubos das ferramentas (201:621).
+ * A lousa e os cubos são a brincadeira do `DrawingPlayground` (spec, Emenda 3).
  */
 export function CareerDrawing({ dict }: { dict: Dictionary }) {
   const drawing = dict.career.drawing;
@@ -28,31 +30,11 @@ export function CareerDrawing({ dict }: { dict: Dictionary }) {
           {drawing.title}
         </h2>
       </div>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src="/images/carreira/lousa.webp"
-        alt={drawing.boardAlt}
-        width={1151}
-        height={709}
-        loading="lazy"
-        decoding="async"
-        className={`${s.a} ${s.board}`}
-        style={at(104, 4750, 1151)}
-      />
-      <p className={`${s.a} ${s.text}`} style={at(1296, 4710, 295)}>
-        {drawing.text}
-      </p>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src="/images/carreira/ferramentas.webp"
-        alt={drawing.toolsAlt}
-        width={272}
-        height={510}
-        loading="lazy"
-        decoding="async"
-        className={`${s.a} ${s.tools}`}
-        style={at(1297, 4913, 272)}
-      />
+      <DrawingPlayground labels={drawing}>
+        <p className={`${s.a} ${s.text}`} style={at(1296, 4710, 295)}>
+          {drawing.text}
+        </p>
+      </DrawingPlayground>
     </section>
   );
 }

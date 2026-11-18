@@ -1271,7 +1271,13 @@
       "title": "drawing time",
       "text": "My little desk looks like a playroom. Every day I pick a toy, and I learn by playing.",
       "boardAlt": "Pink magic drawing board with doodles of a turtle, an octopus, a fish, seaweed, bubbles and a pufferfish",
-      "toolsAlt": "Blocks with the icons of the tools I use: Blender, After Effects, InDesign, Figma, Clip Studio Paint, Animate, Photoshop and Illustrator"
+      "drawnAlt": "Pink magic drawing board with the {name} icon drawn on it",
+      "blocksLabel": "Blocks with the tools I use. Flip a block and pick a tool for the pen to draw on the board.",
+      "flip": "Flip block {n}",
+      "draw": "Draw the {name} icon on the board",
+      "drawing": "Drawing the {name} icon…",
+      "eraser": "Board knob: drag to erase",
+      "locked": "Pick a tool from the blocks first"
     },
     "gallery": {
       "title": "life gallery",

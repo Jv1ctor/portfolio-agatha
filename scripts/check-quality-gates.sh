@@ -1201,10 +1201,42 @@ console.log('ok');
     echo "$HARDCODED_9" | head -10
   fi
 
-  log_sub "Motion: only the knitting scene animates, with a reduced-motion fallback..."
+  log_sub "Motion: knitting scene and drawing board, each with a reduced-motion fallback..."
   head -n 3 components/career/KnittingDoll.tsx | grep -qE "^['\"]use client['\"]" && log_pass "  KnittingDoll is a Client Component" || log_fail "  KnittingDoll without 'use client'"
   grep -q "prefers-reduced-motion: reduce" components/career/knitting.module.css && log_pass "  knitting.module.css has a reduced-motion block" || log_fail "  knitting.module.css without reduced-motion block"
   grep -q "prefers-reduced-motion" components/career/layout.tsx && log_pass "  GIF loops fall back to their first frame" || log_fail "  Loop without reduced-motion <source>"
+
+  # Lousa mágica + blocos (spec, Emenda 3)
+  log_sub "Drawing board (lousa mágica) and tool blocks..."
+  for f in DrawingPlayground MagicBoard ToolBlocks; do
+    head -n 3 "components/career/board/$f.tsx" | grep -qE "^['\"]use client['\"]" && log_pass "  board/$f is a Client Component" || log_fail "  board/$f without 'use client'"
+  done
+  for f in base.webp tinta.webp grao.webp cordao.webp pincel.png caneta.svg; do
+    [ -f "public/images/carreira/lousa/$f" ] || { log_fail "  public/images/carreira/lousa/$f missing"; missing=1; }
+  done
+  for t in $(grep -oE "TOOLS = \[[^]]+\]" components/career/board/glyphs.ts | grep -oE "'[a-z]+'" | tr -d "'"); do
+    for f in "$t.svg" "$t-verso.svg"; do
+      [ -f "public/images/carreira/blocos/$f" ] || { log_fail "  public/images/carreira/blocos/$f missing"; missing=1; }
+    done
+  done
+  [ $missing -eq 0 ] && log_pass "  Board layers and the 8 blocks (front + back) exist"
+  grep -q "prefers-reduced-motion: reduce" components/career/board/blocks.module.css && log_pass "  blocks.module.css has a reduced-motion block" || log_fail "  blocks.module.css without reduced-motion block"
+  grep -q "reducedMotion()" components/career/board/MagicBoard.tsx && log_pass "  MagicBoard draws/erases instantly with reduced motion" || log_fail "  MagicBoard ignores reduced motion"
+  grep -q "useSyncExternalStore" components/career/board/DrawingPlayground.tsx && log_pass "  Blocks start face-down only after hydration (server renders the Figma)" || log_fail "  DrawingPlayground arms the blocks without useSyncExternalStore"
+  if node -e "
+const pt = require('./dictionaries/pt-BR.json').career.drawing, en = require('./dictionaries/en.json').career.drawing;
+const need = { drawnAlt: '{name}', draw: '{name}', drawing: '{name}', flip: '{n}' };
+for (const [k, ph] of Object.entries(need)) for (const d of [pt, en]) if (!d[k] || !d[k].includes(ph)) { console.error(k + ' without ' + ph); process.exit(1); }
+"; then
+    log_pass "  career.drawing placeholders ({name}, {n}) in both languages"
+  else
+    log_fail "  career.drawing placeholder missing"
+  fi
+  if pnpm exec vitest run components/career/board > /tmp/gate9-vitest.log 2>&1; then
+    log_pass "  vitest: board machine, geometry and glyphs ($(grep -E 'Tests ' /tmp/gate9-vitest.log | grep -oE '[0-9]+ passed'))"
+  else
+    log_fail "  vitest failed (see /tmp/gate9-vitest.log)"
+  fi
 
   # ----------------------------------------------------------
   # Runtime (GATE_BASE_URL or :3000) — SKIP if nothing answers
