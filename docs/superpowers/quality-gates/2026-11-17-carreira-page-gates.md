@@ -26,10 +26,34 @@ Spec: `docs/superpowers/specs/2026-11-17-carreira-page-design.md`.
     - o HTML tem o h1, os pills, "vidinha", `hrefLang` en/x-default e o voltar ao topo
     - a home tem o link para `/pt-BR/carreira`
 
+  - **Lousa mágica e blocos (Emenda 3):**
+    - `DrawingPlayground`, `MagicBoard` e `ToolBlocks` são Client Components
+    - existem as camadas em `public/images/carreira/lousa/` e frente + verso dos 8 blocos em
+      `public/images/carreira/blocos/`
+    - há bloco de movimento reduzido no `blocks.module.css` e `reducedMotion()` na lousa
+    - os blocos só ficam de verso depois da hidratação (`useSyncExternalStore`)
+    - os placeholders `{name}`/`{n}` de `career.drawing` existem nos dois idiomas
+    - `vitest` passa (máquina de estados, geometria da régua e da caneta, glifos dentro da
+      tela e contínuos)
+
 Ordem (memória do repo): 3/4/6/8/9 sem servidor e, depois de
 `pnpm build && pnpm start -p 3000`, 5/7/8/9.
 
 ## Manuais (feitos na entrega)
+
+- **Lousa e blocos (Emenda 3), Playwright:**
+  - **Repouso a 1728:** lousa com MAE 0.39/255 contra o recorte do Figma e blocos com 2.9 em
+    movimento reduzido. De verso a diferença é só a pedida.
+  - **Clicar num bloco:** ele gira e o label vira "Desenhar o ícone do …".
+  - **Clicar de novo:** a bolinha varre e a tela fica vazia, a caneta desenha (sai tinta na
+    caixa do ícone) e volta ao suporte com o `transform` vazio.
+  - **Antes do 1º desenho:** arrastar a bolinha não apaga, os blocos balançam e a região viva
+    avisa.
+  - **Depois:** arrastar a bolinha até o meio zera a metade esquerda, e arrastar a caneta
+    sobre a tela deixa tinta.
+  - **Teclado:** Tab no bloco, Enter vira, Enter desenha. Setas na bolinha apagam aos poucos
+    e End apaga tudo.
+  - **As 8 grafias:** folha de capturas para a Ágatha revisar.
 
 - **1728, movimento reduzido:** recortes contra o render 1:1 do Figma, com MAE ≤ 2.8/255 por
   região (o footer compartilhado fica em 6.0, diferença conhecida).

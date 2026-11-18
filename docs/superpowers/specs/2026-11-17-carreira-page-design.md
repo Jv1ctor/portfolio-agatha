@@ -142,6 +142,85 @@ também".
 - **Movimento reduzido:** nada se mexe e fica o 1º quadro.
 - **Removido:** `olhar-static.webp`, que não era usado (o 1º quadro já está na faixa).
 
+## Emenda 3 — lousa mágica e blocos das ferramentas (2026-11-18)
+
+**Pedido:**
+- Os cubos das ferramentas (201:621) começam virados para trás. Um clique gira o cubo e revela a
+  ferramenta.
+- Um clique na ferramenta revelada faz a caneta da lousa (201:413) sair sozinha e desenhar o
+  ícone dela, cada um com uma grafia própria.
+- Depois do primeiro desenho, dá para apagar puxando a bolinha do trilho e para segurar a caneta
+  e desenhar.
+
+**Decisões com o André:**
+- **O verso** é o mesmo cubo com a face lisa (sem o ícone).
+- **Antes de cada desenho a bolinha apaga a lousa sozinha** (vai até o fim do trilho e volta).
+- **O traço** é o azul de giz dos rabiscos do Figma.
+- **Exceção de fidelidade:**
+  - Em repouso, os cubos ficam de verso.
+  - Sem JS ou com movimento reduzido, aparecem revelados (o Figma).
+  - A lousa em repouso é o Figma.
+
+**Como foi feito** (`components/career/board/`):
+- **Camadas da lousa** (sistema "B" = frame + (−5, +6), ver `geometry.ts`). São recortes do
+  render 2x (o `lousa.webp` de antes), e o conjunto recompõe o Figma com MAE 0.19/255:
+  - `base.webp`: tela branca e suporte vazio. O suporte é repintado com o SVG do 201:462 sem a
+    caneta e sem o cordão, só na área do recesso, porque os cantos do SVG não seguem o recorte
+    da lousa. A bolinha é coberta com o trilho deslocado.
+  - `tinta.webp`: os 6 rabiscos rasterizados dos SVGs do Figma.
+  - `grao.webp`: o grão rosa da tela. Ele fica **por cima** da tinta (no Figma, os pontinhos
+    rosa cobrem os rabiscos). O alfa foi desmisturado do branco + tinta, com MAE 0.29.
+  - `cordao.webp`: o cordão em repouso.
+  - Caneta e bolinha: a caneta é o SVG do Figma, chapado. A bolinha é uma `div` `#F9F3EA` com
+    raio 11.
+- **O pincel** é o carimbo `stroke0` dos rabiscos do Figma (`pincel.png`). Na máscara do
+  Figma ele vai na escala 0.0321794 (11.75px), com rotação aleatória, na cor `#B7CAEA`. O
+  cordão em movimento usa o mesmo carimbo em `#FFF6E7`, com 18px.
+- **A tinta** é um canvas com log de operações (imagem, traço com semente, faixa apagada). No
+  resize ele é refeito nítido. Apagar é `destination-out` com borda macia, e a varredura
+  completa esvazia o log.
+- **Os cubos** são o SVG do Figma numa caixa de 125.897 × 144.398 girada 24.72° (do
+  `get_design_context` do 201:621). A metadata dá o x do wrapper com 60.5 a mais, e isso foi
+  registrado contra o render (MAE 1.3/255). O verso é o mesmo SVG só com as faces
+  `Ellipse 452/453/454`. O giro é `rotateY` num card 3D com `backface-visibility`.
+- **Sequência** (`machine.ts`, testada no vitest):
+  - Com um desenho: idle → erasing → drawing → returning → idle.
+  - Com a caneta na mão: idle → holding → returning → idle.
+  - Escolher outra ferramenta no meio é ignorado.
+- **Interação:**
+  - Pointer events com captura. `touch-action: none` só na caneta e na bolinha, para a
+    rolagem do celular continuar.
+  - A bolinha é `role="slider"`: setas, PageUp/PageDown, Home e End apagam.
+  - Os cubos são botões com label traduzido.
+  - Uma região viva anuncia o desenho. Bolinha e caneta bloqueadas fazem os cubos de verso
+    balançarem e anunciam "escolha uma ferramenta primeiro".
+- **Movimento reduzido:** os cubos já vêm revelados, o clique apaga e desenha na hora, e a
+  bolinha e a caneta manuais continuam funcionando.
+- **Fidelidade a 1728, em repouso:**
+  - Lousa: MAE 0.39/255.
+  - Blocos com movimento reduzido: 2.9/255.
+  - Blocos de verso: 14.1/255, que é a diferença pedida (os ícones escondidos).
+- **Removidos:** `lousa.webp` e `ferramentas.webp` (substituídos pelas camadas).
+
+**Grafias (minha escolha, para a Ágatha revisar):**
+- **Blender:** o anel com o "olho" e as três hastes.
+- **Figma:** as cinco formas, uma a uma.
+- **Clip Studio Paint:** a espiral num traço só, terminando na pena.
+- **Ae, Id, An, Ps, Ai:** o quadradinho do app mais as letras, cada um com um estilo:
+  - Ae: bolhuda.
+  - Id: bastão com serifa, num quadrado de canto vivo.
+  - An: com risquinhos de movimento.
+  - Ps: cursiva.
+  - Ai: pontuda, com estrelinha no pingo.
+
+As grafias são polilinhas em `glyphs.ts`, com um tremor de mão determinístico.
+
+**Outras escolhas minhas:**
+- A caneta desenha a ~650 px/s e fica girada −155° na mão (ponta para baixo à esquerda,
+  corpo subindo para o suporte). Quem segura a caneta desenha com a ponta no ponteiro.
+- Ao soltar a caneta, ela volta ao suporte.
+- A bolinha fica onde é solta.
+
 ## Minhas escolhas (para revisão)
 
 - **Abaixo de 1024px:** uma coluna. As faixas continuam proporcionais, porque são arte. Os
