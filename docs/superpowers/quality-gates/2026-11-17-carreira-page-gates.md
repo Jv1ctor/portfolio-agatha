@@ -34,7 +34,7 @@ Spec: `docs/superpowers/specs/2026-11-17-carreira-page-design.md`.
     - os blocos só ficam de verso depois da hidratação (`useSyncExternalStore`)
     - os placeholders `{name}`/`{n}` de `career.drawing` existem nos dois idiomas
     - `vitest` passa (máquina de estados, geometria da régua e da caneta, glifos dentro da
-      tela e contínuos)
+      tela e contínuos; Emenda 4: faixa = régua, suporte e limites da caneta na mão)
 
 Ordem (memória do repo): 3/4/6/8/9 sem servidor e, depois de
 `pnpm build && pnpm start -p 3000`, 5/7/8/9.
@@ -51,6 +51,16 @@ Ordem (memória do repo): 3/4/6/8/9 sem servidor e, depois de
     avisa.
   - **Depois:** arrastar a bolinha até o meio zera a metade esquerda, e arrastar a caneta
     sobre a tela deixa tinta.
+  - **Emenda 4:**
+    - Um clique na caneta a deixa na mão (`data-holding`). Passar o mouse sem botão não deixa
+      tinta, e segurar o botão e arrastar deixa. A caneta continua na mão depois de soltar o
+      botão.
+    - Um clique no suporte a guarda, com o `transform` vazio e o cordão de repouso.
+    - A faixa acompanha a bolinha (erro < 0.01 px de design). No fim do trilho, a borda
+      direita fica em 972.5 e a tinta zera. Home volta ao repouso.
+    - Medido a 1728: 3/3 traços completos e 0 de tinta passando o mouse.
+    - **Ao testar, não mexa no mouse real sobre a janela do Playwright.** Os `pointermove`
+      dele (mesmo `pointerId`, sem botão) encerram o traço.
   - **Teclado:** Tab no bloco, Enter vira, Enter desenha. Setas na bolinha apagam aos poucos
     e End apaga tudo.
   - **As 8 grafias:** folha de capturas para a Ágatha revisar.

@@ -1211,7 +1211,7 @@ console.log('ok');
   for f in DrawingPlayground MagicBoard ToolBlocks; do
     head -n 3 "components/career/board/$f.tsx" | grep -qE "^['\"]use client['\"]" && log_pass "  board/$f is a Client Component" || log_fail "  board/$f without 'use client'"
   done
-  for f in base.webp tinta.webp grao.webp cordao.webp pincel.png caneta.svg; do
+  for f in base.webp tinta.webp grao.webp cordao.webp faixa.webp pincel.png caneta.svg; do
     [ -f "public/images/carreira/lousa/$f" ] || { log_fail "  public/images/carreira/lousa/$f missing"; missing=1; }
   done
   for t in $(grep -oE "TOOLS = \[[^]]+\]" components/career/board/glyphs.ts | grep -oE "'[a-z]+'" | tr -d "'"); do

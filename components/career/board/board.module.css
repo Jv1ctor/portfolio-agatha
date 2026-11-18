@@ -54,6 +54,25 @@
   pointer-events: none;
 }
 
+/* ---------- faixa bege (201:474): a régua que anda com a bolinha ---------- */
+/* a tela que a faixa descobre: branco com o mesmo grão rosa (as 1as colunas do grao.webp) */
+.underStrip {
+  background: #fff url('/images/carreira/lousa/grao.webp') 0 0 / calc(var(--s) * 891.5) calc(var(--s) * 532) no-repeat;
+}
+.stripTrack {
+  overflow: hidden;
+  pointer-events: none;
+  border-radius: 0 calc(var(--s) * 16.254) calc(var(--s) * 16.254) 0;
+}
+.stripTrack .strip {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: calc(var(--s) * 32);
+  height: 100%;
+  max-width: none;
+}
+
 /* ---------- cordão ---------- */
 .cordRest,
 .cordCanvas {
@@ -98,8 +117,21 @@
   height: 100%;
   overflow: visible;
 }
+/* caneta na mão: a ponta é o cursor; a caneta não pega cliques (eles vão para a lousa,
+   que desenha, ou para o suporte, que a guarda) e o toque desenha em vez de rolar */
+.holder {
+  pointer-events: none;
+}
+.stage[data-holding] {
+  cursor: none;
+  touch-action: none;
+}
 .stage[data-holding] .pen {
-  cursor: grabbing;
+  pointer-events: none;
+}
+.stage[data-holding] .holder {
+  pointer-events: auto;
+  cursor: pointer;
 }
 .stage[data-busy] .pen,
 .stage[data-busy] .knob {

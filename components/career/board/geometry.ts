@@ -32,6 +32,12 @@ export const PEN_REST = { x: PEN.x + PEN.tip.x, y: PEN.y + PEN.tip.y, rot: 0, li
 /** Caneta na mão: ponta para baixo e para a esquerda, corpo subindo para o suporte. */
 export const PEN_HELD_ROT = -155;
 
+/**
+ * Até onde vai a ponta da caneta na mão (ela segue o ponteiro pela página): com
+ * PEN_HELD_ROT o pé fica em ponta + (160, −343), e assim não sai do canvas do cordão.
+ */
+export const HELD_BOUNDS = { x0: -40, x1: 1070, y0: -40, y1: BOARD_H } as const;
+
 /** Cordão (Vector 1386): recorte em repouso e ponto onde ele sai da lousa. */
 export const CORD_REST = { x: 1033, y: 476, w: 36, h: 211 } as const;
 export const CORD_ANCHOR: Pt = { x: 1049.5, y: 687 };
@@ -45,22 +51,44 @@ export const CORD_SPACING = 5.5;
 /** Bolinha (201:473): 29 × 39, raio 11, em frame (67, 619); corre no trilho 201:471. */
 export const KNOB = { x: 62, y: 625, w: 29, h: 39, radius: 11, min: 62, max: 931 } as const;
 
+/**
+ * Faixa bege (201:474) = a régua da lousa mágica: em repouso encosta na borda esquerda da
+ * tela; com a bolinha, atravessa a tela e apaga o que fica embaixo dela. Recorte do render
+ * 2x (faixa.webp, 64 × 1066), 1px mais alta que a tela branca embaixo, como no Figma.
+ */
+export const STRIP = { x: 49, y: 68, w: 32, h: 533 } as const;
+/** Por onde a faixa corre: da posição de repouso até o fim da tela (cantos direitos redondos). */
+export const STRIP_TRACK = { x: STRIP.x, y: STRIP.y, w: INK.x + INK.w - STRIP.x, h: STRIP.h } as const;
+
+/** Suporte da caneta (recesso do 201:462): clicar nele com a caneta na mão guarda a caneta. */
+export const HOLDER = { x: 1016, y: 90, w: 68, h: 428 } as const;
+
 /** Pincel dos rabiscos: o carimbo "stroke0" do Figma (365 u) na escala 0.0321794. */
 export const INK_COLOR = '#B7CAEA';
 export const INK_STAMP = 365 * 0.0321794;
 export const INK_SPACING = 3;
-/** Largura da régua de apagar (metade) e da borda macia, em px de design. */
-export const ERASE_HALF = 10;
-export const ERASE_FEATHER = 8;
+/** Meia largura da régua de apagar (= a faixa) e da borda macia, em px de design. */
+export const ERASE_HALF = STRIP.w / 2;
+export const ERASE_FEATHER = 4;
+
+/** Quanto a faixa andou para a direita: 0 com a bolinha no início do trilho, INK.w no fim. */
+export function stripShift(knobLeft: number): number {
+  const t = (clamp(knobLeft, KNOB.min, KNOB.max) - KNOB.min) / (KNOB.max - KNOB.min);
+  return t * INK.w;
+}
 
 /**
- * Posição da bolinha → coluna da tela que a régua apaga. A régua acompanha a bolinha de
- * ponta a ponta do trilho e passa um pouco das bordas da tela, para não deixar sobra.
+ * Posição da bolinha → centro da coluna da tela que a régua apaga: exatamente onde a faixa
+ * está, então a tinta some embaixo dela. Em repouso a faixa fica fora da tinta (x < 0) e no
+ * fim do trilho cobre a última coluna (x = INK.w).
  */
 export function knobToInkX(knobLeft: number): number {
-  const t = (clamp(knobLeft, KNOB.min, KNOB.max) - KNOB.min) / (KNOB.max - KNOB.min);
-  return -ERASE_HALF + t * (INK.w + 2 * ERASE_HALF);
+  return STRIP.x + STRIP.w / 2 - INK.x + stripShift(knobLeft);
 }
+
+/** O ponto (em B) está sobre o suporte da caneta? */
+export const onHolder = (p: Pt): boolean =>
+  p.x >= HOLDER.x && p.x <= HOLDER.x + HOLDER.w && p.y >= HOLDER.y && p.y <= HOLDER.y + HOLDER.h;
 
 export function clamp(v: number, lo: number, hi: number): number {
   return Math.min(hi, Math.max(lo, v));

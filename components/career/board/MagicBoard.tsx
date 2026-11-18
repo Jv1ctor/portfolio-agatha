@@ -6,17 +6,23 @@ import {
   CORD_ANCHOR,
   CORD_CANVAS,
   CORD_REST,
+  HELD_BOUNDS,
+  HOLDER,
   INK,
   KNOB,
   PEN,
   PEN_HELD_ROT,
   PEN_REST,
+  STRIP,
+  STRIP_TRACK,
   boardToInk,
   clamp,
   inkToBoard,
   insideInk,
   knobToInkX,
+  onHolder,
   penFoot,
+  stripShift,
   type Pt,
 } from './geometry';
 import { glyph } from './glyphs';
@@ -31,8 +37,12 @@ import b from './board.module.css';
  *  1. base.webp — corpo, trilho, faixa bege e suporte vazios; a tela branca;
  *  2. a tinta (canvas) — começa com os rabiscos do Figma (tinta.webp) e recebe os traços;
  *  3. o grão rosa da tela (grao.webp), por cima da tinta, como no Figma;
- *  4. o cordão (recorte em repouso; canvas quando a caneta sai) e a bolinha (#F9F3EA);
- *  5. a caneta (SVG do Figma), que gira em torno da ponta.
+ *  4. a faixa bege (faixa.webp), a régua: anda com a bolinha e apaga o que fica embaixo;
+ *  5. o cordão (recorte em repouso; canvas quando a caneta sai) e a bolinha (#F9F3EA);
+ *  6. a caneta (SVG do Figma), que gira em torno da ponta.
+ *
+ * A caneta na mão: um clique nela a tira do suporte e a ponta passa a seguir o ponteiro;
+ * só sai tinta com o botão apertado; um clique no suporte (ou Esc) a guarda de volta.
  *
  * O HTML do servidor é o Figma; o canvas só assume depois de pintar os rabiscos.
  */
@@ -69,13 +79,16 @@ export function MagicBoard({
   const cordCanvasRef = useRef<HTMLCanvasElement>(null);
   const penRef = useRef<HTMLDivElement>(null);
   const knobRef = useRef<HTMLDivElement>(null);
+  const stripRef = useRef<HTMLImageElement>(null);
 
   const engine = useRef<Promise<{ ink: Ink; cord: CordPainter } | null> | null>(null);
   const live = useRef<{ ink: Ink; cord: CordPainter } | null>(null);
   const pose = useRef<Pose>({ ...PEN_REST });
   const knobX = useRef<number>(KNOB.min);
   const scale = useRef(1);
-  const drag = useRef<{ kind: 'pen' | 'knob'; id: number; offset: number; drawing: boolean } | null>(null);
+  const knobDrag = useRef<{ id: number; offset: number } | null>(null);
+  /** traço com a caneta na mão: o ponteiro que apertou e se a tinta já está saindo */
+  const penStroke = useRef<{ id: number; inking: boolean } | null>(null);
 
   // ---------- aplicar pose/posição no DOM (fora do React: 60 fps) ----------
   const applyPen = () => {
@@ -100,6 +113,8 @@ export function MagicBoard({
     if (!knob) return;
     const x = knobX.current;
     knob.style.transform = x === KNOB.min ? '' : `translateX(${(x - KNOB.min) * scale.current}px)`;
+    const strip = stripRef.current;
+    if (strip) strip.style.transform = x === KNOB.min ? '' : `translateX(${stripShift(x) * scale.current}px)`;
     knob.setAttribute('aria-valuenow', String(Math.round(((x - KNOB.min) / (KNOB.max - KNOB.min)) * 100)));
   };
 
@@ -276,48 +291,109 @@ export function MagicBoard({
     return { x: ((e.clientX - r.left) * BOARD_W) / r.width, y: ((e.clientY - r.top) * BOARD_W) / r.width };
   };
 
+  /** A ponta da caneta na mão vai para o ponteiro: quem segura a caneta desenha com a ponta. */
+  const holdAt = (p: Pt) => {
+    pose.current = {
+      x: clamp(p.x, HELD_BOUNDS.x0, HELD_BOUNDS.x1),
+      y: clamp(p.y, HELD_BOUNDS.y0, HELD_BOUNDS.y1),
+      rot: PEN_HELD_ROT,
+      lift: 1,
+    };
+  };
+
+  /** Tinta no ponto (em B), só dentro da tela; sair da tela interrompe o traço. */
+  const inkAt = (p: Pt, s: { inking: boolean }) => {
+    const ink = live.current?.ink;
+    if (!ink) return;
+    const q = boardToInk(p);
+    if (insideInk(q)) {
+      if (s.inking) ink.extend(q);
+      else {
+        ink.beginStroke(q);
+        s.inking = true;
+      }
+    } else if (s.inking) {
+      ink.endStroke();
+      s.inking = false;
+    }
+  };
+
+  const endPenStroke = () => {
+    if (penStroke.current?.inking) live.current?.ink.endStroke();
+    penStroke.current = null;
+  };
+
+  const putPenBack = () => {
+    endPenStroke();
+    dispatch({ type: 'release' });
+  };
+
+  // um clique na caneta (no suporte) a tira de lá; ela fica na mão até voltar ao suporte
   const onPenDown = (e: PointerEvent<HTMLDivElement>) => {
-    if (phase !== 'idle') return;
+    if (phase !== 'idle' || e.button !== 0) return;
     if (!state.unlocked) return onLocked();
     if (!live.current) return;
     e.preventDefault();
-    e.currentTarget.setPointerCapture(e.pointerId);
-    drag.current = { kind: 'pen', id: e.pointerId, offset: 0, drawing: false };
     dispatch({ type: 'grab' });
-    // a ponta vai para o ponteiro: quem segura a caneta desenha com a ponta
-    const p = toBoard(e);
-    pose.current = { x: p.x, y: p.y, rot: PEN_HELD_ROT, lift: 1 };
+    holdAt(toBoard(e));
     applyPen();
   };
 
-  const onPenMove = (e: PointerEvent<HTMLDivElement>) => {
-    const d = drag.current, ink = live.current?.ink;
-    if (!d || d.kind !== 'pen' || d.id !== e.pointerId || !ink) return;
-    const events = e.nativeEvent.getCoalescedEvents?.() ?? [];
-    for (const ev of events.length ? events : [e.nativeEvent]) {
-      const p = toBoard(ev);
-      pose.current = { x: p.x, y: p.y, rot: PEN_HELD_ROT, lift: 1 };
-      const q = boardToInk(p);
-      if (insideInk(q)) {
-        if (d.drawing) ink.extend(q);
-        else {
-          ink.beginStroke(q);
-          d.drawing = true;
-        }
-      } else if (d.drawing) {
-        ink.endStroke();
-        d.drawing = false;
+  // com a caneta na mão: a ponta segue o ponteiro pela página (e na rolagem); Esc a guarda
+  useEffect(() => {
+    if (phase !== 'holding') return;
+    let last: { clientX: number; clientY: number } | null = null;
+    const follow = (e: globalThis.PointerEvent) => {
+      const s = penStroke.current;
+      const mine = s !== null && s.id === e.pointerId;
+      const pressed = mine && (e.buttons & 1) === 1;
+      if (mine && !pressed) endPenStroke(); // soltou fora da página
+      const events = pressed ? (e.getCoalescedEvents?.() ?? []) : [];
+      for (const ev of events.length ? events : [e]) {
+        const p = toBoard(ev);
+        holdAt(p);
+        if (pressed && s) inkAt(p, s);
       }
-    }
+      last = { clientX: e.clientX, clientY: e.clientY };
+      applyPen();
+    };
+    const onScroll = () => {
+      if (!last) return;
+      holdAt(toBoard(last));
+      applyPen();
+    };
+    const onKey = (e: globalThis.KeyboardEvent) => {
+      if (e.key === 'Escape') putPenBack();
+    };
+    window.addEventListener('pointermove', follow);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('keydown', onKey);
+    return () => {
+      window.removeEventListener('pointermove', follow);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('keydown', onKey);
+      endPenStroke();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phase]);
+
+  // com a caneta na mão: apertar o botão desenha; clicar no suporte guarda a caneta
+  const onStageDown = (e: PointerEvent<HTMLDivElement>) => {
+    if (phase !== 'holding' || e.button !== 0) return;
+    const p = toBoard(e);
+    if (onHolder(p)) return putPenBack();
+    e.preventDefault();
+    e.currentTarget.setPointerCapture(e.pointerId);
+    endPenStroke();
+    const s = { id: e.pointerId, inking: false };
+    penStroke.current = s;
+    holdAt(p);
+    inkAt(p, s);
     applyPen();
   };
 
-  const onPenUp = (e: PointerEvent<HTMLDivElement>) => {
-    const d = drag.current;
-    if (!d || d.kind !== 'pen' || d.id !== e.pointerId) return;
-    live.current?.ink.endStroke();
-    drag.current = null;
-    dispatch({ type: 'release' });
+  const onStageUp = (e: PointerEvent<HTMLDivElement>) => {
+    if (penStroke.current?.id === e.pointerId) endPenStroke();
   };
 
   const onKnobDown = (e: PointerEvent<HTMLDivElement>) => {
@@ -325,7 +401,7 @@ export function MagicBoard({
     if (!live.current) return;
     e.preventDefault();
     e.currentTarget.setPointerCapture(e.pointerId);
-    drag.current = { kind: 'knob', id: e.pointerId, offset: toBoard(e).x - knobX.current, drawing: false };
+    knobDrag.current = { id: e.pointerId, offset: toBoard(e).x - knobX.current };
   };
 
   const knobTo = (x: number) => {
@@ -338,13 +414,13 @@ export function MagicBoard({
   };
 
   const onKnobMove = (e: PointerEvent<HTMLDivElement>) => {
-    const d = drag.current;
-    if (!d || d.kind !== 'knob' || d.id !== e.pointerId) return;
+    const d = knobDrag.current;
+    if (!d || d.id !== e.pointerId) return;
     knobTo(toBoard(e).x - d.offset);
   };
 
   const onKnobUp = (e: PointerEvent<HTMLDivElement>) => {
-    if (drag.current?.kind === 'knob' && drag.current.id === e.pointerId) drag.current = null;
+    if (knobDrag.current?.id === e.pointerId) knobDrag.current = null;
   };
 
   const onKnobKey = (e: KeyboardEvent<HTMLDivElement>) => {
@@ -370,9 +446,16 @@ export function MagicBoard({
         data-locked={locked || undefined}
         data-holding={phase === 'holding' || undefined}
         data-busy={(phase !== 'idle' && phase !== 'holding') || undefined}
+        onPointerDown={onStageDown}
+        onPointerUp={onStageUp}
+        onPointerCancel={onStageUp}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={`${IMG}/base.webp`} alt="" width={1151} height={709} loading="lazy" decoding="async" style={pos(0, 0, 1151, 709)} />
+
+        {/* tela embaixo da faixa em repouso: aparece quando a faixa anda (1px a mais por baixo
+            da tinta, para a borda da faixa assada na base não vazar em escala fracionária) */}
+        <div className={b.underStrip} style={pos(STRIP.x, INK.y, STRIP.w + 1, INK.h)} />
 
         <div ref={inkWrapRef} className={b.inkWrap} style={pos(INK.x, INK.y, INK.w, INK.h)}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -380,6 +463,12 @@ export function MagicBoard({
           <canvas ref={inkCanvasRef} role="img" aria-label={alt} />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img className={b.grain} src={`${IMG}/grao.webp`} alt="" width={891.5} height={532} loading="lazy" decoding="async" />
+        </div>
+
+        {/* faixa bege (201:474): a régua, que corre por cima da tela junto com a bolinha */}
+        <div className={b.stripTrack} style={pos(STRIP_TRACK.x, STRIP_TRACK.y, STRIP_TRACK.w, STRIP_TRACK.h)} aria-hidden>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img ref={stripRef} className={b.strip} src={`${IMG}/faixa.webp`} alt="" width={STRIP.w} height={STRIP.h} loading="lazy" decoding="async" />
         </div>
 
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -415,16 +504,10 @@ export function MagicBoard({
 
         <canvas ref={cordCanvasRef} className={b.cordCanvas} style={pos(CORD_CANVAS.x, CORD_CANVAS.y, CORD_CANVAS.w, CORD_CANVAS.h)} aria-hidden />
 
-        <div
-          ref={penRef}
-          className={b.pen}
-          style={pos(PEN.x, PEN.y, PEN.w, PEN.h)}
-          aria-hidden
-          onPointerDown={onPenDown}
-          onPointerMove={onPenMove}
-          onPointerUp={onPenUp}
-          onPointerCancel={onPenUp}
-        >
+        {/* área do suporte: com a caneta na mão, um clique aqui a guarda */}
+        <div className={b.holder} style={pos(HOLDER.x, HOLDER.y, HOLDER.w, HOLDER.h)} aria-hidden />
+
+        <div ref={penRef} className={b.pen} style={pos(PEN.x, PEN.y, PEN.w, PEN.h)} aria-hidden onPointerDown={onPenDown}>
           {/* caneta (201:465), SVG do Figma */}
           <svg viewBox="0 0 50.2395 395" fill="none">
             <path d="M23.174 18.4229C23.4203 16.0894 26.817 16.0894 27.0633 18.4229L31.3109 58.6634H18.9264L23.174 18.4229Z" fill="#FFFFFB" />

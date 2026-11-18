@@ -1,6 +1,22 @@
 import { describe, expect, it } from 'vitest';
 import { boardReducer, initialBoardState, type BoardEvent, type BoardState } from './machine';
-import { INK, KNOB, PEN_HELD_ROT, PEN_REST, ERASE_HALF, knobToInkX, penFoot, insideInk } from './geometry';
+import {
+  INK,
+  KNOB,
+  PEN,
+  PEN_HELD_ROT,
+  PEN_REST,
+  ERASE_HALF,
+  STRIP,
+  STRIP_TRACK,
+  CORD_CANVAS,
+  HELD_BOUNDS,
+  knobToInkX,
+  onHolder,
+  penFoot,
+  insideInk,
+  stripShift,
+} from './geometry';
 import { TOOLS, glyph, strokeLength } from './glyphs';
 import { rng } from './ink';
 
@@ -50,10 +66,39 @@ describe('máquina da lousa', () => {
 
 describe('geometria', () => {
   it('a régua da bolinha cobre a tela inteira, de ponta a ponta do trilho', () => {
+    // em repouso ela não toca a tinta; no fim do trilho cobre a última coluna
     expect(knobToInkX(KNOB.min) + ERASE_HALF).toBeLessThanOrEqual(0);
-    expect(knobToInkX(KNOB.max) - ERASE_HALF).toBeGreaterThanOrEqual(INK.w);
+    expect(knobToInkX(KNOB.max) + ERASE_HALF).toBeGreaterThanOrEqual(INK.w);
     expect(knobToInkX(KNOB.min - 50)).toBe(knobToInkX(KNOB.min));
     for (let x = KNOB.min; x < KNOB.max; x += 37) expect(knobToInkX(x + 1)).toBeGreaterThan(knobToInkX(x));
+  });
+
+  it('a faixa bege anda com a bolinha e apaga exatamente o que fica embaixo dela', () => {
+    expect(STRIP.x + STRIP.w).toBe(INK.x); // em repouso encosta na tela, como no Figma
+    expect(stripShift(KNOB.min)).toBe(0);
+    expect(STRIP.x + stripShift(KNOB.max) + STRIP.w).toBe(STRIP_TRACK.x + STRIP_TRACK.w); // não sai da tela
+    expect(2 * ERASE_HALF).toBe(STRIP.w);
+    for (let x = KNOB.min; x <= KNOB.max; x += 53) {
+      const left = STRIP.x + stripShift(x) - INK.x; // borda esquerda da faixa, em coords da tinta
+      expect(knobToInkX(x) - ERASE_HALF).toBeCloseTo(left, 9);
+    }
+  });
+
+  it('a caneta na mão, em qualquer canto permitido, mantém o cordão dentro do canvas dele', () => {
+    for (const x of [HELD_BOUNDS.x0, HELD_BOUNDS.x1])
+      for (const y of [HELD_BOUNDS.y0, HELD_BOUNDS.y1]) {
+        const foot = penFoot({ x, y, rot: PEN_HELD_ROT });
+        expect(foot.x).toBeGreaterThanOrEqual(CORD_CANVAS.x);
+        expect(foot.x).toBeLessThanOrEqual(CORD_CANVAS.x + CORD_CANVAS.w);
+        expect(foot.y).toBeGreaterThanOrEqual(CORD_CANVAS.y);
+        expect(foot.y).toBeLessThanOrEqual(CORD_CANVAS.y + CORD_CANVAS.h);
+      }
+  });
+
+  it('o suporte da caneta envolve a caneta em repouso', () => {
+    expect(onHolder({ x: PEN.x + PEN.w / 2, y: PEN.y + PEN.h / 2 })).toBe(true);
+    expect(onHolder(PEN_REST)).toBe(true);
+    expect(onHolder({ x: INK.x + INK.w / 2, y: INK.y + INK.h / 2 })).toBe(false);
   });
 
   it('em repouso o pé da caneta fica embaixo da ponta; na mão, sobe para a direita', () => {

@@ -218,8 +218,39 @@ As grafias são polilinhas em `glyphs.ts`, com um tremor de mão determinístico
 **Outras escolhas minhas:**
 - A caneta desenha a ~650 px/s e fica girada −155° na mão (ponta para baixo à esquerda,
   corpo subindo para o suporte). Quem segura a caneta desenha com a ponta no ponteiro.
-- Ao soltar a caneta, ela volta ao suporte.
+- ~~Ao soltar a caneta, ela volta ao suporte.~~ Substituído pela Emenda 4.
 - A bolinha fica onde é solta.
+
+## Emenda 4 — caneta de clicar e faixa que apaga (2026-11-18)
+
+**Pedido do André:**
+- Um clique na caneta a pega; desenhar é segurar o botão esquerdo; um clique no suporte
+  ("o lugarzinho de guardar a caneta") a guarda de volta.
+- Ao apagar, a faixa bege da esquerda (201:474) anda junto com a bolinha, mostrando que é ela
+  que apaga.
+
+**Como foi feito:**
+- **Caneta** (`MagicBoard.tsx`), fase `holding` da máquina (que não mudou):
+  - O `pointerdown` na caneta em repouso faz `grab`, e a ponta vai para o ponteiro.
+  - Na mão, a ponta segue o ponteiro pela página (`pointermove` na `window`, e também na
+    rolagem). Ela fica limitada a `HELD_BOUNDS` para o cordão não sair do canvas dele. O
+    cursor do sistema some sobre a lousa, porque a ponta é o cursor.
+  - Só sai tinta entre `pointerdown` e `pointerup` na lousa, com captura. Mover sem botão
+    não desenha. O toque também funciona: tocar desenha e a lousa trava a rolagem só com a
+    caneta na mão.
+  - Um clique no suporte (`HOLDER`, o recesso do 201:462, com cursor de mãozinha) ou Esc faz
+    `release`, e a caneta volta animada.
+  - A caneta ignora cliques enquanto está na mão (`pointer-events: none`).
+- **Faixa** (`faixa.webp`): recorte **sem perda** do `base.webp` (2x, 64 × 1066 → B (49, 68,
+  32 × 533)). Em repouso fica em cima da faixa assada na base, então o repouso continua
+  idêntico ao Figma.
+  - Ela corre numa caixa com o recorte da tela (cantos direitos com raio 16.254) e anda
+    `stripShift(bolinha)`, de 0 a 891.5 (no fim do trilho encosta na borda direita da tela).
+  - A régua de apagar passou a ser exatamente a faixa (`ERASE_HALF = 16`, borda macia de 4).
+    A tinta some embaixo dela. O teste do vitest amarra faixa e régua.
+  - O que a faixa descobre à esquerda é branco com o grão rosa (as primeiras colunas do
+    `grao.webp`), 1px mais largo por baixo da tela para a borda assada não vazar em escala
+    fracionária.
 
 ## Minhas escolhas (para revisão)
 
