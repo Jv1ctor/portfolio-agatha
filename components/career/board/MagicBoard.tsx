@@ -28,6 +28,7 @@ import {
 import { glyph } from './glyphs';
 import { CordPainter, Ink } from './ink';
 import { canErase, type BoardEvent, type BoardState } from './machine';
+import { BoardSound } from './sound';
 import { easeOut, loop, tween } from './tween';
 import b from './board.module.css';
 
@@ -89,6 +90,8 @@ export function MagicBoard({
   const knobDrag = useRef<{ id: number; offset: number } | null>(null);
   /** traço com a caneta na mão: o ponteiro que apertou e se a tinta já está saindo */
   const penStroke = useRef<{ id: number; inking: boolean } | null>(null);
+  /** som da ponta riscando e da régua correndo (nasce no primeiro gesto na página) */
+  const sound = useRef<BoardSound | null>(null);
 
   // ---------- aplicar pose/posição no DOM (fora do React: 60 fps) ----------
   const applyPen = () => {
@@ -122,6 +125,8 @@ export function MagicBoard({
   useEffect(() => {
     const stage = stageRef.current!, inkCanvas = inkCanvasRef.current!, cordCanvas = cordCanvasRef.current!;
     let cancelled = false;
+    sound.current ??= new BoardSound();
+    const disarmSound = sound.current.arm();
     const load = (src: string) =>
       new Promise<HTMLImageElement>((resolve, reject) => {
         const img = new Image();
@@ -153,6 +158,7 @@ export function MagicBoard({
     return () => {
       cancelled = true;
       ro.disconnect();
+      disarmSound();
     };
   }, []);
 
@@ -165,6 +171,7 @@ export function MagicBoard({
         const x = from + (to - from) * e;
         ink.erase(knobToInkX(knobX.current), knobToInkX(x));
         knobX.current = x;
+        sound.current?.at('eraser', { x, y: 0 });
         applyKnob();
       },
       signal,
@@ -199,6 +206,7 @@ export function MagicBoard({
       d += SPEED * dt;
       while (i < stroke.length - 1 && cum[i + 1] <= d) ink.extend(stroke[++i]);
       const tip = inkToBoard(stroke[i]);
+      sound.current?.at('pen', tip);
       pose.current = { x: tip.x, y: tip.y, rot: PEN_HELD_ROT + 3 * Math.sin(d / 45), lift: 1 };
       applyPen();
       return i < stroke.length - 1;
@@ -226,9 +234,13 @@ export function MagicBoard({
         } else if (knobX.current !== KNOB.min && !(await moveKnob(KNOB.min, 400, ac.signal, e.ink))) return;
         e.ink.clear();
       }
+      sound.current?.up('eraser');
       if (!ac.signal.aborted) dispatch({ type: 'erased' });
     })();
-    return () => ac.abort();
+    return () => {
+      ac.abort();
+      sound.current?.up('eraser');
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase]);
 
@@ -257,6 +269,7 @@ export function MagicBoard({
           );
           if (!ok || !(await trace(strokes[n], ac.signal, e.ink))) return;
           e.ink.endStroke();
+          sound.current?.up('pen');
         }
       }
       if (!ac.signal.aborted) dispatch({ type: 'drawn' });
@@ -264,6 +277,7 @@ export function MagicBoard({
     return () => {
       ac.abort();
       live.current?.ink.endStroke();
+      sound.current?.up('pen');
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase, tool]);
@@ -312,15 +326,18 @@ export function MagicBoard({
         ink.beginStroke(q);
         s.inking = true;
       }
+      sound.current?.at('pen', p);
     } else if (s.inking) {
       ink.endStroke();
       s.inking = false;
+      sound.current?.up('pen');
     }
   };
 
   const endPenStroke = () => {
     if (penStroke.current?.inking) live.current?.ink.endStroke();
     penStroke.current = null;
+    sound.current?.up('pen');
   };
 
   const putPenBack = () => {
@@ -410,6 +427,7 @@ export function MagicBoard({
     const to = clamp(x, KNOB.min, KNOB.max);
     ink.erase(knobToInkX(knobX.current), knobToInkX(to));
     knobX.current = to;
+    sound.current?.at('eraser', { x: to, y: 0 });
     applyKnob();
   };
 
@@ -420,7 +438,9 @@ export function MagicBoard({
   };
 
   const onKnobUp = (e: PointerEvent<HTMLDivElement>) => {
-    if (knobDrag.current?.id === e.pointerId) knobDrag.current = null;
+    if (knobDrag.current?.id !== e.pointerId) return;
+    knobDrag.current = null;
+    sound.current?.up('eraser');
   };
 
   const onKnobKey = (e: KeyboardEvent<HTMLDivElement>) => {

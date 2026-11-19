@@ -144,3 +144,18 @@ describe('glifos', () => {
     expect([a(), a(), a()]).toEqual([b(), b(), b()]);
   });
 });
+
+describe('som da lousa', () => {
+  it('fica mudo parado e satura na velocidade de referência', async () => {
+    const { level } = await import('./sound');
+    expect(level(0, 900)).toBe(0);
+    expect(level(-5, 900)).toBe(0);
+    expect(level(Number.NaN, 900)).toBe(0);
+    expect(level(900, 900)).toBe(1);
+    expect(level(5000, 900)).toBe(1);
+    const slow = level(100, 900), mid = level(450, 900);
+    expect(slow).toBeGreaterThan(0);
+    expect(mid).toBeGreaterThan(slow);
+    expect(mid).toBeGreaterThan(0.5); // curva ^0.6: um traço lento já se ouve
+  });
+});
