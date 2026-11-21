@@ -259,3 +259,113 @@ As grafias são polilinhas em `glyphs.ts`, com um tremor de mão determinístico
   ficarem com ~5px. A colagem da gallery continua proporcional, com os textos no fluxo.
 - **Animação:** cerca de 3,5 s para o fio. As mãos fazem um círculo pequeno, em fase oposta.
 - **Textos em inglês:** rascunho para revisão da Ágatha.
+
+## Emenda 5 — Figma novo (226:56): trem, publicações, momentos e sobre (2026-11-21)
+
+**Pedido do André:** terminar a página pelo frame novo `226:56` (1728 × 10344), que
+substitui o 201:53. O trem é animado com os GIFs da Ágatha (a boneca passa por cima de cada
+card e, quando o trem chega, o card faz uma animação e ela dá tchau). Os cards dos
+"momentos memoráveis" passam de um lado para o outro, num carrossel infinito. O nome do dev
+é **André Garcia** (o Figma diz "André gracia").
+
+**Decisões com o André:**
+- **Escopo:** a página inteira pelo 226:56 (textos novos, ordem nova e 3 seções novas).
+- **Trem em loop contínuo,** pausando fora da tela. Com movimento reduzido fica o Figma.
+- **Links que faltam ficam preparados** em `lib/site.ts` (`career`): sem URL, o elemento
+  aparece sem link. São o link da publicação e os LinkedIns dos devs.
+  - O canal de música veio da anotação do Figma no 226:497 (id do canal no YouTube).
+- **GIFs viram vídeo:** os 6 GIFs (26 MB) ficam em `imports_figma/carreira-trem/` (local,
+  fora do git). Na página entra um MP4 só (3,7 MB).
+
+**O que mudou de lugar** (mesma arte, conferida contra o render novo):
+- **Boneca tricotando:** `+33, −1015`, MAE só na granulação.
+  - Os pills mudaram de posição (Estágio e Publicações) e de cor: texto #08488f cheio
+    (`CareerPill strong`).
+- **Lousa:** `+51.66, +2109.13`. **Blocos:** `+51.91, +2096.31`.
+- **Faixas:** azul em y 3000 (MAE 0.07) e rosa em y 4886.13 (0.94).
+  - O trem saiu da faixa azul e virou o `CareerTrain`.
+- **Fantasminha:** MAE 0.
+- **Doodle de nuvem:** +72.5 em x.
+- **Tartaruga:** 0.7735 do tamanho.
+- **Maçã do balão:** 1.0765.
+- **Boneca girando:** agora numa caixa de 606 × 722 com overflow.
+- **Balão:** caixa girada de 798.581, o GIF de 847 cortado à direita.
+
+**Arte nova:**
+- **Exports 2x do Figma** (opacos sobre o creme, registrados contra o render 2x):
+  - água-viva 226:57 (MAE 9.8 por causa do título por cima);
+  - maçãs 226:926 (0.64), coelho 226:205 (2.2), colagem 226:508 (3.4) e cabecinha do
+    "sobre" 226:780 (1.3);
+  - avatares recortados do 226:802.
+- **A ordem no DOM resolve as sobreposições:** a arte vem antes do texto que encosta na
+  caixa dela. A cabecinha não encosta nos glifos do título (conferido no render).
+- **Fotos dos momentos:** as originais das fills, já no recorte de cada caixa do Figma
+  (w/h/left/top % ou cover) e em 2x. MAE ≈ 5 contra o render.
+  - O export do 226:703 vem cortado na largura da página e não serve para os cards que
+    ficam fora da tela.
+
+**Trem (`CareerTrain`):**
+- **O vídeo:** os quadros dos GIFs vão por pipe (sharp) para o ffmpeg a 50 fps, cada quadro
+  repetido delay/20 vezes, então o tempo é exato. O filtro `concat` perdia o último quadro
+  de cada GIF.
+  - Ordem: tchau 1, 1→2, tchau 2, 2→3, tchau 3, 3→1. São 19.48 s em loop.
+  - Os limites entre GIFs batem com MAE ≈ 1/255.
+  - H.264 CRF 24. A altura vai a 498 (par) e a janela de 497 corta a linha extra.
+- **O card aceso sai do `currentTime`:** da chegada (o giro para a frente, 3 quadros antes
+  do fim de cada caminhada) até a partida.
+  - Ao acender, o card faz pop (anotações 226:314/226:316) com a casca #a2de84 e o miolo
+    #daf0bb.
+  - No repouso, o card 1 já está aceso e não faz pop.
+- **Pôster:** é o 1º quadro (o Figma). O vídeo só carrega a 200px da tela.
+
+**Publicações (`CareerPublications`):**
+- **Camadas:** os SVGs do Figma nas caixas do `get_design_context`. Cada ticket de trás
+  aparece duas vezes, como no Figma.
+  - A granulação é a do feTurbulence no Chrome, um pouco diferente da do Figma (MAE da
+    seção 5.6).
+- **"próxima":** o ticket da frente gira em `rotateX` no eixo da argola até ficar de lado,
+  troca a publicação e volta (anotação 226:393). O botão ">" é o controle acessível.
+- **Texto:** P22 Typewriter fica fora do kit, então usa o mesmo fallback do crachá da home.
+
+**Momentos (`CareerMoments`):** só CSS.
+- Cada fileira tem 3 cópias (as de fora são aria-hidden) e anda um período (largura + gap)
+  a 32 px/s. As direções alternam: ←, →, ←.
+- Repouso e movimento reduzido são o Figma.
+- Não pausa com o mouse em cima (pedido do André). Pausa só com o foco do teclado (a área
+  é focável), para quem navega por teclado poder parar o movimento.
+
+**Entrelinhas:**
+- **Novecento:** nos blocos em fluxo, `line-height: 1.383` (o "auto" do Figma). O normal do
+  Chrome dá 1.33 e empurrava as fileiras 5px.
+- **Clother:** 1.1923 nos textos novos.
+- **Item 03 da história da arte:** recuo 50 (medido 52). Com 52, "recesso," não cabe na
+  1ª linha, porque a Clother no Chrome é ~1px mais larga.
+
+**Textos:** os do Figma, com 4 erros de digitação corrigidos (para a Ágatha conferir):
+- "acretido" → "acredito";
+- "priemrio" → "primeiro";
+- "Pimeira" → "Primeira";
+- "musica"/"academicas" → "música"/"acadêmicas".
+
+Ficou como no Figma, e vai para a Ágatha revisar: o 226:506 repete a frase das animações
+("(curta) Avatar e O Segredo Além do Jardim são minhas animações favoritas!").
+
+**Fidelidade a 1728** (movimento reduzido, MAE por seção contra o render 1:1):
+- 2.75: herói;
+- 3.33: história da arte;
+- 1.91: caminhos;
+- 1.55: faixa azul + trem;
+- 5.57: publicações;
+- 1.35: faixa rosa;
+- 3.85: galeria;
+- 2.07: desenho;
+- 6.00: momentos (bordas das fotos);
+- 2.61: sobre;
+- 5.13: footer (a diferença já registrada em "Fora de escopo").
+
+**Removidos:** `faixa-trem.webp`, `botoes-macas.webp`, `galeria-a.webp`, `galeria-b.webp` e
+as chaves `career.life`/`career.nextStop`. O que eram `career.life` agora é
+`career.paths`.
+
+**Gate 9:** passou a checar o vídeo, as fotos, os avatares, as camadas dos tickets, o
+"André Garcia" e os marcadores novos no HTML.

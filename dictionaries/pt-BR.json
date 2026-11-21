@@ -104,10 +104,22 @@
     }
   },
   "categories": {
-    "grafico": { "title": "Design Gráfico", "heroTitle": "Design Gráfico" },
-    "interacao": { "title": "UX e UI Design", "heroTitle": "UX e UI Design" },
-    "servicos": { "title": "Design de Serviços", "heroTitle": "Design de Serviços" },
-    "3d": { "title": "3D Design", "heroTitle": "3D Design" }
+    "grafico": {
+      "title": "Design Gráfico",
+      "heroTitle": "Design Gráfico"
+    },
+    "interacao": {
+      "title": "UX e UI Design",
+      "heroTitle": "UX e UI Design"
+    },
+    "servicos": {
+      "title": "Design de Serviços",
+      "heroTitle": "Design de Serviços"
+    },
+    "3d": {
+      "title": "3D Design",
+      "heroTitle": "3D Design"
+    }
   },
   "projects": {
     "seeMore": "Ver mais.",
@@ -1219,32 +1231,33 @@
         "b1": "monitora de UX",
         "p2": " e depois estagiária no ",
         "b2": "Vortex",
-        "p3": ", onde projetos de saúde, direito e cultura me encontraram"
+        "p3": ", onde projetos de saúde, tecnologia e cultura me encontraram."
       },
       "col3": {
         "p1": "Lá, a ",
         "b1": "modelagem 3D",
         "p2": " me levou de volta ao ",
         "b2": "desenho",
-        "p3": " e ao amor pelas histórias que eu sempre quis contar"
+        "p3": " e ao amor pelas histórias que eu sempre quis contar."
       },
       "dollAlt": "Ilustração da Ágatha girando devagar, de corpo inteiro",
       "thoughtAlt": "Balão de pensamento com uma maçã"
     },
-    "nextStop": "Próxima parada",
     "artHistory": {
       "title": "uma breve história da arte...",
       "items": {
-        "01": "Estudo desenho por conta própria há mais de 9 anos, primeiro no tradicional, com o que encontrava na internet. Sempre fui cativada por histórias, da Ágatha criança até a adulta de hoje.",
-        "02": "No laboratório, fui modeladora 3D em dois grandes projetos e, por fora, fiz cursos e testei ferramentas na minha própria estação de trabalho, criando personagens e cenários.",
-        "03": "Histórias me deixam segurar um pedaço de mundo nas mãos e transformá-lo em algo que ainda não existe.",
-        "04": "Adoro animações com temas profundos, que dão a eles a devida profundidade e alcançam experiências diversas.",
-        "05": "Depois do 3D, quis voltar ao desenho. Investi em um tablet, comecei pequenos estudos no digital e hoje sigo aprimorando os dois, levando também a pesquisa em design para essa produção."
+        "01": "Comecei na Odontologia, com desenhos de anatomia, observação histológica e escultura de dentes.",
+        "02": "Esse trabalho minucioso me reteve por dois anos, até chegarem os atendimentos clínicos. Eles em nada combinavam comigo e me fizeram refletir sobre como eu queria atender ao outro.",
+        "03": "Num momento de recesso, reconheci uma projeção que sempre me cercou. A ilustração e a literatura me encantavam na história, na filosofia, nas animações, nos jogos e no teatro.",
+        "04": "O Design pareceu uma alternativa moderna à animação e à ilustração técnica. Era o que eu imaginava...",
+        "05": "Nas disciplinas de Metodologia de Projeto e UX Design, fui atingida por uma vontade genuína de seguir na pesquisa. O contato com as pessoas e o design de produtos digitais combinavam comigo.",
+        "06": "Vieram a monitoria, a extensão e, sem deixar a ilustração, o estágio em UX/UI e modelagem 3D no Vortex. Cheguei crua na técnica e evoluí aos poucos, levando minha personalidade aos projetos.",
+        "07": "Hoje, meus estudos em 3D, pesquisa, UX e ilustração guiam minhas decisões. Tenho orgulho da maturidade sensível que se formou em mim e quero devolver ao mundo um trabalho que cuide do bem-estar humano."
       }
     },
-    "life": {
-      "title": "vidinha",
-      "text": "Entre prazos, laboratório e sala de aula, fui juntando experiências que me ensinaram a ajudar os outros e, mais que tudo, a pedir ajuda. Saí de cada uma com um repertório maior.",
+    "paths": {
+      "title": "caminhos",
+      "text": "Na pesquisa, me sinto uma pequena jornalista, que se importa com todo pequeno evento de uma vila curiosa. Nada me alegra tanto quanto mostrar às pessoas que há alguém que reconhece o problema delas e que um dia isso vai mudar. Quando vejo as pessoas usando o que construímos juntos, me sinto uma fada artesã muito bem-sucedida.",
       "sceneAlt": "Ilustração da Ágatha girando a manivela de uma caixinha, de onde sai um cachecol listrado com as experiências que ela juntou",
       "experiencesLabel": "Experiências",
       "experiences": {
@@ -1255,9 +1268,47 @@
         "publicacoes": "Publicações acadêmicas"
       }
     },
+    "train": {
+      "alt": "A Ágatha viaja num trem: anda de janela em janela, a paisagem muda e ela dá tchau em cada parada",
+      "stopsLabel": "Paradas do trem",
+      "stops": {
+        "ilustracao": "Ilustração e animação",
+        "pesquisa": "Pesquisa e UX",
+        "design3d": "3D, VR e meu design"
+      }
+    },
+    "publications": {
+      "title": "publicações acadêmicas",
+      "areasTitle": "Áreas de pesquisa",
+      "read": "clique aqui para ler a publicação",
+      "next": "próxima",
+      "nextLabel": "Mostrar a próxima publicação",
+      "items": {
+        "ludificacao": {
+          "title": "Análise da Ludificação no Design de Aplicações de Ensino de Música: Como o Design Apoia a Experiência da Aplicação Através do Lúdico",
+          "areas": {
+            "a1": "Tese de Conclusão de Curso em Pesquisa",
+            "a2": "Ludificação",
+            "a3": "Heurísticas de Nielsen",
+            "a4": "IHC",
+            "a5": "UX e UI Design"
+          }
+        }
+      }
+    },
+    "gallery": {
+      "title": "life gallery",
+      "text1": "Minhas animações favoritas são Avatar: A Lenda de Aang e O Segredo Além do Jardim.\n (curta) Avatar e O Segredo Além do Jardim são minhas animações favoritas!",
+      "text2": "Também adoro pintar mini aquarelas, são como memórias simples",
+      "text3": "Sou cheia de cacareco e disso não abro mão, acredito que a mesa de um bom designer nunca está vazia ou sem enfeites.",
+      "text4": "Gosto muito de música, e por um tempo fiz disso um pequeno hobbie, mais especificamente, toco kalimba e tenho um canalzinho de músicas amadoras!",
+      "music": "Meu canal de música (favor não escutar)",
+      "collageAlt": "Colagem de fotos da Ágatha: mini aquarelas de floresta, peixes e céu rosa; uma pintura do Pálido Ponto Azul; um desenho com uma frase do Pequeno Príncipe; a Ágatha fotografando no parque e na pista; um peixinho laranja num aquário; uma mariposa; a mesa de trabalho com monitor e tablet; e uma joaninha ilustrada"
+    },
     "drawing": {
       "title": "hora do desenho",
-      "text": "Minha mesinha lembra uma brinquedoteca. Cada dia escolho um brinquedo, e é brincando que eu aprendo.",
+      "heading": "Sua vez de usar as ferramentas!",
+      "text": "Minha mesinha talvez lhe lembre uma brinquedoteca. Escolha um bloquinho, pegue a caneta e rabisque com o traço dele.",
       "boardAlt": "Lousa mágica rosa com desenhinhos de tartaruga, polvo, peixe, alga, bolhas e baiacu",
       "drawnAlt": "Lousa mágica rosa com o ícone do {name} desenhado",
       "blocksLabel": "Blocos das ferramentas que uso. Vire um bloco e escolha a ferramenta para a caneta desenhar na lousa.",
@@ -1267,12 +1318,31 @@
       "eraser": "Bolinha da lousa: arraste para apagar",
       "locked": "Escolha uma ferramenta nos blocos primeiro"
     },
-    "gallery": {
-      "title": "life gallery",
-      "text1": "Sou cheia de cacareco e disso não abro mão. Gosto de ter e fazer miniaturas, de pintar mini aquarelas e, principalmente, de imprimir um modelo que fiz ou que queria muito ter.",
-      "text2": "Leio fantasia e ficção científica e gosto de doces mais doces que o normal.",
-      "text3": "Na playlist tem dream pop, rock psicodélico, metal sinfônico...",
-      "collageAlt": "Colagem de fotos da Ágatha: mini aquarelas de vitórias-régias, peixes, moinho e céu rosa; uma pintura do Pálido Ponto Azul; a Ágatha fotografando com uma câmera; a mesa de trabalho com monitor e tablet; uma mariposa; desenhos em nanquim e uma joaninha ilustrada"
+    "moments": {
+      "title": "momentos memoráveis",
+      "label": "Momentos memoráveis, em fotos que passam como um carrossel. Foque para pausar.",
+      "cards": {
+        "hackathon1": "Meu primeiro Hackathon, Segundo lugar no PROENERGIA Summit2025",
+        "extensao": "Premiação de Segundo Lugar no IX ENCONTRO DE EXTENSÃO UNIVERSITÁRIA, na área de Ciências Exatas do projeto “Criação de Espaleira Ajustável para Crianças: Pesquisa em Design e Inovação na Educação Musical de Violino”",
+        "ilustangram": "Oficinas e aulas do Ilustangram, projeto promovido pelo Grupo de Práticas Tangram",
+        "vortex": "Desafio de chegada no Vortex Laboratório de Pesquisa, Inovação e Tecnologia da Unifor",
+        "monitoria": "Encontros e eventos da jornada de Monitoria Voluntária em UX e UI Design",
+        "artigo": "Apresentação do artigo “Classificação de Padrões em Células HEP-2 com DENSENET121: Avaliação por Classe” no Encontro de Iniciação à Pesquisa 2026 na Unifor",
+        "moema": "Primeira animação de ciclo de caminhada para a mascote Moema (da Unifor)",
+        "hackathon2": "Meu segundo Hackathon, O-HACK A TA-ON da M. Dias Branco",
+        "agreste": "Reuniões e testes do projeto de pesquisa Agreste onde fui modeladora 3D dos personagens e de alguns itens",
+        "cascavel": "Entrega dos projetos do Complexo Cultural Yolanda e Edson Queiroz, Projeto de experiência em VR, Cascavel"
+      }
+    },
+    "about": {
+      "title": "sobre este site",
+      "headAlt": "Cabecinha da Ágatha piscando e sorrindo",
+      "quote": "“Aqueles que passam por nós, não vão sós, não nos deixam sós. Deixam um pouco de si, levam um pouco de nós.”",
+      "quoteAuthor": "  De Antoine de Saint-Exupéry",
+      "banner": "Este espaço não seria possível sem o empenho e a dedicação destes devs!",
+      "devsLabel": "Devs do site",
+      "linkedin": "LinkedIn de {name}",
+      "thanks": "A todos os contribuintes desse projeto, meus mais genuínos agradecimentos, parceria e admiração. ;D S2"
     }
   }
 }

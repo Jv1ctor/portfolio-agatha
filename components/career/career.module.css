@@ -1,5 +1,5 @@
 /*
- * Minha carreira (Figma EGDJU9UG5XmLO6zV8Howwo, frame 201:53, 1728 × 7166).
+ * Minha carreira (Figma EGDJU9UG5XmLO6zV8Howwo, frame 226:56, 1728 × 10344; antes 201:53).
  *
  * ≥ 1024px: o canvas do Figma. A página é container e --u = 100cqw / 1728 = 1px do
  * Figma (a 1728 de viewport tudo fica 1:1). Cada peça é `.a` com as coordenadas
@@ -64,6 +64,33 @@
 .alignRight {
   text-align: right;
 }
+.center {
+  text-align: center;
+}
+.preWrap {
+  white-space: pre-wrap;
+}
+.textSm {
+  font-size: 16px;
+}
+.drawingHeading {
+  margin: 0;
+  color: var(--blue);
+  font-family: var(--font-body);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.1923;
+  letter-spacing: 0;
+}
+.musicLink {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-position: from-font;
+}
+.musicLink:hover,
+.musicLink:focus-visible {
+  color: #08488f;
+}
 
 /* ---------- pills tracejados (Frame 32 do Figma) ---------- */
 /* Casca Azul gelo com 4px de respiro; miolo #eaeef4 com tracejado 2px #527fb0;
@@ -104,6 +131,18 @@
 }
 .pillSm .pillInner {
   height: calc(var(--pu) * 31);
+}
+/* números da história da arte (226:109): 52 × 52, miolo de 44 */
+.pillRound {
+  width: calc(var(--pu) * 52);
+  height: calc(var(--pu) * 52);
+}
+.pillRound .pillInner {
+  height: calc(var(--pu) * 44);
+}
+/* pills da cena dos caminhos (226:214): texto #08488f cheio */
+.pillStrong .pillInner {
+  color: #08488f;
 }
 
 /* ---------- ilhas (composição do Figma em escala) ---------- */
@@ -163,22 +202,24 @@
 }
 
 /* o GIF tem respiro transparente em volta da boneca: margens negativas no empilhado */
-.heroDoll { width: min(100%, 420px); align-self: center; margin-block: -6% -10%; }
-.heroCloud { width: min(100%, 520px); align-self: center; aspect-ratio: 911.95 / 652.04; }
+/* boneca: caixa de 606 × 722 com overflow (226:94), o GIF de 751² passa dela */
+.heroDoll { position: relative; width: min(100%, 360px); align-self: center; aspect-ratio: 606 / 722; overflow: hidden; }
+.heroDollGif { position: absolute; left: -12.37%; top: -1.94%; width: 123.93%; }
+.heroCloud { width: min(100%, 520px); align-self: center; aspect-ratio: 863.963 / 645.585; }
+.heroCloudBox { aspect-ratio: 798.581 / 544; overflow: hidden; }
+.island .heroCloudGif { position: absolute; left: 0; top: 0; width: 106.06%; }
 .doodleCloud { width: 72px; align-self: flex-end; margin-top: -24px; }
 .cols { display: flex; flex-direction: column; gap: 20px; }
 
-.band { width: 100%; aspect-ratio: 1728 / 993; }
-.bandRose { width: 100%; aspect-ratio: 1728 / 497; margin-top: 48px; }
-.nextStops { display: flex; flex-direction: column; align-items: center; gap: 12px; padding-top: 24px; }
-.nextStops .pill { width: min(100%, 400px); }
+.bandBlue { width: 100%; aspect-ratio: 1728 / 497; margin-top: 48px; }
+.bandRose { margin-top: 48px; }
 
 /* Parágrafos numerados: o pill fica no começo da 1ª linha, sobre o recuo. */
 .numbered { position: relative; }
 .numbered .pill { --pu: 0.75px; position: absolute; left: 0; top: -9px; }
 .numbered .text { text-indent: calc(var(--indent-sm) * 1px); }
-.jelly { width: 120px; align-self: center; }
-.cluster { width: min(100%, 360px); align-self: center; }
+.jelly { width: 140px; align-self: center; }
+.cluster { width: min(70%, 260px); align-self: center; }
 
 .lifeHead { display: flex; align-items: center; gap: 12px; }
 .bunny { width: 72px; flex-shrink: 0; }
@@ -190,17 +231,17 @@
 
 .galleryHead { display: flex; align-items: center; justify-content: flex-end; gap: 12px; }
 .ghost { width: 64px; flex-shrink: 0; }
-.collage { width: 100%; aspect-ratio: 1598 / 1050; }
+.collage { width: 100%; aspect-ratio: 1500 / 992; }
+.drawingNote { display: flex; flex-direction: column; gap: 8px; }
 
 @media (min-width: 640px) {
   .cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-  .nextStops { flex-direction: row; justify-content: center; }
 }
 
 /* ---------- desktop: o canvas do Figma ---------- */
 @media (min-width: 1024px) {
   .page {
-    height: calc(var(--u) * 6817); /* footer em y=6897 = 6817 + 80 de margem do HomeFooter */
+    height: calc(var(--u) * 9995); /* footer em y=10075 = 9995 + 80 de margem do HomeFooter */
     padding-bottom: 0;
   }
   .top {
@@ -236,11 +277,15 @@
   .h1 { font-size: calc(var(--u) * 111.975); }
   .h2 { font-size: calc(var(--u) * 100); }
   .h2sm { font-size: calc(var(--u) * 80); }
+  .h2paths { font-size: calc(var(--u) * 95.647); }
+  .h2gallery { font-size: calc(var(--u) * 72.633); }
+  .textSm { font-size: calc(var(--u) * 20); }
+  .drawingHeading { font-size: calc(var(--u) * 24); }
 
-  .bandRose { margin-top: 0; }
-  .lifeHead, .turtleHead, .galleryHead, .cols, .nextStops { display: contents; }
+  .bandBlue, .bandRose { margin-top: 0; }
+  .heroDoll { width: calc(var(--u) * var(--w)); }
+  .lifeHead, .turtleHead, .galleryHead, .cols, .drawingNote { display: contents; }
   .numbered { position: static; }
   .numbered .pill { --pu: var(--u); position: absolute; left: calc(var(--u) * var(--px)); top: calc(var(--u) * var(--py)); }
   .numbered .text { text-indent: calc(var(--u) * var(--indent)); }
-  .nextStops .pill { width: calc(var(--u) * 400); }
 }

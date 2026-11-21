@@ -1,18 +1,34 @@
-import type { CSSProperties } from "react";
-import type { Dictionary } from "@/i18n/dictionaries";
-import { at } from "./layout";
-import s from "./career.module.css";
+import type { CSSProperties } from 'react';
+import type { Dictionary } from '@/i18n/dictionaries';
+import { career } from '@/lib/site';
+import { at } from './layout';
+import s from './career.module.css';
 
 /**
- * "life gallery" (201:593, à direita, 2 linhas em 494), fantasminha (201:617), textos
- * (201:594/595/596) e a colagem (201:597 + joaninha 201:532). As 16 fotos se sobrepõem
- * (recortes, rotações e sombras do Figma), então a colagem são dois recortes do render:
- * "a" (x 56–1250, y 5583–6525) e "b" (x 380–1654, y 6150–6633), fora dos textos.
+ * "life gallery" (Figma 226:498: fantasminha 226:501, título 226:500, textos 226:506/507),
+ * a colagem (226:508, com a joaninha 226:523) e os textos de baixo (226:495/496/497).
+ *
+ * A colagem é o export 2x do grupo 226:508 (as 14 fotos se sobrepõem, com recortes,
+ * rotações e sombras do Figma). Vem antes dos textos no DOM: o creme do export fica por
+ * baixo deles (no Figma nenhuma foto encosta nos textos).
+ * "Meu canal de música" leva ao canal do YouTube da anotação do Figma (lib/site.ts).
  */
 export function CareerGallery({ dict }: { dict: Dictionary }) {
   const gallery = dict.career.gallery;
   return (
     <section className={s.section} aria-labelledby="career-gallery">
+      <div className={`${s.a} ${s.island} ${s.collage}`} style={{ ...at(111, 5518.5, 1500), '--iw': 1500 } as CSSProperties}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/carreira/galeria.webp"
+          alt={gallery.collageAlt}
+          width={1500}
+          height={992}
+          loading="lazy"
+          decoding="async"
+          style={at(0, 0, 1500)}
+        />
+      </div>
       <div className={s.galleryHead}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -24,46 +40,28 @@ export function CareerGallery({ dict }: { dict: Dictionary }) {
           loading="lazy"
           decoding="async"
           className={`${s.a} ${s.ghost}`}
-          style={at(1291, 5535, 117)}
+          style={at(1275, 5464, 117)}
         />
-        <h2 id="career-gallery" className={`${s.a} ${s.title} ${s.h2sm} ${s.alignRight}`} style={at(1159.06, 5574, 494)}>
+        <h2 id="career-gallery" className={`${s.a} ${s.title} ${s.h2gallery} ${s.alignRight}`} style={at(1239, 5503, 370)}>
           {gallery.title}
         </h2>
       </div>
-      <p className={`${s.a} ${s.text}`} style={at(1265, 5800, 387)}>
+      <p className={`${s.a} ${s.text} ${s.preWrap}`} style={at(1255, 5731, 354)}>
         {gallery.text1}
       </p>
-      <div
-        className={`${s.a} ${s.island} ${s.collage}`}
-        style={{ ...at(56, 5583, 1598), "--iw": 1598 } as CSSProperties}
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/images/carreira/galeria-a.webp"
-          alt={gallery.collageAlt}
-          width={1194}
-          height={942}
-          loading="lazy"
-          decoding="async"
-          style={at(0, 0, 1194)}
-        />
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/images/carreira/galeria-b.webp"
-          alt=""
-          aria-hidden
-          width={1274}
-          height={483}
-          loading="lazy"
-          decoding="async"
-          style={at(324, 567, 1274)}
-        />
-      </div>
-      <p className={`${s.a} ${s.text}`} style={at(82, 6531, 291)}>
+      <p className={`${s.a} ${s.text}`} style={at(1255, 5943, 354)}>
         {gallery.text2}
       </p>
-      <p className={`${s.a} ${s.text}`} style={at(948, 6655, 701)}>
+      <p className={`${s.a} ${s.text}`} style={at(128, 6443, 289)}>
         {gallery.text3}
+      </p>
+      <p className={`${s.a} ${s.text} ${s.center}`} style={at(525, 6543, 276)}>
+        <a className={s.musicLink} href={career.musicChannel} target="_blank" rel="noopener noreferrer">
+          {gallery.music}
+        </a>
+      </p>
+      <p className={`${s.a} ${s.text}`} style={at(946, 6552, 662)}>
+        {gallery.text4}
       </p>
     </section>
   );

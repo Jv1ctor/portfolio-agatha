@@ -1130,7 +1130,7 @@ console.log('ok: ' + n + ' checks');
 }
 
 # ============================================================
-# GATE 9: Página Minha carreira (Figma 201:53)
+# GATE 9: Página Minha carreira (Figma 226:56; antes 201:53)
 # ============================================================
 gate_9() {
   log_gate "9" "Minha carreira page"
@@ -1192,7 +1192,7 @@ console.log('ok');
 
   log_sub "No hardcoded copy in components/career (text comes from dict.career)..."
   # Comentários (linhas que começam com *, // ou {/*) citam o texto do Figma e não contam.
-  HARDCODED_9=$(grep -rnIE "(['\">\`])[[:space:]]*(como vim parar|Próxima parada|Monitoria|vidinha|hora do desenho|life gallery|Entrei no|Sou cheia de)" components/career \
+  HARDCODED_9=$(grep -rnIE "(['\">\`])[[:space:]]*(como vim parar|Monitoria|caminhos|hora do desenho|life gallery|Entrei no|Sou cheia de|momentos memoráveis|sobre este site|Pesquisa e UX|Áreas de pesquisa|clique aqui)" components/career \
     | grep -vE '^[^:]+:[0-9]+:[[:space:]]*(\*|//|/\*|\{/\*)' || true)
   if [ -z "$HARDCODED_9" ]; then
     log_pass "No hardcoded career strings"
@@ -1205,6 +1205,29 @@ console.log('ok');
   head -n 3 components/career/KnittingDoll.tsx | grep -qE "^['\"]use client['\"]" && log_pass "  KnittingDoll is a Client Component" || log_fail "  KnittingDoll without 'use client'"
   grep -q "prefers-reduced-motion: reduce" components/career/knitting.module.css && log_pass "  knitting.module.css has a reduced-motion block" || log_fail "  knitting.module.css without reduced-motion block"
   grep -q "prefers-reduced-motion" components/career/layout.tsx && log_pass "  GIF loops fall back to their first frame" || log_fail "  Loop without reduced-motion <source>"
+
+  # Emenda 5 (Figma 226:56): trem em vídeo, publicações, momentos e sobre este site
+  log_sub "Train, papers, memorable moments and about this site (Emenda 5)..."
+  [ -f public/videos/carreira/trem.mp4 ] && [ -f public/images/carreira/trem.webp ] && log_pass "  train video + poster exist" || log_fail "  train video or poster missing"
+  head -n 3 components/career/CareerTrain.tsx | grep -qE "^['\"]use client['\"]" && log_pass "  CareerTrain is a Client Component" || log_fail "  CareerTrain without 'use client'"
+  grep -q "prefers-reduced-motion" components/career/CareerTrain.tsx && grep -q "prefers-reduced-motion" components/career/train.module.css && log_pass "  train keeps the poster (Figma) with reduced motion" || log_fail "  train ignores reduced motion"
+  grep -q "prefers-reduced-motion: reduce" components/career/moments.module.css && log_pass "  moments carousel stops with reduced motion" || log_fail "  moments.module.css without reduced-motion block"
+  grep -q "prefers-reduced-motion" components/career/CareerPublications.tsx && log_pass "  ticket flip skips the animation with reduced motion" || log_fail "  CareerPublications ignores reduced motion"
+  # fotos: <card>-<n>.webp para cada largura em `photos: [...]`
+  while IFS=: read -r card list; do
+    n=$(echo "$list" | tr ',' '\n' | grep -c .)
+    for i in $(seq 1 "$n"); do
+      [ -f "public/images/carreira/momentos/$card-$i.webp" ] || { log_fail "  momentos/$card-$i.webp missing"; missing=1; }
+    done
+  done < <(grep -oE "key: '[a-z0-9]+', photos: \[[^]]+\]" components/career/CareerMoments.tsx | sed -E "s/key: '([a-z0-9]+)', photos: \[([^]]+)\]/\1:\2/")
+  for slug in $(grep -oE "slug: '[a-z-]+'" lib/site.ts | sed -E "s/slug: '(.*)'/\1/"); do
+    [ -f "public/images/carreira/devs/$slug.webp" ] || { log_fail "  devs/$slug.webp missing"; missing=1; }
+  done
+  for f in g100961.svg g100962.svg g100963.svg g100964.svg exclude.svg line10.svg line11.svg ellipse379.svg ellipse429.svg union.svg ellipse378.webp; do
+    [ -f "public/images/carreira/publicacao/$f" ] || { log_fail "  publicacao/$f missing"; missing=1; }
+  done
+  [ $missing -eq 0 ] && log_pass "  moment photos, dev avatars and ticket layers exist"
+  grep -q "name: 'André Garcia'" lib/site.ts && log_pass "  dev name is André Garcia" || log_fail "  André Garcia missing from career.devs"
 
   # Lousa mágica + blocos (spec, Emenda 3)
   log_sub "Drawing board (lousa mágica) and tool blocks..."
@@ -1254,7 +1277,7 @@ for (const [k, ph] of Object.entries(need)) for (const d of [pt, en]) if (!d[k] 
   done
   local HTML
   HTML=$(curl -s --max-time 60 "$BASE/pt-BR/carreira" | tr '\n' ' ' || true)
-  for pair in ">como vim parar aqui?<" ">Monitoria<" ">vidinha<" 'hrefLang="en"' 'hrefLang="x-default"' ">voltar ao topo"; do
+  for pair in ">como vim parar aqui?<" ">Monitoria<" ">caminhos<" ">momentos memoráveis<" ">André Garcia<" "trem.mp4" 'hrefLang="en"' 'hrefLang="x-default"' ">voltar ao topo"; do
     if printf '%s' "$HTML" | grep -qF -- "$pair"; then
       log_pass "  /pt-BR/carreira contains: $pair"
     else

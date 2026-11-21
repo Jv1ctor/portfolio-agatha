@@ -1,8 +1,8 @@
 /*
  * Cena da boneca tricotando (Figma 201:475) — ver KnittingDoll.tsx.
  *
- * A cena é container: --s = 1px do Figma dentro dela (1548 de largura), em qualquer
- * tamanho. Cada peça usa --x/--y/--w relativos à origem da cena (57, 3225).
+ * A cena é container: --s = 1px do Figma dentro dela (1551 de largura), em qualquer
+ * tamanho. Cada peça usa --x/--y/--w relativos à origem da cena (90, 2210).
  *
  * Movimento (só transform/opacity), uma vez, ao entrar na tela:
  *  - cachecol: revelado em 3.5 s, linear (o fio "sai" da caixinha no ritmo da manivela);
@@ -14,13 +14,13 @@
  */
 
 .scene {
-  --s: calc(100cqw / 1548);
+  --s: calc(100cqw / 1551);
   container-type: inline-size;
 }
 
 .art {
   position: relative;
-  aspect-ratio: 1548 / 731;
+  aspect-ratio: 1551 / 731;
 }
 .art > * {
   position: absolute;

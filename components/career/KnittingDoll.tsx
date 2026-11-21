@@ -6,8 +6,8 @@ import s from './career.module.css';
 import k from './knitting.module.css';
 
 /**
- * A boneca tricotando da "vidinha" (Figma 201:475), a única cena animada fora dos GIFs.
- * Coordenadas da cena: origem em (57, 3225), 1548 × 731 (até o fim dos pills).
+ * A boneca tricotando dos "caminhos" (Figma 226:153; antes 201:475), a única cena animada fora dos GIFs.
+ * Coordenadas da cena (Figma 226:56, grupo 226:153): origem em (90, 2210), 1551 × 731 (até o fim dos pills). A arte é a mesma do 201:475 (só mudou de lugar); os pills mudaram de posição e de cor.
  *
  * Camadas, na ordem do Figma:
  *  1. boneca (201:476) sem as mãos — render do Figma com a sombra do grupo removida;
@@ -26,18 +26,18 @@ import k from './knitting.module.css';
  * (data-armed) e só se não houver movimento reduzido.
  */
 
-const SCENE_X = 57;
-const SCENE_Y = 3225;
-const SCARF_X = 467; // borda esquerda do cachecol no Figma
+const SCENE_X = 90;
+const SCENE_Y = 2210;
+const SCARF_X = 500; // borda esquerda do cachecol no Figma
 const SCARF_W = 1073.5;
 const DURATION = 3.5; // s, o fio inteiro
 
 const pills = [
-  { key: 'monitoria', x: 631, y: 3777, min: 127 },
-  { key: 'extensao', x: 833, y: 3871, min: 113 },
-  { key: 'estagio', x: 1068, y: 3751, min: 106 },
-  { key: 'oficinas', x: 1255, y: 3883, min: 106 },
-  { key: 'publicacoes', x: 1358, y: 3696, min: 247 },
+  { key: 'monitoria', x: 664, y: 2762, min: 127 },
+  { key: 'extensao', x: 866, y: 2856, min: 113 },
+  { key: 'estagio', x: 1097, y: 2739, min: 106 },
+  { key: 'oficinas', x: 1288, y: 2868, min: 106 },
+  { key: 'publicacoes', x: 1394, y: 2670, min: 247 },
 ] as const;
 
 type PillKey = (typeof pills)[number]['key'];
@@ -74,9 +74,9 @@ export function KnittingDoll({
     at(x - SCENE_X, y - SCENE_Y, w, extra);
 
   return (
-    <div ref={ref} className={`${s.a} ${k.scene}`} style={at(SCENE_X, SCENE_Y, 1548)}>
+    <div ref={ref} className={`${s.a} ${k.scene}`} style={at(SCENE_X, SCENE_Y, 1551)}>
       <div className={k.art} role="img" aria-label={sceneAlt}>
-        <div className={k.doll} style={local(57, 3225, 564.5)}>
+        <div className={k.doll} style={local(90, 2210, 564.5)}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/images/carreira/boneca-base.webp" alt="" width={564.5} height={638.5} loading="lazy" decoding="async" />
           <svg viewBox="0 0 564.5 638.5" aria-hidden>
@@ -87,7 +87,7 @@ export function KnittingDoll({
 
         <svg
           className={k.box}
-          style={local(364.5, 3686.5, 199.451)}
+          style={local(397.5, 2671.5, 199.451)}
           viewBox="0 0 199.451 202.07"
           overflow="visible"
           aria-hidden
@@ -121,7 +121,7 @@ export function KnittingDoll({
           </g>
         </svg>
 
-        <div className={k.reveal} style={local(467, 3735.01, SCARF_W)}>
+        <div className={k.reveal} style={local(500, 2720.01, SCARF_W)}>
           <div className={k.revealInner}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/images/carreira/cachecol.webp" alt="" width={SCARF_W} height={221} loading="lazy" decoding="async" />
@@ -135,7 +135,7 @@ export function KnittingDoll({
           const delay = (((x + min / 2 - SCARF_X) / SCARF_W) * DURATION).toFixed(2);
           return (
             <li key={key} className={k.pillItem} style={{ ...local(x, y, min), '--d': `${delay}s` } as CSSProperties}>
-              <CareerPill small min={min}>
+              <CareerPill small strong min={min}>
                 {labels[key]}
               </CareerPill>
             </li>

@@ -14,8 +14,9 @@ import { ToolBlocks } from './ToolBlocks';
  * Vire um bloco, clique na ferramenta: a bolinha apaga a lousa, a caneta sai do suporte e
  * desenha o ícone. Depois disso dá para apagar com a bolinha e desenhar com a caneta.
  *
- * Posições do Figma (as mesmas das imagens estáticas de antes): lousa em (104, 4750) com
- * 1151 de largura, blocos em (1297, 4913) com 272. `children` é o parágrafo do meio.
+ * Posições do Figma 226:56 (as do 201:53 + (51.66, 2109.13) na lousa e + (51.91, 2096.31)
+ * nos blocos): lousa em (155.66, 6859.13) com 1151, blocos em (1348.91, 7009.31) com 272.
+ * `children` são os textos do meio.
  */
 
 const QUERY = '(prefers-reduced-motion: reduce)';
@@ -66,7 +67,7 @@ export function DrawingPlayground({
     <>
       <MagicBoard
         className={`${s.a} ${s.board}`}
-        style={at(104, 4750, 1151)}
+        style={at(155.66, 6859.13, 1151)}
         state={state}
         dispatch={dispatch}
         alt={alt}
@@ -76,7 +77,7 @@ export function DrawingPlayground({
       {children}
       <ToolBlocks
         className={`${s.a} ${s.tools}`}
-        style={at(1297, 4913, 272)}
+        style={at(1348.91, 7009.31, 272)}
         state={state}
         armed={armed}
         nudge={nudge}
