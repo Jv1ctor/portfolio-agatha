@@ -63,10 +63,12 @@ export const STRIP_TRACK = { x: STRIP.x, y: STRIP.y, w: INK.x + INK.w - STRIP.x,
 /** Suporte da caneta (recesso do 201:462): clicar nele com a caneta na mão guarda a caneta. */
 export const HOLDER = { x: 1016, y: 90, w: 68, h: 428 } as const;
 
-/** Pincel dos rabiscos: o carimbo "stroke0" do Figma (365 u) na escala 0.0321794. */
+/**
+ * Cor da tinta e espessura dos traços: a do carimbo "stroke0" dos rabiscos do Figma (365 u
+ * na escala 0.0321794). Os pincéis de cada ferramenta ficam em brushes.ts.
+ */
 export const INK_COLOR = '#B7CAEA';
 export const INK_STAMP = 365 * 0.0321794;
-export const INK_SPACING = 3;
 /** Meia largura da régua de apagar (= a faixa) e da borda macia, em px de design. */
 export const ERASE_HALF = STRIP.w / 2;
 export const ERASE_FEATHER = 4;

@@ -369,3 +369,81 @@ as chaves `career.life`/`career.nextStop`. O que eram `career.life` agora é
 
 **Gate 9:** passou a checar o vídeo, as fotos, os avatares, as camadas dos tickets, o
 "André Garcia" e os marcadores novos no HTML.
+
+## Emenda 6 — um pincel por ferramenta (2026-11-23)
+
+**Pedido do André:** cada ferramenta, quando escolhida, desenha com um pincel diferente. Um
+frame da lousa por ferramenta mostra o pincel:
+
+| Ferramenta | Frame | Pincel do Figma Draw |
+|---|---|---|
+| Figma | 238:48 | DOO_WOP (scatter) |
+| Animate | 238:358 | DOO_WOP espaçado + efeito Texture |
+| Clip Studio Paint | 238:172 | SHOEGAZE (scatter) |
+| InDesign | 238:482 | WITCH_HOUSE (scatter) |
+| Illustrator | 238:234 | NOIR (stretch) |
+| After Effects | 238:110 | NEW_WAVE (stretch) |
+| Photoshop | 238:296 | PROPAGANDA (stretch) |
+| Blender | 238:420 | ROM_COM (stretch) |
+
+**Decisões com o André:**
+- A lousa em repouso continua a do 226:56. Os 8 frames só mostram os pincéis (os mesmos
+  rabiscos, a mesma cor `#B7CAEA`).
+- O desenho automático usa o pincel da ferramenta. A caneta na mão usa o pincel da
+  **última ferramenta desenhada**.
+- Figma e Animate são os dois "doo wop", e cada um sai como no seu frame: o do Animate
+  tem gap 1.27 (um colar de bolinhas) e o efeito Texture nos grupos.
+- Para medir os pincéis, o Claude criou um arquivo de rascunho separado no Figma
+  ("rascunho pincéis lousa", `YFFxbYp4WltQOPucRAF6qz`, na equipe pessoal do André), com uma
+  linha reta de cada pincel. O arquivo do portfólio não foi alterado. O rascunho pode ser
+  apagado.
+
+**Como foi feito** (`components/career/board/brushes.ts`, `ink.ts`, `texture.ts`):
+- **Parâmetros:** são os `complexStrokeProperties` dos rabiscos de cada frame, lidos pela
+  Plugin API (38 dos 41 vetores com espessura 9.046, e 3 com 10.539). A espessura na lousa
+  é a dos rabiscos do 226:56 (`INK_STAMP` = 11.75), e o que é medido em px (a textura) vai
+  na mesma proporção.
+- **Scatter** (conferido nas linhas retas de 600 px do rascunho):
+  - O carimbo tem o lado maior igual à espessura e o centro na linha.
+  - O passo é `gap × espessura` (DOO_WOP 2.804 = 0.31 × 9.046; Animate 11.488 = 1.27 ×
+    9.046).
+  - `wiggle` desloca o carimbo para o lado até `wiggle × espessura` (±2.98 no SHOEGAZE) e
+    ao longo do traço até a metade disso.
+  - O tamanho é `1 ± sizeJitter`, com mínimo de 0.35 (no WITCH_HOUSE o Figma vai de 0.38 a
+    2.66).
+  - O ângulo é a tangente + `rotation` ± `angularJitter`.
+- **Carimbos:** o DOO_WOP é o `pincel.png` de antes (MAE 4.7/255 contra o do rascunho, só
+  reamostragem). SHOEGAZE e WITCH_HOUSE são o `stroke0` do SVG do Figma, em 160 px brancos
+  (`lousa/pinceis/shoegaze.png`, `witch-house.png`).
+- **Stretch:** a faixa é a mesma com 150, 600 ou 1200 px (o SVG muda só na escala de x), e
+  ocupa exatamente comprimento × espessura.
+  - A linha reta de 600 vira `lousa/pinceis/<pincel>.png` (2400 × 36, branca).
+  - No canvas, a faixa é desenhada em fatias de 1 px de design ao longo do traço. A direção
+    de cada fatia é a corda de ± meia espessura, para as quinas virarem leque e não fenda.
+    As fatias se sobrepõem ¾ px de tela.
+  - **Desenho automático:** o comprimento já é conhecido, então a faixa sai aos poucos,
+    meia espessura atrás da ponta (a direção precisa do que vem depois).
+  - **À mão:** como no Figma, a faixa se estica no comprimento até ali. A tela de antes do
+    traço fica guardada e o traço é redesenhado uma vez por quadro. No fim, o comprimento
+    final vai para o log, e o replay sai igual.
+- **Textura do Animate** (`texture.ts`):
+  - O Figma usa feTurbulence (fractal, 3 oitavas, 1/6.78) + feDisplacementMap (±5.0) e
+    prende o resultado à forma. Aqui é um value noise de 3 oitavas na mesma escala.
+  - Cada carimbo passa pela textura num recorte à parte. O deslocamento depende só da
+    posição na tela, então o resultado é o mesmo de deslocar o traço inteiro, e o replay
+    sai idêntico.
+  - Se o ponto buscado cai fora da silhueta (o alfa borrado com gama 0.2), o pixel fica
+    como estava, e a bolinha continua redonda.
+- **Testes:**
+  - O vitest cobre:
+    - o mapa ferramenta → pincel e as imagens em `public/`;
+    - os limites do carimbo;
+    - o caminhante ao vivo = o replay, com o carimbo de um toque;
+    - a polilinha da faixa e o alisamento na quina;
+    - o ruído.
+  - O gate 9 checa as imagens de `BRUSH_IMAGES` e o uso de `TOOL_BRUSH`.
+- **Conferido no Playwright a 1728:**
+  - As 8 ferramentas, desenhadas pela caneta, batem com os seus frames.
+  - À mão: o Animate sai em bolinhas e o Illustrator em faixa noir.
+  - Console sem erros.
+- **Removido:** `INK_SPACING` (o passo agora é do pincel).

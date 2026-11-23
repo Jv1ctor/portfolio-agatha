@@ -35,6 +35,10 @@ Spec: `docs/superpowers/specs/2026-11-17-carreira-page-design.md`.
     - os placeholders `{name}`/`{n}` de `career.drawing` existem nos dois idiomas
     - `vitest` passa (máquina de estados, geometria da régua e da caneta, glifos dentro da
       tela e contínuos; Emenda 4: faixa = régua, suporte e limites da caneta na mão)
+  - **Pincéis (Emenda 6):** toda imagem de `BRUSH_IMAGES` existe em
+    `public/images/carreira/lousa/` e a lousa desenha com `TOOL_BRUSH[tool]`; o `vitest`
+    cobre o mapa ferramenta → pincel, os limites do carimbo, ao vivo = replay e a faixa
+    esticada
 
 Ordem (memória do repo): 3/4/6/8/9 sem servidor e, depois de
 `pnpm build && pnpm start -p 3000`, 5/7/8/9.
@@ -64,6 +68,9 @@ Ordem (memória do repo): 3/4/6/8/9 sem servidor e, depois de
   - **Teclado:** Tab no bloco, Enter vira, Enter desenha. Setas na bolinha apagam aos poucos
     e End apaga tudo.
   - **As 8 grafias:** folha de capturas para a Ágatha revisar.
+  - **Emenda 6, pincéis:** cada ferramenta desenha com o pincel do seu frame (238:48…482);
+    a caneta na mão usa o da última ferramenta desenhada; o Animate sai em bolinhas sem
+    cor estranha; um traço à mão com pincel esticado estica enquanto se desenha.
 
 - **1728, movimento reduzido:** recortes contra o render 1:1 do Figma, com MAE ≤ 2.8/255 por
   região (o footer compartilhado fica em 6.0, diferença conhecida).

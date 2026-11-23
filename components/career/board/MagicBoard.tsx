@@ -25,7 +25,8 @@ import {
   stripShift,
   type Pt,
 } from './geometry';
-import { glyph } from './glyphs';
+import { BRUSH_IMAGES, TOOL_BRUSH, type Brush, type BrushImage } from './brushes';
+import { glyph, strokeLength } from './glyphs';
 import { CordPainter, Ink } from './ink';
 import { canErase, type BoardEvent, type BoardState } from './machine';
 import { BoardSound } from './sound';
@@ -36,14 +37,16 @@ import b from './board.module.css';
  * A lousa mágica (Figma 201:413) viva. Camadas, de baixo para cima (todas recompõem o
  * render do Figma em repouso — MAE 0.19/255, ver o spec, Emenda 3):
  *  1. base.webp — corpo, trilho, faixa bege e suporte vazios; a tela branca;
- *  2. a tinta (canvas) — começa com os rabiscos do Figma (tinta.webp) e recebe os traços;
+ *  2. a tinta (canvas) — começa com os rabiscos do Figma (tinta.webp) e recebe os traços,
+ *     cada um com o pincel da ferramenta (brushes.ts; spec, Emenda 6);
  *  3. o grão rosa da tela (grao.webp), por cima da tinta, como no Figma;
  *  4. a faixa bege (faixa.webp), a régua: anda com a bolinha e apaga o que fica embaixo;
  *  5. o cordão (recorte em repouso; canvas quando a caneta sai) e a bolinha (#F9F3EA);
  *  6. a caneta (SVG do Figma), que gira em torno da ponta.
  *
  * A caneta na mão: um clique nela a tira do suporte e a ponta passa a seguir o ponteiro;
- * só sai tinta com o botão apertado; um clique no suporte (ou Esc) a guarda de volta.
+ * só sai tinta com o botão apertado, no pincel da última ferramenta desenhada; um clique
+ * no suporte (ou Esc) a guarda de volta.
  *
  * O HTML do servidor é o Figma; o canvas só assume depois de pintar os rabiscos.
  */
@@ -142,10 +145,15 @@ export function MagicBoard({
       applyPen();
       applyKnob();
     };
-    engine.current = Promise.all([load(`${IMG}/pincel.png`), load(`${IMG}/tinta.webp`)])
-      .then(([brush, tinta]) => {
+    const names = Object.keys(BRUSH_IMAGES) as BrushImage[];
+    engine.current = Promise.all([load(`${IMG}/tinta.webp`), ...names.map((n) => load(BRUSH_IMAGES[n]))])
+      .then(([tinta, ...brushes]) => {
         if (cancelled) return null;
-        live.current = { ink: new Ink(inkCanvas, brush), cord: new CordPainter(cordCanvas, brush, CORD_CANVAS) };
+        const images = Object.fromEntries(names.map((n, i) => [n, brushes[i]])) as Record<BrushImage, HTMLImageElement>;
+        live.current = {
+          ink: new Ink(inkCanvas, images),
+          cord: new CordPainter(cordCanvas, images['doo-wop'], CORD_CANVAS),
+        };
         measure();
         live.current.ink.image(tinta);
         inkWrapRef.current!.dataset.ready = '';
@@ -196,12 +204,12 @@ export function MagicBoard({
   };
 
   /** A caneta percorre o traço na velocidade de desenho, soltando tinta. */
-  const trace = (stroke: Pt[], signal: AbortSignal, ink: Ink) => {
+  const trace = (stroke: Pt[], brush: Brush, signal: AbortSignal, ink: Ink) => {
     const cum = [0];
     for (let i = 1; i < stroke.length; i++)
       cum.push(cum[i - 1] + Math.hypot(stroke[i].x - stroke[i - 1].x, stroke[i].y - stroke[i - 1].y));
     let d = 0, i = 0;
-    ink.beginStroke(stroke[0]);
+    ink.beginStroke(stroke[0], brush, cum[cum.length - 1]);
     return loop((dt) => {
       d += SPEED * dt;
       while (i < stroke.length - 1 && cum[i + 1] <= d) ink.extend(stroke[++i]);
@@ -252,9 +260,10 @@ export function MagicBoard({
       const e = await engine.current;
       if (!e || ac.signal.aborted) return;
       const strokes = glyph(tool);
+      const brush = TOOL_BRUSH[tool];
       if (reducedMotion()) {
         for (const s of strokes) {
-          e.ink.beginStroke(s[0]);
+          e.ink.beginStroke(s[0], brush, strokeLength(s));
           for (const pt of s.slice(1)) e.ink.extend(pt);
           e.ink.endStroke();
         }
@@ -267,7 +276,7 @@ export function MagicBoard({
             n === 0 ? 700 : Math.min(320, 90 + hop * 0.6),
             ac.signal,
           );
-          if (!ok || !(await trace(strokes[n], ac.signal, e.ink))) return;
+          if (!ok || !(await trace(strokes[n], brush, ac.signal, e.ink))) return;
           e.ink.endStroke();
           sound.current?.up('pen');
         }
@@ -323,7 +332,8 @@ export function MagicBoard({
     if (insideInk(q)) {
       if (s.inking) ink.extend(q);
       else {
-        ink.beginStroke(q);
+        // a caneta na mão desenha com o pincel da última ferramenta desenhada
+        ink.beginStroke(q, TOOL_BRUSH[state.drawn ?? 'figma']);
         s.inking = true;
       }
       sound.current?.at('pen', p);

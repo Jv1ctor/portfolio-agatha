@@ -1237,6 +1237,11 @@ console.log('ok');
   for f in base.webp tinta.webp grao.webp cordao.webp faixa.webp pincel.png caneta.svg; do
     [ -f "public/images/carreira/lousa/$f" ] || { log_fail "  public/images/carreira/lousa/$f missing"; missing=1; }
   done
+  # um pincel por ferramenta (spec, Emenda 6): toda imagem de BRUSH_IMAGES existe
+  for f in $(grep -oE "\\\$\{DIR\}/[a-z/.-]+" components/career/board/brushes.ts | sed 's#^\$[{]DIR[}]/##'); do
+    [ -f "public/images/carreira/lousa/$f" ] || { log_fail "  brush image lousa/$f missing"; missing=1; }
+  done
+  grep -q "TOOL_BRUSH\[tool\]" components/career/board/MagicBoard.tsx && log_pass "  MagicBoard draws each tool with its own brush" || log_fail "  MagicBoard ignores TOOL_BRUSH"
   for t in $(grep -oE "TOOLS = \[[^]]+\]" components/career/board/glyphs.ts | grep -oE "'[a-z]+'" | tr -d "'"); do
     for f in "$t.svg" "$t-verso.svg"; do
       [ -f "public/images/carreira/blocos/$f" ] || { log_fail "  public/images/carreira/blocos/$f missing"; missing=1; }
