@@ -12,17 +12,19 @@ import a from './about.module.css';
  * Os nomes e LinkedIns vêm de lib/site.ts (dados, não texto). A anotação do Figma
  * (226:803) pede os LinkedIns: com URL, o nome vira link; sem, fica só o nome.
  * Avatares: recortes do export 2x do 226:802 com 10px de margem (o creme é o da página).
- * Posições: 226:802 em (114, 9554.99) + caixas do get_metadata.
+ * Posições: 226:802 em (114, 9554.99) + caixas do get_metadata. A fileira de baixo
+ * (226:884) é centralizada: a Raquel (241:579) entrou e Valentim/Gilberto foram para a esquerda.
  */
 
 /** canto do avatar (px do Figma, absoluto) e do nome, na ordem de career.devs */
 const SPOTS: Record<string, { avatar: [number, number, number, number]; name: [number, number] }> = {
-  kaike: { avatar: [206.36, 9576.08, 94.635, 92.938], name: [327, 9603.55] },
-  'joao-vitor': { avatar: [562.99, 9570.99, 104.092, 103.109], name: [693.08, 9603.54] },
-  andre: { avatar: [879.09, 9574.87, 100.866, 95.348], name: [1005.96, 9603.54] },
-  'joao-pedro': { avatar: [1228.95, 9573.43, 100.18, 98.238], name: [1355.13, 9603.55] },
-  valentim: { avatar: [474.24, 9694.1, 97.556, 100.798], name: [597.8, 9725.5] },
-  gilberto: { avatar: [883.8, 9695.51, 103.45, 97.977], name: [1013.25, 9725.5] },
+  kaike: { avatar: [203.86, 9576.08, 94.635, 92.938], name: [324.5, 9603.55] },
+  'joao-vitor': { avatar: [560.5, 9570.99, 104.092, 103.109], name: [690.59, 9603.55] },
+  andre: { avatar: [876.59, 9574.87, 100.866, 95.348], name: [1003.46, 9603.55] },
+  'joao-pedro': { avatar: [1231.46, 9573.43, 100.18, 98.238], name: [1357.64, 9603.55] },
+  valentim: { avatar: [286.5, 9694.1, 97.556, 100.798], name: [410.06, 9725.5] },
+  gilberto: { avatar: [696.06, 9695.51, 103.45, 97.977], name: [825.51, 9725.5] },
+  raquel: { avatar: [1094.51, 9703.12, 97.494, 82.762], name: [1218, 9725.5] },
 };
 const M = 10; // margem dos recortes dos avatares
 

@@ -60,5 +60,6 @@ export const career: {
     { slug: 'joao-pedro', name: 'João Pedro', linkedin: null },
     { slug: 'valentim', name: 'Valentim Aragão', linkedin: null },
     { slug: 'gilberto', name: 'Gilberto Egypto', linkedin: null },
+    { slug: 'raquel', name: 'Raquel Quirino', linkedin: null },
   ],
 };
