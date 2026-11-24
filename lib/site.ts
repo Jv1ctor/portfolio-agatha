@@ -28,17 +28,30 @@ export const site = {
  */
 export type CareerDev = { slug: string; name: string; linkedin: string | null };
 /** Chave em dict.career.publications.items. */
-export type PublicationKey = 'ludificacao';
+export type PublicationKey = 'ludificacao' | 'espaleira' | 'hep2' | 'cincoPlanos';
+/**
+ * Uma publicação do ticket. `rows`: quantas pills vão em cada fileira (as fileiras do
+ * Figma, frames TCC1/Espaleira/HEP2/5 planos); em telas estreitas elas ainda quebram.
+ */
+export type CareerPublication = { key: PublicationKey; url: string | null; rows: readonly number[] };
 
 export const career: {
   musicChannel: string;
-  publications: readonly { key: PublicationKey; url: string | null }[];
+  publications: readonly CareerPublication[];
   devs: readonly CareerDev[];
 } = {
   /** "Meu canal de música" (anotação do Figma no 226:497: id do canal no YouTube). */
   musicChannel: 'https://www.youtube.com/channel/UCGZGlogw4iBZehMIJ6ILZfg',
-  /** Ticket "clique aqui para ler a publicação": a ordem é a do "próxima". */
-  publications: [{ key: 'ludificacao', url: null }],
+  /**
+   * Ticket "clique aqui para ler a publicação": a ordem é a do "próxima" (e do autoplay).
+   * Depois da última, o ticket rebobina até a primeira.
+   */
+  publications: [
+    { key: 'ludificacao', url: null, rows: [2, 3] },
+    { key: 'espaleira', url: null, rows: [3, 2] },
+    { key: 'hep2', url: null, rows: [3, 1] },
+    { key: 'cincoPlanos', url: null, rows: [3, 2] },
+  ],
   /** "sobre este site": nome, avatar (public/images/carreira/devs/<slug>.webp) e LinkedIn. */
   devs: [
     { slug: 'kaike', name: 'Kaíke Petalas', linkedin: null },

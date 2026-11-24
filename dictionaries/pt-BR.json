@@ -1293,6 +1293,35 @@
             "a4": "IHC",
             "a5": "UX e UI Design"
           }
+        },
+        "espaleira": {
+          "title": "Criação de Espaleira Ajustável para Crianças: Pesquisa em Design e Inovação na Educação Musical de Violino",
+          "areas": {
+            "a1": "Design de produto",
+            "a2": "Lúdico",
+            "a3": "Equipamento musical",
+            "a4": "Design Research",
+            "a5": "UX e UI Design"
+          }
+        },
+        "hep2": {
+          "title": "Classificação de Padrões em Células HEP-2 com DENSENET121: Avaliação por Classe",
+          "areas": {
+            "a1": "Classificação por imagem",
+            "a2": "Tecnologia de aprendizado profundo",
+            "a3": "IA",
+            "a4": "Design Research"
+          }
+        },
+        "cincoPlanos": {
+          "title": "A Metodologia dos 5 Planos da Experiência no Ensino de UX/UI: Reflexões Sobre Prática e Pesquisa em Sala de Aula",
+          "areas": {
+            "a1": "Aplicação metodológica",
+            "a2": "Ensino e Docência",
+            "a3": "Programa de Monitoria",
+            "a4": "Design Research",
+            "a5": "UX e UI Design"
+          }
         }
       }
     },

@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState, type CSSProperties, type ReactNode } from 'react';
+import { useEffect, useEffectEvent, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import type { Dictionary } from '@/i18n/dictionaries';
 import { career } from '@/lib/site';
 import { at } from './layout';
@@ -15,6 +15,9 @@ import p from './publications.module.css';
  * publicação" e tem o "próxima". Anotação do Figma (226:393): o ticket vira para trás e
  * passa para o próximo. Cada clique em "próxima" faz o ticket da frente girar no eixo da
  * argola até ficar de lado, troca a publicação e volta de frente.
+ *
+ * As publicações são os frames TCC1, Espaleira, HEP2 e 5 planos (Figma 226:931/964/992/1016).
+ * O ticket passa sozinho a cada 6 s. Depois da última, rebobina até a primeira (`rewind`).
  *
  * Camadas, na ordem do Figma, com as caixas do get_design_context em coordenadas locais
  * (origem no grupo, (1083, 4170.85), 493 × 630.27): furo (Ellipse 429), 4 tickets de trás
@@ -100,39 +103,136 @@ function Turned({ cx, y, w, h, children, className }: { cx: number; y: number; w
   );
 }
 
+/** Tempo que cada publicação fica de frente no autoplay. */
+const DWELL = 6000;
+const EASE_IN = 'cubic-bezier(0.55, 0, 0.75, 0.45)';
+const EASE_OUT = 'cubic-bezier(0.2, 0.7, 0.3, 1)';
+
+const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const spin = (el: HTMLElement, frames: Keyframe[], duration: number, easing: string) =>
+  el.animate(frames, { duration, easing }).finished;
+
+/** Separa as pills nas fileiras do Figma; o que sobrar vai na última. */
+function splitRows<T>(items: T[], rows: readonly number[]): T[][] {
+  const out: T[][] = [];
+  let i = 0;
+  rows.forEach((n, r) => {
+    out.push(items.slice(i, r === rows.length - 1 ? undefined : i + n));
+    i += n;
+  });
+  return out.filter((row) => row.length > 0);
+}
+
 export function CareerPublications({ labels }: { labels: Dictionary['career']['publications'] }) {
   const [index, setIndex] = useState(0);
+  /** Sobe ao fim de cada giro: reinicia a contagem do autoplay. */
+  const [cycle, setCycle] = useState(0);
+  const [inView, setInView] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const root = useRef<HTMLDivElement>(null);
   const front = useRef<HTMLDivElement>(null);
   const busy = useRef(false);
   const list = career.publications;
   const current = list[index];
   const item = labels.items[current.key];
-  const areas = Object.values(item.areas);
+  const rows = splitRows(Object.values(item.areas), current.rows);
+  // anda sozinho só na tela, sem o mouse em cima do ticket (tem link e botão) e sem o
+  // foco do teclado nele; com movimento reduzido, não anda (inView fica false)
+  const autoplay = inView && !hovered && !focused && list.length > 1;
 
-  const next = async () => {
-    const el = front.current;
-    const go = () => setIndex((i) => (i + 1) % list.length);
-    if (!el || busy.current || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      go();
-      return;
-    }
-    busy.current = true;
-    // vira para trás no eixo da argola até ficar de lado, troca, e volta de frente
-    await el.animate([{ transform: 'rotateX(0deg)' }, { transform: 'rotateX(-88deg)', opacity: 0.6 }], {
-      duration: 320,
-      easing: 'cubic-bezier(0.55, 0, 0.75, 0.45)',
-    }).finished;
-    go();
-    await el.animate(
+  /** "próxima": vira para trás no eixo da argola até ficar de lado, troca, volta de frente. */
+  const forward = async (el: HTMLElement) => {
+    await spin(el, [{ transform: 'rotateX(0deg)' }, { transform: 'rotateX(-88deg)', opacity: 0.6 }], 320, EASE_IN);
+    setIndex((i) => (i + 1) % list.length);
+    await spin(
+      el,
       [
         { transform: 'rotateX(88deg)', opacity: 0.6 },
         { transform: 'rotateX(-8deg)', offset: 0.75 },
         { transform: 'rotateX(0deg)', opacity: 1 },
       ],
-      { duration: 520, easing: 'cubic-bezier(0.2, 0.7, 0.3, 1)' },
-    ).finished;
-    busy.current = false;
+      520,
+      EASE_OUT,
+    );
   };
+
+  /**
+   * Depois da última: rebobina. O ticket gira no sentido contrário e folheia de volta cada
+   * publicação, cada vez mais rápido, até a primeira. Ela assenta com um balanço, e o
+   * bloquinho inteiro balança junto na fita.
+   */
+  const rewind = async (el: HTMLElement) => {
+    await spin(el, [{ transform: 'rotateX(0deg)' }, { transform: 'rotateX(88deg)', opacity: 0.6 }], 260, EASE_IN);
+    for (let i = list.length - 2, step = 0; i > 0; i--, step++) {
+      setIndex(i);
+      await spin(
+        el,
+        [
+          { transform: 'rotateX(-88deg)', opacity: 0.6 },
+          { transform: 'rotateX(0deg)', opacity: 1, offset: 0.5 },
+          { transform: 'rotateX(88deg)', opacity: 0.6 },
+        ],
+        Math.max(150, 230 - step * 40),
+        'linear',
+      );
+    }
+    setIndex(0);
+    root.current?.animate([{ rotate: '0deg' }, { rotate: '-1.8deg' }, { rotate: '1.1deg' }, { rotate: '-0.4deg' }, { rotate: '0deg' }], {
+      duration: 900,
+      delay: 120,
+      easing: 'ease-out',
+    });
+    await spin(
+      el,
+      [
+        { transform: 'rotateX(-88deg)', opacity: 0.6 },
+        { transform: 'rotateX(14deg)', opacity: 1, offset: 0.55 },
+        { transform: 'rotateX(-5deg)', offset: 0.8 },
+        { transform: 'rotateX(0deg)', opacity: 1 },
+      ],
+      780,
+      EASE_OUT,
+    );
+  };
+
+  const next = async () => {
+    if (busy.current) return;
+    const el = front.current;
+    if (!el || reducedMotion()) {
+      setIndex((i) => (i + 1) % list.length);
+      setCycle((c) => c + 1);
+      return;
+    }
+    busy.current = true;
+    try {
+      await (index === list.length - 1 ? rewind(el) : forward(el));
+    } catch {
+      /* animação cancelada: o índice já foi trocado */
+    } finally {
+      busy.current = false;
+      setCycle((c) => c + 1);
+    }
+  };
+
+  const onDwell = useEffectEvent(() => {
+    void next();
+  });
+
+  // autoplay: uma publicação a cada DWELL, contando de novo a cada giro (também o manual)
+  useEffect(() => {
+    if (!autoplay) return;
+    const t = window.setTimeout(onDwell, DWELL);
+    return () => window.clearTimeout(t);
+  }, [autoplay, cycle]);
+
+  useEffect(() => {
+    const el = root.current;
+    if (!el || reducedMotion()) return;
+    const io = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { threshold: 0.35 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   const read = <span className={p.readText}>{labels.read}</span>;
 
@@ -142,12 +242,13 @@ export function CareerPublications({ labels }: { labels: Dictionary['career']['p
         <h2 id="career-publications" className={`${s.title} ${p.title}`}>
           {labels.title}
         </h2>
-        <p className={p.paper} aria-live="polite">
+        {/* rodando sozinho não anuncia (padrão de carrossel da WAI); parado, anuncia a troca */}
+        <p className={p.paper} aria-live={autoplay ? 'off' : 'polite'}>
           {item.title}
         </p>
         <div className={p.areas}>
           <h3 className={p.areasTitle}>{labels.areasTitle}</h3>
-          {[areas.slice(0, 2), areas.slice(2)].map((row, r) => (
+          {rows.map((row, r) => (
             <ul key={r} className={p.areaRow}>
               {row.map((area) => (
                 <li key={area} className={p.area}>
@@ -159,7 +260,21 @@ export function CareerPublications({ labels }: { labels: Dictionary['career']['p
         </div>
       </div>
 
-      <div className={`${s.a} ${p.ticket}`} style={at(1083, 4170.85, 493)}>
+      <div
+        ref={root}
+        className={`${s.a} ${p.ticket}`}
+        style={at(1083, 4170.85, 493)}
+        onPointerEnter={(e) => {
+          if (e.pointerType === 'mouse') setHovered(true);
+        }}
+        onPointerLeave={() => setHovered(false)}
+        onFocus={(e) => {
+          if (e.target.matches(':focus-visible')) setFocused(true);
+        }}
+        onBlur={(e) => {
+          if (!e.currentTarget.contains(e.relatedTarget)) setFocused(false);
+        }}
+      >
         <div className={p.art} aria-hidden>
           {/* furo (Ellipse 429) */}
           <div className={p.box} style={{ '--x': 253, '--y': 104, '--w': 94, '--h': 94 } as CSSProperties}>

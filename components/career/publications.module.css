@@ -83,6 +83,8 @@
   align-self: center;
   aspect-ratio: 493 / 630.27;
   perspective: 1400px;
+  /* o balanço do rebobinar (CareerPublications `rewind`) pende da fita */
+  transform-origin: 67% 0;
 }
 .art,
 .front {

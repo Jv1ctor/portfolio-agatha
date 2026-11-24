@@ -1293,6 +1293,35 @@
             "a4": "HCI",
             "a5": "UX and UI Design"
           }
+        },
+        "espaleira": {
+          "title": "Designing an Adjustable Shoulder Rest for Children: Design Research and Innovation in Violin Music Education",
+          "areas": {
+            "a1": "Product design",
+            "a2": "Playfulness",
+            "a3": "Musical equipment",
+            "a4": "Design Research",
+            "a5": "UX and UI Design"
+          }
+        },
+        "hep2": {
+          "title": "Pattern Classification of HEp-2 Cells with DenseNet121: A Per-Class Evaluation",
+          "areas": {
+            "a1": "Image classification",
+            "a2": "Deep learning technology",
+            "a3": "AI",
+            "a4": "Design Research"
+          }
+        },
+        "cincoPlanos": {
+          "title": "The 5 Planes of Experience Methodology in Teaching UX/UI: Reflections on Practice and Research in the Classroom",
+          "areas": {
+            "a1": "Methodological application",
+            "a2": "Teaching",
+            "a3": "Teaching Assistant Program",
+            "a4": "Design Research",
+            "a5": "UX and UI Design"
+          }
         }
       }
     },
