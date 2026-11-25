@@ -1377,5 +1377,22 @@
       "linkedin": "LinkedIn de {name}",
       "thanks": "A todos os contribuintes desse projeto, meus mais genuínos agradecimentos, parceria e admiração. ;D S2"
     }
+  },
+  "treasure": {
+    "catch": "Pegar {icon} e ver uma arte surpresa",
+    "icons": {
+      "aguaViva": "a água-viva",
+      "aguaVivaLua": "a água-viva-lua",
+      "peixinho": "o peixinho",
+      "concha": "a concha",
+      "relogio": "o relógio de bolso",
+      "estrela": "a estrela",
+      "bolinhaDeGude": "a bolinha de gude",
+      "pontosSemNo": "o coelhinho do Pontos sem nó",
+      "lirioDoVale": "o lírio-do-vale",
+      "dadinho": "o dadinho",
+      "folhaDeOutono": "a folha de outono",
+      "trevo": "o trevo de quatro folhas"
+    }
   }
 }

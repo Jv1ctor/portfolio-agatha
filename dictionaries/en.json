@@ -1377,5 +1377,22 @@
       "linkedin": "{name}’s LinkedIn",
       "thanks": "To everyone who contributed to this project, my most genuine thanks, partnership and admiration. ;D S2"
     }
+  },
+  "treasure": {
+    "catch": "Catch {icon} and see a surprise artwork",
+    "icons": {
+      "aguaViva": "the jellyfish",
+      "aguaVivaLua": "the moon jellyfish",
+      "peixinho": "the little fish",
+      "concha": "the seashell",
+      "relogio": "the pocket watch",
+      "estrela": "the star",
+      "bolinhaDeGude": "the marble",
+      "pontosSemNo": "the Pontos sem nó bunny",
+      "lirioDoVale": "the lily of the valley",
+      "dadinho": "the little die",
+      "folhaDeOutono": "the autumn leaf",
+      "trevo": "the four-leaf clover"
+    }
   }
 }
