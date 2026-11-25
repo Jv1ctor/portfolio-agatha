@@ -87,12 +87,30 @@
   transform-origin: 67% 0;
 }
 .art,
-.front {
+.sheet,
+.face {
   position: absolute;
   inset: 0;
 }
-.front {
+/* A folha gira no eixo da argola (centro do 226:401, (298, 158)); ver FLIP no TSX. */
+.sheet {
+  transform-origin: calc(var(--k) * 298) calc(var(--k) * 158);
   transform-style: preserve-3d;
+}
+.face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+/* Verso: virado de costas (rotateY) e espelhado por dentro (scaleX), o recorte ocupa o
+   mesmo lugar da face; mais escuro, liso, como a folha de pé na prévia. */
+.back {
+  transform: rotateY(180deg);
+}
+.mirror {
+  position: absolute;
+  inset: 0;
+  transform: scaleX(-1);
+  filter: brightness(0.78);
 }
 .nextWord {
   display: contents;

@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useEffectEvent, useRef, useState, type CSSProperties, type ReactNode } from 'react';
+import { useEffect, useEffectEvent, useRef, useState, type CSSProperties, type ReactNode, type Ref } from 'react';
+import { flushSync } from 'react-dom';
 import type { Dictionary } from '@/i18n/dictionaries';
 import { career } from '@/lib/site';
 import { at } from './layout';
@@ -13,11 +14,13 @@ import p from './publications.module.css';
  * À esquerda, o título, o nome da publicação e as áreas de pesquisa (pills). À direita, o
  * bloquinho de tickets presos por uma fita: o da frente diz "clique aqui para ler a
  * publicação" e tem o "próxima". Anotação do Figma (226:393): o ticket vira para trás e
- * passa para o próximo. Cada clique em "próxima" faz o ticket da frente girar no eixo da
- * argola até ficar de lado, troca a publicação e volta de frente.
+ * passa para o próximo. O giro segue a prévia folhas_virada_previa_loop.gif: a folha da
+ * frente descola, vem na direção de quem olha, passa de lado, fica de pé acima da argola
+ * mostrando o verso (mais escuro) e some atrás da fita; embaixo já está a próxima.
  *
  * As publicações são os frames TCC1, Espaleira, HEP2 e 5 planos (Figma 226:931/964/992/1016).
- * O ticket passa sozinho a cada 6 s. Depois da última, rebobina até a primeira (`rewind`).
+ * O ticket passa sozinho a cada 6 s. Depois da última, rebobina até a primeira (`rewind`):
+ * o mesmo giro ao contrário, as folhas voltando de trás por cima da argola.
  *
  * Camadas, na ordem do Figma, com as caixas do get_design_context em coordenadas locais
  * (origem no grupo, (1083, 4170.85), 493 × 630.27): furo (Ellipse 429), 4 tickets de trás
@@ -79,8 +82,7 @@ const LINES = [
   [131.95, 350.87, 'line11.svg'],
   [118, 395.8, 'line11.svg'],
 ] as const;
-/** Eixo da argola (centro do 226:401): o ticket gira em torno dele. */
-const PIVOT = [298, 158];
+/** Eixo da argola (centro do 226:401): o ticket gira em torno dele (.sheet no CSS). */
 
 function Art({ layer }: { layer: Layer }) {
   const { src, x, y, w, h, iw, ih, r, ir, ib } = layer;
@@ -105,12 +107,105 @@ function Turned({ cx, y, w, h, children, className }: { cx: number; y: number; w
 
 /** Tempo que cada publicação fica de frente no autoplay. */
 const DWELL = 6000;
-const EASE_IN = 'cubic-bezier(0.55, 0, 0.75, 0.45)';
-const EASE_OUT = 'cubic-bezier(0.2, 0.7, 0.3, 1)';
+
+/**
+ * O giro da folha no eixo da argola (horizontal na tela), quadro a quadro da prévia
+ * (36 quadros de 30 ms): descola devagar (0–24%), passa de lado depressa, para de pé
+ * acima da argola com o verso à mostra (62%) e cai para trás até sumir de lado (268°).
+ * `rotate` acompanha o descolar e endireita a folha de pé, como na prévia: o rotateX
+ * espelha o tombo de 17.6° do ticket (de pé ele penderia −17.6°), e +11° o deixa quase reto.
+ */
+const FLIP: Keyframe[] = [
+  { transform: 'rotate(0deg) rotateX(0deg)', easing: 'cubic-bezier(0.45, 0, 0.75, 0.4)' },
+  { transform: 'rotate(5deg) rotateX(32deg)', offset: 0.24, easing: 'linear' },
+  { transform: 'rotate(8deg) rotateX(110deg)', offset: 0.42, easing: 'cubic-bezier(0.2, 0.6, 0.4, 1)' },
+  { transform: 'rotate(11deg) rotateX(180deg)', offset: 0.62, easing: 'cubic-bezier(0.5, 0, 0.8, 0.5)' },
+  { transform: 'rotate(13deg) rotateX(268deg)' },
+];
+const FLIP_MS = 1100;
+
+/** O mesmo giro ao contrário: a folha volta de trás, por cima da argola, e assenta. */
+const unflip = (settle: boolean): Keyframe[] => [
+  { transform: 'rotate(13deg) rotateX(268deg)', easing: 'cubic-bezier(0.2, 0.5, 0.5, 1)' },
+  { transform: 'rotate(11deg) rotateX(180deg)', offset: 0.38, easing: 'cubic-bezier(0.5, 0, 0.8, 0.4)' },
+  { transform: 'rotate(8deg) rotateX(110deg)', offset: 0.58, easing: 'linear' },
+  ...(settle
+    ? [
+        { transform: 'rotate(4deg) rotateX(24deg)', offset: 0.74, easing: 'cubic-bezier(0.3, 0.6, 0.4, 1)' },
+        { transform: 'rotate(-1deg) rotateX(-9deg)', offset: 0.88, easing: 'ease-in-out' },
+      ]
+    : [{ transform: 'rotate(4deg) rotateX(24deg)', offset: 0.78, easing: 'cubic-bezier(0.3, 0.6, 0.4, 1)' }]),
+  { transform: 'rotate(0deg) rotateX(0deg)' },
+];
+
+/** O bloquinho balança na fita quando uma folha passa (pende da fita: .ticket). */
+const SWAY: Keyframe[] = [{ rotate: '0deg' }, { rotate: '-1.4deg' }, { rotate: '0.8deg' }, { rotate: '-0.3deg' }, { rotate: '0deg' }];
 
 const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const spin = (el: HTMLElement, frames: Keyframe[], duration: number, easing: string) =>
   el.animate(frames, { duration, easing }).finished;
+
+/**
+ * A folha da frente: na face, o recorte (Exclude), as 3 linhas, a argola e os textos; no
+ * verso, o mesmo recorte espelhado e mais escuro (a prévia mostra o verso liso quando a
+ * folha fica de pé). `ghost` é a cópia que gira por cima (ou fica embaixo, no rebobinar)
+ * enquanto a folha de verdade já mostra a publicação nova: sem link, sem clique, inerte.
+ */
+function Sheet({
+  ref,
+  url,
+  readLabel,
+  nextLabel,
+  onNext,
+  ghost = false,
+}: {
+  ref?: Ref<HTMLDivElement>;
+  url: string | null;
+  readLabel: string;
+  nextLabel: string;
+  onNext?: () => void;
+  ghost?: boolean;
+}) {
+  const read = <span className={p.readText}>{readLabel}</span>;
+  return (
+    <div ref={ref} className={p.sheet} aria-hidden={ghost || undefined} inert={ghost}>
+      <div className={p.face}>
+        <div aria-hidden>
+          <Art layer={EXCLUDE} />
+          {LINES.map(([x, y, src]) => (
+            <div key={y} className={p.box} style={{ '--x': x, '--y': y, '--w': 186.232, '--h': 57.633 } as CSSProperties}>
+              <div className={p.line}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={L + src} alt="" />
+              </div>
+            </div>
+          ))}
+          <Art layer={RING} />
+        </div>
+        <Turned cx={234.3} y={261.32} w={212.109} h={186.21} className={p.read}>
+          {url && !ghost ? (
+            <a href={url} target="_blank" rel="noopener noreferrer">
+              {read}
+            </a>
+          ) : (
+            read
+          )}
+        </Turned>
+        {/* a palavra também vira a página (o botão ">" é o controle acessível) */}
+        <div onClick={ghost ? undefined : onNext} className={p.nextWord}>
+          <Turned cx={186.5} y={453} w={184.996} h={102.491} className={p.nextText}>
+            <span aria-hidden>{nextLabel}</span>
+          </Turned>
+        </div>
+      </div>
+      <div className={`${p.face} ${p.back}`} aria-hidden>
+        <div className={p.mirror}>
+          <Art layer={EXCLUDE} />
+        </div>
+      </div>
+    </div>
+  );
+}
 
 /** Separa as pills nas fileiras do Figma; o que sobrar vai na última. */
 function splitRows<T>(items: T[], rows: readonly number[]): T[][] {
@@ -132,6 +227,9 @@ export function CareerPublications({ labels }: { labels: Dictionary['career']['p
   const [focused, setFocused] = useState(false);
   const root = useRef<HTMLDivElement>(null);
   const front = useRef<HTMLDivElement>(null);
+  const ghostRef = useRef<HTMLDivElement>(null);
+  /** a cópia da folha durante o giro: por cima (indo embora) ou embaixo (rebobinar) */
+  const [ghost, setGhost] = useState<'above' | 'below' | null>(null);
   const busy = useRef(false);
   const list = career.publications;
   const current = list[index];
@@ -141,59 +239,35 @@ export function CareerPublications({ labels }: { labels: Dictionary['career']['p
   // foco do teclado nele; com movimento reduzido, não anda (inView fica false)
   const autoplay = inView && !hovered && !focused && list.length > 1;
 
-  /** "próxima": vira para trás no eixo da argola até ficar de lado, troca, volta de frente. */
-  const forward = async (el: HTMLElement) => {
-    await spin(el, [{ transform: 'rotateX(0deg)' }, { transform: 'rotateX(-88deg)', opacity: 0.6 }], 320, EASE_IN);
-    setIndex((i) => (i + 1) % list.length);
-    await spin(
-      el,
-      [
-        { transform: 'rotateX(88deg)', opacity: 0.6 },
-        { transform: 'rotateX(-8deg)', offset: 0.75 },
-        { transform: 'rotateX(0deg)', opacity: 1 },
-      ],
-      520,
-      EASE_OUT,
-    );
+  const sway = (duration: number) => root.current?.animate(SWAY, { duration, delay: 140, easing: 'ease-out' });
+
+  /** "próxima": a folha da frente (a cópia) dá a volta na argola; embaixo, já a próxima. */
+  const forward = async () => {
+    flushSync(() => {
+      setGhost('above');
+      setIndex((i) => (i + 1) % list.length);
+    });
+    const g = ghostRef.current;
+    if (!g) return;
+    sway(1000);
+    await spin(g, FLIP, FLIP_MS, 'linear');
   };
 
   /**
-   * Depois da última: rebobina. O ticket gira no sentido contrário e folheia de volta cada
-   * publicação, cada vez mais rápido, até a primeira. Ela assenta com um balanço, e o
-   * bloquinho inteiro balança junto na fita.
+   * Depois da última: rebobina. Cada publicação volta de trás por cima da argola e cobre a
+   * anterior (a cópia, embaixo), cada vez mais rápido, até a primeira, que assenta com um
+   * balanço; o bloquinho inteiro balança junto na fita.
    */
   const rewind = async (el: HTMLElement) => {
-    await spin(el, [{ transform: 'rotateX(0deg)' }, { transform: 'rotateX(88deg)', opacity: 0.6 }], 260, EASE_IN);
-    for (let i = list.length - 2, step = 0; i > 0; i--, step++) {
-      setIndex(i);
-      await spin(
-        el,
-        [
-          { transform: 'rotateX(-88deg)', opacity: 0.6 },
-          { transform: 'rotateX(0deg)', opacity: 1, offset: 0.5 },
-          { transform: 'rotateX(88deg)', opacity: 0.6 },
-        ],
-        Math.max(150, 230 - step * 40),
-        'linear',
-      );
+    for (let i = list.length - 2, step = 0; i >= 0; i--, step++) {
+      flushSync(() => {
+        setGhost('below');
+        setIndex(i);
+      });
+      const last = i === 0;
+      if (last) sway(900);
+      await spin(el, unflip(last), last ? 900 : Math.max(380, 640 - step * 130), 'linear');
     }
-    setIndex(0);
-    root.current?.animate([{ rotate: '0deg' }, { rotate: '-1.8deg' }, { rotate: '1.1deg' }, { rotate: '-0.4deg' }, { rotate: '0deg' }], {
-      duration: 900,
-      delay: 120,
-      easing: 'ease-out',
-    });
-    await spin(
-      el,
-      [
-        { transform: 'rotateX(-88deg)', opacity: 0.6 },
-        { transform: 'rotateX(14deg)', opacity: 1, offset: 0.55 },
-        { transform: 'rotateX(-5deg)', offset: 0.8 },
-        { transform: 'rotateX(0deg)', opacity: 1 },
-      ],
-      780,
-      EASE_OUT,
-    );
   };
 
   const next = async () => {
@@ -206,11 +280,12 @@ export function CareerPublications({ labels }: { labels: Dictionary['career']['p
     }
     busy.current = true;
     try {
-      await (index === list.length - 1 ? rewind(el) : forward(el));
+      await (index === list.length - 1 ? rewind(el) : forward());
     } catch {
       /* animação cancelada: o índice já foi trocado */
     } finally {
       busy.current = false;
+      setGhost(null);
       setCycle((c) => c + 1);
     }
   };
@@ -233,8 +308,6 @@ export function CareerPublications({ labels }: { labels: Dictionary['career']['p
     io.observe(el);
     return () => io.disconnect();
   }, []);
-
-  const read = <span className={p.readText}>{labels.read}</span>;
 
   return (
     <section className={s.section} aria-labelledby="career-publications">
@@ -286,39 +359,10 @@ export function CareerPublications({ labels }: { labels: Dictionary['career']['p
           ))}
         </div>
 
-        <div
-          ref={front}
-          className={p.front}
-          style={{ transformOrigin: `calc(var(--k) * ${PIVOT[0]}) calc(var(--k) * ${PIVOT[1]})` } as CSSProperties}
-        >
-          <div aria-hidden>
-            <Art layer={EXCLUDE} />
-            {LINES.map(([x, y, src]) => (
-              <div key={y} className={p.box} style={{ '--x': x, '--y': y, '--w': 186.232, '--h': 57.633 } as CSSProperties}>
-                <div className={p.line}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={L + src} alt="" />
-                </div>
-              </div>
-            ))}
-            <Art layer={RING} />
-          </div>
-          <Turned cx={234.3} y={261.32} w={212.109} h={186.21} className={p.read}>
-            {current.url ? (
-              <a href={current.url} target="_blank" rel="noopener noreferrer">
-                {read}
-              </a>
-            ) : (
-              read
-            )}
-          </Turned>
-          {/* a palavra também vira a página (o botão ">" é o controle acessível) */}
-          <div onClick={next} className={p.nextWord}>
-            <Turned cx={186.5} y={453} w={184.996} h={102.491} className={p.nextText}>
-              <span aria-hidden>{labels.next}</span>
-            </Turned>
-          </div>
-        </div>
+        {ghost === 'below' && <Sheet ref={ghostRef} url={null} readLabel={labels.read} nextLabel={labels.next} ghost />}
+        <Sheet ref={front} url={current.url} readLabel={labels.read} nextLabel={labels.next} onNext={next} />
+        {/* a folha que vai embora passa por cima da da frente, mas por baixo da fita */}
+        {ghost === 'above' && <Sheet ref={ghostRef} url={null} readLabel={labels.read} nextLabel={labels.next} ghost />}
 
         <div className={p.art} aria-hidden>
           {RIBBON.map((layer, i) => (
