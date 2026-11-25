@@ -352,3 +352,50 @@ video {
     animation: none;
   }
 }
+
+/* Barra de rolagem (anotação do Figma: "permanecer oculta até que o user comece a
+   scrollar"). Pílula Azul gelo, sem trilho; o polegar só pinta com html[data-scrolling],
+   que o ScrollbarReveal (components/layout/ScrollbarReveal.tsx) liga ao rolar e desliga
+   ~1s depois. A largura (15) é a do gutter nativo do Chrome, então o layout (medido
+   contra o Figma de 1728 com a barra) não muda: polegar de 7 com 4 de folga. Vale para
+   qualquer área que role (a folha do modal também). */
+::-webkit-scrollbar {
+  width: 15px;
+  height: 15px;
+  background: transparent;
+}
+::-webkit-scrollbar-track {
+  margin-block: 8px;
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  border: 4px solid transparent;
+  border-radius: 999px;
+  background-clip: padding-box;
+  background-color: transparent;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+html[data-scrolling] ::-webkit-scrollbar-thumb {
+  background-color: var(--color-blue-soft);
+}
+html[data-scrolling] ::-webkit-scrollbar-thumb:hover,
+html[data-scrolling] ::-webkit-scrollbar-thumb:active {
+  background-color: #a3bbe4;
+}
+
+/* Firefox (sem ::-webkit-scrollbar): só cor e espessura. O Chrome 121+ ignora as
+   pseudo acima se scrollbar-color existir, por isso fica só aqui. */
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+  }
+  html[data-scrolling] * {
+    scrollbar-color: var(--color-blue-soft) transparent;
+  }
+  html[data-scrolling] {
+    scrollbar-color: var(--color-blue-soft) transparent;
+  }
+}
