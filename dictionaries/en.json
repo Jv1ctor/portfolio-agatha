@@ -1,7 +1,11 @@
 {
   "site": {
     "name": "Ágatha Sales",
-    "tagline": "Graphic design, UX/UI, 3D and service design."
+    "tagline": "Graphic design, UX/UI, 3D and service design.",
+    "copyright": {
+      "notice": "This image is Copyright © {year} {name}. All rights reserved.",
+      "close": "Close notice"
+    }
   },
   "nav": {
     "about": "About me",

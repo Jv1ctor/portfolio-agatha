@@ -302,3 +302,53 @@ a {
     animation: none;
   }
 }
+
+/* Aviso de copyright das imagens (components/layout/ImageCopyGuard.tsx). O iOS
+   não dispara contextmenu no toque longo; o callout "Salvar na Fotos" some aqui. */
+img,
+video {
+  -webkit-touch-callout: none;
+}
+
+.image-copy-notice {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  max-width: min(20rem, calc(100vw - 24px));
+  padding: 0.75rem 0.75rem 0.75rem 1rem;
+  background: #fff;
+  color: var(--color-ink);
+  border-radius: 4px;
+  box-shadow: 0 6px 24px rgb(0 0 0 / 0.22);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.45;
+  animation: imageCopyNoticeIn 160ms var(--ease-out);
+}
+
+.image-copy-notice button {
+  flex: none;
+  margin: -0.25rem -0.125rem 0 0;
+  padding: 0 0.25rem;
+  font-size: 1.125rem;
+  line-height: 1;
+  color: var(--color-muted);
+  cursor: pointer;
+}
+
+@keyframes imageCopyNoticeIn {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image-copy-notice {
+    animation: none;
+  }
+}
