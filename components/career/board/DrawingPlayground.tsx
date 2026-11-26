@@ -11,8 +11,9 @@ import { ToolBlocks } from './ToolBlocks';
 
 /**
  * "hora do desenho": a lousa mágica e os blocos das ferramentas brincam juntos.
- * Vire um bloco, clique na ferramenta: a bolinha apaga a lousa, a caneta sai do suporte e
- * desenha o ícone. Depois disso dá para apagar com a bolinha e desenhar com a caneta.
+ * O bloco vira com o mouse por cima; um clique nele já escolhe a ferramenta: a bolinha
+ * apaga a lousa, a caneta sai do suporte e desenha o ícone. Depois disso dá para apagar
+ * com a bolinha e desenhar com a caneta (um clique fora da lousa a guarda).
  *
  * Posições do Figma 226:56 (as do 201:53 + (51.66, 2109.13) na lousa e + (51.91, 2096.31)
  * nos blocos): lousa em (155.66, 6859.13) com 1151, blocos em (1348.91, 7009.31) com 272.
@@ -50,7 +51,7 @@ export function DrawingPlayground({
   };
 
   const pick = (tool: Tool) => {
-    // sem JS armado (movimento reduzido) os cubos já estão revelados
+    // vira (se ainda estiver de verso) e escolhe no mesmo clique
     dispatch({ type: 'flip', tool });
     dispatch({ type: 'pick', tool });
   };

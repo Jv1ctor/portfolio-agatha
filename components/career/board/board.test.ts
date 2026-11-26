@@ -63,6 +63,18 @@ describe('máquina da lousa', () => {
     expect(run([{ type: 'release' }, { type: 'home' }], held).phase).toBe('idle');
   });
 
+  it('escolher um cubo com a caneta na mão (ou voltando) já desenha', () => {
+    const unlocked = run([{ type: 'flip', tool: 'ae' }, { type: 'pick', tool: 'ae' }, { type: 'erased' }, { type: 'drawn' }, { type: 'home' }]);
+    const held = run([{ type: 'flip', tool: 'figma' }, { type: 'grab' }], unlocked);
+    expect(run([{ type: 'pick', tool: 'figma' }], held)).toMatchObject({ phase: 'erasing', tool: 'figma' });
+    // clique fora da lousa guarda a caneta (release) e o clique no cubo escolhe em seguida
+    expect(run([{ type: 'release' }, { type: 'pick', tool: 'figma' }], held)).toMatchObject({ phase: 'erasing', tool: 'figma' });
+    // ainda ignora enquanto apaga ou desenha
+    const erasing = run([{ type: 'pick', tool: 'figma' }], held);
+    expect(run([{ type: 'pick', tool: 'ae' }], erasing).tool).toBe('figma');
+    expect(run([{ type: 'erased' }, { type: 'pick', tool: 'ae' }], erasing)).toMatchObject({ phase: 'drawing', tool: 'figma' });
+  });
+
   it('virar o mesmo cubo duas vezes não duplica', () => {
     expect(run([{ type: 'flip', tool: 'ae' }, { type: 'flip', tool: 'ae' }]).revealed).toEqual(['ae']);
   });

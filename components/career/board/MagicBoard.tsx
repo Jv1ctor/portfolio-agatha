@@ -46,7 +46,7 @@ import b from './board.module.css';
  *
  * A caneta na mão: um clique nela a tira do suporte e a ponta passa a seguir o ponteiro;
  * só sai tinta com o botão apertado, no pincel da última ferramenta desenhada; um clique
- * no suporte (ou Esc) a guarda de volta.
+ * no suporte, um clique fora da lousa (ou Esc) a guarda de volta.
  *
  * O HTML do servidor é o Figma; o canvas só assume depois de pintar os rabiscos.
  */
@@ -366,7 +366,8 @@ export function MagicBoard({
     applyPen();
   };
 
-  // com a caneta na mão: a ponta segue o ponteiro pela página (e na rolagem); Esc a guarda
+  // com a caneta na mão: a ponta segue o ponteiro pela página (e na rolagem); Esc ou um
+  // clique fora da lousa a guarda
   useEffect(() => {
     if (phase !== 'holding') return;
     let last: { clientX: number; clientY: number } | null = null;
@@ -392,13 +393,20 @@ export function MagicBoard({
     const onKey = (e: globalThis.KeyboardEvent) => {
       if (e.key === 'Escape') putPenBack();
     };
+    // captura: roda antes do clique do alvo (num cubo, guarda e o clique escolhe em seguida)
+    const onOutside = (e: globalThis.PointerEvent) => {
+      const stage = stageRef.current;
+      if (stage && e.target instanceof Node && !stage.contains(e.target)) putPenBack();
+    };
     window.addEventListener('pointermove', follow);
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('keydown', onKey);
+    document.addEventListener('pointerdown', onOutside, true);
     return () => {
       window.removeEventListener('pointermove', follow);
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('keydown', onKey);
+      document.removeEventListener('pointerdown', onOutside, true);
       endPenStroke();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps

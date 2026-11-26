@@ -11,6 +11,9 @@ import k from './blocks.module.css';
  * (get_design_context do 201:621). O x do wrapper é o da metadata − 60.5 (registrado contra
  * o render 2x: MAE 1.3/255). Coordenadas relativas à ilha (1297, 4913), 272 de largura.
  *
+ * Passar o mouse vira o cubo; um clique (ou toque, ou Enter) vira e já desenha, sem
+ * precisar de dois cliques (`onPick` = flip + pick no DrawingPlayground).
+ *
  * O verso é o mesmo SVG só com as três faces (sem o ícone). O empilhamento segue o Figma:
  * a coluna da esquerda fica por cima da direita, e os de cima por cima dos de baixo.
  */
@@ -61,7 +64,11 @@ export function ToolBlocks({
               aria-disabled={(up && busy) || undefined}
               data-down={!up || undefined}
               data-active={(busy && state.tool === tool) || undefined}
-              onClick={() => (up ? onPick(tool) : onFlip(tool))}
+              // o mouse vira o cubo ao passar; o clique vira (se faltar) e já desenha
+              onPointerEnter={(e) => {
+                if (!up && e.pointerType === 'mouse') onFlip(tool);
+              }}
+              onClick={() => onPick(tool)}
             >
               <span className={k.card}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}

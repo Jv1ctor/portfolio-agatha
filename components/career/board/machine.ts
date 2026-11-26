@@ -4,7 +4,11 @@ import type { Tool } from './glyphs';
  * Sequência da brincadeira da lousa:
  *  idle ─pick→ erasing ─erased→ drawing ─drawn→ returning ─home→ idle
  *  idle ─grab→ holding ─release→ returning ─home→ idle   (só depois do 1º desenho)
- * Virar um cubo (flip) vale a qualquer momento; escolher (pick) só em idle.
+ *  holding/returning ─pick→ erasing   (escolher um cubo com a caneta na mão ou voltando)
+ * Virar um cubo (flip) vale a qualquer momento; escolher (pick) só fora de apagar/desenhar.
+ * Clicar num cubo com a caneta na mão primeiro a guarda (release, clique fora da lousa) e
+ * logo em seguida escolhe: por isso `pick` vale também em `returning`. Os efeitos de
+ * apagar/desenhar partem da pose atual da caneta, então não precisa esperar ela chegar.
  */
 export type Phase = 'idle' | 'erasing' | 'drawing' | 'returning' | 'holding';
 
@@ -41,7 +45,7 @@ export function boardReducer(state: BoardState, event: BoardEvent): BoardState {
     case 'flip':
       return state.revealed.includes(event.tool) ? state : { ...state, revealed: [...state.revealed, event.tool] };
     case 'pick':
-      if (state.phase !== 'idle' || !state.revealed.includes(event.tool)) return state;
+      if (isBusy(state) || !state.revealed.includes(event.tool)) return state;
       return { ...state, phase: 'erasing', tool: event.tool };
     case 'erased':
       return state.phase === 'erasing' ? { ...state, phase: 'drawing' } : state;
@@ -60,4 +64,5 @@ export function boardReducer(state: BoardState, event: BoardEvent): BoardState {
 
 /** A bolinha pode ser arrastada? (a caneta usa `grab`, que já checa o mesmo) */
 export const canErase = (s: BoardState): boolean => s.phase === 'idle' && s.unlocked;
-export const isBusy = (s: BoardState): boolean => s.phase !== 'idle';
+/** Apagando ou desenhando sozinha: os cubos esperam. */
+export const isBusy = (s: BoardState): boolean => s.phase === 'erasing' || s.phase === 'drawing';
