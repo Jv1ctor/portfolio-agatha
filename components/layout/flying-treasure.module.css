@@ -2,7 +2,8 @@
  * Ícone voador (components/layout/FlyingTreasure.tsx). O botão anda por transform (rAF);
  * atrás do desenho, raios girando e um halo pulsando, como a recompensa de um jogo. O
  * rastro de brilhos é o canvas .trail, por baixo do ícone. z 65: acima da página e da
- * folha do modal (60), abaixo do lightbox (70) que ele abre.
+ * folha do modal (60), abaixo do card do brinde (70) que ele abre. Pego, o canvas sobe
+ * para 71: os confetes caem por cima do card enquanto ele entra.
  */
 .trail {
   position: fixed;
@@ -11,6 +12,9 @@
   width: 100vw;
   height: 100vh;
   pointer-events: none;
+}
+.trail[data-caught] {
+  z-index: 71;
 }
 
 .flyer {

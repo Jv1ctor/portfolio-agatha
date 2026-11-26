@@ -1379,7 +1379,7 @@
     }
   },
   "treasure": {
-    "catch": "Pegar {icon} e ver uma arte surpresa",
+    "catch": "Pegar {icon} e ganhar uma arte de brinde",
     "icons": {
       "aguaViva": "a água-viva",
       "aguaVivaLua": "a água-viva-lua",
@@ -1393,6 +1393,26 @@
       "dadinho": "o dadinho",
       "folhaDeOutono": "a folha de outono",
       "trevo": "o trevo de quatro folhas"
+    },
+    "gift": {
+      "close": "Fechar",
+      "download": "Baixar",
+      "heading": "Você recebeu uma arte de brinde!",
+      "text": "Diferente das demais artes no portfólio, essa você pode baixar e utilizar como papel de parede ou o que desejar.",
+      "titles": {
+        "aguaViva": "Parabéns! A água-viva lhe alcançou!",
+        "aguaVivaLua": "Parabéns! A água-viva-lua lhe alcançou!",
+        "peixinho": "Parabéns! O peixinho lhe alcançou!",
+        "concha": "Parabéns! A concha lhe alcançou!",
+        "relogio": "Parabéns! O relógio de bolso lhe alcançou!",
+        "estrela": "Parabéns! A estrela lhe alcançou!",
+        "bolinhaDeGude": "Parabéns! A bolinha de gude lhe alcançou!",
+        "pontosSemNo": "Parabéns! O coelhinho lhe alcançou!",
+        "lirioDoVale": "Parabéns! O lírio-do-vale lhe alcançou!",
+        "dadinho": "Parabéns! O dadinho lhe alcançou!",
+        "folhaDeOutono": "Parabéns! A folha de outono lhe alcançou!",
+        "trevo": "Parabéns! O trevo de quatro folhas lhe alcançou!"
+      }
     }
   }
 }

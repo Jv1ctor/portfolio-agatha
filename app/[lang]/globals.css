@@ -309,6 +309,10 @@ img,
 video {
   -webkit-touch-callout: none;
 }
+/* o brinde do ícone voador (GiftCard) pode ser salvo */
+[data-free-image] img {
+  -webkit-touch-callout: default;
+}
 
 .image-copy-notice {
   position: fixed;

@@ -13,9 +13,13 @@ import { useTranslations } from '@/lib/i18n/use-translation';
  *
  * É um desestímulo, não uma proteção: print, DevTools e a aba de rede continuam
  * acessíveis — o direito autoral vale de qualquer forma (Lei 9.610/98).
+ *
+ * Exceção: o que estiver dentro de `[data-free-image]` (o brinde do ícone voador,
+ * GiftCard) pode ser salvo e arrastado à vontade.
  */
 
 const MEDIA = 'img, video, picture';
+const FREE = '[data-free-image]';
 const AUTO_HIDE_MS = 3500;
 const MARGIN = 12;
 
@@ -28,15 +32,20 @@ export function ImageCopyGuard() {
 
   useEffect(() => {
     const isMedia = (target: EventTarget | null) =>
-      target instanceof Element && target.closest(MEDIA) !== null;
+      target instanceof Element && target.closest(MEDIA) !== null && target.closest(FREE) === null;
 
     // Muitas imagens ficam sob uma camada vazia (o overlay dos cards em /projetos, o
     // canvas da lousa): vale a imagem embaixo do cursor. Um elemento com texto (um
     // título por cima da tartaruga) mantém o menu normal, para o texto seguir copiável.
     const mediaUnder = (e: MouseEvent) => {
+      // dentro do brinde (GiftCard) vale tudo: sem isso, as imagens da página atrás do
+      // card (embaixo do fundo do diálogo) disparavam o aviso pelo elementsFromPoint
+      if (e.target instanceof Element && e.target.closest(FREE)) return false;
       if (isMedia(e.target)) return true;
       if (!(e.target instanceof Element) || e.target.textContent?.trim()) return false;
-      return document.elementsFromPoint(e.clientX, e.clientY).some((el) => el.matches(MEDIA));
+      return document
+        .elementsFromPoint(e.clientX, e.clientY)
+        .some((el) => el.matches(MEDIA) && el.closest(FREE) === null);
     };
 
     const onContextMenu = (e: MouseEvent) => {

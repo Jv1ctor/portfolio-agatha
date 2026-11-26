@@ -1,22 +1,24 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { CaseLightbox, type LightboxItem } from '@/components/case-study/CaseLightbox';
 import type { Dictionary } from '@/i18n/dictionaries';
 import { useTranslations } from '@/lib/i18n/use-translation';
-import { studyRows } from '@/lib/studies';
+import { giftItems, type StudyItem } from '@/lib/studies';
+import { GiftCard } from './GiftCard';
 import s from './flying-treasure.module.css';
 
 /**
  * Evento aleatório (Figma 259:778, "Icones que ficam voando como evento aleatório"): de
  * vez em quando um dos 12 ícones atravessa a tela voando, com um rastro de brilhos de
  * "recompensa" de jogo. Quem pega (clique, toque ou Enter) ganha uma arte da Ágatha: o
- * ícone estoura em estrelinhas e o lightbox dos cases abre numa arte sorteada da página
- * Estudos (lib/studies.ts; legenda e alt vêm de dict.studies.items).
+ * ícone estoura nos confetes de coelhinho (Figma 278:174) e abre o card do brinde (Figma
+ * 281:301, GiftCard) com o ícone pego e uma arte sorteada da página Estudos que pode ser
+ * baixada (`giftItems` em lib/studies.ts: sem rascunhos, calendários nem o gato).
  *
- * Quando: o primeiro entre 20 e 45 s depois de entrar no site, os seguintes 45 a 90 s
- * depois do anterior; nunca com a aba escondida nem com um diálogo aberto (modal do
- * case, lightbox). Com `?voador` na URL o primeiro vem em 1,5 s (para mostrar).
+ * Quando: o primeiro entre 3 e 5 min depois de entrar no site, os seguintes 3 a 5 min
+ * depois do anterior (contados de quando o card fecha); nunca com a aba escondida nem com
+ * um diálogo aberto (modal do case, lightbox, o próprio brinde). Com `?voador` na URL o
+ * primeiro vem em 1,5 s (para mostrar).
  *
  * Com movimento reduzido ele não voa nem deixa rastro: aparece parado perto de uma
  * borda, brilha e some sozinho.
@@ -39,8 +41,8 @@ const ICONS: readonly { key: IconKey; file: string }[] = [
   { key: 'trevo', file: 'trevo' },
 ];
 
-const FIRST = [20_000, 45_000] as const;
-const NEXT = [45_000, 90_000] as const;
+const FIRST = [180_000, 300_000] as const;
+const NEXT = [180_000, 300_000] as const;
 const DEMO_FIRST = 1500;
 /** Tenta de novo quando a hora chega com a aba escondida ou um diálogo aberto. */
 const RETRY = 5000;
@@ -50,12 +52,13 @@ const pick = <T,>(list: readonly T[]) => list[Math.floor(Math.random() * list.le
 const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const dialogOpen = () => document.querySelector('[aria-modal="true"]') !== null;
 
-type Flight = { id: number; icon: (typeof ICONS)[number] };
+type Icon = (typeof ICONS)[number];
+type Flight = { id: number; icon: Icon };
 
 export function FlyingTreasure() {
   const { t, dict } = useTranslations();
   const [flight, setFlight] = useState<Flight | null>(null);
-  const [art, setArt] = useState<{ items: LightboxItem[]; index: number } | null>(null);
+  const [gift, setGift] = useState<{ icon: Icon; item: StudyItem } | null>(null);
   // primeira aparição (só no cliente; o valor não vai para o HTML)
   const [schedule, setSchedule] = useState<number | null>(() =>
     typeof window === 'undefined'
@@ -69,7 +72,7 @@ export function FlyingTreasure() {
 
   // relógio do evento: quando chega a hora, solta um ícone (ou adia, se não é hora boa)
   useEffect(() => {
-    if (schedule === null || flight || art) return;
+    if (schedule === null || flight || gift) return;
     const timer = window.setTimeout(() => {
       if (document.hidden || dialogOpen()) {
         setSchedule(RETRY + Math.random());
@@ -81,17 +84,11 @@ export function FlyingTreasure() {
       setFlight({ id: Date.now(), icon });
     }, schedule);
     return () => window.clearTimeout(timer);
-  }, [schedule, flight, art]);
+  }, [schedule, flight, gift]);
 
-  const catchIt = () => {
+  const catchIt = (icon: Icon) => {
     opener.current = document.activeElement;
-    const items: LightboxItem[] = studyRows.flatMap((row) =>
-      row.items.map((item) => {
-        const text = dict.studies.items[item.key];
-        return { src: item.full, alt: text.alt, caption: text.caption, width: item.fullW, height: item.fullH };
-      }),
-    );
-    setArt({ items, index: Math.floor(Math.random() * items.length) });
+    setGift({ icon, item: pick(giftItems) });
   };
 
   const done = () => {
@@ -106,17 +103,17 @@ export function FlyingTreasure() {
           key={flight.id}
           src={`/images/voadores/${flight.icon.file}.svg`}
           label={t('treasure.catch').replace('{icon}', dict.treasure.icons[flight.icon.key])}
-          onCatch={catchIt}
+          onCatch={() => catchIt(flight.icon)}
           onDone={done}
         />
       )}
-      {art && (
-        <CaseLightbox
-          items={art.items}
-          index={art.index}
-          onIndex={(index) => setArt((a) => (a ? { ...a, index } : a))}
+      {gift && (
+        <GiftCard
+          icon={`/images/voadores/${gift.icon.file}.svg`}
+          title={dict.treasure.gift.titles[gift.icon.key]}
+          item={gift.item}
           onClose={() => {
-            setArt(null);
+            setGift(null);
             const back = opener.current;
             if (back instanceof HTMLElement && back.isConnected) back.focus({ preventScroll: true });
           }}
@@ -142,6 +139,26 @@ type Particle = {
   spin: number;
   seed: number;
 };
+
+/** Confete de coelhinho que voa quando o ícone estoura. */
+type Confetto = {
+  img: HTMLImageElement;
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  age: number;
+  life: number;
+  w: number;
+  rot: number;
+  spin: number;
+  seed: number;
+};
+
+/** Confetes do Figma 278:174 (o mesmo coelhinho em três cores), 34.7 × 32.4. */
+const CONFETTI = ['azul', 'rosa', 'marinho'].map((c) => `/images/voadores/confete-${c}.svg`);
+const CONFETTI_COUNT = 26;
+const CONFETTI_GRAVITY = 520;
 
 /** Dourados e os pastéis do site: brilham no creme sem sumir nele. */
 const SPARKS = ['#ffc93c', '#ffb703', '#ffe08a', '#ffffff', '#f4a9c8', '#8fb3e8'];
@@ -207,6 +224,14 @@ function Flyer({
     let caughtAt: number | null = null;
     let pos = { x: calm ? stillX : x0, y: yBase };
     const parts: Particle[] = [];
+    const confetti: Confetto[] = [];
+    // os confetes carregam já na montagem: quando pegarem o ícone, estão prontos
+    const confettiImgs = CONFETTI.map((src) => {
+      const img = new Image();
+      img.decoding = 'async';
+      img.src = src;
+      return img;
+    });
 
     const place = (x: number, y: number, rot: number, bob: number) => {
       btn.style.transform = `translate3d(${x - size / 2}px, ${y - size / 2}px, 0) rotate(${rot}deg) scale(${bob})`;
@@ -271,7 +296,28 @@ function Flyer({
         }
       } else if (caughtAt === null) {
         caughtAt = now;
-        if (!calm) for (let i = 0; i < 40; i++) spawn(pos.x, pos.y, true);
+        if (!calm) {
+          const ready = confettiImgs.filter((img) => img.complete && img.naturalWidth > 0);
+          // sem as imagens (rede falhou), estoura nas estrelinhas de antes
+          if (ready.length === 0) for (let i = 0; i < 40; i++) spawn(pos.x, pos.y, true);
+          for (let i = 0; ready.length && i < CONFETTI_COUNT; i++) {
+            const a = rand(0, Math.PI * 2);
+            const v = rand(180, 420);
+            confetti.push({
+              img: pick(ready),
+              x: pos.x,
+              y: pos.y,
+              vx: Math.cos(a) * v,
+              vy: Math.sin(a) * v - 140,
+              age: 0,
+              life: rand(1.1, 1.7),
+              w: rand(26, 40),
+              rot: rand(0, Math.PI * 2),
+              spin: rand(-5, 5),
+              seed: rand(0, 10),
+            });
+          }
+        }
       }
 
       // partículas
@@ -311,9 +357,34 @@ function Flyer({
         ctx.restore();
       }
 
+      // confetes: sobem no estouro, chacoalham caindo e somem no fim
+      for (let i = confetti.length - 1; i >= 0; i--) {
+        const c = confetti[i];
+        c.age += dt;
+        if (c.age >= c.life) {
+          confetti.splice(i, 1);
+          continue;
+        }
+        c.vx *= 1 - dt * 1.8;
+        c.vy = c.vy * (1 - dt * 1.2) + CONFETTI_GRAVITY * dt;
+        c.x += (c.vx + Math.sin(c.age * 7 + c.seed) * 40) * dt;
+        c.y += c.vy * dt;
+        c.rot += c.spin * dt;
+        const k = 1 - c.age / c.life;
+        const h = (c.w * c.img.naturalHeight) / c.img.naturalWidth;
+        ctx.save();
+        ctx.translate(c.x, c.y);
+        ctx.rotate(c.rot);
+        // vira no ar, como papel: a largura "respira"
+        ctx.scale(0.55 + 0.45 * Math.cos(c.age * 9 + c.seed), 1);
+        ctx.globalAlpha = Math.min(1, k / 0.3);
+        ctx.drawImage(c.img, -c.w / 2, -h / 2, c.w, h);
+        ctx.restore();
+      }
+
       // fim: saiu da tela (ou foi pego) e o rastro já apagou
       const gone = caughtAt !== null ? now - caughtAt > 700 : leftAt !== null && now - leftAt > (calm ? 600 : 0);
-      if (gone && parts.length === 0) {
+      if (gone && parts.length === 0 && confetti.length === 0) {
         onDone();
         return;
       }
@@ -333,6 +404,8 @@ function Flyer({
     const btn = button.current;
     const icon = btn?.querySelector('img');
     btn?.setAttribute('data-caught', '');
+    // o rastro (com os confetes) sobe acima do card do brinde, que abre logo em seguida
+    canvas.current?.setAttribute('data-caught', '');
     const pop = icon?.animate(
       [
         { transform: 'scale(1) rotate(0deg)', opacity: 1 },

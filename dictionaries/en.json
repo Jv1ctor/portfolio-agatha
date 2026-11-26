@@ -1379,7 +1379,7 @@
     }
   },
   "treasure": {
-    "catch": "Catch {icon} and see a surprise artwork",
+    "catch": "Catch {icon} and get a free artwork",
     "icons": {
       "aguaViva": "the jellyfish",
       "aguaVivaLua": "the moon jellyfish",
@@ -1393,6 +1393,26 @@
       "dadinho": "the little die",
       "folhaDeOutono": "the autumn leaf",
       "trevo": "the four-leaf clover"
+    },
+    "gift": {
+      "close": "Close",
+      "download": "Download",
+      "heading": "You got a free artwork!",
+      "text": "Unlike the other artworks in this portfolio, this one you can download and use as a wallpaper or however you like.",
+      "titles": {
+        "aguaViva": "Congrats! The jellyfish caught up with you!",
+        "aguaVivaLua": "Congrats! The moon jellyfish caught up with you!",
+        "peixinho": "Congrats! The little fish caught up with you!",
+        "concha": "Congrats! The seashell caught up with you!",
+        "relogio": "Congrats! The pocket watch caught up with you!",
+        "estrela": "Congrats! The star caught up with you!",
+        "bolinhaDeGude": "Congrats! The marble caught up with you!",
+        "pontosSemNo": "Congrats! The little bunny caught up with you!",
+        "lirioDoVale": "Congrats! The lily of the valley caught up with you!",
+        "dadinho": "Congrats! The little die caught up with you!",
+        "folhaDeOutono": "Congrats! The autumn leaf caught up with you!",
+        "trevo": "Congrats! The four-leaf clover caught up with you!"
+      }
     }
   }
 }
