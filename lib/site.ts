@@ -54,12 +54,12 @@ export const career: {
   ],
   /** "sobre este site": nome, avatar (public/images/carreira/devs/<slug>.webp) e LinkedIn. */
   devs: [
-    { slug: 'kaike', name: 'Kaíke Petalas', linkedin: null },
-    { slug: 'joao-vitor', name: 'João Vitor', linkedin: null },
-    { slug: 'andre', name: 'André Garcia', linkedin: null },
-    { slug: 'joao-pedro', name: 'João Pedro', linkedin: null },
-    { slug: 'valentim', name: 'Valentim Aragão', linkedin: null },
-    { slug: 'gilberto', name: 'Gilberto Egypto', linkedin: null },
-    { slug: 'raquel', name: 'Raquel Quirino', linkedin: null },
+    { slug: 'kaike', name: 'Kaíke Petalas', linkedin: 'https://www.linkedin.com/in/ka%C3%ADke-petalas/' },
+    { slug: 'joao-vitor', name: 'João Vitor', linkedin: 'https://www.linkedin.com/in/joao-victor-barreto/' },
+    { slug: 'andre', name: 'André Garcia', linkedin: 'https://www.linkedin.com/in/andre-garcia0412' },
+    { slug: 'joao-pedro', name: 'João Pedro', linkedin: 'https://www.linkedin.com/in/jo%C3%A3o-pedro-lima-464398222/' },
+    { slug: 'valentim', name: 'Valentim Aragão', linkedin: 'https://www.linkedin.com/in/valentimdev/' },
+    { slug: 'gilberto', name: 'Gilberto Egypto', linkedin: 'https://www.linkedin.com/in/gilberto-fabio-egypto-98b080231/' },
+    { slug: 'raquel', name: 'Raquel Quirino', linkedin: 'https://www.linkedin.com/in/raquel-albuquerque-93a053328/' },
   ],
 };
